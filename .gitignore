@@ -1,6 +1,14 @@
 Release+Asserts/
 
 # Compiled Object files
+# Binaries
+c1
+d1
+
+# LLVM
+*.bc
+
+# C++
 *.slo
 *.lo
 *.o
