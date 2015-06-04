@@ -8,7 +8,7 @@
 ##===----------------------------------------------------------------------===##
 
 LEVEL = ../../..
-LIBRARYNAME = LLVMToy
+LIBRARYNAME = LLVMTressa
 LOADABLE_MODULE = 1
 USEDLIBS =
 
