@@ -250,6 +250,15 @@ namespace {
           errs() << "\tFound map for " << assertfn_name << "\n";
           std::map<std::string, Value*> assertfn_args_map = assertfn_args_map_map_iter->second;
 
+          // Iterate over argument list
+          std::vector<std::string> argnames_vt;
+
+          for (Function::arg_iterator arg_iter = F->arg_begin();
+              arg_iter != F->arg_end(); ++arg_iter) {
+            argnames_vt.push_back(arg_iter->getNameStr());
+          }
+
+
           // TODO: Remove
           std::map<std::string, Value*> targeted_fn_varname_value_map;
 
@@ -277,16 +286,22 @@ namespace {
             // Find pointer operands
             for (BasicBlock::iterator BI = BB->begin(), BIE = BB->end();
                 BI != BIE; ++BI) {
-              // LoadInst: Get pointer operand
-              // TODO: COMBINE INTO ONE
-              if (isa<LoadInst>(&(*BI))) {
-                LoadInst *loadInst = dyn_cast<LoadInst>(BI);
-                Value* ptr = loadInst->getPointerOperand();
-                std::string ptr_name = ptr->getNameStr();
-                if (ptr_name.find(".addr") < std::string::npos) {
-                  continue;
+              // AllocaInst: Get pointer operands
+              if (isa<AllocaInst>(&(*BI))) {
+                // Instruction is pointer itself.
+                AllocaInst *allocaInst = dyn_cast<AllocaInst>(BI);
+                std::string ptr_name = allocaInst->getNameStr();
+                // Valid only if this is a function arg
+                size_t addr_str_idx = ptr_name.find(".addr");
+                if (addr_str_idx < std::string::npos) {
+                  ptr_name = ptr_name.substr(0, addr_str_idx);
+                  errs() << "\targname is " << ptr_name;
+                  std::vector<std::string>::iterator argnames_iter =
+                    std::find(argnames_vt.begin(), argnames_vt.end(), ptr_name);
+                  if (argnames_iter == argnames_vt.end()) {
+                    continue;
+                  }
                 }
-
                 std::map<std::string, Value*>::iterator assertfn_args_map_iter =
                   assertfn_args_map.find(ptr_name);
                 if (assertfn_args_map_iter == assertfn_args_map.end()) {
@@ -295,22 +310,10 @@ namespace {
                 }
                 errs() << "\tvarname inserting " << ptr_name << "\n";
                 varname_ptr_map.insert(
-                    std::pair<std::string, Value*>(ptr_name, ptr));
-              }
-               if (isa<StoreInst>(&(*BI))) {
-                StoreInst *storeInst = dyn_cast<StoreInst>(BI);
-                Value* ptr = storeInst->getPointerOperand();
-                std::string ptr_name = ptr->getNameStr();
-                std::map<std::string, Value*>::iterator assertfn_args_map_iter =
-                  assertfn_args_map.find(ptr_name);
-                if (assertfn_args_map_iter == assertfn_args_map.end()) {
-                  continue;
-                }
-                varname_ptr_map.insert(
-                    std::pair<std::string, Value*>(ptr_name, ptr));
+                    std::pair<std::string, Value*>(ptr_name, allocaInst));
+
               }
             }
-
           }
         }
       }
@@ -344,7 +347,12 @@ namespace {
           int i = 0;
           for (Function::arg_iterator arg_iter = hook->arg_begin();
               arg_iter != hook->arg_end(); ++arg_iter) {
-            errs() << "\t\tfor i = " << i << "; arg_iter = " << arg_iter->getNameStr() << "\n";
+            std::string ts_str;
+            llvm::raw_string_ostream ts_rso(ts_str);
+            arg_iter->getType()->print(ts_rso);
+            errs() << "\t\tfor i = " << i << "; arg_iter = " << arg_iter->getNameStr()
+              << "; type = " << ts_rso.str()
+              << "\n";
             if (i == 0) {
               i++;
               continue;
@@ -359,12 +367,31 @@ namespace {
               continue;
             }
             std::string tmp_arg_name = "_tmp_" + arg_iter->getNameStr();
+
+            std::string ts_str2;
+            llvm::raw_string_ostream ts_rso2(ts_str2);
+            varname_ptr_map_iter->second->getType()->print(ts_rso2);
+            errs() << "\t\t varname " << varname_ptr_map_iter->first
+              << "; type is " <<  ts_rso2.str() << "\n";
+
+            errs() << "\t\t :: " << arg_iter->getNameStr().find("arg") << "\n";
+//            if (arg_iter->getNameStr().find("arg") == std::string::npos) {
             LoadInst *newLoadInst = new LoadInst(varname_ptr_map_iter->second,
                 tmp_arg_name, nextInst);
             args_vt.push_back(newLoadInst);
+  /*          } else {
+              AllocaInst *argAlloc = new AllocaInst(arg_iter->getType(), tmp_arg_name);
+              StoreInst *storeInst = new StoreInst(arg_iter, argAlloc, nextInst);
+              LoadInst *newLoadInst = new LoadInst(argAlloc, tmp_arg_name, nextInst);
+              errs() << "\t\t\there\n";
+              args_vt.push_back(newLoadInst);
+            }
+            */
+/*
             errs() << "\t\tinserted arg " << tmp_arg_name << " w/ ptr "
               << varname_ptr_map_iter->second->getNameStr() << " and newtemp: "
               << newLoadInst->getNameStr() << "\n";
+              */
           }
           if (args_vt.size() != hook->getArgumentList().size()) {
             // TODO
