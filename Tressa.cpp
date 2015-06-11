@@ -55,14 +55,18 @@ namespace {
       std::vector<Function*> fnvector;
       // Vector of names of targeted (insert-ee) fns
       std::vector<std::string> fn_vt;
+      std::map<std::string, std::map<std::string, Value*> > assertfn_args_map_map;
 
       // Vectors for insertion location and stm type.
       std::vector<std::vector<InsertStm> > insertStm_vt_vt;
       std::vector<std::vector<int> > insertIthStm_vt_vt;
       std::vector<std::vector<std::string> > callInstFn_vt_vt;
+      // <K, V> = <assertfn name, variables' names' vector>
+      std::map<std::string, std::vector<std::string> > assertfn_varnames_map;
 
       // Strings
       // Asserts for class-less functions
+      // TODO: FIX
       std::string assert_fn_prefix = "assertfn_fn_";
 
       // Information-gathering iteration.
@@ -78,6 +82,7 @@ namespace {
 
         Function::ArgumentListType &argList = assertFun->getArgumentList();
 
+        // Must have at least one arg
         if (!argList.size()) {
           continue;
         }
@@ -85,10 +90,32 @@ namespace {
         std::string targeted_fn_name = argList.front().getNameStr();
 
         fn_vt.push_back(targeted_fn_name);
-        hookFunc = M.getOrInsertFunction(assertFun->getName(),
-            Type::getVoidTy(M.getContext()),
-            Type::getInt32Ty(M.getContext()), (Type*) 0);
+
+        std::map<std::string, Value*> assertfn_args_map;
+        // TODO: HANDLE CASE WHEN FIRST TYPE IS NOT INT OR DENOTES INVALID FUNCTION NAME
+        // Build assert (hook) function.
+        errs() << "Function " << assertFun_name << ":\n\t";
+        std::vector<Type*> params_vt;
+        for (Function::arg_iterator arg_iter = assertFun->arg_begin();
+            arg_iter != assertFun->arg_end(); ++arg_iter) {
+          std::string type_str;
+          llvm::raw_string_ostream ts_rso(type_str);
+          arg_iter->getType()->print(ts_rso);
+          errs() << "\t" <<  ts_rso.str() << " :: " << arg_iter->getNameStr();
+          params_vt.push_back(arg_iter->getType());
+          assertfn_args_map.insert(
+              std::pair<std::string, Value*>(arg_iter->getNameStr(), arg_iter));
+        }
+        errs() << "\n";
+        assertfn_args_map_map.insert(
+            std::pair<std::string, std::map<std::string, Value*> >(
+              assertFun_name, assertfn_args_map));
+        ArrayRef<Type*> *args_ra = new ArrayRef<Type*>(params_vt);
+        FunctionType *hookFuncTy = FunctionType::get(assertFun->getReturnType(),
+            *args_ra, assertFun->isVarArg());
+        hookFunc = M.getOrInsertFunction(assertFun->getName(), hookFuncTy);
         hook_assert_fn = cast<Function>(hookFunc);
+        /* */ errs() << "Doing " << hook_assert_fn->getNameStr() << "\n";
         fnvector.push_back(hook_assert_fn);
 
         // Get variables in assert fn
@@ -99,7 +126,6 @@ namespace {
 
         std::vector<std::string> targeted_fn_local_var_names_vt;
         std::vector<Value*> targeted_fn_values_vt;
-        std::map<std::string, Value*> targeted_fn_varname_value_map;
 
         std::string keyword_insert_locn_var = "_" + assertFun_name + "_";
         std::string keyword_call = "call";
@@ -110,34 +136,29 @@ namespace {
         std::vector<int> insertIthStm_vt;
         std::vector<std::string> callInstFn_vt;
 
+        // Locals' vector (loads only, no storeinst)
+        std::vector<std::string> varnames_vt;
+
         InsertStm insertStmType = kReturn; // default values
         int insertIthStm = 0;
         int numInsPts = 0;
         std::string callInstFnName = "";
 
-        // Args
-        // TODO: Doesn't work yet
-        for (Function::arg_iterator argIter = targetedFun->arg_begin();
-            argIter != targetedFun->arg_end(); ++argIter) {
-          targeted_fn_local_var_names_vt.push_back(argIter->getNameStr());
-          Value* argVal = dyn_cast<Value>(argIter);
-          /* errs() << "\t doing " << targetedFun->getNameStr() << ": " << argVal->getNameStr() << "\n"; */
-          targeted_fn_varname_value_map.insert(
-              targeted_fn_varname_value_map.begin(),
-              std::pair<std::string, Value*>(argIter->getNameStr(), argVal));
-        }
-
-
         // Get names of local variables in assert fns.
         for (Function::iterator BB = assertFun->begin(),
             BBE = assertFun->end(); BB != BBE; ++BB) {
+          // ASSUMPTION: Only one insertion point
+          // TODO: FAIL if no insertion point found
           for (BasicBlock::iterator BI = BB->begin(), BIE = BB->end();
               BI != BIE; ++BI) {
             if (isa<AllocaInst>(&(*BI))) {
               AllocaInst *allocaInst = dyn_cast<AllocaInst>(BI);
               std::string local_var_name = allocaInst->getNameStr();
-              /*  errs() << "AllocaInst (assertfn) for " << assertFun_name << ": "
-                << local_var_name << "\n"; */
+              // Interested only in denotation of insertion point.
+              if (local_var_name.find(keyword_insert_locn_var) >= std::string::npos) {
+                continue;
+              }
+
               // Denotes location in targeted fn to insert this assertfn.
               // Return and call stms: Pre. All else: post
               if (local_var_name.find(keyword_insert_locn_var) < std::string::npos) {
@@ -172,14 +193,8 @@ namespace {
                 callInstFn_vt.push_back(callInstFnName);
                 numInsPts++;
               }
-
-              // Not of interest
-              if (local_var_name.find(".addr") < std::string::npos) {
-                continue;
-              }
-              /* errs() << "\tAdding " << local_var_name << " to vector\n"; */
-              assertfn_alloca_vt.push_back(allocaInst);
-              local_var_names_vt.push_back(local_var_name);
+              // Continue on with next basic block (one insertion point only).
+              break;
             }
           }
         }
@@ -193,91 +208,51 @@ namespace {
         insertIthStm_vt_vt.push_back(insertIthStm_vt);
         callInstFn_vt_vt.push_back(callInstFn_vt);
 
-        // Get values of those variables in targeted functions.
-        for (Function::iterator BB = targetedFun->begin(),
-            BBE = targetedFun->end(); BB != BBE; ++BB) {
-          for (std::vector<std::string>::iterator VI = local_var_names_vt.begin(),
-              VIE = local_var_names_vt.end(); VI != VIE; ++VI) {
-            AllocaInst *allocaInst = NULL;
-
-            for (BasicBlock::iterator BI = BB->begin(), BIE = BB->end();
-                BI != BIE; ++BI) {
-              if (isa<AllocaInst>(&(*BI))) {
-                allocaInst = dyn_cast<AllocaInst>(BI);
-                std::string alloca_var_name = allocaInst->getNameStr();
-                if ((*VI).compare(alloca_var_name)) {
-                  continue;
-                }
-                /* errs() << "AllocaInst (targeted) for " << targeted_fn_name << ": "
-                  << alloca_var_name << "\n"; */
-                targeted_fn_local_var_names_vt.push_back(alloca_var_name);
-              }
-
-              if (isa<StoreInst>(&(*BI))) {
-                StoreInst *storeInst = dyn_cast<StoreInst>(BI);
-                std::string store_var_name = storeInst->getPointerOperand()->getNameStr();
-                if ((*VI).compare(store_var_name) || allocaInst == NULL) {
-                  continue;
-                }
-                /* errs() << "StoreInst (targeted) for " << targeted_fn_name << ": "
-                  << storeInst->getOperand(0) << " |++| "
-                  << store_var_name << " _+_+_ " << local_var_names_vt.size() << "\n"; */
-                targeted_fn_varname_value_map.insert(
-                    targeted_fn_varname_value_map.begin(),
-                    std::pair<std::string, Value*>(store_var_name, storeInst->getOperand(0)));
-              }
-            }
-          }
-        }
-        // local var name vt should be the same size as load_vt
-        // TODO: Error checks
-        // Replace values in assert functions.
-        for (Function::iterator BB = assertFun->begin(),
-            BBE = assertFun->end(); BB != BBE; ++BB) {
-          for (std::vector<std::string>::iterator VI = local_var_names_vt.begin(),
-              VIE = local_var_names_vt.end(); VI != VIE; ++VI) {
-            if (std::find(targeted_fn_local_var_names_vt.begin(),
-                targeted_fn_local_var_names_vt.end(), *VI) ==
-                targeted_fn_local_var_names_vt.end()) {
-              continue;
-            }
-
-            StoreInst *newStoreinst = NULL;
-            for (BasicBlock::iterator BI = BB->begin(), BIE = BB->end();
-                BI != BIE; ++BI) {
-              if (isa<LoadInst>(&(*BI))) {
-                LoadInst *loadInst = dyn_cast<LoadInst>(BI);
-                std::string local_var_name = loadInst->getPointerOperand()->getNameStr();
-                if (local_var_name.compare(*VI)) {
-                  continue;
-                }
-                /* errs() << "LoadInst (assertfn; iter2) for " << assertFun_name << ": "
-                  << local_var_name << " |++| " << *VI << " |++| " << "\n"; */
-                Value *storeValue = targeted_fn_varname_value_map.find(local_var_name)->second;
-                Value *ptrValue = dyn_cast<Value>(loadInst->getPointerOperand());
-                StoreInst *newStoreInst = new StoreInst(storeValue, ptrValue, false, loadInst);
-              }
-            }
-          }
+        if (numInsPts) {
+          // Continue on with next function
+          continue;
         }
       }
+
 
       // Code instrumentation iteration.
       // Iterates over all the targeted functions.
       int fnvector_idx = 0;
       for (std::vector<std::string>::iterator VI = fn_vt.begin(),
           VE = fn_vt.end(); VI != VE; ++VI, fnvector_idx++) {
+        // Targeted function
         Function *F = M.getFunction(StringRef(*VI));
-        /* errs() << "\tInstrumenting " << (*VI) << "; hookfn is "
-           << fnvector.at(fnvector_idx)->getNameStr() << "\n"; */
+        // Build a map of <varnames, pointer operands>
+        std::map<std::string, Value*> varname_ptr_map;
+
+        // TODO: ABORT IS F IS NULL OR SOMETHING
+/*         errs() << "\tInstrumenting " << (*VI) << "; hookfn is "
+           << fnvector.at(fnvector_idx)->getNameStr() << "\n";*/
         std::vector<InsertStm> insStm_vt = insertStm_vt_vt.at(fnvector_idx);
         std::vector<int> ith_stm_idx_vt = insertIthStm_vt_vt.at(fnvector_idx);
         std::vector<std::string> callFnName_vt = callInstFn_vt_vt.at(fnvector_idx);
+        std::string assertfn_name = fnvector.at(fnvector_idx)->getNameStr();
+
         for (int vt_idx = 0; vt_idx < (int) insStm_vt.size(); vt_idx++) {
           int curr_stm_idx = 0;
           InsertStm insStm = insStm_vt.at(vt_idx);
           int ith_stm_idx = ith_stm_idx_vt.at(vt_idx);
           std::string callFnName = callFnName_vt.at(vt_idx);
+          // TODO: ABORT IF ARGS NOT FOUND
+          std::map<std::string, std::map<std::string, Value*> >::iterator
+            assertfn_args_map_map_iter = assertfn_args_map_map.find(assertfn_name);
+          errs() << "\tASSERTFN_NAME: " << assertfn_name << "\n";
+          if (assertfn_args_map_map_iter == assertfn_args_map_map.end()) {
+            // TODO: BETTER ERROR MESSAGE
+            errs() << "\tDid not find map for " << assertfn_name << "\n";
+            continue;
+          }
+          errs() << "\tFound map for " << assertfn_name << "\n";
+          std::map<std::string, Value*> assertfn_args_map = assertfn_args_map_map_iter->second;
+
+          // TODO: Remove
+          std::map<std::string, Value*> targeted_fn_varname_value_map;
+
           /* errs() << "\t\tinsStm is " << insStm << "; idx = " << ith_stm_idx << "\n"; */
           for (Function::iterator BB = F->begin(), E = F->end(); BB != E; ++BB) {
             std::string bbLabel = (*BB).getNameStr();
@@ -288,39 +263,124 @@ namespace {
                       && bbLabel.find("if.end") < std::string::npos)
                     || (insStm == kFor
                       && bbLabel.find("for.end") < std::string::npos)))) {
-              TressaInsert::runOnBasicBlockForFn(BB, fnvector.at(fnvector_idx), insStm, callFnName);
+
+              TressaInsert::runOnBasicBlockForFn(BB, fnvector.at(fnvector_idx), insStm,
+                  varname_ptr_map,
+                  callFnName);
             }
 
             if ((insStm == kIf && bbLabel.find("if.end") < std::string::npos)
                 || (insStm == kFor && bbLabel.find("for.end") < std::string::npos)) {
               curr_stm_idx++;
             }
+
+            // Find pointer operands
+            for (BasicBlock::iterator BI = BB->begin(), BIE = BB->end();
+                BI != BIE; ++BI) {
+              // LoadInst: Get pointer operand
+              // TODO: COMBINE INTO ONE
+              if (isa<LoadInst>(&(*BI))) {
+                LoadInst *loadInst = dyn_cast<LoadInst>(BI);
+                Value* ptr = loadInst->getPointerOperand();
+                std::string ptr_name = ptr->getNameStr();
+                if (ptr_name.find(".addr") < std::string::npos) {
+                  continue;
+                }
+
+                std::map<std::string, Value*>::iterator assertfn_args_map_iter =
+                  assertfn_args_map.find(ptr_name);
+                if (assertfn_args_map_iter == assertfn_args_map.end()) {
+                  errs() << "\tCould not find " << ptr_name << "\n";
+                  continue;
+                }
+                errs() << "\tvarname inserting " << ptr_name << "\n";
+                varname_ptr_map.insert(
+                    std::pair<std::string, Value*>(ptr_name, ptr));
+              }
+               if (isa<StoreInst>(&(*BI))) {
+                StoreInst *storeInst = dyn_cast<StoreInst>(BI);
+                Value* ptr = storeInst->getPointerOperand();
+                std::string ptr_name = ptr->getNameStr();
+                std::map<std::string, Value*>::iterator assertfn_args_map_iter =
+                  assertfn_args_map.find(ptr_name);
+                if (assertfn_args_map_iter == assertfn_args_map.end()) {
+                  continue;
+                }
+                varname_ptr_map.insert(
+                    std::pair<std::string, Value*>(ptr_name, ptr));
+              }
+            }
+
           }
         }
       }
       return true;
     }
 
+    /**
+     * @param BB Basic block of targeted function
+     * @param hook Function to insert
+     * @param insertStm Insertion point (enum)
+     * @param localvar_map Values to store for each local from targeted fn scope
+     * @param callInstFnName If insertion point is a call instruction, the point to insert
+     */
     virtual bool runOnBasicBlockForFn(Function::iterator &BB, Function* hook,
-        InsertStm insertStm, std::string callInstFnName = "") {
-      /*  errs() << "In runOnBB " << (*BB).getNameStr() << " for " << hook->getNameStr()
-      << ": insertStm = " << insertStm << "\n"; */
+        InsertStm insertStm, std::map<std::string, Value*> varname_ptr_map,
+        std::string callInstFnName = "") {
+
+       errs() << "In runOnBB " << (*BB).getNameStr() << " for " << hook->getNameStr()
+      << ": insertStm = " << insertStm << "\n";
       BasicBlock::iterator BFirst = BB->begin();
       BFirst++;
       for (BasicBlock::iterator BI = BB->begin(), BE = BB->end(); BI != BE; ++BI) {
+
         if (BI == BB->begin() && insertStm != kReturn && insertStm != kCall) {
+          errs() << "\t\there\n";
           Instruction *nextInst = dyn_cast<Instruction>(BI);
-           Value* intarg = ConstantInt::get(Type::getInt32Ty(getGlobalContext()), 1);
-           CallInst *newInst = CallInst::Create(hook, intarg);
-           newInst->setTailCall();
-           BB->getInstList().insert(nextInst, newInst);
+          // TODO: FREAK OUT IF FIRST ARG ISN'T INT
+          Value* intarg = ConstantInt::get(Type::getInt32Ty(getGlobalContext()), 1);
+          std::vector<Value*> args_vt;
+          args_vt.push_back(intarg);
+          int i = 0;
+          for (Function::arg_iterator arg_iter = hook->arg_begin();
+              arg_iter != hook->arg_end(); ++arg_iter) {
+            errs() << "\t\tfor i = " << i << "; arg_iter = " << arg_iter->getNameStr() << "\n";
+            if (i == 0) {
+              i++;
+              continue;
+            }
+            // Add a load inst from the targeted fn's pointer ops
+            // TODO: HANDLE WHEN ARG NOT FOUND IN FN
+            std::map<std::string, Value*>::iterator varname_ptr_map_iter =
+              varname_ptr_map.find(arg_iter->getNameStr());
+            if (varname_ptr_map_iter == varname_ptr_map.end()) {
+              errs() << "\t\t" << arg_iter->getNameStr() << " not found\n";
+              // TODO: HANDLE BETTER
+              continue;
+            }
+            std::string tmp_arg_name = "_tmp_" + arg_iter->getNameStr();
+            LoadInst *newLoadInst = new LoadInst(varname_ptr_map_iter->second,
+                tmp_arg_name, nextInst);
+            args_vt.push_back(newLoadInst);
+            errs() << "\t\tinserted arg " << tmp_arg_name << " w/ ptr "
+              << varname_ptr_map_iter->second->getNameStr() << " and newtemp: "
+              << newLoadInst->getNameStr() << "\n";
           }
+          if (args_vt.size() != hook->getArgumentList().size()) {
+            // TODO
+            errs() << "FAIL HERE\n";
+          }
+
+          ArrayRef<Value*> *args_ra = new ArrayRef<Value*>(args_vt);
+          CallInst *newInst = CallInst::Create(hook, *args_ra);
+          BB->getInstList().insert(nextInst, newInst);
+        }
 
         if (isa<ReturnInst>(&(*BI)) && insertStm == kReturn) { // ignore insert location
            ReturnInst *CI = dyn_cast<ReturnInst>(BI);
            Value* intarg = ConstantInt::get(Type::getInt32Ty(getGlobalContext()), 1);
            CallInst *newInst = CallInst::Create(hook, intarg);
-           newInst->setTailCall();
+//           newInst->setTailCall();
            BB->getInstList().insert((Instruction*) CI, newInst);
         }
 
@@ -331,10 +391,11 @@ namespace {
           }
           Value* intarg = ConstantInt::get(Type::getInt32Ty(getGlobalContext()), 1);
           CallInst *newInst = CallInst::Create(hook, intarg);
-          newInst->setTailCall();
+//          newInst->setTailCall();
           BB->getInstList().insert((Instruction*) CI, newInst);
         }
       }
+
       return true;
     }
   };
