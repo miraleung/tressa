@@ -39,11 +39,12 @@ namespace {
     TressaInsert() : ModulePass(ID) { }
 
     enum InsertStm {
+      kUndefn = -1,
       kIf = 0,
       kFor,
       kStm,
       kCall,
-      kReturn,
+      kReturn
     };
 
     virtual bool runOnModule(Module &M) {
@@ -139,9 +140,8 @@ namespace {
         // Locals' vector (loads only, no storeinst)
         std::vector<std::string> varnames_vt;
 
-        InsertStm insertStmType = kReturn; // default values
-        int insertIthStm = 0;
-        int numInsPts = 0;
+        InsertStm insertStmType = kUndefn;
+        int insertIthStm = -1;
         std::string callInstFnName = "";
 
         // Get names of local variables in assert fns.
@@ -172,8 +172,11 @@ namespace {
                 } else if (local_var_name.find(keyword_call) < std::string::npos) {
                   insertStmType = kCall;
                   ith_stridx += keyword_call.length();
+                  // TODO: Specify ith call
+                  insertIthStm = 0;
                 } else if (local_var_name.find(keyword_return) < std::string::npos) {
                   insertStmType = kReturn;
+                  insertIthStm = 0;
                 } else {
                   continue;
                 }
@@ -191,25 +194,18 @@ namespace {
                 insertStm_vt.push_back(insertStmType);
                 insertIthStm_vt.push_back(insertIthStm);
                 callInstFn_vt.push_back(callInstFnName);
-                numInsPts++;
               }
             }
           }
         }
-        if (!numInsPts) {
-          insertStm_vt.push_back(insertStmType);
-          insertIthStm_vt.push_back(insertIthStm);
-          callInstFn_vt.push_back(callInstFnName);
-        }
+        // TODO: Specify assert fn and targeted fn name in fail msg.
+        assert(insertStmType != kUndefn && insertIthStm >= 0
+            && "Insertion point of assert function "
+            && " not defined.");
 
         insertStm_vt_vt.push_back(insertStm_vt);
         insertIthStm_vt_vt.push_back(insertIthStm_vt);
         callInstFn_vt_vt.push_back(callInstFn_vt);
-
-        if (numInsPts) {
-          // Continue on with next function
-          continue;
-        }
       }
 
 
