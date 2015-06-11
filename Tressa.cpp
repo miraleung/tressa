@@ -265,23 +265,6 @@ namespace {
           /* errs() << "\t\tinsStm is " << insStm << "; idx = " << ith_stm_idx << "\n"; */
           for (Function::iterator BB = F->begin(), E = F->end(); BB != E; ++BB) {
             std::string bbLabel = (*BB).getNameStr();
-            if (insStm == kReturn
-                || insStm == kCall
-                || (curr_stm_idx == ith_stm_idx
-                  && ((insStm == kIf
-                      && bbLabel.find("if.end") < std::string::npos)
-                    || (insStm == kFor
-                      && bbLabel.find("for.end") < std::string::npos)))) {
-
-              TressaInsert::runOnBasicBlockForFn(BB, fnvector.at(fnvector_idx), insStm,
-                  varname_ptr_map,
-                  callFnName);
-            }
-
-            if ((insStm == kIf && bbLabel.find("if.end") < std::string::npos)
-                || (insStm == kFor && bbLabel.find("for.end") < std::string::npos)) {
-              curr_stm_idx++;
-            }
 
             // Find pointer operands
             for (BasicBlock::iterator BI = BB->begin(), BIE = BB->end();
@@ -314,6 +297,24 @@ namespace {
 
               }
             }
+
+            if (insStm == kReturn
+                || insStm == kCall
+                || (curr_stm_idx == ith_stm_idx
+                  && ((insStm == kIf
+                      && bbLabel.find("if.end") < std::string::npos)
+                    || (insStm == kFor
+                      && bbLabel.find("for.end") < std::string::npos)))) {
+
+              TressaInsert::runOnBasicBlockForFn(BB, fnvector.at(fnvector_idx), insStm,
+                  varname_ptr_map,
+                  callFnName);
+            }
+
+            if ((insStm == kIf && bbLabel.find("if.end") < std::string::npos)
+                || (insStm == kFor && bbLabel.find("for.end") < std::string::npos)) {
+              curr_stm_idx++;
+            }
           }
         }
       }
@@ -330,85 +331,22 @@ namespace {
     virtual bool runOnBasicBlockForFn(Function::iterator &BB, Function* hook,
         InsertStm insertStm, std::map<std::string, Value*> varname_ptr_map,
         std::string callInstFnName = "") {
-
+      /*
        errs() << "In runOnBB " << (*BB).getNameStr() << " for " << hook->getNameStr()
       << ": insertStm = " << insertStm << "\n";
+      */
       BasicBlock::iterator BFirst = BB->begin();
       BFirst++;
       for (BasicBlock::iterator BI = BB->begin(), BE = BB->end(); BI != BE; ++BI) {
 
         if (BI == BB->begin() && insertStm != kReturn && insertStm != kCall) {
-          errs() << "\t\there\n";
-          Instruction *nextInst = dyn_cast<Instruction>(BI);
-          // TODO: FREAK OUT IF FIRST ARG ISN'T INT
-          Value* intarg = ConstantInt::get(Type::getInt32Ty(getGlobalContext()), 1);
-          std::vector<Value*> args_vt;
-          args_vt.push_back(intarg);
-          int i = 0;
-          for (Function::arg_iterator arg_iter = hook->arg_begin();
-              arg_iter != hook->arg_end(); ++arg_iter) {
-            std::string ts_str;
-            llvm::raw_string_ostream ts_rso(ts_str);
-            arg_iter->getType()->print(ts_rso);
-            errs() << "\t\tfor i = " << i << "; arg_iter = " << arg_iter->getNameStr()
-              << "; type = " << ts_rso.str()
-              << "\n";
-            if (i == 0) {
-              i++;
-              continue;
-            }
-            // Add a load inst from the targeted fn's pointer ops
-            // TODO: HANDLE WHEN ARG NOT FOUND IN FN
-            std::map<std::string, Value*>::iterator varname_ptr_map_iter =
-              varname_ptr_map.find(arg_iter->getNameStr());
-            if (varname_ptr_map_iter == varname_ptr_map.end()) {
-              errs() << "\t\t" << arg_iter->getNameStr() << " not found\n";
-              // TODO: HANDLE BETTER
-              continue;
-            }
-            std::string tmp_arg_name = "_tmp_" + arg_iter->getNameStr();
-
-            std::string ts_str2;
-            llvm::raw_string_ostream ts_rso2(ts_str2);
-            varname_ptr_map_iter->second->getType()->print(ts_rso2);
-            errs() << "\t\t varname " << varname_ptr_map_iter->first
-              << "; type is " <<  ts_rso2.str() << "\n";
-
-            errs() << "\t\t :: " << arg_iter->getNameStr().find("arg") << "\n";
-//            if (arg_iter->getNameStr().find("arg") == std::string::npos) {
-            LoadInst *newLoadInst = new LoadInst(varname_ptr_map_iter->second,
-                tmp_arg_name, nextInst);
-            args_vt.push_back(newLoadInst);
-  /*          } else {
-              AllocaInst *argAlloc = new AllocaInst(arg_iter->getType(), tmp_arg_name);
-              StoreInst *storeInst = new StoreInst(arg_iter, argAlloc, nextInst);
-              LoadInst *newLoadInst = new LoadInst(argAlloc, tmp_arg_name, nextInst);
-              errs() << "\t\t\there\n";
-              args_vt.push_back(newLoadInst);
-            }
-            */
-/*
-            errs() << "\t\tinserted arg " << tmp_arg_name << " w/ ptr "
-              << varname_ptr_map_iter->second->getNameStr() << " and newtemp: "
-              << newLoadInst->getNameStr() << "\n";
-              */
-          }
-          if (args_vt.size() != hook->getArgumentList().size()) {
-            // TODO
-            errs() << "FAIL HERE\n";
-          }
-
-          ArrayRef<Value*> *args_ra = new ArrayRef<Value*>(args_vt);
-          CallInst *newInst = CallInst::Create(hook, *args_ra);
-          BB->getInstList().insert(nextInst, newInst);
+          CallInst *newInst = getNewCallInst(hook, varname_ptr_map, BI);
+          BB->getInstList().insert(BI, newInst);
         }
 
         if (isa<ReturnInst>(&(*BI)) && insertStm == kReturn) { // ignore insert location
-           ReturnInst *CI = dyn_cast<ReturnInst>(BI);
-           Value* intarg = ConstantInt::get(Type::getInt32Ty(getGlobalContext()), 1);
-           CallInst *newInst = CallInst::Create(hook, intarg);
-//           newInst->setTailCall();
-           BB->getInstList().insert((Instruction*) CI, newInst);
+          CallInst *newInst = getNewCallInst(hook, varname_ptr_map, BI);
+           BB->getInstList().insert(BI, newInst);
         }
 
         if (isa<CallInst>(&(*BI)) && insertStm == kCall && !(callInstFnName.empty())) {
@@ -416,15 +354,47 @@ namespace {
           if (CI->getCalledFunction()->getNameStr().compare(callInstFnName)) {
             continue;
           }
-          Value* intarg = ConstantInt::get(Type::getInt32Ty(getGlobalContext()), 1);
-          CallInst *newInst = CallInst::Create(hook, intarg);
-//          newInst->setTailCall();
-          BB->getInstList().insert((Instruction*) CI, newInst);
+          CallInst *newInst = getNewCallInst(hook, varname_ptr_map, BI);
+          BB->getInstList().insert(BI, newInst);
         }
       }
 
       return true;
     }
+
+    CallInst* getNewCallInst(Function* hook, std::map<std::string, Value*> varname_ptr_map,
+        Instruction *nextInst) {
+      // TODO: FREAK OUT IF FIRST ARG ISN'T INT
+      Value* intarg = ConstantInt::get(Type::getInt32Ty(getGlobalContext()), 1);
+      std::vector<Value*> args_vt;
+      args_vt.push_back(intarg);
+      int i = 0;
+      for (Function::arg_iterator arg_iter = hook->arg_begin();
+          arg_iter != hook->arg_end(); ++arg_iter) {
+        if (!(i++)) {
+          continue;
+        }
+        // Add a load inst from the targeted fn's pointer ops
+        // TODO: HANDLE WHEN ARG NOT FOUND IN FN
+        std::map<std::string, Value*>::iterator varname_ptr_map_iter =
+          varname_ptr_map.find(arg_iter->getNameStr());
+        if (varname_ptr_map_iter == varname_ptr_map.end()) {
+          // TODO: HANDLE?
+          continue;
+        }
+        std::string tmp_arg_name = "_tmp_" + arg_iter->getNameStr();
+        LoadInst *newLoadInst = new LoadInst(varname_ptr_map_iter->second,
+            tmp_arg_name, nextInst);
+        args_vt.push_back(newLoadInst);
+
+      }
+      // TODO: Better error logging
+      assert(args_vt.size() == hook->getArgumentList().size()
+          && "Argument list size of assert function does not match.");
+      ArrayRef<Value*> *args_ra = new ArrayRef<Value*>(args_vt);
+      return CallInst::Create(hook, *args_ra);
+    }
+
   };
 }
 
