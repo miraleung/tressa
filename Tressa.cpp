@@ -68,7 +68,7 @@ namespace {
       // Strings
       // Asserts for class-less functions
       // TODO: FIX
-      std::string assert_fn_prefix = "assertfn_fn_";
+      std::string assert_fn_prefix = "assertfn_";
 
       // Information-gathering iteration.
       // Find the names of targeted (insert-ee) functions.
@@ -95,19 +95,13 @@ namespace {
         std::map<std::string, Value*> assertfn_args_map;
         // TODO: HANDLE CASE WHEN FIRST TYPE IS NOT INT OR DENOTES INVALID FUNCTION NAME
         // Build assert (hook) function.
-        errs() << "Function " << assertFun_name << ":\n\t";
         std::vector<Type*> params_vt;
         for (Function::arg_iterator arg_iter = assertFun->arg_begin();
             arg_iter != assertFun->arg_end(); ++arg_iter) {
-          std::string type_str;
-          llvm::raw_string_ostream ts_rso(type_str);
-          arg_iter->getType()->print(ts_rso);
-          errs() << "\t" <<  ts_rso.str() << " :: " << arg_iter->getNameStr();
           params_vt.push_back(arg_iter->getType());
           assertfn_args_map.insert(
               std::pair<std::string, Value*>(arg_iter->getNameStr(), arg_iter));
         }
-        errs() << "\n";
         assertfn_args_map_map.insert(
             std::pair<std::string, std::map<std::string, Value*> >(
               assertFun_name, assertfn_args_map));
@@ -116,7 +110,6 @@ namespace {
             *args_ra, assertFun->isVarArg());
         hookFunc = M.getOrInsertFunction(assertFun->getName(), hookFuncTy);
         hook_assert_fn = cast<Function>(hookFunc);
-        /* */ errs() << "Doing " << hook_assert_fn->getNameStr() << "\n";
         fnvector.push_back(hook_assert_fn);
 
         // Get variables in assert fn
@@ -128,7 +121,7 @@ namespace {
         std::vector<std::string> targeted_fn_local_var_names_vt;
         std::vector<Value*> targeted_fn_values_vt;
 
-        std::string keyword_insert_locn_var = "_" + assertFun_name + "_";
+        std::string keyword_insert_locn_var = "_" + assert_fn_prefix;
         std::string keyword_call = "call";
         std::string keyword_if = "if";
         std::string keyword_for = "for";
@@ -199,6 +192,8 @@ namespace {
           }
         }
         // TODO: Specify assert fn and targeted fn name in fail msg.
+        // TODO: May need an assert macro.
+        /* */ errs() << "Doing " << hook_assert_fn->getNameStr() << "\n";
         assert(insertStmType != kUndefn && insertIthStm >= 0
             && "Insertion point of assert function "
             && " not defined.");
@@ -220,8 +215,6 @@ namespace {
         std::map<std::string, Value*> varname_ptr_map;
 
         // TODO: ABORT IS F IS NULL OR SOMETHING
-/*         errs() << "\tInstrumenting " << (*VI) << "; hookfn is "
-           << fnvector.at(fnvector_idx)->getNameStr() << "\n";*/
         std::vector<InsertStm> insStm_vt = insertStm_vt_vt.at(fnvector_idx);
         std::vector<int> ith_stm_idx_vt = insertIthStm_vt_vt.at(fnvector_idx);
         std::vector<std::string> callFnName_vt = callInstFn_vt_vt.at(fnvector_idx);
