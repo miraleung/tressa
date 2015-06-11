@@ -193,8 +193,6 @@ namespace {
                 callInstFn_vt.push_back(callInstFnName);
                 numInsPts++;
               }
-              // Continue on with next basic block (one insertion point only).
-              break;
             }
           }
         }
@@ -331,10 +329,6 @@ namespace {
     virtual bool runOnBasicBlockForFn(Function::iterator &BB, Function* hook,
         InsertStm insertStm, std::map<std::string, Value*> varname_ptr_map,
         std::string callInstFnName = "") {
-      /*
-       errs() << "In runOnBB " << (*BB).getNameStr() << " for " << hook->getNameStr()
-      << ": insertStm = " << insertStm << "\n";
-      */
       BasicBlock::iterator BFirst = BB->begin();
       BFirst++;
       for (BasicBlock::iterator BI = BB->begin(), BE = BB->end(); BI != BE; ++BI) {
