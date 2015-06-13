@@ -32,6 +32,15 @@ using namespace llvm;
  *  TRESSA FOR C
  *  ===================== */
 
+#   define TRESSA_ASSERT(condition, message) \
+    do { \
+        if (! (condition)) { \
+            errs() << "Assertion `" #condition "` failed in " << __FILE__ \
+                      << " line " << __LINE__ << ": " << message << "\n"; \
+            std::exit(EXIT_FAILURE); \
+        } \
+    } while (false)
+
 namespace {
   struct TressaInsert : public ModulePass {
     static char ID;
@@ -47,16 +56,24 @@ namespace {
       kReturn
     };
 
+    struct InsertPoint {
+      InsertStm insertStm;
+      int insertIthStm;
+      std::string callFnName;
+      InsertPoint(InsertStm insStm = kUndefn,
+          int insIthStm = -1,
+          std::string cfnName = ""):insertStm(insStm),
+        insertIthStm(insIthStm), callFnName(cfnName){}
+    };
+
     virtual bool runOnModule(Module &M) {
       Constant *hookFunc;
 
-      // Vector of global values;
-      std::vector<GlobalVariable*> globals_vt;
-      // Vector of assert fns to run (insert) for fns
-      std::vector<Function*> fnvector;
-      // Vector of names of targeted (insert-ee) fns
-      std::vector<std::string> fn_vt;
+      std::map<std::string, Function*> targetedfn_assertfn_map;
       std::map<std::string, std::map<std::string, Value*> > assertfn_args_map_map;
+        std::map<std::string,
+          std::vector<InsertPoint> > assertfn_inspts_vt_map;
+
 
       // Vectors for insertion location and stm type.
       std::vector<std::vector<InsertStm> > insertStm_vt_vt;
@@ -69,12 +86,14 @@ namespace {
       // Asserts for class-less functions
       // TODO: FIX
       std::string assert_fn_prefix = "assertfn_";
+      std::string insertion_pt_prefix = "_tressa_";
 
       // Information-gathering iteration.
       // Find the names of targeted (insert-ee) functions.
       for (Module::iterator assertFun = M.begin(), assertFunE = M.end();
           assertFun != assertFunE; ++assertFun) {
         std::string assertFun_name = assertFun->getNameStr();
+
         // Function asserts
         if (assertFun_name.compare(0,
                 assert_fn_prefix.size(), assert_fn_prefix)) {
@@ -87,48 +106,23 @@ namespace {
         if (!argList.size()) {
           continue;
         }
-
         std::string targeted_fn_name = argList.front().getNameStr();
 
-        fn_vt.push_back(targeted_fn_name);
-
         std::map<std::string, Value*> assertfn_args_map;
+        std::vector<InsertPoint> inspts_vt;
         // TODO: HANDLE CASE WHEN FIRST TYPE IS NOT INT OR DENOTES INVALID FUNCTION NAME
         // Build assert (hook) function.
         std::vector<Type*> params_vt;
-        for (Function::arg_iterator arg_iter = assertFun->arg_begin();
-            arg_iter != assertFun->arg_end(); ++arg_iter) {
-          params_vt.push_back(arg_iter->getType());
-          assertfn_args_map.insert(
-              std::pair<std::string, Value*>(arg_iter->getNameStr(), arg_iter));
-        }
-        assertfn_args_map_map.insert(
-            std::pair<std::string, std::map<std::string, Value*> >(
-              assertFun_name, assertfn_args_map));
-        ArrayRef<Type*> *args_ra = new ArrayRef<Type*>(params_vt);
-        FunctionType *hookFuncTy = FunctionType::get(assertFun->getReturnType(),
-            *args_ra, assertFun->isVarArg());
-        hookFunc = M.getOrInsertFunction(assertFun->getName(), hookFuncTy);
-        hook_assert_fn = cast<Function>(hookFunc);
-        fnvector.push_back(hook_assert_fn);
 
-        // Get variables in assert fn
-        // API req: have same name as targeted fn's assert vars.
-        Function *targetedFun = M.getFunction(StringRef(targeted_fn_name));
-        std::vector<std::string> local_var_names_vt;
-        std::vector<AllocaInst*> assertfn_alloca_vt;
-
-        std::vector<std::string> targeted_fn_local_var_names_vt;
-        std::vector<Value*> targeted_fn_values_vt;
-
-        std::string keyword_insert_locn_var = "_" + assert_fn_prefix;
         std::string keyword_call = "call";
         std::string keyword_if = "if";
         std::string keyword_for = "for";
         std::string keyword_return = "return";
+        /*
         std::vector<InsertStm> insertStm_vt;
         std::vector<int> insertIthStm_vt;
         std::vector<std::string> callInstFn_vt;
+        */
 
         // Locals' vector (loads only, no storeinst)
         std::vector<std::string> varnames_vt;
@@ -137,104 +131,130 @@ namespace {
         int insertIthStm = -1;
         std::string callInstFnName = "";
 
-        // Get names of local variables in assert fns.
-        for (Function::iterator BB = assertFun->begin(),
-            BBE = assertFun->end(); BB != BBE; ++BB) {
-          // ASSUMPTION: Only one insertion point
-          // TODO: FAIL if no insertion point found
-          for (BasicBlock::iterator BI = BB->begin(), BIE = BB->end();
-              BI != BIE; ++BI) {
-            if (isa<AllocaInst>(&(*BI))) {
-              AllocaInst *allocaInst = dyn_cast<AllocaInst>(BI);
-              std::string local_var_name = allocaInst->getNameStr();
-              // Interested only in denotation of insertion point.
-              if (local_var_name.find(keyword_insert_locn_var) >= std::string::npos) {
-                continue;
-              }
+        // Get variables in assert fn
+        // API req: have same name as targeted fn's assert vars.
+        std::vector<std::string> local_var_names_vt;
+        std::vector<AllocaInst*> assertfn_alloca_vt;
+        std::vector<std::string> targeted_fn_local_var_names_vt;
+        std::vector<Value*> targeted_fn_values_vt;
 
-              // Denotes location in targeted fn to insert this assertfn.
-              // Return and call stms: Pre. All else: post
-              if (local_var_name.find(keyword_insert_locn_var) < std::string::npos) {
-                int ith_stridx = keyword_insert_locn_var.length();
-                if (local_var_name.find(keyword_if) < std::string::npos) {
-                  insertStmType = kIf;
-                  ith_stridx += keyword_if.length();
-                } else if (local_var_name.find(keyword_for) < std::string::npos) {
-                  insertStmType = kFor;
-                  ith_stridx += keyword_for.length();
-                } else if (local_var_name.find(keyword_call) < std::string::npos) {
-                  insertStmType = kCall;
-                  ith_stridx += keyword_call.length();
-                  // TODO: Specify ith call
-                  insertIthStm = 0;
-                } else if (local_var_name.find(keyword_return) < std::string::npos) {
-                  insertStmType = kReturn;
-                  insertIthStm = 0;
-                } else {
-                  continue;
-                }
+        errs() << "Doing: " << assertFun_name << "\n";
 
-                // TODO: Check last char is int, else throw error
-                int var_name_idx = local_var_name.find_last_of("_");
-                if (insertStmType != kReturn && insertStmType != kCall
-                    && var_name_idx >= ith_stridx) {
-                  insertIthStm = atoi(local_var_name.substr(var_name_idx+1).c_str());
-                }
-                // ASSUMPTION: If no fn name specified, no insertion is done.
-                if (insertStmType == kCall && var_name_idx >= ith_stridx) {
-                  callInstFnName = local_var_name.substr(var_name_idx+1);
-                }
-                insertStm_vt.push_back(insertStmType);
-                insertIthStm_vt.push_back(insertIthStm);
-                callInstFn_vt.push_back(callInstFnName);
-              }
+        for (Function::arg_iterator arg_iter = assertFun->arg_begin();
+            arg_iter != assertFun->arg_end(); ++arg_iter) {
+          std::string argname = arg_iter->getNameStr();
+          if (argname.size() > insertion_pt_prefix.size()
+              && !(argname.compare(0, insertion_pt_prefix.size(), insertion_pt_prefix))) {
+            int ith_stridx = insertion_pt_prefix.length();
+            if (argname.find(keyword_if) < std::string::npos) {
+              insertStmType = kIf;
+              ith_stridx += keyword_if.length();
+            } else if (argname.find(keyword_for) < std::string::npos) {
+              insertStmType = kFor;
+              ith_stridx += keyword_for.length();
+            } else if (argname.find(keyword_call) < std::string::npos) {
+              insertStmType = kCall;
+              ith_stridx += keyword_call.length();
+              // TODO: Specify ith call
+              insertIthStm = 0;
+            } else if (argname.find(keyword_return) < std::string::npos) {
+              insertStmType = kReturn;
+              insertIthStm = 0;
+            } else {
+              errs() << "\tTRESSA: argname =  " << argname << "\n";
+              continue;
             }
+
+            // TODO: Check last char is int, else throw error
+            int var_name_idx = argname.find_last_of("_");
+
+            if (insertStmType != kReturn && insertStmType != kCall
+                && var_name_idx >= ith_stridx) {
+              insertIthStm = atoi(argname.substr(var_name_idx+1).c_str());
+            }
+              errs() << "\tinsertIthStm for stm type " << insertStmType
+                << ": " << insertIthStm << "\n";
+
+            // ASSUMPTION: If no fn name specified, no insertion is done.
+            if (insertStmType == kCall && var_name_idx >= ith_stridx) {
+              callInstFnName = argname.substr(var_name_idx+1);
+              TRESSA_ASSERT(callInstFnName.size(),
+                  "Name of function call insertion point not defined.");
+            }
+            TRESSA_ASSERT(insertStmType != kUndefn && insertIthStm >= 0
+            && "Insertion point of assert function not defined; { insertStmType, insertIthStm } = ",
+                  " { " << insertStmType << ", " <<  insertIthStm << "} ");
+            InsertPoint insertion_pt(insertStmType, insertIthStm, callInstFnName);
+            inspts_vt.push_back(insertion_pt);
           }
+          params_vt.push_back(arg_iter->getType());
+          assertfn_args_map.insert(
+              std::pair<std::string, Value*>(arg_iter->getNameStr(), arg_iter));
         }
-        // TODO: Specify assert fn and targeted fn name in fail msg.
-        // TODO: May need an assert macro.
-        /* */ errs() << "Doing " << hook_assert_fn->getNameStr() << "\n";
-        assert(insertStmType != kUndefn && insertIthStm >= 0
-            && "Insertion point of assert function "
-            && " not defined.");
+        TRESSA_ASSERT(inspts_vt.size(),
+            "At least one insertion point must be defined in the arguments for function "
+            << assertFun_name);
+        assertfn_args_map_map.insert(
+            std::pair<std::string, std::map<std::string, Value*> >(
+              assertFun_name, assertfn_args_map));
+        // TODO: CHANGE NAME
+        assertfn_inspts_vt_map.insert(
+            std::pair<std::string,
+            std::vector<InsertPoint> >(
+              targeted_fn_name, inspts_vt));
 
-        insertStm_vt_vt.push_back(insertStm_vt);
-        insertIthStm_vt_vt.push_back(insertIthStm_vt);
-        callInstFn_vt_vt.push_back(callInstFn_vt);
+        ArrayRef<Type*> *args_ra = new ArrayRef<Type*>(params_vt);
+        FunctionType *hookFuncTy = FunctionType::get(assertFun->getReturnType(),
+            *args_ra, assertFun->isVarArg());
+        hookFunc = M.getOrInsertFunction(assertFun->getName(), hookFuncTy);
+        hook_assert_fn = cast<Function>(hookFunc);
+        targetedfn_assertfn_map.insert(
+            std::pair<std::string, Function*>(targeted_fn_name, hook_assert_fn));
       }
-
 
       // Code instrumentation iteration.
       // Iterates over all the targeted functions.
       int fnvector_idx = 0;
-      for (std::vector<std::string>::iterator VI = fn_vt.begin(),
-          VE = fn_vt.end(); VI != VE; ++VI, fnvector_idx++) {
-        // Targeted function
-        Function *F = M.getFunction(StringRef(*VI));
+      for (std::map<std::string, Function*>::iterator tfname_afn_iter =
+          targetedfn_assertfn_map.begin();
+          tfname_afn_iter != targetedfn_assertfn_map.end();
+          ++tfname_afn_iter) {
+        // Targeted function; fail if it doesn't exist.
+        Function *F = M.getFunction(StringRef(tfname_afn_iter->first));
+        TRESSA_ASSERT(F != NULL,
+            "Target function " << tfname_afn_iter->first << " does not exist; "
+            << "specified in assert function " << tfname_afn_iter->second->getNameStr());
+        Function *assert_function = tfname_afn_iter->second;
+        std::string targeted_fn_name = F->getNameStr();
+
         // Build a map of <varnames, pointer operands>
         std::map<std::string, Value*> varname_ptr_map;
 
         // TODO: ABORT IS F IS NULL OR SOMETHING
-        std::vector<InsertStm> insStm_vt = insertStm_vt_vt.at(fnvector_idx);
-        std::vector<int> ith_stm_idx_vt = insertIthStm_vt_vt.at(fnvector_idx);
-        std::vector<std::string> callFnName_vt = callInstFn_vt_vt.at(fnvector_idx);
-        std::string assertfn_name = fnvector.at(fnvector_idx)->getNameStr();
+        std::string assertfn_name = tfname_afn_iter->second->getNameStr();
+        std::map<std::string,
+          std::vector<InsertPoint> >::iterator inspt_map_iter =
+            assertfn_inspts_vt_map.find(targeted_fn_name);
+        TRESSA_ASSERT(inspt_map_iter != assertfn_inspts_vt_map.end(),
+            "No insertion points found for targeted function " << targeted_fn_name
+            << " with assert function " << assertfn_name);
+        std::vector<InsertPoint> insertion_pt_vt =
+          inspt_map_iter->second;
 
-        for (int vt_idx = 0; vt_idx < (int) insStm_vt.size(); vt_idx++) {
+        for (std::vector<InsertPoint>::iterator insvt_iter =
+            insertion_pt_vt.begin(); insvt_iter != insertion_pt_vt.end(); ++insvt_iter) {
           int curr_stm_idx = 0;
-          InsertStm insStm = insStm_vt.at(vt_idx);
-          int ith_stm_idx = ith_stm_idx_vt.at(vt_idx);
-          std::string callFnName = callFnName_vt.at(vt_idx);
+          InsertStm insStm = insvt_iter->insertStm;
+          int ith_stm_idx = insvt_iter->insertIthStm;
+          std::string callFnName = insvt_iter->callFnName;
           // TODO: ABORT IF ARGS NOT FOUND
           std::map<std::string, std::map<std::string, Value*> >::iterator
             assertfn_args_map_map_iter = assertfn_args_map_map.find(assertfn_name);
-          errs() << "\tASSERTFN_NAME: " << assertfn_name << "\n";
           if (assertfn_args_map_map_iter == assertfn_args_map_map.end()) {
             // TODO: BETTER ERROR MESSAGE
-            errs() << "\tDid not find map for " << assertfn_name << "\n";
+            // errs() << "\tDid not find map for " << assertfn_name << "\n";
             continue;
           }
-          errs() << "\tFound map for " << assertfn_name << "\n";
           std::map<std::string, Value*> assertfn_args_map = assertfn_args_map_map_iter->second;
 
           // Iterate over argument list
@@ -265,7 +285,6 @@ namespace {
                 size_t addr_str_idx = ptr_name.find(".addr");
                 if (addr_str_idx < std::string::npos) {
                   ptr_name = ptr_name.substr(0, addr_str_idx);
-                  errs() << "\targname is " << ptr_name;
                   std::vector<std::string>::iterator argnames_iter =
                     std::find(argnames_vt.begin(), argnames_vt.end(), ptr_name);
                   if (argnames_iter == argnames_vt.end()) {
@@ -275,10 +294,9 @@ namespace {
                 std::map<std::string, Value*>::iterator assertfn_args_map_iter =
                   assertfn_args_map.find(ptr_name);
                 if (assertfn_args_map_iter == assertfn_args_map.end()) {
-                  errs() << "\tCould not find " << ptr_name << "\n";
+                  // TODO: Handling needed?
                   continue;
                 }
-                errs() << "\tvarname inserting " << ptr_name << "\n";
                 varname_ptr_map.insert(
                     std::pair<std::string, Value*>(ptr_name, allocaInst));
 
@@ -293,7 +311,7 @@ namespace {
                     || (insStm == kFor
                       && bbLabel.find("for.end") < std::string::npos)))) {
 
-              TressaInsert::runOnBasicBlockForFn(BB, fnvector.at(fnvector_idx), insStm,
+              TressaInsert::runOnBasicBlockForFn(BB, assert_function, insStm,
                   varname_ptr_map,
                   callFnName);
             }
@@ -362,7 +380,13 @@ namespace {
         std::map<std::string, Value*>::iterator varname_ptr_map_iter =
           varname_ptr_map.find(arg_iter->getNameStr());
         if (varname_ptr_map_iter == varname_ptr_map.end()) {
-          // TODO: HANDLE?
+          // TODO: GLOBAL
+          std::string inspt_prefix = "_tressa_";
+          if (!(arg_iter->getNameStr().compare(0, inspt_prefix.size(), inspt_prefix))) {
+            Value* inspt_arg = ConstantInt::get(Type::getInt32Ty(getGlobalContext()), 1);
+            args_vt.push_back(inspt_arg);
+          }
+          // TODO: HANDLE NO ARG?
           continue;
         }
         std::string tmp_arg_name = "_tmp_" + arg_iter->getNameStr();
