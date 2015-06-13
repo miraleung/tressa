@@ -72,13 +72,10 @@ namespace {
       std::map<std::string, Function*> targetedfn_assertfn_map;
       std::map<std::string, std::map<std::string, Value*> > assertfn_args_map_map;
         std::map<std::string,
-          std::vector<InsertPoint> > assertfn_inspts_vt_map;
+          std::vector<InsertPoint> > targetedfn_inspts_vt_map;
 
 
       // Vectors for insertion location and stm type.
-      std::vector<std::vector<InsertStm> > insertStm_vt_vt;
-      std::vector<std::vector<int> > insertIthStm_vt_vt;
-      std::vector<std::vector<std::string> > callInstFn_vt_vt;
       // <K, V> = <assertfn name, variables' names' vector>
       std::map<std::string, std::vector<std::string> > assertfn_varnames_map;
 
@@ -118,11 +115,6 @@ namespace {
         std::string keyword_if = "if";
         std::string keyword_for = "for";
         std::string keyword_return = "return";
-        /*
-        std::vector<InsertStm> insertStm_vt;
-        std::vector<int> insertIthStm_vt;
-        std::vector<std::string> callInstFn_vt;
-        */
 
         // Locals' vector (loads only, no storeinst)
         std::vector<std::string> varnames_vt;
@@ -198,7 +190,7 @@ namespace {
             std::pair<std::string, std::map<std::string, Value*> >(
               assertFun_name, assertfn_args_map));
         // TODO: CHANGE NAME
-        assertfn_inspts_vt_map.insert(
+        targetedfn_inspts_vt_map.insert(
             std::pair<std::string,
             std::vector<InsertPoint> >(
               targeted_fn_name, inspts_vt));
@@ -214,7 +206,6 @@ namespace {
 
       // Code instrumentation iteration.
       // Iterates over all the targeted functions.
-      int fnvector_idx = 0;
       for (std::map<std::string, Function*>::iterator tfname_afn_iter =
           targetedfn_assertfn_map.begin();
           tfname_afn_iter != targetedfn_assertfn_map.end();
@@ -234,8 +225,8 @@ namespace {
         std::string assertfn_name = tfname_afn_iter->second->getNameStr();
         std::map<std::string,
           std::vector<InsertPoint> >::iterator inspt_map_iter =
-            assertfn_inspts_vt_map.find(targeted_fn_name);
-        TRESSA_ASSERT(inspt_map_iter != assertfn_inspts_vt_map.end(),
+            targetedfn_inspts_vt_map.find(targeted_fn_name);
+        TRESSA_ASSERT(inspt_map_iter != targetedfn_inspts_vt_map.end(),
             "No insertion points found for targeted function " << targeted_fn_name
             << " with assert function " << assertfn_name);
         std::vector<InsertPoint> insertion_pt_vt =
