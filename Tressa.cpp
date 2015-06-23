@@ -233,7 +233,7 @@ namespace {
             << "specified in assert function " << tfname_afn_iter->second->getNameStr());
         Function *assert_function = tfname_afn_iter->second;
         // std::string targeted_fn_name = F->getNameStr();
-        // errs() << "=== IN:  " << targeted_fn_name << " with assertfn " << assert_function->getNameStr() << "\n";
+        errs() << "====== IN:  " << targeted_fn_name << " with assertfn " << assert_function->getNameStr() << "\n";
 
         // Build a map of <varnames, pointer operands>
         std::map<std::string, Value*> varname_ptr_map;
@@ -275,6 +275,7 @@ namespace {
 
           // TODO: Remove
           std::map<std::string, Value*> targeted_fn_varname_value_map;
+          std::string cond_block_end_name = "";
 
           /* errs() << "\t\tinsStm is " << insStm << "; idx = " << ith_stm_idx << "\n"; */
           for (Function::iterator BB = F->begin(), E = F->end(); BB != E; ++BB) {
@@ -310,6 +311,25 @@ namespace {
                 varname_ptr_map.insert(
                     std::pair<std::string, Value*>(ptr_name, allocaInst));
               }
+              if ((insStm == kIf || insStm == kFor) && isa<BranchInst>(&(*BI))) {
+                BranchInst *brInst = dyn_cast<BranchInst>(BI);
+                if (brInst->isUnconditional() || brInst->getNumSuccessors() != 2) {
+                  continue;
+                }
+                std::string cond_keyword = "if";
+                if (insStm == kFor) {
+                  cond_keyword = "for";
+                }
+                cond_keyword += ".end";
+                std::string br_succ_1_name = brInst->getSuccessor(1)->getNameStr();
+                if (br_succ_1_name.find(cond_keyword) < std::string::npos
+                    && curr_stm_idx - 1 < ith_stm_idx) {
+                  cond_block_end_name = br_succ_1_name;
+                  curr_stm_idx++;
+                }
+                errs() << "\t\t $$$$$$ condendname: " << cond_block_end_name << "\n";
+              }
+
               if (insStm == kReturn && isa<ReturnInst>(&(*BI))) {
                 block_has_retstm = true;
               }
@@ -322,15 +342,24 @@ namespace {
               }
             }
             bool assertfn_inserted = false;
+            errs() << "\t\t $@$@ Block name: " << BB->getNameStr() << "; compare to "
+              << cond_block_end_name << ": " << BB->getNameStr().compare(cond_block_end_name)
+              << " ::: " << curr_stm_idx << " compto " << ith_stm_idx
+              << "\n";
             if (insStm == kCall
-                || (curr_stm_idx == ith_stm_idx
-                  && ((insStm == kReturn && block_has_retstm)
-                    || (insStm == kIf && bbLabel.find("if.end") < std::string::npos)
-                    || (insStm == kFor && bbLabel.find("for.end") < std::string::npos)))) {
+                || (curr_stm_idx == ith_stm_idx && insStm == kReturn && block_has_retstm)
+                || (!(BB->getNameStr().compare(cond_block_end_name))
+                  && ((insStm == kIf
+                      && curr_stm_idx - 1 == ith_stm_idx
+                      && bbLabel.find("if.end") < std::string::npos)
+                    || (insStm == kFor
+                      && curr_stm_idx - 1 == ith_stm_idx
+                      && bbLabel.find("for.end") < std::string::npos)))) {
               // TODO: REMOVE WHEN DEBUG DONE
               errs() << "\tAssert fn " << assert_function->getNameStr()
                 << " inserted in " << F->getNameStr()
                 << " with insertStmType " << insStm
+                << " in block " << BB->getNameStr()
                 << "\n";
               Function::iterator prev_block = BB;
               Function::iterator next_block = BB;
@@ -347,10 +376,16 @@ namespace {
                   callFnName);
             }
 
-            if (//!assertfn_inserted &&
-                (insStm == kReturn && block_has_retstm)
-                || (insStm == kIf && bbLabel.find("if.end") < std::string::npos)
-                || (insStm == kFor && bbLabel.find("for.end") < std::string::npos)) {
+            if ((insStm == kIf || insStm == kFor) && assertfn_inserted
+                && curr_stm_idx == ith_stm_idx) {
+              break;
+            }
+
+            if (insStm == kReturn && block_has_retstm) {
+//                || (insStm == kIf && curr_stm_idx < ith_stm_idx
+  //                && bbLabel.find("if.then") < std::string::npos)
+//                || (insStm == kFor && curr_stm_idx < ith_stm_idx
+ //                 && bbLabel.find("for.body") < std::string::npos)) {
               curr_stm_idx++;
             }
           }
@@ -375,7 +410,8 @@ namespace {
       for (BasicBlock::iterator BI = BB->begin(), BE = BB->end(); BI != BE; ++BI) {
         if (BI == BB->begin() && insertStm != kReturn && insertStm != kCall) {
           inserted = true;
-          errs() << "\t+++++ INSERTED FOR IF OR FOR; " << insertStm << "\n";
+          errs() << "\t+++++ INSERTED FOR IF OR FOR; " << insertStm
+            << "\n";
           CallInst *newInst = getNewCallInst(hook, varname_ptr_map, BI);
           BB->getInstList().insert(BI, newInst);
         }
