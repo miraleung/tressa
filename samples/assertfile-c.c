@@ -18,64 +18,60 @@ int fib_fn(int);
  * @param pop: Method to run on.
  */
 
-void assertfn_fn_1(int doit) {
+void _assertfn_for_ascii_fn(int ints_to_ascii_char, int _tressa_return_0, int x, int y) {
+  assert(x && !(y % 2) && (32 <= (x + y) <= 126));
+}
+
+
+void _assertfn_fn_1(int doit, int _tressa_return_0) {
   called_assert("doit => a1");
   assert(f_fn());
 }
 
-void assertfn_fn_2(int someotherfn) {
+void _assertfn_2(int someotherfn, int _tressa_return_0) {
   called_assert("someotherfn => a1");
   assert(134);
 }
 
-void assertfn_fn_3(int fn3) {
-//  int _assertfn_fn_3_ifexpr_0;
-//  int _assertfn_fn_3_ifexpr;
-  int _assertfn_fn_3_ifexpr_1;
-//  int _assertfn_fn_3_return;
+void _assertfn_3(int fn3, int _tressa_if_2, int _tressa_for_2) {
   called_assert("fn3 => a1");
   assert(g_fn());
 }
 
-void assertfn_fn_4(int lastfn) {
-
+void _assertfn_4(int lastfn, int _tressa_if_0) {
   called_assert("lastfn (expected to fail)");
   assert(4 < 3);
 }
 
-void assertfn_fn_blahblahblah(int donothing) {
-  int _assertfn_fn_blahblahblah_call_printf;
+void _assertfn_fn_blahblahblah(int donothing, int _tressa_call_printf) {
   called_assert("donothing => assert");
   assert(fib_fn(3) > 1);
 }
 
-void assertfn_fn_blah2(int fn3) {
+void _assertfn_fn_blah2(int fn3, int x, int _tressa_return_1, int i) {
   called_assert("fn3 => a3");
   assert(2);
+  printf("\t\t value of i is %d, x = %d\n", i, x);
 }
 
 // fn2 is the name of the targeted function
-// This assertfn must be prefixed with "assertfn_fn_", but
+// This _assertfn must be prefixed with "_assertfn_fn_", but
 // the subsequent identifier is arbitrary, as long as it is unique.
-void assertfn_fn_foo(int fn2) {
+void _assertfn_foo(int fn2, int i, char ch, int *intptr,
+    int _tressa_if_0, int arg, int *y, int _tressa_return_0) {
   called_assert("foo assert");
-  // Locals in fn2
-  char ch;
-  int i = 0;
-  int intptr;
-  // Insertion point b/c prefixed with same assertfn name
+  // Insertion point b/c prefixed with same _assertfn name
   // one of call_<fnname>, return, for_<# of completed block>, if_<# of completed block>
-  int _assertfn_fn_foo_for_0;
 
-//  int arg;
-//  assert(arg);
-//  int *intptr = NULL;
 //  assert(fn3(i) > 2);
+  printf("\t\t arg is %d, y is %d\n", arg, *y);
   assert(GLOBAL_VAR_1 == 1234);
-  printf("\t\t value of intptr: %d\n", intptr);
+  printf("\t\t value of intptr: %d\n", *intptr);
   assert(foobar(intptr, i));
   assert(barfoo(ch) == ('a' - '0'));
-  printf("\t\t assertfn_fn_fn2: Value of i is %d\n", i);
+  printf("\t\t _assertfn_fn_fn2: Value of i is %d\n", i);
+  assert(arg);
+
 }
 
 
