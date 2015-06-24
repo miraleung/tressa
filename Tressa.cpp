@@ -129,8 +129,6 @@ namespace {
         std::vector<std::string> targeted_fn_local_var_names_vt;
         std::vector<Value*> targeted_fn_values_vt;
 
-        errs() << "Doing: " << assertFun_name << "\n";
-
         for (Function::arg_iterator arg_iter = assertFun->arg_begin();
             arg_iter != assertFun->arg_end(); ++arg_iter) {
           std::string argname = arg_iter->getNameStr();
@@ -151,12 +149,9 @@ namespace {
             } else if (argname.find(keyword_return) < std::string::npos) {
               insertStmType = kReturn;
               ith_stridx += keyword_call.length();
-              errs() << "argname: " << argname << "\n";
             } else {
-              // errs() << "\tTRESSA: argname =  " << argname << "\n";
               continue;
             }
-            // errs() << "\t\t=> insertStmType: " << insertStmType << "\n";
 
             // TODO: Check last char is int, else throw error
             int var_name_idx = argname.find_last_of("_");
@@ -164,7 +159,6 @@ namespace {
             if (insertStmType != kCall && var_name_idx >= ith_stridx) {
               insertIthStm = atoi(argname.substr(var_name_idx+1).c_str());
             }
-//            errs() << "\tinsertIthStm for stm type " << insertStmType << ": " << insertIthStm << "\n";
 
             // ASSUMPTION: If no fn name specified, no insertion is done.
             if (insertStmType == kCall && var_name_idx >= ith_stridx) {
@@ -176,11 +170,6 @@ namespace {
             && "Insertion point of assert function not defined; { insertStmType, insertIthStm } = ",
                   " { " << insertStmType << ", " <<  insertIthStm << "} ");
 
-            /*
-            errs() << "\t\t --> insvt for " << assertFun_name << ": tuple: ("
-              << insertStmType << ", " << insertIthStm << ", " << callInstFnName
-              << ")\n";
-              */
             InsertPoint insertion_pt(insertStmType, insertIthStm, callInstFnName);
             inspts_vt.push_back(insertion_pt);
           }
@@ -207,11 +196,6 @@ namespace {
         hook_assert_fn = cast<Function>(hookFunc);
         targetedfn_assertfn_map.insert(
             std::pair<std::string, Function*>(targeted_fn_name + assertFun_name, hook_assert_fn));
-  /*
-         errs() << "  Done " << assertFun_name << " for " << targeted_fn_name
-          << "; map size is " << targetedfn_assertfn_map.size()
-          << "\n";
-*/
       }
 
       // Code instrumentation iteration.
@@ -232,8 +216,6 @@ namespace {
             "Target function " << targeted_fn_name << " does not exist; "
             << "specified in assert function " << tfname_afn_iter->second->getNameStr());
         Function *assert_function = tfname_afn_iter->second;
-        // std::string targeted_fn_name = F->getNameStr();
-        errs() << "====== IN:  " << targeted_fn_name << " with assertfn " << assert_function->getNameStr() << "\n";
 
         // Build a map of <varnames, pointer operands>
         std::map<std::string, Value*> varname_ptr_map;
@@ -254,13 +236,11 @@ namespace {
           InsertStm insStm = insvt_iter->insertStm;
           int ith_stm_idx = insvt_iter->insertIthStm;
           std::string callFnName = insvt_iter->callFnName;
-            // errs() << "\t ~~~  Inspt: " << insStm << " : " << ith_stm_idx << "\n";
           // TODO: ABORT IF ARGS NOT FOUND
           std::map<std::string, std::map<std::string, Value*> >::iterator
             assertfn_args_map_map_iter = assertfn_args_map_map.find(assertfn_name);
           if (assertfn_args_map_map_iter == assertfn_args_map_map.end()) {
             // TODO: BETTER ERROR MESSAGE
-            // errs() << "\tDid not find map for " << assertfn_name << "\n";
             continue;
           }
           std::map<std::string, Value*> assertfn_args_map = assertfn_args_map_map_iter->second;
@@ -277,18 +257,14 @@ namespace {
           std::map<std::string, Value*> targeted_fn_varname_value_map;
           std::string cond_block_end_name = "";
 
-          /* errs() << "\t\tinsStm is " << insStm << "; idx = " << ith_stm_idx << "\n"; */
           for (Function::iterator BB = F->begin(), E = F->end(); BB != E; ++BB) {
             std::string bbLabel = (*BB).getNameStr();
-            // errs() << "\tBlk: " << BB->getNameStr()  << "\n";
             bool block_has_retstm = false;
             // Find pointer operands
             for (BasicBlock::iterator BI = BB->begin(), BIE = BB->end();
                 BI != BIE; ++BI) {
-              // errs() << "\t\tInstr: " << *BI << "\n";
               // AllocaInst: Get pointer operands
               if (isa<AllocaInst>(&(*BI))) {
-//                errs() << " ------ IS ALLOCA --------\n";
                 // Instruction is pointer itself.
                 AllocaInst *allocaInst = dyn_cast<AllocaInst>(BI);
                 std::string ptr_name = allocaInst->getNameStr();
@@ -327,7 +303,6 @@ namespace {
                   cond_block_end_name = br_succ_1_name;
                   curr_stm_idx++;
                 }
-                errs() << "\t\t $$$$$$ condendname: " << cond_block_end_name << "\n";
               }
 
               if (insStm == kReturn && isa<ReturnInst>(&(*BI))) {
@@ -342,10 +317,7 @@ namespace {
               }
             }
             bool assertfn_inserted = false;
-            errs() << "\t\t $@$@ Block name: " << BB->getNameStr() << "; compare to "
-              << cond_block_end_name << ": " << BB->getNameStr().compare(cond_block_end_name)
-              << " ::: " << curr_stm_idx << " compto " << ith_stm_idx
-              << "\n";
+
             if (insStm == kCall
                 || (curr_stm_idx == ith_stm_idx && insStm == kReturn && block_has_retstm)
                 || (!(BB->getNameStr().compare(cond_block_end_name))
@@ -355,21 +327,6 @@ namespace {
                     || (insStm == kFor
                       && curr_stm_idx - 1 == ith_stm_idx
                       && bbLabel.find("for.end") < std::string::npos)))) {
-              // TODO: REMOVE WHEN DEBUG DONE
-              errs() << "\tAssert fn " << assert_function->getNameStr()
-                << " inserted in " << F->getNameStr()
-                << " with insertStmType " << insStm
-                << " in block " << BB->getNameStr()
-                << "\n";
-              Function::iterator prev_block = BB;
-              Function::iterator next_block = BB;
-              if (prev_block != F->begin()) {
-                errs() << "\t\tPrev blkname: " << (--prev_block)->getNameStr();
-              }
-              if ((++next_block) != F->end()) {
-                errs() << "\t\tNext blkname: " << next_block->getNameStr();
-              }
-              errs() << "\n";
 
               assertfn_inserted = TressaInsert::runOnBasicBlockForFn(BB, assert_function, insStm,
                   varname_ptr_map,
@@ -382,10 +339,6 @@ namespace {
             }
 
             if (insStm == kReturn && block_has_retstm) {
-//                || (insStm == kIf && curr_stm_idx < ith_stm_idx
-  //                && bbLabel.find("if.then") < std::string::npos)
-//                || (insStm == kFor && curr_stm_idx < ith_stm_idx
- //                 && bbLabel.find("for.body") < std::string::npos)) {
               curr_stm_idx++;
             }
           }
@@ -410,8 +363,6 @@ namespace {
       for (BasicBlock::iterator BI = BB->begin(), BE = BB->end(); BI != BE; ++BI) {
         if (BI == BB->begin() && insertStm != kReturn && insertStm != kCall) {
           inserted = true;
-          errs() << "\t+++++ INSERTED FOR IF OR FOR; " << insertStm
-            << "\n";
           CallInst *newInst = getNewCallInst(hook, varname_ptr_map, BI);
           BB->getInstList().insert(BI, newInst);
         }
@@ -419,19 +370,16 @@ namespace {
         if (insertStm == kReturn) {
           if (isa<ReturnInst>(&(*BI))) {
             inserted = true;
-            errs() << "\t+++++ INSERTING RET: prev inst: " << *BI << "\n";
             CallInst *newInst = getNewCallInst(hook, varname_ptr_map, BI);
             BB->getInstList().insert(BI, newInst);
             break;
           }
           if (isa<StoreInst>(&(*BI))) {
             StoreInst *storeInst = dyn_cast<StoreInst>(BI);
-            errs() << "\t +++ STOREINST FOR RET: " << *BI << "\n";
             if (storeInst->getPointerOperand()->getNameStr().find("retval") >= std::string::npos) {
               continue;
             }
             inserted = true;
-            errs() << "\t +++++++ INSERTING STORE " << *BI << "\n";
             CallInst *newInst = getNewCallInst(hook, varname_ptr_map, BI);
             BB->getInstList().insert(BI, newInst);
             break;
@@ -443,20 +391,9 @@ namespace {
           if (CI->getCalledFunction()->getNameStr().compare(callInstFnName)) {
             continue;
           }
-          errs() << "\t++++ INSERT FOR CALL\n";
           inserted = true;
           CallInst *newInst = getNewCallInst(hook, varname_ptr_map, BI);
           BB->getInstList().insert(BI, newInst);
-        }
-
-        if (inserted) {
-          BasicBlock::iterator prev_inst = BI;
-          if (prev_inst != BB->begin() && (--prev_inst) != BB->begin()) {
-            errs() << "\t\tPrevious instr: " << *(--prev_inst) << "\n";
-          }
-          if (BI != BB->end()) {
-            errs() << "\t\tNext instr: " << *BI << "\n";
-          }
         }
       }
 
@@ -481,41 +418,22 @@ namespace {
         // TODO: HANDLE WHEN ARG NOT FOUND IN FN
         std::map<std::string, Value*>::iterator varname_ptr_map_iter =
           varname_ptr_map.find(arg_iter->getNameStr());
-        errs() << " ARG: " << arg_iter->getNameStr() << "; "
-          << !(arg_iter->getNameStr().compare(0, inspt_prefix.size(), inspt_prefix))
-          << "; found in list? " << (varname_ptr_map_iter == varname_ptr_map.end())
-          << "\n";
+
         if (varname_ptr_map_iter == varname_ptr_map.end()) {
           if (!(arg_iter->getNameStr().compare(0, inspt_prefix.size(), inspt_prefix))) {
             Value* inspt_arg = ConstantInt::get(Type::getInt32Ty(getGlobalContext()), 1);
             args_vt.push_back(inspt_arg);
-            errs() << " Now size: " << args_vt.size() << "\n";
           }
           // TODO: HANDLE NO ARG?
           continue;
         }
-        errs() << "got here\n";
         std::string tmp_arg_name = "_tmp_" + arg_iter->getNameStr();
         LoadInst *newLoadInst = new LoadInst(varname_ptr_map_iter->second,
             tmp_arg_name, nextInst);
         args_vt.push_back(newLoadInst);
-        errs() << " andNow size: " << args_vt.size() << "\n";
-
       }
 
       // TODO: Better error logging
-      if (args_vt.size() != hook->getArgumentList().size()) {
-        errs() << "  Args list: \n";
-        for (std::vector<Value*>::iterator args_iter = args_vt.begin();
-            args_iter != args_vt.end(); ++args_iter) {
-          errs() << "   " << (*args_iter)->getNameStr() << "\n";
-        }
-        errs() << "  Hook args:\n";
-        for (Function::arg_iterator args_iter = hook->arg_begin();
-            args_iter != hook->arg_end(); ++args_iter) {
-          errs() << "   " << args_iter->getNameStr() << "\n";
-        }
-      }
       TRESSA_ASSERT(args_vt.size() == hook->getArgumentList().size(),
           "Argument list size of assert function " << hook->getArgumentList().size()
           << " != size of amassed args " << args_vt.size());
