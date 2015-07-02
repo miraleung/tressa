@@ -1,16 +1,9 @@
-##===- lib/Transforms/Hello/Makefile -----------------------*- Makefile -*-===##
-#
-#                     The LLVM Compiler Infrastructure
-#
-# This file is distributed under the University of Illinois Open Source
-# License. See LICENSE.TXT for details.
-#
-##===----------------------------------------------------------------------===##
+# Makefile for tressa passes
 
+# Path to top level of LLVM hierarchy
 LEVEL = ../../..
 LIBRARYNAME = LLVMTressa
 LOADABLE_MODULE = 1
-USEDLIBS =
 
+# Include the makefile implementation stuff
 include $(LEVEL)/Makefile.common
-

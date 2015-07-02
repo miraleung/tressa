@@ -12,19 +12,19 @@
 #include <map>
 #include <string>
 
-#include "llvm/Function.h"
-#include "llvm/Instructions.h"
-#include "llvm/Instruction.h"
+#include "llvm/IR/Function.h"
+#include "llvm/IR/Instructions.h"
+#include "llvm/IR/Instruction.h"
 #include "llvm/Pass.h"
-#include "llvm/LLVMContext.h"
-#include "llvm/Module.h"
-#include "llvm/Type.h"
-#include "llvm/Value.h"
+#include "llvm/IR/LLVMContext.h"
+#include "llvm/IR/Module.h"
+#include "llvm/IR/Type.h"
+#include "llvm/IR/Value.h"
 
 #include "llvm/ADT/StringRef.h"
 #include "llvm/Support/raw_ostream.h"
-#include "llvm/Support/InstIterator.h"
-#include "llvm/Support/IRBuilder.h"
+#include "llvm/IR/InstIterator.h"
+#include "llvm/IR/IRBuilder.h"
 
 using namespace llvm;
 
@@ -88,7 +88,7 @@ namespace {
       // Find the names of targeted (insert-ee) functions.
       for (Module::iterator assertFun = M.begin(), assertFunE = M.end();
           assertFun != assertFunE; ++assertFun) {
-        std::string assertFun_name = assertFun->getNameStr();
+        std::string assertFun_name = assertFun->getName().str();
 
         // Function asserts
         if (assertFun_name.compare(0,
@@ -102,7 +102,7 @@ namespace {
         if (!argList.size()) {
           continue;
         }
-        std::string targeted_fn_name = argList.front().getNameStr();
+        std::string targeted_fn_name = argList.front().getName().str();
 
         std::map<std::string, Value*> assertfn_args_map;
         std::vector<InsertPoint> inspts_vt;
@@ -131,7 +131,7 @@ namespace {
 
         for (Function::arg_iterator arg_iter = assertFun->arg_begin();
             arg_iter != assertFun->arg_end(); ++arg_iter) {
-          std::string argname = arg_iter->getNameStr();
+          std::string argname = arg_iter->getName().str();
           if (argname.size() > insertion_pt_prefix.size()
               && !(argname.compare(0, insertion_pt_prefix.size(), insertion_pt_prefix))) {
             int ith_stridx = insertion_pt_prefix.length();
@@ -175,7 +175,7 @@ namespace {
           }
           params_vt.push_back(arg_iter->getType());
           assertfn_args_map.insert(
-              std::pair<std::string, Value*>(arg_iter->getNameStr(), arg_iter));
+              std::pair<std::string, Value*>(arg_iter->getName().str(), arg_iter));
         }
         TRESSA_ASSERT(inspts_vt.size(),
             "At least one insertion point must be defined in the arguments for function "
@@ -214,13 +214,13 @@ namespace {
         Function *F = M.getFunction(StringRef(targeted_fn_name));
         TRESSA_ASSERT(F != NULL,
             "Target function " << targeted_fn_name << " does not exist; "
-            << "specified in assert function " << tfname_afn_iter->second->getNameStr());
+            << "specified in assert function " << tfname_afn_iter->second->getName().str());
         Function *assert_function = tfname_afn_iter->second;
 
         // Build a map of <varnames, pointer operands>
         std::map<std::string, Value*> varname_ptr_map;
 
-        std::string assertfn_name = tfname_afn_iter->second->getNameStr();
+        std::string assertfn_name = tfname_afn_iter->second->getName().str();
         std::map<std::string,
           std::vector<InsertPoint> >::iterator inspt_map_iter =
             targetedfn_inspts_vt_map.find(targeted_fn_name + assertfn_name);
@@ -250,7 +250,7 @@ namespace {
 
           for (Function::arg_iterator arg_iter = F->arg_begin();
               arg_iter != F->arg_end(); ++arg_iter) {
-            argnames_vt.push_back(arg_iter->getNameStr());
+            argnames_vt.push_back(arg_iter->getName().str());
           }
 
           // TODO: Remove
@@ -258,16 +258,17 @@ namespace {
           std::string cond_block_end_name = "";
 
           for (Function::iterator BB = F->begin(), E = F->end(); BB != E; ++BB) {
-            std::string bbLabel = (*BB).getNameStr();
+            std::string bbLabel = (*BB).getName().str();
             bool block_has_retstm = false;
             // Find pointer operands
             for (BasicBlock::iterator BI = BB->begin(), BIE = BB->end();
                 BI != BIE; ++BI) {
+              errs() << "\t" << *BI << "\n";
               // AllocaInst: Get pointer operands
               if (isa<AllocaInst>(&(*BI))) {
                 // Instruction is pointer itself.
                 AllocaInst *allocaInst = dyn_cast<AllocaInst>(BI);
-                std::string ptr_name = allocaInst->getNameStr();
+                std::string ptr_name = allocaInst->getName().str();
                 // Valid only if this is a function arg
                 size_t addr_str_idx = ptr_name.find(".addr");
                 if (addr_str_idx < std::string::npos) {
@@ -297,7 +298,7 @@ namespace {
                   cond_keyword = "for";
                 }
                 cond_keyword += ".end";
-                std::string br_succ_1_name = brInst->getSuccessor(1)->getNameStr();
+                std::string br_succ_1_name = brInst->getSuccessor(1)->getName().str();
                 if (br_succ_1_name.find(cond_keyword) < std::string::npos
                     && curr_stm_idx - 1 < ith_stm_idx) {
                   cond_block_end_name = br_succ_1_name;
@@ -310,7 +311,7 @@ namespace {
               }
               if (insStm == kReturn && isa<StoreInst>(&(*BI))) {
                 StoreInst *storeInst = dyn_cast<StoreInst>(BI);
-                if (storeInst->getPointerOperand()->getNameStr().find("retval")
+                if (storeInst->getPointerOperand()->getName().str().find("retval")
                     < std::string::npos) {
                   block_has_retstm = true;
                 }
@@ -320,7 +321,7 @@ namespace {
 
             if (insStm == kCall
                 || (curr_stm_idx == ith_stm_idx && insStm == kReturn && block_has_retstm)
-                || (!(BB->getNameStr().compare(cond_block_end_name))
+                || (!(BB->getName().str().compare(cond_block_end_name))
                   && ((insStm == kIf
                       && curr_stm_idx - 1 == ith_stm_idx
                       && bbLabel.find("if.end") < std::string::npos)
@@ -331,6 +332,7 @@ namespace {
               assertfn_inserted = TressaInsert::runOnBasicBlockForFn(BB, assert_function, insStm,
                   varname_ptr_map,
                   callFnName);
+              errs() << "\t\t === Inserted! ===\n"
             }
 
             if ((insStm == kIf || insStm == kFor) && assertfn_inserted
@@ -376,7 +378,7 @@ namespace {
           }
           if (isa<StoreInst>(&(*BI))) {
             StoreInst *storeInst = dyn_cast<StoreInst>(BI);
-            if (storeInst->getPointerOperand()->getNameStr().find("retval") >= std::string::npos) {
+            if (storeInst->getPointerOperand()->getName().str().find("retval") >= std::string::npos) {
               continue;
             }
             inserted = true;
@@ -388,7 +390,7 @@ namespace {
 
         if (isa<CallInst>(&(*BI)) && insertStm == kCall && !(callInstFnName.empty())) {
           CallInst *CI = dyn_cast<CallInst>(BI);
-          if (CI->getCalledFunction()->getNameStr().compare(callInstFnName)) {
+          if (CI->getCalledFunction()->getName().str().compare(callInstFnName)) {
             continue;
           }
           inserted = true;
@@ -417,17 +419,17 @@ namespace {
         // Add a load inst from the targeted fn's pointer ops
         // TODO: HANDLE WHEN ARG NOT FOUND IN FN
         std::map<std::string, Value*>::iterator varname_ptr_map_iter =
-          varname_ptr_map.find(arg_iter->getNameStr());
+          varname_ptr_map.find(arg_iter->getName().str());
 
         if (varname_ptr_map_iter == varname_ptr_map.end()) {
-          if (!(arg_iter->getNameStr().compare(0, inspt_prefix.size(), inspt_prefix))) {
+          if (!(arg_iter->getName().str().compare(0, inspt_prefix.size(), inspt_prefix))) {
             Value* inspt_arg = ConstantInt::get(Type::getInt32Ty(getGlobalContext()), 1);
             args_vt.push_back(inspt_arg);
           }
           // TODO: HANDLE NO ARG?
           continue;
         }
-        std::string tmp_arg_name = "_tmp_" + arg_iter->getNameStr();
+        std::string tmp_arg_name = "_tmp_" + arg_iter->getName().str();
         LoadInst *newLoadInst = new LoadInst(varname_ptr_map_iter->second,
             tmp_arg_name, nextInst);
         args_vt.push_back(newLoadInst);
@@ -477,7 +479,7 @@ namespace {
 
       // Information-gathering iteration.
       for (Module::iterator F = M.begin(), E = M.end(); F != E; ++F) {
-        char* outbuf = (char*) std::malloc(sizeof F->getNameStr());
+        char* outbuf = (char*) std::malloc(sizeof F->getName().str());
         int status = 0;
         demangleFunctionName(F, outbuf, &status);
 
@@ -490,7 +492,7 @@ namespace {
           std::vector<std::string> class_fn_pair;
           for (Function::ArgumentListType::iterator AI = argList.begin(),
               AE = argList.end(); AI != AE; ++AI, ++i) {
-            fn_vt.push_back(AI->getNameStr());
+            fn_vt.push_back(AI->getName().str());
             if (i == 0) {
               break;
             }
@@ -511,7 +513,7 @@ namespace {
           std::vector<std::string> class_fn_pair;
           for (Function::ArgumentListType::iterator AI = argList.begin(),
               AE = argList.end(); AI != AE; ++AI, ++i) {
-            class_fn_pair.push_back(AI->getNameStr());
+            class_fn_pair.push_back(AI->getName().str());
             if (i == 1) {
               class_fn_vt.push_back(class_fn_pair);
               break;
@@ -532,7 +534,7 @@ namespace {
       for (std::vector<std::string>::iterator VI = fn_vt.begin(),
           VE = fn_vt.end(); VI != VE; ++VI, fnvector_idx++) {
         for (Module::iterator F = M.begin(), E = M.end(); F != E; ++F) {
-          char* outbuf = (char*) std::malloc(sizeof F->getNameStr());
+          char* outbuf = (char*) std::malloc(sizeof F->getName().str());
           int status = 0;
           demangleFunctionName(F, outbuf, &status);
           if (status < 0 || outbuf == NULL
@@ -554,7 +556,7 @@ namespace {
         std::string fn_name = current_vt.at(1);
         for (Module::iterator F = M.begin(), E = M.end(); F != E; ++F) {
           // Check function name.
-          char* outbuf = (char*) std::malloc(sizeof F->getNameStr());
+          char* outbuf = (char*) std::malloc(sizeof F->getName().str());
           int status = 0;
           demangleFunctionName(F, outbuf, &status);
           if (status < 0 || outbuf == NULL
@@ -636,7 +638,7 @@ namespace {
     void demangleFunctionName(Function* F, char*& outbuf, int* status) {
       size_t length = 0;
       // outbuf will be null if the demangling is unsuccessful, and status will be < 0
-      outbuf = abi::__cxa_demangle(F->getNameStr().c_str(), outbuf, &length, status);
+      outbuf = abi::__cxa_demangle(F->getName().str().c_str(), outbuf, &length, status);
     }
   };
 }
