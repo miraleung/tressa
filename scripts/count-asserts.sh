@@ -1,6 +1,14 @@
 #!/bin/bash
 
-cd asserts
+SRC=asserts
+
+if [ ! -d ${SRC} ]
+then
+	echo Directory ${SRC} doesn\'t exist, please run get-asserts.sh script first.
+	exit 1
+fi
+
+cd ${SRC}
 
 POS_TOTAL=0
 NEG_TOTAL=0

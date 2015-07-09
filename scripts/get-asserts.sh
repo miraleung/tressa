@@ -1,7 +1,15 @@
 #!/bin/bash
 
 SRC=`pwd`/diffs
-DST=`pwd`/asserts2
+DST=`pwd`/asserts
+
+if [ ! -d ${SRC} ]
+then
+	echo ERROR: Directory ${SRC} doesn\'t exist, please run get-diffs.sh script first.
+	exit 1
+fi
+
+mkdir -p ${DST}
 
 cd ${SRC}
 

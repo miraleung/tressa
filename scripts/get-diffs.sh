@@ -4,7 +4,7 @@ cd xen-unstable.hg
 
 HEAD=`hg head | grep change | sed s'/changeset:[ ]\+\(.*\):.*/\1/'`
 
-echo ${HEAD}
+mkdir -p diffs
 
 for rev in `seq 00001 ${HEAD}`
 do

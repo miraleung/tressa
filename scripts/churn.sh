@@ -1,7 +1,6 @@
 #!/bin/bash
 
-SRC=asserts2
-#SRC=test
+SRC=asserts
 OUT=preds
 
 cd ${SRC}
