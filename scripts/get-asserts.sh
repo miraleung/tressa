@@ -24,7 +24,7 @@ do
 		while read assert
 		do
 			# Filter out "#define ASSERT()" statements
-			no_define=`echo ${assert} | grep '.*#define.*'`
+			no_define=`echo "$assert" | grep '.*#define.*'`
 			if [ -z "${no_define}" ]
 			then
 				count=$((count+1))
