@@ -1,5 +1,5 @@
 #!/bin/bash
-# Get all distinct predicates, and print them to $TMPFILE
+# Number of revisions per predicate
 
 SRC=`pwd`/asserts
 TMPFILE=`pwd`/apreds.txt
@@ -87,7 +87,7 @@ do
           if [ $HAS_ASSERT_BEGIN == 1 ] && [ $HAS_ASSERT_END == 1 ] #\
 #            && [ -n "$ASSERT_0_BEGIN" ] && [ -n "$ASSERT_0_END" ]
           then
-            ASSERT_PRED="$(echo "$ASSERT_PRED" | sed -r 's#\s*(\*/|/\*.*\*/)?\s*$##')"
+            ASSERT_PRED="$(echo "$ASSERT_PRED" | sed -r 's#\s*(\*/|/\*.*\*/|//.*)?\s*$##')"
             ASSERT=$ASSERT_PRED
 #            echo -e "\tFound in $FILENAME: $ASSERT"
             ASSERT_WHOLE=1
