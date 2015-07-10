@@ -36,22 +36,42 @@ touch $TMPFILE
 
 echo "# Number of revisions per predicate (activity)" >> $COUNTFILE
 
+LINECOUNT=0
+FILECOUNT=0
+TOTALLINECOUNT=`cat predicates.txt | wc -l`
+TOTALFILECOUNT=`ls $SRC/*.patch | wc -l`
 for LINE in `grep ASSERT predicates.txt`
 do
   REVISION_COUNT=0
-  echo "Doing assert $LINE"
+  LINECOUNT=$((LINECOUNT+1))
+  echo "$LINECOUNT/$TOTALLINECOUNT: $LINE"
   echo "$LINE" >> $TMPFILE
   for PATCH in $SRC/*.patch
   do
     FILENAME=`basename ${PATCH#$PWD} .patch`
+    FILECOUNT=$((FILECOUNT+1))
+    if [ $(expr $FILECOUNT % 32) == 0 ]
+    then
+      echo "  ~~ File $FILECOUNT/$TOTALFILECOUNT"
+    fi
     MATCH_COUNT=0
 #    echo -e "\tFile $FILENAME"
     # Get all ASSERT exprs w/o prefixes, and those commented out too
     ASSERTS=`pcregrep -M '^[+-]\s*(//|/\*)?\s*ASSERT\s*\((\n*.*?\n*)*?\);' ${PATCH}`
+    # If Xen syntax errors omitted ';', we add them back
+    ASSERTS="$(echo "$ASSERTS" | sed 's/)\s*$/);/g')"
+    ASSERTS="$(echo "$ASSERTS" | sed 's/\\/\n/g')" # Remove line continuations (backslash)
+
     if [ -n "$ASSERTS" ]
     then
       while read ASSERT_0
       do
+        IS_INT_DECL=`echo "$ASSERT_0" | grep '.*int\s*.*'`
+        if [ -n "$IS_INT_DECL" ]
+        then
+          continue
+        fi
+
         if [ -z "$ASSERT" ]
         then
           ASSERT=$ASSERT_0
@@ -82,7 +102,8 @@ do
         if [ -z "$NO_DEFINE" ]
         then
           ASSERT_PRED="$(echo "$ASSERT_0" | \
-            sed -r 's#^[+-]##; s#^\s*(//|/\*)?\s*##; s/ //g')"
+            sed -r 's#^[+-]##; s#^(	|\s)*(//|/\*|\\)?(	|\s)*$##; s/ //g')" # HAS HIDDEN TAB CHARS
+          ASSERT_PRED="$(awk '{$1=$1}1' <<< $ASSERT_PRED)"
           # Assert is on one line
           if [ $HAS_ASSERT_BEGIN == 1 ] && [ $HAS_ASSERT_END == 1 ] #\
 #            && [ -n "$ASSERT_0_BEGIN" ] && [ -n "$ASSERT_0_END" ]

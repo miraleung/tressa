@@ -112,6 +112,6 @@ for line in `awk '!a[$0]++' $TMPFILE`
 do
   echo $line >> $TMPFILE2
 done
-awk '{$1=$1}1' $TMPFILE2 > $DSTFILiE
+awk '{$1=$1}1' $TMPFILE2 > $DSTFILE
 yes | rm $TMPFILE
 yes | rm $TMPFILE2
