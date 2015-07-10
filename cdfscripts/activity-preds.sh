@@ -37,13 +37,13 @@ touch $TMPFILE
 echo "# Number of revisions per predicate (activity)" >> $COUNTFILE
 
 LINECOUNT=0
-FILECOUNT=0
 TOTALLINECOUNT=`cat predicates.txt | wc -l`
 TOTALFILECOUNT=`ls $SRC/*.patch | wc -l`
 for LINE in `grep ASSERT predicates.txt`
 do
   REVISION_COUNT=0
   LINECOUNT=$((LINECOUNT+1))
+  FILECOUNT=0
   echo "$LINECOUNT/$TOTALLINECOUNT: $LINE"
   echo "$LINE" >> $TMPFILE
   for PATCH in $SRC/*.patch
@@ -52,37 +52,48 @@ do
     FILECOUNT=$((FILECOUNT+1))
     if [ $(expr $FILECOUNT % 32) == 0 ]
     then
-      echo "  ~~ File $FILECOUNT/$TOTALFILECOUNT"
+      echo "  ~~ On $FILENAME ($FILECOUNT/$TOTALFILECOUNT)"
     fi
     MATCH_COUNT=0
 #    echo -e "\tFile $FILENAME"
     # Get all ASSERT exprs w/o prefixes, and those commented out too
-    ASSERTS=`pcregrep -M '^[+-]\s*(//|/\*)?\s*ASSERT\s*\((\n*.*?\n*)*?\);' ${PATCH}`
-    # If Xen syntax errors omitted ';', we add them back
-    ASSERTS="$(echo "$ASSERTS" | sed 's/)\s*$/);/g')"
+    ASSERTS=`pcregrep --buffer-size 256K -M '^[+-]?\s*(//|/\*)?\s*ASSERT\s*\((\n*.*?\n*)*?\);' ${PATCH}`
+#    ASSERTS="$(echo "$ASSERTS" | sed 's/)\s*$/);/g')"
     ASSERTS="$(echo "$ASSERTS" | sed 's/\\/\n/g')" # Remove line continuations (backslash)
 
     if [ -n "$ASSERTS" ]
     then
       while read ASSERT_0
       do
+        PREFIX="xen-diff-"
+        FILENUM=${FILENAME#$PREFIX}
+
+: << 'END'
+        if [ "$FILENUM" -lt 9849 ]
+        then
+          continue
+        fi
+END
+#        echo -e "\tTHIS: $ASSERT_0"
         IS_INT_DECL=`echo "$ASSERT_0" | grep '.*int\s*.*'`
         if [ -n "$IS_INT_DECL" ]
         then
+          ASSERT=""
           continue
         fi
 
         if [ -z "$ASSERT" ]
         then
+#          echo -e "\tthis: $ASSERT\n\tthis2\t$ASESRT_0"
           ASSERT=$ASSERT_0
         fi
-
         # Filter out "#define ASSERT()" statements
+        NO_DEFINE_0=`echo "$ASSERT_0" | grep '.*#define.*'`
         NO_DEFINE=`echo "$ASSERT" | grep '.*#define.*'`
-        ASSERT_BEGIN=`echo "$ASSERT" | grep '.*ASSERT('`
+        ASSERT_BEGIN=`echo "$ASSERT" | grep '.*ASSERT\s*('`
         ASSERT_END=`echo "$ASSERT" | grep '.*);.*'`
-        ASSERT_0_BEGIN=`echo "$ASSERT_0" | grep '.*ASSERT('`
-        ASSERT_0_END=`echo "$ASSERT_0" | grep '.*);.*'`
+        ASSERT_0_BEGIN=`echo "$ASSERT_0" | grep '.*ASSERT\s*('`
+        ASSERT_0_END=`echo "$ASSERT_0" | grep '.*)\s*;.*'`
         ASSERT_WHOLE=0
 
         # Deal with multiline asserts
@@ -99,7 +110,9 @@ do
           HAS_ASSERT_END=1
         fi
 
-        if [ -z "$NO_DEFINE" ]
+#        echo -e "\t -- Doing $FILENAME: $ASSERT\n\t:: $ASSERT_O \n\t ::$ASSERTS"
+
+        if [ -z "$NO_DEFINE_0" ] && [ -z "$NO_DEFINE" ]
         then
           ASSERT_PRED="$(echo "$ASSERT_0" | \
             sed -r 's#^[+-]##; s#^(	|\s)*(//|/\*|\\)?(	|\s)*$##; s/ //g')" # HAS HIDDEN TAB CHARS
@@ -137,9 +150,10 @@ do
           fi
           if [ $ASSERT_WHOLE -gt 0 ]
           then
+#            echo -e "\t\t$FILENAME: $ASSERT"
             if [[ "$ASSERT" == "$LINE" ]]
             then
-#              echo -e "\t\t$FILENAME matches: $ASSERT"
+#              echo -e "\t\t\t$FILENAME matches"
               MATCH_COUNT=$((MATCH_COUNT+1))
 #              echo "$ASSERT" >> $TMPFILE
             fi
@@ -156,6 +170,7 @@ do
 
     fi # Patch has asserts
   done # FILE
+  echo -e "\tActivity count: $REVISION_COUNT for $LINE"
   echo -e "\t$REVISION_COUNT" >> $TMPFILE
   echo -e "$REVISION_COUNT" >> $COUNTFILE
 done # LINE
