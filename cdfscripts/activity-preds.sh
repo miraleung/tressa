@@ -34,8 +34,6 @@ then
 fi
 touch $TMPFILE
 
-echo "# Number of revisions per predicate (activity)" >> $COUNTFILE
-
 LINECOUNT=0
 TOTALLINECOUNT=`cat predicates.txt | wc -l`
 TOTALFILECOUNT=`ls $SRC/*.patch | wc -l`
@@ -55,10 +53,8 @@ do
       echo "  ~~ On $FILENAME ($FILECOUNT/$TOTALFILECOUNT)"
     fi
     MATCH_COUNT=0
-#    echo -e "\tFile $FILENAME"
     # Get all ASSERT exprs w/o prefixes, and those commented out too
     ASSERTS=`pcregrep --buffer-size 256K -M '^[+-]?\s*(//|/\*)?\s*ASSERT\s*\((\n*.*?\n*)*?\);' ${PATCH}`
-#    ASSERTS="$(echo "$ASSERTS" | sed 's/)\s*$/);/g')"
     ASSERTS="$(echo "$ASSERTS" | sed 's/\\/\n/g')" # Remove line continuations (backslash)
 
     if [ -n "$ASSERTS" ]
@@ -68,13 +64,6 @@ do
         PREFIX="xen-diff-"
         FILENUM=${FILENAME#$PREFIX}
 
-: << 'END'
-        if [ "$FILENUM" -lt 9849 ]
-        then
-          continue
-        fi
-END
-#        echo -e "\tTHIS: $ASSERT_0"
         IS_INT_DECL=`echo "$ASSERT_0" | grep '.*int\s*.*'`
         if [ -n "$IS_INT_DECL" ]
         then
@@ -84,7 +73,6 @@ END
 
         if [ -z "$ASSERT" ]
         then
-#          echo -e "\tthis: $ASSERT\n\tthis2\t$ASESRT_0"
           ASSERT=$ASSERT_0
         fi
         # Filter out "#define ASSERT()" statements
@@ -110,38 +98,31 @@ END
           HAS_ASSERT_END=1
         fi
 
-#        echo -e "\t -- Doing $FILENAME: $ASSERT\n\t:: $ASSERT_O \n\t ::$ASSERTS"
-
         if [ -z "$NO_DEFINE_0" ] && [ -z "$NO_DEFINE" ]
         then
           ASSERT_PRED="$(echo "$ASSERT_0" | \
             sed -r 's#^[+-]##; s#^(	|\s)*(//|/\*|\\)?(	|\s)*$##; s/ //g')" # HAS HIDDEN TAB CHARS
           ASSERT_PRED="$(awk '{$1=$1}1' <<< $ASSERT_PRED)"
           # Assert is on one line
-          if [ $HAS_ASSERT_BEGIN == 1 ] && [ $HAS_ASSERT_END == 1 ] #\
-#            && [ -n "$ASSERT_0_BEGIN" ] && [ -n "$ASSERT_0_END" ]
+          if [ $HAS_ASSERT_BEGIN == 1 ] && [ $HAS_ASSERT_END == 1 ]
           then
             ASSERT_PRED="$(echo "$ASSERT_PRED" | sed -r 's#\s*(\*/|/\*.*\*/|//.*)?\s*$##')"
             ASSERT=$ASSERT_PRED
-#            echo -e "\tFound in $FILENAME: $ASSERT"
             ASSERT_WHOLE=1
           # Beginning of some line
           elif [ $HAS_ASSERT_BEGIN == 1 ] && [ $HAS_ASSERT_END == 0 ] && [ "$ASSERT_PRED" != "" ]
           then
             if [ -n "$ASSERT_0_BEGIN" ]
             then
-#              echo -e "\tStart of assert from $FILENAME:\n\t\t $ASSERT_PRED"
               ASSERT=`echo "$ASSERT_PRED"`
             # On some middle line
             elif [ -z "$ASSERT_0_BEGIN" ] && [ -z "$ASSERT_0_END" ]
             then
               # Append
-#              echo -e "\t\tCont from $FILENAME:\n\t\t $ASSERT_PRED"
               ASSERT=`echo "$ASSERT$ASSERT_PRED"`
             # On last line
             elif  [ -z "$ASSERT_0_BEGIN" ] && [ -n "$ASSERT_0_END" ]
             then
-#              echo -e "\t\tRest of predicate from $FILENAME:\n\t\t $ASSERT_PRED"
               ASSERT=`echo "$ASSERT$ASSERT_PRED"`
               ASSERT_WHOLE=1
             else
@@ -150,12 +131,9 @@ END
           fi
           if [ $ASSERT_WHOLE -gt 0 ]
           then
-#            echo -e "\t\t$FILENAME: $ASSERT"
             if [[ "$ASSERT" == "$LINE" ]]
             then
-#              echo -e "\t\t\t$FILENAME matches"
               MATCH_COUNT=$((MATCH_COUNT+1))
-#              echo "$ASSERT" >> $TMPFILE
             fi
             ASSERT_WHOLE=0
           fi
