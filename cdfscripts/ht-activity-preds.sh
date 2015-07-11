@@ -34,8 +34,6 @@ then
 fi
 touch $TMPFILE
 
-echo "# Number of revisions per predicate (activity)" >> $COUNTFILE
-
 LINECOUNT=0
 TOTALLINECOUNT=`cat predicates.txt | wc -l`
 TOTALFILECOUNT=`ls $SRC/*.patch | wc -l`
