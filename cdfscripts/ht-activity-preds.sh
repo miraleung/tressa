@@ -136,9 +136,9 @@ do
         fi
         if [ $ASSERT_WHOLE -gt 0 ]
         then
-          if [ -n "$ASSERT" ] && [ ${ASSERTMAP[$ASSERT]+_} ];
+          if [ -n "$ASSERT" ] && [ ${ASSERTMAP["$ASSERT"]+_} ];
           then
-            NEWCOUNT=$((ASSERTMAP[$ASSERT] + 1))
+            NEWCOUNT=$((ASSERTMAP["$ASSERT"] + 1))
             echo -e "\t$FILENAME ($FILECOUNT/$TOTALFILECOUNT): $NEWCOUNT::$ASSERT"
             ASSERTMAP["$ASSERT"]=$NEWCOUNT
           else
