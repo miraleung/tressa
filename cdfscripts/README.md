@@ -11,5 +11,5 @@
 
 ## Plot CDF
 This measures the number of revisions affecting an assert, hence, its "activity" in the commit history.
-1. `./ht-activity-preds.sh`
-2. `python cdf.py ht-activity-count.txt`
+1. `./activity-preds.sh`
+2. `python cdf.py activity-count.txt`
