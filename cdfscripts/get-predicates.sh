@@ -7,6 +7,8 @@ TMPFILE2=`pwd`/predicates_wip2.txt
 DSTFILE=`pwd`/predicates.txt
 PWD=`pwd`
 
+TAB=$'\t'
+
 if [ ! -d "$SRC" ]
 then
 	echo "ERROR: Directory $SRC doesn't exist, please run get-diffs.sh script first."
@@ -35,8 +37,13 @@ do
   # Get all ASSERT exprs w/o prefixes, and those commented out too
   ASSERTS=`pcregrep -M '^[+-](\s*(//|/\*)?\s*)?ASSERT\s*\((\n*.*?\n*)*?\);' ${PATCH}`
   # If Xen syntax errors omitted ';', we add them back
-  ASSERTS="$(echo "$ASSERTS" | sed 's/)\s*$/);/g')"
+#  ASSERTS="$(echo "$ASSERTS" | sed 's/)\s*$/);/g')"
   ASSERTS="$(echo "$ASSERTS" | sed 's/\\/\n/g')" # Remove line continuations (backslash)
+  # Turn all tabs to spaces
+  echo "$ASSERTS" > /tmp/temp_raw_asserts
+  expand -t 4 /tmp/temp_raw_asserts > /tmp/tempfile
+  ASSERTS=$(cat /tmp/tempfile)
+
 	if [ -n "$ASSERTS" ]
   then
 		while read ASSERT
@@ -65,11 +72,24 @@ do
         HAS_ASSERT_END=1
       fi
 
+      if [ -z $HAS_ASSERT_BEGIN ] && [ -z $HAS_ASSERT_END ]
+      then
+        continue
+      fi
+
 			if [ -z "$NO_DEFINE" ]
 			then
-        ASSERT_PRED="$(echo "$ASSERT" | \
-          sed -r 's#^[+-]##; s#^(	|\s)*(//|/\*|\\)?(	|\s)*$##; s/ //g')" # HAS HIDDEN TAB CHARS
-#        echo -e "\t$ASSERT_PRED"
+        FIRST_CHAR="${ASSERT_PRED:0:1}"
+        IS_ADD=$((`[[ $FIRST_CHAR == '+' ]] && echo 1 || echo 0`))
+
+        # Remove first +/-
+        ASSERT_PRED="$(echo "$ASSERT" | sed 's/^[+-]//g')"
+
+        # Remove lines of comments, empty lines,
+        # backslashes, spaces, and BOL-comment markers for asserts.
+        ASSERT_PRED="$(echo "$ASSERT_PRED" | \
+          sed -r 's#^\s*(//|/\*|\\)?\s*$##; s/\s*//g; s#//##')"
+
         FILENAME=`basename ${PATCH#$PWD} .patch`
         # Assert is on one line
         if [ $HAS_ASSERT_BEGIN == 1 ] && [ $HAS_ASSERT_END == 1 ]
@@ -77,7 +97,7 @@ do
           ASSERT_PRED="$(echo "$ASSERT_PRED" | sed -r 's#\s*(\*/|/\*.*\*/|//.*)?\s*$##;')"
           if ! grep -qe "$ASSERT_PRED" "$TMPFILE"
           then
-            echo -e "Adding assert from $FILENAME:\n\t $ASSERT_PRED"
+            echo -e "Adding assert from $FILENAME:\n\t |$ASSERT_PRED|"
             echo "$ASSERT_PRED" >> $TMPFILE
           fi
         # Beginning of some line
@@ -94,6 +114,7 @@ do
         elif [ $HAS_ASSERT_BEGIN == 0 ] && [ $HAS_ASSERT_END == 1 ] && [ "$ASSERT_PRED" != "" ]
         then
           echo -e "\tAdding rest of predicate from $FILENAME:\n\t\t $ASSERT_PRED"
+          echo "=== ASSERT_PRED IS |$ASSERT_PRED|"
           echo "$(cat $TMPFILE)$ASSERT_PRED" > $TMPFILE
         else
           echo -e "Empty line found: AP=|$ASSERT_PRED| (should be empty)"
