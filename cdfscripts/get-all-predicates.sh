@@ -30,6 +30,17 @@ then
 fi
 touch $TMPFILE
 
+read -p "Run multiline predicate getter? y/[n] > " -n 1 -r
+echo
+if [[ ! $REPLY =~ ^[Yy]$ ]]
+then
+  RUN_MULTILINE_PRED_GETTER=0
+else
+  RUN_MULTILINE_PRED_GETTER=1
+fi
+
+
+
 for PATCH in $SRC/*.patch
 do
   # Get all ASSERT exprs w/o prefixes, and those commented out too
@@ -69,7 +80,6 @@ do
 			then
         ASSERT_PRED="$(echo "$ASSERT" | \
           sed -r 's#^[+-]##; s#^(	|\s)*(//|/\*|\\)?(	|\s)*$##; s/ //g')" # HAS HIDDEN TAB CHARS
-#        echo -e "\t$ASSERT_PRED"
         FILENAME=`basename ${PATCH#$PWD} .patch`
         # Assert is on one line
         if [ $HAS_ASSERT_BEGIN == 1 ] && [ $HAS_ASSERT_END == 1 ]
@@ -96,7 +106,7 @@ do
           echo -e "\tAdding rest of predicate from $FILENAME:\n\t\t $ASSERT_PRED"
           echo "$(cat $TMPFILE)$ASSERT_PRED" > $TMPFILE
         else
-          echo -e "Empty line found: AP=|$ASSERT_PRED| (should be empty)"
+          echo -e "Empty line found: AP=|$ASSERT_PRED|"
         fi
 			fi
 
@@ -107,14 +117,13 @@ done
 
 
 # multiline predicate getter
-read -p "Run multiline predicate getter? y/[n] > " -n 1 -r
-echo
-if [[ ! $REPLY =~ ^[Yy]$ ]]
+if [[ $RUN_MULTILINE_PRED_GETTER == 1 ]]
 then
-  exit 1
+  echo "=== Starting multiline predicate getter ==="
+  yes | rm multiline-predicates.txt
+  ./get-multiline-predicates.sh
 fi
 
-./get-multiline-predicates.sh
 cat multiline-predicates.txt >> $TMPFILE
 
 # Remove duplicate lines from file

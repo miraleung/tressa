@@ -41,7 +41,7 @@ fi
 # Create the files
 if [ -f "$DSTFILE" ]
 then
-  read -p "Are you sure you want to get all the predicates from scratch? y/[n] > " -n 1 -r
+  read -p "Are you sure you want to get all the multiline predicates from scratch? y/[n] > " -n 1 -r
   echo
   if [[ ! $REPLY =~ ^[Yy]$ ]]
   then
@@ -66,9 +66,6 @@ do
   # Also get all lines that end with right parens, for mid-assert predicate changes.
   ASSERTS=`pcregrep -M '^(((.*[^#].*[^_]ASSERT\s*\((\n*.*?\n*)*?)?\);)|[+-].*\);)$' \
     ${PATCH} | pcregrep -v "@"`
-#  ASSERTS=`pcregrep -M '^.*[^#].*[^_]ASSERT\s*\((\n*.*?\n*)*?\);' ${PATCH}`
-#  ASSERTS=`pcregrep -M '^[+-](\s*(//|/\*)?\s*)?ASSERT\s*\((\n*.*?\n*)*?\);' ${PATCH}`
-
 
   ASSERTS="$(echo "$ASSERTS" | sed 's/\\/\n/g')" # Remove line continuations (backslash)
   # Turn all tabs to spaces
@@ -151,23 +148,18 @@ do
         elif [ $HAS_ASSERT_BEGIN == 1 ] && [ $HAS_ASSERT_END == 0 ] && [ "$ASSERT_PRED" != "" ]
         then
           ASSERT_BUILDER=$ASSERT_PRED
-#          echo -e "\tAdding start of assert from $FILENAME:\n\t\t $ASSERT_BUILDER"
-#          echo "$ASSERT_BUILDER" >> $TMPFILE
         # On some middle line
         elif [ $HAS_ASSERT_BEGIN == 0 ] && [ $HAS_ASSERT_END == 0 ] && [ "$ASSERT_BUILDER" != "" ]
         then
-#          echo -e "\tAdding continuation from $FILENAME:\n\t\t $ASSERT_PRED"
           if [[ $ASSERT_HEAD_SIGN == $STM_SIGN ]]
           then
             ASSERT_BUILDER+=$ASSERT_PRED
-#            echo "$(cat $TMPFILE)$ASSERT_BUILDER" > $TMPFILE
           else
             echo "$(cat $TMPFILE)$ASSERT_PRED" > $TMPFILE
           fi
         # On last line
         elif [ $HAS_ASSERT_BEGIN == 0 ] && [ $HAS_ASSERT_END == 1 ] && [ "$ASSERT_PRED" != "" ]
         then
-#          echo -e "\tAdding rest of predicate from $FILENAME:\n\t\t $ASSERT_PRED"
           if [[ $ASSERT_HEAD_SIGN == $STM_SIGN ]]
           then
             ASSERT_BUILDER+=$ASSERT_PRED
@@ -187,7 +179,6 @@ do
           fi
         else
           continue
-#          echo -e "Empty line found: AP=|$ASSERT_PRED| (should be empty)"
         fi
 			fi
 
@@ -200,8 +191,8 @@ done
 sed 's/;$//' $TMPFILE > $TMPFILE2
 sed 's/ASSERT/\nASSERT/g' $TMPFILE2 > $TMPFILE
 
+yes | rm $TMPFILE2
 # Remove duplicate lines from file
-
 for line in `awk '!a[$0]++' $TMPFILE`
 do
   echo $line >> $TMPFILE2
