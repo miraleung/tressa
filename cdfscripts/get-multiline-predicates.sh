@@ -64,8 +64,9 @@ do
   # Get all ASSERT exprs w/o prefixes, and those commented out too, and
   # eliminate those that are #define or non-pure ASSERT statements.
   # Also get all lines that end with right parens, for mid-assert predicate changes.
-  ASSERTS=`pcregrep -M '^(((.*[^#].*[^_]ASSERT\s*\((\n*.*?\n*)*?)?\);)|[+-].*\);)$' \
-    ${PATCH} | pcregrep -v "@"`
+  ASSERTS=`pcregrep --buffer-size 256K -M \
+    '^(((.*[^#].*[^_]ASSERT\s*\((\n*.*?\n*)*?)?\);)|[+-].*\);)$' \
+    ${PATCH} | pcregrep --buffer-size 256K -v "@"`
 
   ASSERTS="$(echo "$ASSERTS" | sed 's/\\/\n/g')" # Remove line continuations (backslash)
   # Turn all tabs to spaces
