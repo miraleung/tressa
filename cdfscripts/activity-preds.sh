@@ -2,9 +2,9 @@
 # Number of revisions per predicate
 
 SRC=`pwd`/asserts
-TMPFILE=`pwd`/ht-apreds.txt
-DSTFILE=`pwd`/ht-activity.txt
-COUNTFILE=`pwd`/ht-activity-count.txt
+TMPFILE=`pwd`/apreds.txt
+DSTFILE=`pwd`/activity.txt
+COUNTFILE=`pwd`/activity-count.txt
 PWD=`pwd`
 
 if [ ! -d "$SRC" ]
