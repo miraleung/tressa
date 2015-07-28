@@ -1,4 +1,4 @@
--- Get all assertion predicates
+-- Get all assertion predicates of the form ASSERT(...)
 
 import Control.Applicative
 import Data.Char
@@ -16,6 +16,7 @@ import qualified Data.ByteString.Char8 as B
 dirAsserts = "test-asserts/"
 filePrefix = "xen-diff-"
 fileSuffix = ".patch"
+tmpOutFile = "tmp-hs-predicates.txt"
 outFile = "hs-predicates.txt"
 
 patAssertHead = "^.*ASSERT\\(.*$"
@@ -149,13 +150,15 @@ filterForAssertsAndConts contents = filteredLst
 --processMultilineAsserts themap
 
 --processFileContents :: String -> IO()
-processFileContents contents =
-  mapM_ (\x -> putStrLn x) finalMap
-  where map0 = filterForAssertsAndConts contents
-        fullAssertsMap = filter (\x -> isFullAssert x) map0
-        multilineAssertsMap = procMlAsserts (map0 \\ fullAssertsMap)
-        map1 = fullAssertsMap ++ multilineAssertsMap
-        finalMap = map (\x -> sublist 0 (elemIndexEnd ')' (normalize x)) (normalize x)) map1
+processFileContents contents = do
+  putStrLn assertsStr
+  appendFile tmpOutFile assertsStr
+  where txt0 = filterForAssertsAndConts contents
+        fullAsserts = filter (\x -> isFullAssert x) txt0
+        multilineAsserts = procMlAsserts (txt0 \\ fullAsserts)
+        txt1 = fullAsserts ++ multilineAsserts
+        asserts = map (\x -> sublist 0 (elemIndexEnd ')' (normalize x)) (normalize x)) txt1
+        assertsStr = foldr (\x y -> x ++ y) "" $ map (\z -> z ++ "\n") asserts
 
 
 -- Main --
@@ -166,6 +169,8 @@ main = do
   fileList0 <- getAbsDirectoryContents dirAsserts
   let fileList = drop 2 fileList0
   mapM_ processFile fileList
+  copyFile tmpOutFile outFile
+  removeFile tmpOutFile
   where processFile theFile = do
           putStrLn ("Processing " ++ drop (elemIndexEnd '/' theFile) theFile)
           contents <- readFileAscii theFile
