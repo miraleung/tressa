@@ -15,7 +15,7 @@ filePrefix = "xen-diff-"
 fileSuffix = ".patch"
 outFile = "hs-predicates.txt"
 
-patAssertHead = "^[^A-Z]ASSERT\\(.*$"
+patAssertHead = "^.*ASSERT\\(.*$"
 
 
 -- Enum for diff type
@@ -39,12 +39,12 @@ parensDelta =
 
 isFullAssert :: String -> Bool
 -- Returns true if {@code str} is a completed assert statement.
-isFullAssert str = (0 == parensDelta str) && (regexMatch str patAssertHead)
+isFullAssert str = (0 == parensDelta str) && (regexMatch (normalize str) patAssertHead)
 
 isHeaderAssert :: String -> Bool
 -- Returns true if {@code str} is the start of an assert statement
 -- and is incomplete.
-isHeaderAssert str = (0 < parensDelta str) && (regexMatch str patAssertHead)
+isHeaderAssert str = (0 < parensDelta str) && (regexMatch (normalize str) patAssertHead)
 
 -- -- List/tuple utilities -- --
 pairFirst :: (a, b) -> a
