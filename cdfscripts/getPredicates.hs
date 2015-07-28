@@ -17,7 +17,7 @@ import Text.Regex.TDFA
 import qualified Data.ByteString.Char8 as B
 
 
-dirAsserts = "test-asserts/"
+dirAsserts = "bkup-asserts/"
 filePrefix = "xen-diff-"
 fileSuffix = ".patch"
 tmpOutFile = "tmp-hs-predicates.txt"
@@ -110,7 +110,11 @@ remDupsAndSort :: (Ord a) => [a] -> [a]
 remDupsAndSort = map head . group . sort
 
 elemIndexEnd :: Char -> String -> Int
-elemIndexEnd chr str = (length str) - (fromJust $ elemIndex chr $ reverse str)
+elemIndexEnd chr str =
+  if Nothing == revIdx
+    then length str
+    else (length str) - (fromJust revIdx)
+    where revIdx = elemIndex chr $ reverse str
 
 sublist :: Int -> Int -> [a] -> [a]
 sublist start end lst = drop start $ take end lst
@@ -185,14 +189,17 @@ main :: IO()
 main = do
   fileList0 <- getAbsDirectoryContents dirAsserts
   let fileList = drop 2 fileList0
-  mapM_ processFile fileList
+  mapM_ (\x -> processFile x fileList) fileList
   unsortedAsserts <- readFile tmpOutFile
   let sortedAsserts = remDupsAndSort unsortedAsserts
   removeFileIfExists outFile
   writeFile outFile sortedAsserts
   removeFile tmpOutFile
-  where processFile theFile = do
-          putStrLn ("Processing " ++ drop (elemIndexEnd '/' theFile) theFile)
+  where processFile theFile lstOfFiles = do
+          let numFilesStr = show $ (length lstOfFiles) + 1
+          let theFilename = drop (elemIndexEnd '/' theFile) theFile
+          let fileIdxStr = show $ fromJust $ elemIndex theFile lstOfFiles
+          putStrLn ("Processing " ++ theFilename ++ "(" ++ fileIdxStr ++ "/" ++ numFilesStr ++ ")")
           contents <- readFileAscii theFile
           let fileLines = lines contents
           processFileContents fileLines
