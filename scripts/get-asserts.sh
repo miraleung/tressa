@@ -17,7 +17,7 @@ COUNT=0
 
 for patch in *
 do
-	asserts=`grep '^[+-].*ASSERT(' ${patch}`
+	asserts=`grep '^.*ASSERT\s*(' ${patch}`
 	if [ -n "${asserts}" ]
 	then
 		count=0
