@@ -1,6 +1,9 @@
 -- Get all assertion predicates of the form ASSERT(...)
 
+import Prelude hiding (catch)
+
 import Control.Applicative
+import Control.Exception
 import Data.Char
 import Data.List
 import Data.Maybe
@@ -8,6 +11,7 @@ import Data.String
 import System.Directory
 import System.Environment
 import System.FilePath
+import System.IO.Error hiding (catch)
 import Text.Regex.TDFA
 
 import qualified Data.ByteString.Char8 as B
@@ -42,6 +46,12 @@ readFileAscii path = B.unpack <$> B.map (clearChar '-') <$> B.readFile path
           | c == '\r' || c == '\n' = c
           | c >= '\32' && c < '\128' = c
           | otherwise = d
+
+removeFileIfExists :: FilePath -> IO ()
+removeFileIfExists fileName = removeFile fileName `catch` handleExists
+  where handleExists e
+          | isDoesNotExistError e = return ()
+          | otherwise = throwIO e
 
 parensDelta :: String -> Int
 -- Returns (#left parens - # right parens)
@@ -95,11 +105,17 @@ normalize str =  stripSpace $ stripDiffChar $ delete '\\' str
 stripDiffChar :: String -> String
 stripDiffChar str | isAdd str || isDel str = tail str | otherwise = str
 
+-- -- List utilities -- --
+remDupsAndSort :: (Ord a) => [a] -> [a]
+remDupsAndSort = map head . group . sort
+
 elemIndexEnd :: Char -> String -> Int
 elemIndexEnd chr str = (length str) - (fromJust $ elemIndex chr $ reverse str)
 
 sublist :: Int -> Int -> [a] -> [a]
 sublist start end lst = drop start $ take end lst
+
+
 
 -- Processors --
 ------------------------------------------
@@ -151,14 +167,15 @@ filterForAssertsAndConts contents = filteredLst
 
 --processFileContents :: String -> IO()
 processFileContents contents = do
+  putStrLn $ (show (length assertsLst)) ++ " asserts found"
   putStrLn assertsStr
   appendFile tmpOutFile assertsStr
-  where txt0 = filterForAssertsAndConts contents
-        fullAsserts = filter (\x -> isFullAssert x) txt0
-        multilineAsserts = procMlAsserts (txt0 \\ fullAsserts)
-        txt1 = fullAsserts ++ multilineAsserts
-        asserts = map (\x -> sublist 0 (elemIndexEnd ')' (normalize x)) (normalize x)) txt1
-        assertsStr = foldr (\x y -> x ++ y) "" $ map (\z -> z ++ "\n") asserts
+  where txtLst0 = filterForAssertsAndConts contents
+        fullAssertsLst = filter (\x -> isFullAssert x) txtLst0
+        multilineAssertsLst = procMlAsserts (txtLst0 \\ fullAssertsLst)
+        txtLst1 = fullAssertsLst ++ multilineAssertsLst
+        assertsLst = map (\x -> sublist 0 (elemIndexEnd ')' (normalize x)) (normalize x)) txtLst1
+        assertsStr = foldr (\x y -> x ++ y) "" $ map (\z -> z ++ "\n") assertsLst
 
 
 -- Main --
@@ -169,7 +186,10 @@ main = do
   fileList0 <- getAbsDirectoryContents dirAsserts
   let fileList = drop 2 fileList0
   mapM_ processFile fileList
-  copyFile tmpOutFile outFile
+  unsortedAsserts <- readFile tmpOutFile
+  let sortedAsserts = remDupsAndSort unsortedAsserts
+  removeFileIfExists outFile
+  writeFile outFile sortedAsserts
   removeFile tmpOutFile
   where processFile theFile = do
           putStrLn ("Processing " ++ drop (elemIndexEnd '/' theFile) theFile)
