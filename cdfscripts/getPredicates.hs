@@ -1,16 +1,19 @@
 -- Get all assertion predicates
 
+import Control.Applicative
+import Data.Char
 import Data.List
 import Data.Maybe
 import Data.String
 import System.Directory
 import System.Environment
 import System.FilePath
-
 import Text.Regex.TDFA
 
+import qualified Data.ByteString.Char8 as B
 
-dirAsserts = "asserts/"
+
+dirAsserts = "test-asserts/"
 filePrefix = "xen-diff-"
 fileSuffix = ".patch"
 outFile = "hs-predicates.txt"
@@ -30,6 +33,14 @@ regexMatch input pat = input =~ pat :: Bool
 getAbsDirectoryContents :: FilePath -> IO [FilePath]
 getAbsDirectoryContents dir =
   getDirectoryContents dir >>= mapM (canonicalizePath . (dir </>))
+
+readFileAscii :: String -> IO String
+readFileAscii path = B.unpack <$> B.map (clearChar '-') <$> B.readFile path
+  where clearChar :: Char -> Char -> Char
+        clearChar d c
+          | c == '\r' || c == '\n' = c
+          | c >= '\32' && c < '\128' = c
+          | otherwise = d
 
 parensDelta :: String -> Int
 -- Returns (#left parens - # right parens)
@@ -121,7 +132,7 @@ filterOutBadStms stmlst = stmlst \\ badLst
         bracketPat = "^\\{|\\}"
         stmPat = "^if\\(|else|for\\(|printk\\(|while|return|switch|do{|break|continue "
         declPat = "^(char|int|unsigned|long|struct|extern|static|void|u32)"
-        otherPat = "^\""
+        otherPat = "^\"|[A-Z]_ASSERT|ASSERT_[A-Z]"
         badPatLst = [cmtPatAdd, cmtPatDel, diffHeaderPat, diffHeaderPat2,
           lineCmtPat, bracketPat, stmPat, declPat, emptyLinePat, otherPat]
         badLst = filter (\x ->
@@ -156,7 +167,8 @@ main = do
   let fileList = drop 2 fileList0
   mapM_ processFile fileList
   where processFile theFile = do
-          contents <- readFile theFile
+          putStrLn ("Processing " ++ drop (elemIndexEnd '/' theFile) theFile)
+          contents <- readFileAscii theFile
           let fileLines = lines contents
           processFileContents fileLines
 
