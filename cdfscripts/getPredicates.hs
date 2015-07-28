@@ -15,7 +15,7 @@ filePrefix = "xen-diff-"
 fileSuffix = ".patch"
 outFile = "hs-predicates.txt"
 
-patAssertHead = "^.*ASSERT\\(.*$"
+patAssertHead = "^[^A-Z]ASSERT\\(.*$"
 
 
 -- Enum for diff type
@@ -61,35 +61,90 @@ mapValueGet ::(Eq b) =>  b -> [(a, b)] -> a
 mapValueGet val theMap = pairFirst $ head (filter (\x -> val == pairSecond x) theMap)
 
 -- -- String utilities -- --
+
 strip :: Char -> String -> String
-strip chr str = filter (\x -> x /= chr) str
+strip chr = filter (/= chr)
 
 stripSpace :: String -> String
 stripSpace = strip ' '
 
+-- Returns true if the line is a +/-/same in the diff
+isAdd :: String -> Bool
+isDel :: String -> Bool
+isSame :: String -> Bool
+isAdd str = (str !! 0) == '+'
+isDel str = (str !! 0) == '-'
+isSame str = (str !! 0) /= '+' && (str !! 0) /= '-'
+
+normalize :: String -> String
+-- Strip whitespaces and starting +/-, if any
+normalize str =  stripSpace $ stripDiffChar $ delete '\\' str
+
+stripDiffChar :: String -> String
+stripDiffChar str | isAdd str || isDel str = tail str | otherwise = str
+
+elemIndexEnd :: Char -> String -> Int
+elemIndexEnd chr str = (length str) - (fromJust $ elemIndex chr $ reverse str)
+
+sublist :: Int -> Int -> [a] -> [a]
+sublist start end lst = drop start $ take end lst
 
 -- Processors --
 ------------------------------------------
 
-filterForAssertsAndConts :: [String] -> [(Int, String)]
-filterForAssertsAndConts contents =
-  zip (map (\x -> fromJust (elemIndex x contents)) assertLst) assertLst
-  where pat = "^[^@@.*@@][^diff.*r][^#.*define.*]"
-        cmtPatAdd = "^\\+?(//|\\*)"
+procMlAsserts :: [String] -> [String]
+procMlAsserts asserts = procMlAsserts' asserts [] ""
+
+procMlAsserts' :: [String] -> [String] -> String -> [String]
+-- Args: array of strings to process, accumulator, interim (temp) assert stub
+procMlAsserts' [] acc _ = acc
+procMlAsserts' (x:xs) [] stubvar =
+  if isHeaderAssert x || isFullAssert x
+    then procMlAsserts' xs [x] stubvar
+    else procMlAsserts' xs [] stubvar
+procMlAsserts' (x:xs) (a:acc) stubvar
+  | isHeaderAssert x || isFullAssert x = procMlAsserts' xs (x:a:acc) stubvar
+  | not (null stubvar) && isAdd x = procMlAsserts' xs ((stubvar ++ (normalize x)) : (a: acc)) ""
+  | isHeaderAssert a && isSame a && isDel x && null stubvar =
+    procMlAsserts' xs ((a ++ (normalize x)) : acc) a
+  | otherwise = procMlAsserts' xs (a : acc) stubvar
+
+
+filterOutBadStms :: [String] -> [String]
+filterOutBadStms stmlst = stmlst \\ badLst
+  where cmtPatAdd = "^\\+?(//|\\*)"
         cmtPatDel = "^\\-(//|\\*)"
-        noSpaceStr = stripSpace
-        isNotComment str = not (regexMatch str cmtPatAdd)
-          && not (regexMatch str cmtPatDel)
-        lambdafn = (\x -> (regexMatch x pat)
-          && (isHeaderAssert x || isFullAssert x || 0 > parensDelta x)
-          && isNotComment (noSpaceStr x))
-        assertLst = filter lambdafn contents
+        diffHeaderPat = "^\\-\\-(a|/dev/null)|\\+\\+b"
+        diffHeaderPat2 = "^(@@.*@@|diff.*r|^#)"
+        emptyLinePat = "^$"
+        lineCmtPat = "^/\\*"
+        bracketPat = "^\\{|\\}"
+        stmPat = "^if\\(|else|for\\(|printk\\(|while|return|switch|do{|break|continue "
+        declPat = "^(char|int|unsigned|long|struct|extern|static|void|u32)"
+        otherPat = "^\""
+        badPatLst = [cmtPatAdd, cmtPatDel, diffHeaderPat, diffHeaderPat2,
+          lineCmtPat, bracketPat, stmPat, declPat, emptyLinePat, otherPat]
+        badLst = filter (\x ->
+          foldl (\y z -> y || regexMatch (normalize x) z) False badPatLst) stmlst
+
+
+filterForAssertsAndConts :: [String] -> [String]
+filterForAssertsAndConts contents = filteredLst
+  where lst0 = filterOutBadStms contents
+        filteredLst = map (\x -> strip '\\' x) lst0
+
+--processMultilineAsserts :: [(Int, String)] -> [(Int, String)]
+-- Map of incomplete assert headers and
+--processMultilineAsserts themap
 
 --processFileContents :: String -> IO()
 processFileContents contents =
-  mapM_ (\x -> putStrLn ((show $ pairFirst x) ++ "\t" ++ (pairSecond  x))) finalMap
+  mapM_ (\x -> putStrLn x) finalMap
   where map0 = filterForAssertsAndConts contents
-        finalMap = filter (\x -> isFullAssert (pairSecond x)) map0
+        fullAssertsMap = filter (\x -> isFullAssert x) map0
+        multilineAssertsMap = procMlAsserts (map0 \\ fullAssertsMap)
+        map1 = fullAssertsMap ++ multilineAssertsMap
+        finalMap = map (\x -> sublist 0 (elemIndexEnd ')' (normalize x)) (normalize x)) map1
 
 
 -- Main --
