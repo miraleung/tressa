@@ -166,7 +166,7 @@ filterForAssertsAndConts contents = filteredLst
         filteredLst = map (\x -> strip '\\' x) lst0
 
 
---processFileContents :: String -> IO()
+processFileContents :: [String] -> IO()
 processFileContents contents = do
   putStrLn $ (show (length assertsLst)) ++ " asserts found"
   putStrLn assertsStr
@@ -175,9 +175,18 @@ processFileContents contents = do
         fullAssertsLst = filter (\x -> isFullAssert x) txtLst0
         multilineAssertsLst = procMlAsserts (txtLst0 \\ fullAssertsLst)
         txtLst1 = fullAssertsLst ++ multilineAssertsLst
-        assertsLst = map (\x -> sublist 0 (elemIndexEnd ')' (normalize x)) (normalize x)) txtLst1
+        assertsLst = map processAssert txtLst1
         assertsStr = foldr (\x y -> x ++ y) "" $ map (\z -> z ++ "\n") assertsLst
 
+
+processAssert :: String -> String
+processAssert str0 =
+  sublist 0 (elemIndexEnd ')' str) $ drop aIdx str
+  where str = normalize str0
+        maybeIdx = elemIndex 'A' str
+        aIdx = if Nothing == maybeIdx
+                 then 0
+                 else fromJust maybeIdx
 
 -- Main --
 ------------------------------------------
