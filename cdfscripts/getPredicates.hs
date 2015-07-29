@@ -17,7 +17,7 @@ import Text.Regex.TDFA
 import qualified Data.ByteString.Char8 as B
 
 
-dirAsserts = "asserts/"
+dirAsserts = "test-asserts/"
 filePrefix = "xen-diff-"
 fileSuffix = ".patch"
 tmpOutFile = "tmp-hs-predicates.txt"
@@ -40,7 +40,7 @@ getAbsDirectoryContents dir =
   getDirectoryContents dir >>= mapM (canonicalizePath . (dir </>))
 
 readFileAscii :: String -> IO String
-readFileAscii path = B.unpack <$> B.map (clearChar '-') <$> B.readFile path
+readFileAscii path = B.unpack <$> B.map (clearChar ' ') <$> B.readFile path
   where clearChar :: Char -> Char -> Char
         clearChar d c
           | c == '\r' || c == '\n' = c
@@ -139,6 +139,7 @@ procMlAsserts' (x:xs) (a:acc) stubvar
   | not (null stubvar) && isAdd x = procMlAsserts' xs ((stubvar ++ (normalize x)) : (a: acc)) ""
   | isHeaderAssert a && isSame a && isDel x && null stubvar =
     procMlAsserts' xs ((a ++ (normalize x)) : acc) a
+  | isHeaderAssert a = procMlAsserts' xs ((a ++ (normalize x)) : acc) stubvar
   | otherwise = procMlAsserts' xs (a : acc) stubvar
 
 
@@ -202,12 +203,14 @@ main = do
   removeFileIfExists outFile
   writeFile outFile sortedAsserts
   removeFile tmpOutFile
-  where processFile theFile fileIdx numFilesStr = do
-          let theFilename = drop (elemIndexEnd '/' theFile) theFile
-          putStrLn ("Processing " ++ theFilename ++ "("
-            ++ (show (fileIdx + 1)) ++ "/" ++ numFilesStr ++ ")")
-          contents <- readFileAscii theFile
-          let fileLines = lines contents
-          processFileContents fileLines
+
+processFile :: String -> Int -> String -> IO()
+processFile theFile fileIdx numFilesStr = do
+  let theFilename = drop (elemIndexEnd '/' theFile) theFile
+  putStrLn ("Processing " ++ theFilename ++ " ("
+    ++ (show (fileIdx + 1)) ++ "/" ++ numFilesStr ++ ")")
+  contents <- readFileAscii theFile
+  let fileLines = lines contents
+  processFileContents fileLines
 
 
