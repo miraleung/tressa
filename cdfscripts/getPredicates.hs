@@ -17,7 +17,7 @@ import Text.Regex.TDFA
 import qualified Data.ByteString.Char8 as B
 
 
-dirAsserts = "bkup-asserts/"
+dirAsserts = "asserts/"
 filePrefix = "xen-diff-"
 fileSuffix = ".patch"
 tmpOutFile = "tmp-hs-predicates.txt"
@@ -165,9 +165,6 @@ filterForAssertsAndConts contents = filteredLst
   where lst0 = filterOutBadStms contents
         filteredLst = map (\x -> strip '\\' x) lst0
 
---processMultilineAsserts :: [(Int, String)] -> [(Int, String)]
--- Map of incomplete assert headers and
---processMultilineAsserts themap
 
 --processFileContents :: String -> IO()
 processFileContents contents = do
@@ -189,17 +186,17 @@ main :: IO()
 main = do
   fileList0 <- getAbsDirectoryContents dirAsserts
   let fileList = drop 2 fileList0
-  mapM_ (\x -> processFile x fileList) fileList
+  let numFilesStr = show $ length fileList
+  mapM_ (\x -> processFile x (fromJust $ elemIndex x fileList) numFilesStr) fileList
   unsortedAsserts <- readFile tmpOutFile
   let sortedAsserts = remDupsAndSort unsortedAsserts
   removeFileIfExists outFile
   writeFile outFile sortedAsserts
   removeFile tmpOutFile
-  where processFile theFile lstOfFiles = do
-          let numFilesStr = show $ (length lstOfFiles) + 1
+  where processFile theFile fileIdx numFilesStr = do
           let theFilename = drop (elemIndexEnd '/' theFile) theFile
-          let fileIdxStr = show $ fromJust $ elemIndex theFile lstOfFiles
-          putStrLn ("Processing " ++ theFilename ++ "(" ++ fileIdxStr ++ "/" ++ numFilesStr ++ ")")
+          putStrLn ("Processing " ++ theFilename ++ "("
+            ++ (show (fileIdx + 1)) ++ "/" ++ numFilesStr ++ ")")
           contents <- readFileAscii theFile
           let fileLines = lines contents
           processFileContents fileLines
