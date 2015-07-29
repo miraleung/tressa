@@ -16,13 +16,6 @@ import Text.Regex.TDFA
 
 import qualified Data.ByteString.Char8 as B
 
-
-dirAsserts = "test-asserts/"
-filePrefix = "xen-diff-"
-fileSuffix = ".patch"
-tmpOutFile = "tmp-hs-predicates.txt"
-outFile = "hs-predicates.txt"
-
 patAssertHead = "^.*ASSERT\\(.*$"
 
 
@@ -167,11 +160,11 @@ filterForAssertsAndConts contents = filteredLst
         filteredLst = map (\x -> strip '\\' x) lst0
 
 
-processFileContents :: [String] -> IO()
-processFileContents contents = do
+processFileContents :: [String] -> String -> IO()
+processFileContents contents outFile = do
   putStrLn $ (show (length assertsLst)) ++ " asserts found"
   putStrLn assertsStr
-  appendFile tmpOutFile assertsStr
+  appendFile outFile assertsStr
   where txtLst0 = filterForAssertsAndConts contents
         fullAssertsLst = filter (\x -> isFullAssert x) txtLst0
         multilineAssertsLst = procMlAsserts (txtLst0 \\ fullAssertsLst)
@@ -194,23 +187,12 @@ processAssert str0 =
 
 main :: IO()
 main = do
-  fileList0 <- getAbsDirectoryContents dirAsserts
-  let fileList = drop 2 fileList0
-  let numFilesStr = show $ length fileList
-  mapM_ (\x -> processFile x (fromJust $ elemIndex x fileList) numFilesStr) fileList
-  unsortedAsserts <- readFile tmpOutFile
-  let sortedAsserts = remDupsAndSort unsortedAsserts
-  removeFileIfExists outFile
-  writeFile outFile sortedAsserts
-  removeFile tmpOutFile
+  (filename:outFile:_) <- getArgs
+  processFile filename outFile
 
-processFile :: String -> Int -> String -> IO()
-processFile theFile fileIdx numFilesStr = do
-  let theFilename = drop (elemIndexEnd '/' theFile) theFile
-  putStrLn ("Processing " ++ theFilename ++ " ("
-    ++ (show (fileIdx + 1)) ++ "/" ++ numFilesStr ++ ")")
+processFile :: String -> String -> IO()
+processFile theFile outFile = do
   contents <- readFileAscii theFile
-  let fileLines = lines contents
-  processFileContents fileLines
+  processFileContents (lines contents) outFile
 
 
