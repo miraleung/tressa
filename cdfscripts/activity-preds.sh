@@ -2,9 +2,9 @@
 # Number of revisions per predicate
 
 SRC=`pwd`/asserts
-TMPFILE=`pwd`/apreds.txt
-DSTFILE=`pwd`/activity.txt
-COUNTFILE=`pwd`/activity-count.txt
+TMPFILE=`pwd`/tmp-bash-activity.txt
+DSTFILE=`pwd`/bash-activity.txt
+COUNTFILE=`pwd`/bash-activity-count.txt
 PWD=`pwd`
 
 if [ ! -d "$SRC" ]
@@ -22,12 +22,8 @@ then
   then
     exit 1
   fi
-  yes | rm $DSTFILE
 fi
-if [ -f "$COUNTFILE" ]
-then
-  yes | rm $COUNTFILE
-fi
+
 if [ -f "$TMPFILE" ]
 then
   yes | rm $TMPFILE
@@ -143,6 +139,12 @@ do
   fi # Patch has asserts
 done # FILE
 
+# Remove previous versions of the file
+if [ -f "$COUNTFILE" ]
+then
+  yes | rm $COUNTFILE
+fi
+
 
 echo -e "==== Revision count per assert ===="
 for ENTRY in "${!ASSERTMAP[@]}"
@@ -152,6 +154,12 @@ do
   echo -e "$REVISION_COUNT :: $ENTRY" >> $TMPFILE
   echo -e "$REVISION_COUNT" >> $COUNTFILE
 done # LINE
+
+# Remove previous versions of the file
+if [ -f "$DSTFILE" ]
+then
+  yes | rm $DSTFILE
+fi
 
 mv $TMPFILE $DSTFILE
 
