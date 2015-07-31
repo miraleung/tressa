@@ -13,3 +13,9 @@
 This measures the number of revisions affecting an assert, hence, its "activity" in the commit history.
 1. `./activity-preds.sh`
 2. `python cdf.py activity-count.txt`
+
+[//]: <> (TODO: Haskell instructions)
+
+[//]: <> (## Haskell Dependencies)
+[//]: <> (split, regex-tdfa; install with cabal)
+
