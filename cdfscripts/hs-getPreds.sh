@@ -24,7 +24,7 @@ then
   then
     exit 1
   fi
-  yes | rm $DSTFILE
+  # Don't remove original predicates file until the very end.
 fi
 if [ -f "$TMPFILE" ]
 then
@@ -59,6 +59,7 @@ for line in `awk '!a[$0]++' $TMPFILE`
 do
   echo $line >> $TMPFILE2
 done
+yes | rm $DSTFILE
 awk '{$1=$1}1' $TMPFILE2 > $DSTFILE
 yes | rm $TMPFILE
 yes | rm $TMPFILE2

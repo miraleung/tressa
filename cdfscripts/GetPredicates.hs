@@ -1,7 +1,7 @@
 -- Get all assertion predicates of the form ASSERT(...)
 -- of a patch file, and write them to a file.
 
-import ProcessAsserts
+import ProcessAsserts as P
 
 import System.Environment
 -- Main --
