@@ -1,13 +1,13 @@
 #!/bin/bash
 
-SRC=`pwd`/asserts
-TMPFILE=`pwd`/hs-predicates_wip.txt
-TMPFILE2=`pwd`/hs-predicates_wip2.txt
-DSTFILE=`pwd`/hs-predicates.txt
 PWD=`pwd`
+SRC=$PWD/testasserts
+TMPFILE=$PWD/hs-predicates_wip.txt
+TMPFILE2=$PWD/hs-predicates_wip2.txt
+DSTFILE=$PWD/hs-predicates.txt
 
-HS_EXEC=getPreds
-HS_SRC=getPredicates.hs
+HS_EXEC=GetPreds
+HS_SRC=GetPredicates.hs
 
 if [ ! -d "$SRC" ]
 then
@@ -34,6 +34,7 @@ touch $TMPFILE
 
 if [ -f $HS_SRC ]
 then
+  echo "Compiling $HS_SRC to $HS_EXEC ..."
   ghc -O2 -o "$HS_EXEC" $HS_SRC
 fi
 
@@ -46,7 +47,7 @@ fi
 TOTAL_NUM_FILES=`ls $SRC/*.patch | wc -l`
 FILECOUNT=0
 
-for f in asserts/*.patch
+for f in $SRC/*.patch
 do
   FILENAME=`basename ${f#$PWD} .patch`
   FILECOUNT=$((FILECOUNT+1))
