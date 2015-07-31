@@ -2,9 +2,9 @@
 # Get all distinct predicates, and print them to $TMPFILE
 
 SRC=`pwd`/asserts
-TMPFILE=`pwd`/predicates_wip.txt
-TMPFILE2=`pwd`/predicates_wip2.txt
-DSTFILE=`pwd`/predicates.txt
+TMPFILE=`pwd`/bash-predicates_wip.txt
+TMPFILE2=`pwd`/bash-predicates_wip2.txt
+DSTFILE=`pwd`/bash-predicates.txt
 PWD=`pwd`
 
 TAB=$'\t'

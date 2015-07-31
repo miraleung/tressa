@@ -74,9 +74,9 @@ do
   then
     for ASSERT in "${FILE_ASSERTS_RA[@]}"
     do
-      if [ -n "$ASSERT" ] && [ ${ASSERTMAP["$ASSERT"]+_} ];
+      if [ -n "$ASSERT" ] &&  test ${ASSERTMAP["$ASSERT"]+isset}
       then
-        NEWCOUNT=$((ASSERTMAP["$ASSERT"] + 1))
+        NEWCOUNT=$((${ASSERTMAP["$ASSERT"]} + 1))
         echo -e "\t$NEWCOUNT :: $ASSERT"
         ASSERTMAP["$ASSERT"]=$NEWCOUNT
       else
