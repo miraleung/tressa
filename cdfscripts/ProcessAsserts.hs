@@ -166,9 +166,9 @@ filterForAssertsAndConts contents = filteredLst
         filteredLst = map (\x -> strip '\\' x) lst0
 
 
-processFileContents :: [String] -> String -> String
+processFileContents :: [String] -> String
 -- Get every predicate (incl. repetitions) in the string (file contents)
-processFileContents contents outFile = do
+processFileContents contents = do
   assertsStr
   where txtLst0 = filterForAssertsAndConts contents
         fullAssertsLst = filter (\x -> isFullAssert x) txtLst0
