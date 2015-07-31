@@ -122,7 +122,7 @@ listToString :: [String] -> String
 -- Concatenate a list of strings to a newline-separated string
 listToString lst = foldr (\x y -> x ++ y) "" $ map (\z -> z ++ "\n") lst
 
--- Processors --
+-- Assert processors --
 ------------------------------------------
 
 procMlAsserts :: [String] -> [String]
@@ -167,7 +167,6 @@ filterForAssertsAndConts contents = filteredLst
   where lst0 = filterOutBadStms contents
         filteredLst = map (\x -> strip '\\' x) lst0
 
-
 processFileContents :: [String] -> [String]
 -- Get every predicate (incl. repetitions) in the string (file contents)
 processFileContents contents = do
@@ -179,7 +178,12 @@ processFileContents contents = do
         assertsLst = map processAssert txtLst1
 
 
+
 processAssert :: String -> String
+-- Drop everything after the last closing parenthesis and
+-- everything before the start of the ASSERT statement
+-- Assumes {@code str0} is a superstring of a complete,
+-- matched-number-of-parentheses ASSERT statement.
 processAssert str0 =
   sublist 0 (elemIndexEnd ')' str) $ drop aIdx str
   where str = normalize str0
@@ -187,5 +191,9 @@ processAssert str0 =
         aIdx = if Nothing == maybeIdx
                  then 0
                  else fromJust maybeIdx
+
+numberOfEditsPerPredicate :: [String] -> [(String, Int)]
+numberOfEditsPerPredicate assertsLst =
+  zip assertsLst (map length $ group $ sort assertsLst)
 
 
