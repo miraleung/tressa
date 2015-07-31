@@ -118,7 +118,9 @@ elemIndexEnd chr str =
 sublist :: Int -> Int -> [a] -> [a]
 sublist start end lst = drop start $ take end lst
 
-
+listToString :: [String] -> String
+-- Concatenate a list of strings to a newline-separated string
+listToString lst = foldr (\x y -> x ++ y) "" $ map (\z -> z ++ "\n") lst
 
 -- Processors --
 ------------------------------------------
@@ -166,16 +168,15 @@ filterForAssertsAndConts contents = filteredLst
         filteredLst = map (\x -> strip '\\' x) lst0
 
 
-processFileContents :: [String] -> String
+processFileContents :: [String] -> [String]
 -- Get every predicate (incl. repetitions) in the string (file contents)
 processFileContents contents = do
-  assertsStr
+  map processAssert txtLst1
   where txtLst0 = filterForAssertsAndConts contents
         fullAssertsLst = filter (\x -> isFullAssert x) txtLst0
         multilineAssertsLst = procMlAsserts (txtLst0 \\ fullAssertsLst)
         txtLst1 = fullAssertsLst ++ multilineAssertsLst
         assertsLst = map processAssert txtLst1
-        assertsStr = foldr (\x y -> x ++ y) "" $ map (\z -> z ++ "\n") assertsLst
 
 
 processAssert :: String -> String

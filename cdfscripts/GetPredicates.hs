@@ -15,8 +15,9 @@ main = do
 processFile :: String -> String -> IO()
 processFile theFile outFile = do
   contents <- readFileAscii theFile
-  let assertsStr = processFileContents $ lines contents
-  putStrLn $ (show (count "ASSERT" assertsStr)) ++ " asserts found"
+  let assertsLst = processFileContents $ lines contents
+  let assertsStr = listToString assertsLst
+  putStrLn $ (show (length assertsLst)) ++ " asserts found"
   putStrLn assertsStr
   appendFile outFile assertsStr
 
