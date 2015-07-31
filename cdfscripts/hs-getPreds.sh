@@ -1,9 +1,9 @@
 #!/bin/bash
 
 PWD=`pwd`
-SRC=$PWD/testasserts
-TMPFILE=$PWD/hs-predicates_wip.txt
-TMPFILE2=$PWD/hs-predicates_wip2.txt
+SRC=$PWD/asserts
+TMPFILE=$PWD/tmp-hs-predicates.txt
+TMPFILE2=$PWD/tmp2-hs-predicates.txt
 DSTFILE=$PWD/hs-predicates.txt
 
 HS_EXEC=GetPreds
