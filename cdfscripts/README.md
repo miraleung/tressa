@@ -1,5 +1,9 @@
-## Usage
-### Bash version
+## Script usage
+### Bash
+#### Requirements
+- **Version** Bash v 4.3.11(1)
+
+#### Usage
 1. `DEST=/path/to/same/level/as/xen-unstable.hg`
 2. `for f in cdfscripts/*.sh; do cp $f $DEST/; done`
 3. `for f in scripts/*.sh; do cp $f $DEST/; done`
@@ -11,8 +15,9 @@
 9. The rest can be run in any order.
 
 ### Haskell
-#### Dependencies
-1. `cabal install regex-tdfa split`
+#### Requirements
+- **Version** 7.6.3
+- **Dependencies** `cabal install regex-tdfa split`
 
 #### Usage
 1. `DEST=/path/to/same/level/as/xen-unstable.hg`
