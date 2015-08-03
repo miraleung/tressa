@@ -40,9 +40,21 @@ touch $TMPFILE
 
 if [ -f $HS_SRC ]
 then
-  echo "Compiling $HS_SRC to $HS_EXEC ..."
-  ghc -O2 -o "$HS_EXEC" $HS_SRC
+  if [ -f $HS_EXEC ]
+  then
+    read -p "Recompile $HS_EXEC from source? y/[n] > " -n 1 -r
+    echo
+    if [[ $REPLY =~ ^[Yy]$ ]]
+    then
+      echo "Compiling $HS_SRC to $HS_EXEC ..."
+      ghc -O2 -o "$HS_EXEC" $HS_SRC
+    fi
+  else
+    echo "Compiling $HS_SRC to $HS_EXEC ..."
+    ghc -O2 -o "$HS_EXEC" $HS_SRC
+  fi
 fi
+
 
 if [ ! -f $HS_EXEC ]
 then
