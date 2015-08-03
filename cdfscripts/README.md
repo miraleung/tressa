@@ -7,6 +7,8 @@
 1. `DEST=/path/to/same/level/as/xen-unstable.hg`
 2. `for f in cdfscripts/*.sh; do cp $f $DEST/; done`
 3. `for f in scripts/*.sh; do cp $f $DEST/; done`
+  1. Optional: Copy over Haskell binaries
+    1. `for f in cdfscripts/GetPreds cdfscripts/GetActivity; do cp $f $DEST; done`
 4. `cp cdf.py $DEST/`
 5. `cd $DEST`
 6. `./get-diffs.sh`
