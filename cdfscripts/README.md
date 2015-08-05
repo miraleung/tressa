@@ -1,7 +1,8 @@
 ## Script usage
 ### Bash
 #### Requirements
-- **Version** Bash v 4.3.11(1)
+- Bash version 4.3.11(1)
+- `sudo apt-get install pcregrep`
 
 #### Usage
 1. `DEST=/path/to/same/level/as/xen-unstable.hg`
