@@ -1,5 +1,5 @@
 # Tressa
-An LLVM plugin to insert function calls in C/C++ source code.
+An [LLVM](http://llvm.org/docs/GettingStarted.html) plugin to insert function calls in C/C++ source code.
 
 ## Directories
 - `llvm-tressa` -- The LLVM plugin.
