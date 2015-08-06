@@ -1,6 +1,7 @@
 #!/bin/bash
 # Make Tressa for LLVM
-cd ~/llvm/build/lib/Transforms/Tressa
+DIR=$HOME
+cd $DIR/llvm/build/lib/Transforms/Tressa
 make
-cp ~/llvm/build/Debug+Asserts/lib/LLVMTressa.so ~/llvm/build/Release+Asserts/lib/
+cp $DIR/llvm/build/Debug+Asserts/lib/LLVMTressa.so $DIR/llvm/build/Release+Asserts/lib/
 
