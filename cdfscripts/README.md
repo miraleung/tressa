@@ -1,4 +1,9 @@
 ## Script usage
+### General requirements
+- Mercurial
+- Get [Xen](http://www.xenproject.org/) source
+  - `hg clone http://xenbits.xensource.com/xen-unstable.hg`
+
 ### Bash
 #### Requirements
 - Bash version 4.3.11(1)
@@ -37,6 +42,7 @@
 
 ## Plot CDF
 This measures the number of revisions affecting an assert, hence, its "activity" in the commit history.
+
 1. `./activity-preds.sh`
 2. `python cdf.py activity-count.txt`
 
