@@ -1,5 +1,5 @@
-# About
-- `bash-\*.txt` is the data file produced by running the Bash version of the data mining scripts
+# README
+- `bash-version/bash-\*.txt` is the data file produced by running the Bash version of the data mining scripts
 - `hs-\*.txt` is the one produced by the Haskell version - i.e. any `.sh` file prefixed by `hs-`
 - `\*-activity-count.txt` is a list of the number of revisions in which a distinct predicate appears. This file is used for CDF graphing.
 - `\*-activity.txt` maps the predicates and their respective counts, and is purely for informative purposes.
