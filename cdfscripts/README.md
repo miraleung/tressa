@@ -38,12 +38,10 @@
 6. `./get-diffs.sh`
 7. `./get-asserts.sh`
 8. `./get-predicates.sh`
-9. The rest can be run in any order.
-
+9. `./activity-preds.sh`
 
 ## Plot CDF
 This measures the number of revisions affecting an assert, hence, its "activity" in the commit history.
 
-1. `./activity-preds.sh`
-2. `python cdf.py activity-count.txt`
+1. `python cdf.py activity-count.txt`
 
