@@ -6,7 +6,7 @@ TMPFILE=$PWD/tmp-hs-predicates.txt
 TMPFILE2=$PWD/tmp2-hs-predicates.txt
 DSTFILE=$PWD/hs-predicates.txt
 
-HS_EXEC=GetPreds
+HS_EXEC=GetPredicates
 HS_SRC=GetPredicates.hs
 
 if [ ! -d "$SRC" ]
