@@ -12,3 +12,14 @@
 
 For an example on using Tressa to compile individual source files, see `tressa-c.sh` of `tressa-cpp.sh` under `llvm-tressa-samples/`. These scripts may have to be `chmod`-ed to get the appropriate user permissions.
 
+## Usage
+1. Function headers and globals are assumed to be declared in a separate header file for the targeted source code (where calls will be inserted).
+2. Functions to insert must be prefixed with `_assertfn_`, followed by an arbitrary, unique identifier.
+3. Arguments to this function (the "assert function") are as follows:
+  - The first argument must be named the same as the targeted function (where the call to this assert function will be inserted)
+  - If this assert function needs to use local variables or arguments to the targeted function, they must be listed in the arguments to the `_assertfn_` function.
+  - The insertion point will also be an argument to this function, prefixed with `_tressa_`. Currently-implemented insertion points include the below, and are indexed in order of appearance in the targeted function.
+    - Post-`if` and `for` blocks
+    - Pre-`return` statements
+
+[//]: <> TODO: Add examples
