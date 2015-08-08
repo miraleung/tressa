@@ -12,23 +12,17 @@
 
 #### Usage
 1. `DEST=/path/to/same/level/as/xen-unstable.hg`
-2. `for f in cdfscripts/*.sh cdfscripts/*.hs; do cp $f $DEST/; done`
+2. `for f in cdfscripts/*.sh cdfscripts.hs; do cp $f $DEST/; done`
    1. Optional: Copy over Haskell binaries
-      1. `for f in cdfscripts/GetPredicates cdfscripts/GetActivity; do cp $f $DEST; done`
-3. `cp cdf.py $DEST/`
-4. `cd $DEST`
-5. `./get-diffs.sh`
-6. `./get-asserts.sh`
-7. `./get-predicates.sh`
-8. `./hs-getPreds.sh`
-9. `./hs-getActivity.sh`
-
-##### hs-getPreds.sh
-![Output of Haskell predicate getter](https://github.com/miraleung/tressa/raw/master/screenshots/hs-getpreds.png)
-
-##### hs-getActivity.sh
-![Output of Haskell revision-per-predicate (activity) miner](https://github.com/miraleung/tressa/raw/master/screenshots/hs-getactivity.png)
-
+      1. `for f in cdfscripts/GetPreds cdfscripts/GetActivity; do cp $f $DEST; done`
+3. `for f in scripts/*.sh; do cp $f $DEST/; done`
+4. `cp cdf.py $DEST/`
+5. `cd $DEST`
+6. `./get-diffs.sh`
+7. `./get-asserts.sh`
+8. `./get-predicates.sh`
+9. `./hs-getPredicates.sh`
+10. `./hs-getActivity.sh`
 
 ### Bash version (old and inexact)
 #### Requirements
@@ -44,11 +38,22 @@
 6. `./get-diffs.sh`
 7. `./get-asserts.sh`
 8. `./get-predicates.sh`
+<<<<<<< HEAD
+9. `./hs-getPreds.sh`
+10. `./hs-getActivity.sh`
+
+##### hs-getPreds.sh
+![Output of Haskell predicate getter](https://github.com/miraleung/tressa/raw/master/screenshots/hs-getpreds.png)
+
+##### hs-getActivity.sh
+![Output of Haskell revision-per-predicate (activity) miner](https://github.com/miraleung/tressa/raw/master/screenshots/hs-getactivity.png)
+
+=======
 9. `./activity-preds.sh`
+>>>>>>> 0f7cdc6d1ea37ff901cd79c49474e0835fb1ddf6
 
 ## Plot CDF
 This measures the number of revisions affecting an assert, hence, its "activity" in the commit history.
 
-1. `python cdf.py ${prefix}-activity-count.txt`
-  - `prefix` is one of `hs` or `bash` for Haskell or Bash, respectively.
+1. `python cdf.py activity-count.txt`
 
