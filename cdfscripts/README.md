@@ -39,6 +39,12 @@
 9. `./hs-getPreds.sh`
 10. `./hs-getActivity.sh`
 
+##### hs-getPreds.sh
+![Output of Haskell predicate getter](https://github.com/miraleung/tressa/raw/master/screenshots/hs-getpreds.png)
+
+##### hs-getActivity.sh
+![Output of Haskell revision-per-predicate (activity) miner](https://github.com/miraleung/tressa/raw/master/screenshots/hs-getactivity.png)
+
 
 ## Plot CDF
 This measures the number of revisions affecting an assert, hence, its "activity" in the commit history.
