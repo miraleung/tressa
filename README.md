@@ -5,7 +5,6 @@ An [LLVM](http://llvm.org/docs/GettingStarted.html) plugin to insert function ca
 A call to `_assertfn_fn_1` will be inserted just before the return from the function `doit`.
 
 ##### Developer-facing C source code
-[//]: <> TODO: Check image paths
 
 ![Target function](https://github.com/miraleung/tressa/raw/master/screenshots/target-fn-c-src.png)
 
