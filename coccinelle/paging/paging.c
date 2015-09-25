@@ -47,13 +47,16 @@ int main(int argc, char **argc)
 	paging_lock(d);
 	i = 5;
 	d->id = 42;
-	test(d);
 	paging_unlock(d);
+
+	find_assert1(d);
+	find_assert2(d);
+
+	ASERT(d);
 }
 
-void foo()
+void no_assert1(struct domain *d)
 {
-	struct domain *d = malloc(sizeof(struct domain));
 	int i;
 
 	paging_lock(d);
@@ -61,8 +64,23 @@ void foo()
 	paging_unlock(d);
 }
 
-void test(struct domain *d)
+void no_assert2(struct domain *d)
 {
-	d->id = 43;
-	printf("d->id = %d\n", d->id);
+	paging_lock(d);
+	d->id = 8;
+	paging_unlock(d);
+}
+
+void find_assert1(struct domain *d)
+{
+	int i;
+
+	ASERT(paging_locked_by_me(d));
+	i = d->id;
+}
+
+void find_assert2(struct domain *d)
+{
+	ASERT(paging_locked_by_me(d));
+	d->id = 7;
 }
