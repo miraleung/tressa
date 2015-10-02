@@ -10,14 +10,14 @@ int lock;
 
 int paging_locked_by_me(struct domain *d)
 {
-	return (lock == d.id);
+	return (lock == 1);
 }
 
 int paging_lock(struct domain *d)
 {
 	if (lock == 0)
 	{
-		lock = d->id;
+		lock = 1;
 		return 1;
 	}
 	else
@@ -49,7 +49,7 @@ int main(int argc, char **argc)
 	d->id = 42;
 	paging_unlock(d);
 
-	find_assert1(d);
+	i = find_assert1(i, d);
 	find_assert2(d);
 
 	ASERT(d);
@@ -66,21 +66,30 @@ void no_assert1(struct domain *d)
 
 void no_assert2(struct domain *d)
 {
-	paging_lock(d);
 	d->id = 8;
-	paging_unlock(d);
 }
 
-void find_assert1(struct domain *d)
+int find_assert1(int i, struct domain *d)
 {
-	int i;
+	if (i < 4)
+	{
+		// This shouldn't match, since it's in a different branch
+		ASERT(paging_locked_by_me(d));
+//		d->id = i;
+		i = d->id;
+	}
+	else
+	{
+	}
 
-	ASERT(paging_locked_by_me(d));
-	i = d->id;
+	return i;
 }
 
 void find_assert2(struct domain *d)
 {
+	int i;
+
+//	i = d->id;
 	ASERT(paging_locked_by_me(d));
 	d->id = 7;
 }
