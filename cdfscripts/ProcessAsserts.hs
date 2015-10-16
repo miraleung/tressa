@@ -93,9 +93,9 @@ stripSpace = strip ' '
 isAdd :: String -> Bool
 isDel :: String -> Bool
 isSame :: String -> Bool
-isAdd str = (str !! 0) == '+'
-isDel str = (str !! 0) == '-'
-isSame str = (str !! 0) /= '+' && (str !! 0) /= '-'
+isAdd str = not (str == []) && (str !! 0) == '+'
+isDel str = not (str == []) && (str !! 0) == '-'
+isSame str = not (str == []) && (str !! 0) /= '+' && (str !! 0) /= '-'
 
 normalize :: String -> String
 -- Strip whitespaces and starting +/-, if any
