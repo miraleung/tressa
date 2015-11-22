@@ -18,7 +18,7 @@ import Text.Regex.TDFA
 
 import qualified Data.ByteString.Char8 as B
 
-patAssertHead = "^.*ASSERT\\(.*$"
+patAssertHead = "^.*(ASSERT|assert)\\(.*$"
 
 
 -- Enum for diff type
@@ -155,7 +155,7 @@ filterOutBadStms stmlst = stmlst \\ badLst
         bracketPat = "^\\{|\\}"
         stmPat = "^if\\(|else|for\\(|printk\\(|while|return|switch|do{|break|continue "
         declPat = "^(char|int|unsigned|long|struct|extern|static|void|u32)"
-        otherPat = "^\"|[A-Z]_ASSERT|ASSERT_[A-Z]"
+        otherPat = "^\"|[A-Z]_ASSERT|ASSERT_[A-Z]|[a-z]_assert|assert_[a-z]"
         badPatLst = [cmtPatAdd, cmtPatDel, diffHeaderPat, diffHeaderPat2,
           lineCmtPat, bracketPat, stmPat, declPat, emptyLinePat, otherPat]
         badLst = filter (\x ->
