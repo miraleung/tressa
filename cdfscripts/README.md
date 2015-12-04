@@ -17,11 +17,9 @@
       1. `for f in cdfscripts/GetPredicates cdfscripts/GetActivity; do cp $f $DEST; done`
 3. `cp cdf.py $DEST/`
 4. `cd $DEST`
-5. `./get-diffs.sh`
-6. `./get-asserts.sh`
-7. `./get-predicates.sh`
-8. `./hs-getPreds.sh`
-9. `./hs-getActivity.sh`
+5. `./get-diffs.sh` (in `tressa/scripts/`)
+6. `./hs-getPredicates.sh`
+7. `./hs-getActivity.[sh`
 
 ##### hs-getPreds.sh
 ![Output of Haskell predicate getter](https://github.com/miraleung/tressa/raw/master/screenshots/hs-getpreds.png)
