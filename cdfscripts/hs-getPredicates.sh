@@ -1,5 +1,24 @@
 #!/bin/bash
 
+# A wrapper for the Hasekell program GetPredicates. It will try to compile
+# GetPredicates.hs if the binary isn't available. 
+
+# This runs GetPredicates For every .patch file in ./asserts/ and gathers
+# the results in hs-predicates.txt. Additionally, it prints to stdout each
+# filename, assertsion, and assertion count as they are found. 
+
+# (A direcotory of patches/diffs can be created
+# on a Mercurial repo by running get-diffs.sh and renaming the resultant diffs
+# direcotry to asserts.)
+
+# Unforunately, this suffers from GetPredicates.hs's problems with diff files,
+# so there are many problems with the output. 
+
+# 2 Preconditions:
+#   1) GetPredicates or GetPredicates.hs must be in same directory as this script
+#   2) ./asserts/ must exist and contain *.patch files
+
+
 PWD=`pwd`
 SRC=$PWD/asserts
 TMPFILE=$PWD/tmp-hs-predicates.txt

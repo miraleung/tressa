@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# Given a Mercurial repository, creates directory ./diffs and fills it with
+# one .patch file for each diff between revisions in the log
+
 SRC=xen-unstable.hg
 DST=diffs
 

@@ -1,5 +1,10 @@
 #!/bin/bash
 
+# Prints to stdout the number of changed asserts in the ./asserts/ directory
+# containing .patch files (as created by get-asserts.sh), grouped by addition +
+# and removal -. (Ignores contextual asserts, as well as multiline asserts
+# where the first line is unchanged)
+
 SRC=asserts
 
 if [ ! -d ${SRC} ]

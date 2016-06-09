@@ -1,5 +1,12 @@
 #!/bin/bash
 
+# Given ./asserts directory of .patch files (as created by get-asserts.sh),
+# produces two files in ./asserts:
+#   ./asserts/preds -> a compilation of all ASSERT statements lines in the
+#   patch files (including + or -)
+#   ./asserts/pred.sort -> same, but instead of multiple lines per duplicate,
+#   simply duplicate counts. Additionally, sorted in some sense.
+
 SRC=asserts
 OUT=preds
 

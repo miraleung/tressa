@@ -1,6 +1,9 @@
 module ProcessAsserts where
 
 -- Process assertion predicates.
+--
+-- Provides the methods that do all the work behind the scenes for
+-- GetActivity and GetPredicates.
 
 import Prelude hiding (catch)
 

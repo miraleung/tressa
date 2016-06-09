@@ -1,5 +1,11 @@
 #!/usr/bin/python
 
+# Produces graph of Cummulative Distribution Function,
+# given a file of numbers, one per line.
+# Expected input would is hs-activity-count.txt as produced by hs-getActivity.sh
+
+# Graph is in new window. Additionally, prints input numbers to stdout.
+
 import sys
 
 from bisect import bisect_left

@@ -1,5 +1,9 @@
 #!/bin/bash
 
+# Given a ./diffs/ directory containing all the .patch files in the log,
+# creates ./asserts/ directory with copies of all .patch files that contain
+# at least one non-define occurence of an ASSERT (typically, a usage).
+
 SRC=`pwd`/diffs
 DST=`pwd`/asserts
 

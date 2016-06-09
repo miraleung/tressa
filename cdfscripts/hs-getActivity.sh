@@ -1,5 +1,24 @@
 #!/bin/bash
-# Number of revisions per predicate
+# Given a file of predicates and a direcotry of .patch files where those
+# predicates were found, it produces two files:
+#   1) hs-activity.txt: All the distint assertsion from all the files
+#   along with counts of the number of files they appear in
+#   2) hs-activity-count.txt: Just the counts for the predicates
+# Additionally, it prints intermediate steps along the way to stdout.
+
+# A wrapper for GetActivity.hs, which it will compile if necessary
+
+# 3 preconditions: 
+#   1) GetActivity or GetActivity.hs must exist
+#   2) ./asserts/ contains files *.patch that each represent one revision
+#   3) ./hs-predicates.txt has already been created (by hs-getPredicates.sh)
+#       (Unfortunately, this means that it has the same weaknesses of GetPredicates.hs
+#   
+# Bug: only handled ASSERTs, not asserts (don' tknow about BUG_ONs)
+# As well, it suffers from the same problems as GetActivity.hs, so it isn't
+# ideal for diff/patch files at this point, which is its WHOLE PURPOSE, so,
+# should be fixed.
+
 
 PWD=`pwd`
 SRC=$PWD/asserts
@@ -62,6 +81,7 @@ then
   exit 1
 fi
 
+# Enumerates the assertions in the PREDSFILE 
 LINECOUNT=0
 TOTALLINECOUNT=`cat $PREDSFILE | wc -l`
 TOTALFILECOUNT=`ls $SRC/*.patch | wc -l`
@@ -74,6 +94,8 @@ do
   ASSERTMAP[$LINE]=0
 done
 
+# For each *.patch file, print its name, the number of distinct asserts within,
+# including their per-file count so far
 for PATCH in $SRC/*.patch
 do
   FILENAME=`basename ${PATCH#$PWD} .patch`
@@ -99,6 +121,8 @@ do
 done # FILE
 
 
+
+# Print the final counts-per-file for each found assert, and output to DSTFILE
 echo -e "==== Revision count per assert ===="
 for ENTRY in "${!ASSERTMAP[@]}"
 do
