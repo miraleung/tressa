@@ -39,14 +39,19 @@ Currently, there is no way of specifying target directories in the scripts; so t
 
 ```
 DEST=/path/to/repo/being/mined/e.g./xen-unstable.hg
-cp mining-scripts/cdf.py mining-scripts/get-diffs.sh $DEST
-cp mining-scripts/haskell-version/*.sh mining-scripts/haskell-version/*.hs $DEST
+cd mining-scripts
+cp cdf.py get-diffs.sh $DEST
+cd haskell-version
+cp GetActivity GetPredicates hs-getActivity.sh hs-getPredicates.sh $DEST
+cd ../..
 ```
 
 #### Run scripts!
+You may have to add executable permissions to some of the scripts with `chmod +xr <script>`.
+
 ```
 cd $DEST
-./get-diffs.sh      # (Creates $DEST/diffs/ directory require Mercurial)
+./get-diffs.sh      # (Creates $DEST/diffs/ directory; assumes Mercurial repo)
 mv diffs asserts    # (The scripts require the directory be named 'asserts/')
 ./hs-getPredicates.sh    # (This takes many hours on Xen (but the older Bash scripts took seconds.)
 ./hs-getActivity.sh
