@@ -27,6 +27,8 @@ DSTFILE=$PWD/hs-activity.txt
 COUNTFILE=$PWD/hs-activity-count.txt
 PREDSFILE=$PWD/hs-predicates.txt
 
+ASSERTFMT="(ASSERT|assert|BUG_ON)" 
+
 HS_EXEC=GetActivity
 HS_SRC=GetActivity.hs
 
@@ -86,7 +88,7 @@ LINECOUNT=0
 TOTALLINECOUNT=`cat $PREDSFILE | wc -l`
 TOTALFILECOUNT=`ls $SRC/*.patch | wc -l`
 declare -A ASSERTMAP
-for LINE in `grep ASSERT $PREDSFILE`
+for LINE in `grep -E $ASSERTFMT $PREDSFILE`
 do
   REVISION_COUNT=0
   LINECOUNT=$((LINECOUNT+1))
