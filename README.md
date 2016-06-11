@@ -20,9 +20,10 @@ The LLVM IR before and after the Tressa pass looks like the following.
 ![LLVM IR after running the Tressa pass](https://github.com/miraleung/tressa/raw/master/screenshots/target-fn-asm-after.png)
 
 ## Directories
+- `coccinelle` -- Exploring Tressa prototype implementation with Coccinelle tool instead of LLVM.
 - `llvm-tressa` -- The LLVM plugin.
 - `llvm-tressa-samples` -- Example on Tressa usage.
-- `scripts` -- Scripts for mining assertion predicates in Xen.
-- `cdfscripts` -- More scripts for Xen assertion predicate mining and data for CDF plots.
+- `mining-scripts` -- Scripts for Xen assertion predicate mining and data for CDF plots.
+- `mining-data` -- Results of running some of the scripts in `mining-scripts`.
 
 
