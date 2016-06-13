@@ -1,59 +1,52 @@
 ## Script usage
 
-Three script versions, all created with Xen assertions in mind, but easily-adaptable:
+Three script versions::
 - `bash-version-primitive`: an early attempt to quickly mine ASSERTs
 - `bash-version-inexact`: a strong attempt to provide ASSERT mining functionality, including preparing data for plotting. Ultimately, it still was inexact, and quite a bit hairy.
-- `haskell-version`: Compiled Haskell programs as well as Bash wrapper scripts to more completely and effectively mine repos and source.
+- `haskell-version`: Compiled Haskell programs as well as Bash wrapper scripts to more completely and effectively mine repos and source. This is the best version to use, although it is slow.
 
-Additionally, there are the patch file-extracting scripts -- `hg-get-diffs.sh` for Mercurial, and `git-get-diffs.sh` for Git -- and the Python `cdf.py` script for plotting a graph with the `*-activity-count.txt` results from the other scripts.
+Additionally, in this directory:
+- `hg-get-diffs.sh` for Mercurial, and `git-get-diffs.sh` for Git: extract diffs between all revisions into separate files.
+- `cdf.py`: plots a Cummulative Distribution Function graph using `*-activity-count.txt` results from the other scripts.
+- `install-haskell.sh`: an easy-setup script that compiles Haskell code and copies all necessary scripts to a target directory.
 
-Script-specific details can be found in their relevant directories.
+Mining Script Types:
+- *Get Predicates*: extract a list of all Assertions in given code
+- *Get Activity*: find how many revisions touch each assert. These scripts require a version-controlled repository and a directory of .patch files, as produced by `*-get-diffs.sh`
+
+Most likely, you will want to use `hs-*.sh` scripts found in the *haskell-version/*, since the bash scripts are out of date. They rely on some compiled Haskell programs.
+
+
 
 ### Quick Start (for Ubuntu 14.04 and Haskell scripts)
 
-### General requirements for Xen example:
-- Mercurial
-- Get [Xen](http://www.xenproject.org/) source
-  - `hg clone http://xenbits.xensource.com/xen-unstable.hg`
+### General requirements:
 - **Haskell Version** 7.6.3
 - **Haskell Dependencies** `regex-tdfa split`
+- Python **scipy** library
 
 #### Install dependencies
 ```
 sudo apt-get install haskell-platform 
 cabal update
 cabal install regex-tdfa split
-sudo apt-get install scipy
+sudo apt-get install python-scipy
 ```
 
-#### Compile Haskell Scripts
+#### Run install script
+Compiles the Haskell code and copies all necessary scripts to a target directory. This directory should be the repository (Git or Mercurial) that you want to mine.
 ```
-cd mining-scripts/haskell-version
-ghc -O2 GetPredicates.hs -o GetPredicates
-ghc -O2 GetActivity.hs -o GetActivity
-cd ../..    # (back to top level of this repository)
-```
-
-#### Copy all scripts to repo to be mined
-Currently, there is no way of specifying target directories in the scripts; so they must be physically present in the repo for them to work.
-
-```
-DEST=/path/to/repo/being/mined/e.g./xen-unstable.hg
-cd mining-scripts
-cp cdf.py hg-get-diffs.sh $DEST     # copy git-get-diffs.sh if it is a git repo
-cd haskell-version
-cp GetActivity GetPredicates hs-getActivity.sh hs-getPredicates.sh $DEST
-cd ../..
+./install-haskell.sh path/to/target/repo/dir/
 ```
 
 #### Run scripts!
 You may have to add executable permissions to some of the scripts with `chmod +xr <script>`.
-If you are using a Git repo, then run `./git-get-diffs.sh` instead.
+If you are using a Git repo, then run `./git-get-diffs.sh asserts` instead.
 
 ```
-cd $DEST
-./hg-get-diffs.sh asserts   # Creates $DEST/asserts directory
-./hs-getPredicates.sh       # This takes many hours on Xen
+cd path/to/target/repo/dir/
+./hg-get-diffs.sh asserts   # Creates asserts/ directory
+./hs-getPredicates.sh       # This takes many hours large repositories
 ./hs-getActivity.sh
 ./cdf.py hs-activity-count.txt
 ```
