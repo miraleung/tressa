@@ -7,10 +7,6 @@
 # the results in hs-predicates.txt. Additionally, it prints to stdout each
 # filename, assertsion, and assertion count as they are found. 
 
-# (A direcotory of patches/diffs can be created
-# on a Mercurial repo by running get-diffs.sh and renaming the resultant diffs
-# direcotry to asserts.)
-
 # Unforunately, this suffers from GetPredicates.hs's problems with diff files,
 # so there are many problems with the output. 
 

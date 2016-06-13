@@ -5,7 +5,7 @@ Three script versions, all created with Xen assertions in mind, but easily-adapt
 - `bash-version-inexact`: a strong attempt to provide ASSERT mining functionality, including preparing data for plotting. Ultimately, it still was inexact, and quite a bit hairy.
 - `haskell-version`: Compiled Haskell programs as well as Bash wrapper scripts to more completely and effectively mine repos and source.
 
-Additionally, there is the Bash `get-diffs.sh` script, useful for Mercurial repositories, like Xen used to be, and the Python `cdf.py` script for plotting a graph with the `*-activity-count.txt` results from the other scripts.
+Additionally, there are the patch file-extracting scripts -- `hg-get-diffs.sh` for Mercurial, and `git-get-diffs.sh` for Git -- and the Python `cdf.py` script for plotting a graph with the `*-activity-count.txt` results from the other scripts.
 
 Script-specific details can be found in their relevant directories.
 
@@ -40,7 +40,7 @@ Currently, there is no way of specifying target directories in the scripts; so t
 ```
 DEST=/path/to/repo/being/mined/e.g./xen-unstable.hg
 cd mining-scripts
-cp cdf.py get-diffs.sh $DEST
+cp cdf.py hg-get-diffs.sh $DEST     # copy git-get-diffs.sh if it is a git repo
 cd haskell-version
 cp GetActivity GetPredicates hs-getActivity.sh hs-getPredicates.sh $DEST
 cd ../..
@@ -48,12 +48,12 @@ cd ../..
 
 #### Run scripts!
 You may have to add executable permissions to some of the scripts with `chmod +xr <script>`.
+If you are using a Git repo, then run `./git-get-diffs.sh` instead.
 
 ```
 cd $DEST
-./get-diffs.sh      # (Creates $DEST/diffs/ directory; assumes Mercurial repo)
-mv diffs asserts    # (The scripts require the directory be named 'asserts/')
-./hs-getPredicates.sh    # (This takes many hours on Xen (but the older Bash scripts took seconds.)
+./hg-get-diffs.sh asserts   # Creates $DEST/asserts directory
+./hs-getPredicates.sh       # This takes many hours on Xen
 ./hs-getActivity.sh
 ./cdf.py hs-activity-count.txt
 ```
@@ -78,7 +78,7 @@ mv diffs asserts    # (The scripts require the directory be named 'asserts/')
 3. `for f in mining-scripts/bash-version-primitive/*.sh; do cp $f $DEST/; done`
 4. `cp mining-scripts/cdf.py $DEST/`
 5. `cd $DEST`
-6. `./get-diffs.sh` (in `mining-scripts/`)
+6. `./hg-get-diffs.sh` (in `mining-scripts/`)
 7. `./get-asserts.sh`
 8. `./get-predicates.sh`
 9. `./activity-preds.sh`
