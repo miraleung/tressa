@@ -36,3 +36,7 @@ d1
 *.exe
 *.out
 *.app
+
+# python cache files
+__pycache__
+*.pc
