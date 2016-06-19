@@ -49,12 +49,49 @@ class Diff():
     """The files that had assertion changes in between adjacent revisions, as
     well as the IDs of those revisions.
     """
-    def __init__(self, from_id, to_id, to_author, to_msg):
-        self.from_id = from_id
-        self.to_id = to_id
-        self.to_author = to_author
-        self.to_msg = to_msg
-        self.files = []     # Filenames of "to" revision
+    def __init__(self, rvn_id, author, msg):
+        self.rvn_id = rvn_id    # newer revision (commit) ID
+        self.author = author
+        self.msg = msg
+        self.files = []     # Filenames of newest revision
+
+    # string -> Diff
+    def new(log_msg):
+        """Produces a new Diff from a default git commit log entry, for
+        example:
+
+        commit b9f1de03869703000bf3016aa5697a09cfc55c0b
+        Author: Graham St-Laurent <gstlaurent@gmail.com>
+        Date:   Mon Jun 13 11:03:01 2016 -0700
+
+            Created git-get-diffs.sh for Git, and added dir argument to both versions.
+
+            Updated Readme and documentation comments to refer to new usage and
+            names.
+
+        """
+
+        pattern = r"""commit\ (?P<commit>[0-9a-f]{40})\n
+                      Author:\ (?P<author>.*?)\n
+                      .*?\n\n
+                      (?P<msg>.*)"""
+
+        m = re.match(pattern, log_msg, re.VERBOSE | re.MULTILINE | re.DOTALL)
+
+        if m is None:
+            eprint("Improperly-formatted commit log")
+            return Diff("", "", "")
+
+        msg = p = re.sub("^    ", "", m.group("msg"), flags=re.MULTILINE)
+        return Diff(m.group("commit"), m.group("author"), msg)
+
+    def __str__(self):
+        return "Diff: {id}".format(id=self.rvn_id)
+
+    def __repr__(self):
+        return "Diff('{id}', '{auth}', '{m}')[{files}]".format(
+                id=self.rvn_id[:8], auth=self.author[:20], m=self.msg[:30],
+                files=len(self.files))
 
 
 class Change(Enum):
@@ -118,8 +155,8 @@ def mineAssertions(repo_path, assertion_re, branch="master"):
     commits = getRevisionIds(repo_path, branch)
     for commit in commits:
         patch = readPatch(repo_path, commit)
-        diff = makeDiff(patch)
-        file_diffs = separateFiles(patch)
+        log_msg, file_diffs = split_patch(patch)
+        diff = Diff.new(log_msg)
 
         for file_diff in file_diffs:
             assertions = extractChangedAssertions(file_diff, assertion_re)
@@ -131,6 +168,11 @@ def mineAssertions(repo_path, assertion_re, branch="master"):
         if len(diff.files) > 0:     # No need to keep diff if it is empty
             history.diffs.append(diff)
 
+
+# string -> File
+def makeFile(file_diff):
+    # TODO (make it a constructor?)
+    return None
 
 # regex string -> [string]
 def getRevisionIds(repo_path, branch):
@@ -149,13 +191,14 @@ def readPatch(repo_path, rvn_id):
             cwd=repo_path)
 
 
-# string -> [string]
-def separateFiles(patch):
-    """Extract the diff for each file in the given patch. For simplicity's sake,
-    it also removes the word 'diff' from the beginning of each diff
+# string -> string, [string]
+def split_patch(patch):
+    """Return the commit log message, followed by a list of the diffs for
+    each file in the patch. For simplicity's sake, it also removes the word
+    'diff' from the beginning of each diff.
     """
     files = re.split("^diff", patch, flags=re.MULTILINE)
-    return files[1:]    # first element commit message
+    return files[0], files[1:]
 
 
 # string regex -> [Assertion]
@@ -166,7 +209,6 @@ def extractChangedAssertions(diff, asserts):
     assertions.Assertions are detected by matching the 'asserts' regular
     expression.
     """
-
     # TODO
     return []
 
@@ -199,7 +241,20 @@ def runCommand(cmd, cwd, shell=False):
 
 
 
+# string -> 
+def eprint(msg):
+    sys.stderr.write(msg+"\n")
 
 
 
 
+test_log_msg = """commit b9f1de03869703000bf3016aa5697a09cfc55c0b
+Author: Graham St-Laurent <gstlaurent@gmail.com>
+Date:   Mon Jun 13 11:03:01 2016 -0700
+
+    Created git-get-diffs.sh for Git, and added dir argument to both versions.
+
+    Updated Readme and documentation comments to refer to new usage and
+    names.
+
+"""
