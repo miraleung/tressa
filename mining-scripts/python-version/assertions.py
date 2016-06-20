@@ -37,12 +37,12 @@ class Source():
 
 
 class File():
-    """A container for relevant assertions in a given file"""
+    """A container for relevant and questionable assertions in a given file."""
     # string -> File
-    def __init__(self, name):
+    def __init__(self, name, assertions, inspects):
         self.name = name
-        self.assertions = []
-        self.to_inspect = []    # for difficult-to-parse automatically asserts
+        self.assertions = assertions
+        self.to_inspect = inspects    # for difficult-to-parse asserts
 
     def __repr__(self):
         return "File('{n}')[{a}]".format(n=self.name, a=len(self.assertions))
@@ -158,27 +158,56 @@ def generateAST(assertion_string):
 
 
 
+
+
+
 # path regex string -> History
-def mineAssertions(repo_path, assertion_re, branch="master"):
+def mine_repo(repo_path, assertion_re, branch="master"):
     """Given the path to a Git repository and the name of any assertions used
     in this project, produces the History object containing all assertions
     that were added or removed between revisions, for the specified branch.
     """
-
     history = History()
     commits = getRevisionIds(repo_path, branch)
     for commit in commits:
-        logging.info(Processing " + commit)
+        logging.info("Processing " + commit)
         patch = readPatch(repo_path, commit)
-        log_msg, file_diffs = split_patch(patch)
-        files = generate_files(file_diffs, assertion_re)
-
-        if len(files) > 0:  # no need to create diff if if no assertions
-            diff = Diff.new(log_msg)
-            diff.files = files
-            history.diffs.append(diff)
-
+        diff = generate_diff(patch, assertion_re)
+        if diff:
+            history.diffs.append(diff) # diff won't exist if no assertions
     return history
+
+    # history = History()
+    # commits = getRevisionIds(repo_path, branch)
+    # for commit in commits:
+        # logging.info(Processing " + commit)
+        # patch = readPatch(repo_path, commit)
+        # log_msg, file_diffs = split_patch(patch)
+        # files = generate_files(file_diffs, assertion_re)
+
+        # if len(files) > 0:  # no need to create diff if if no assertions
+            # diff = Diff.new(log_msg)
+            # diff.files = files
+            # history.diffs.append(diff)
+
+    # return history
+
+# string string -> Diff | None
+def generate_diff(patch, assertion_re):
+    """If there are any changed (or uncertain) assertions (matched by
+    assertion_re) in a file in the given patch, produce Diff containing them.
+    Otherwise produce None.
+    """
+    log_msg, file_diffs = split_patch(patch)
+    files = generate_files(file_diffs, assertion_re)
+
+    if len(files) == 0:
+        return None
+
+    diff = Diff.new(log_msg)
+    diff.files = files
+    return diff
+
 
 # [string] string -> [File]
 def generate_files(file_diffs, assertion_re):
@@ -188,12 +217,11 @@ def generate_files(file_diffs, assertion_re):
     for file_diff in file_diffs:
         filename = find_filename(file_diff)
         if re.match(ext_pattern, filename):
+            # only care about files with appropriate extensions
             asserts, inspects = extract_assertions(file_diff, assertion_re)
 
             if len(assertions) + len(inspects) > 0:
-                file = File(filename)
-                file.assertions.extend(assertions)
-                file.to_inspect.extend(inspects)
+                file = File(filename, assertions, inspects)
                 files.append(file)
 
 
@@ -218,6 +246,67 @@ def find_filename(file_diff):
         return ""
 
     return m.group("filename")
+
+
+# string string > [Assertion] [Assertion]
+def extract_assertions(diff, assertion_re):
+    """Produce list of Assertions generated for each assertion that appears in
+    the given file's diff, provided that if it has been changed in some way
+    (e.g, newly-added, removed, predicate-changed). Ignores unchanged
+    assertions.Assertions are detected by matching the 'asserts' regular
+    expression. Any assertions that appear suspicious or cannot be parsed
+    properly are returned in the second list (with change=Change.Uncertain)
+    """
+
+    sections = extract_sections(diff)
+
+
+
+# string -> [DiffSection]
+def extract_sections(file_diff):
+    secs = re.split(r"^@@ \S+ \+(\d+).*\n", file_diff,
+            flags=re.MULTILINE) # note, parens keeps the starting line-number
+
+    diff_secs = []
+    try:
+        pairs = iter(secs[1:]) # remove header, leaving linenum-diff pairs
+        while True:
+            linenum = int(next(pairs))
+            body = next(pairs)
+            ds = DiffSection(linenum, body)
+            diff_secs.append(ds)
+    except StopIteration:
+        return diff_secs
+    except:
+        logging.error("Malformed file diff: " + find_filename(file_diff))
+        return []
+
+
+class DiffSection():
+    """The body of a diff, beetween @@ headers."""
+    # int string -> DiffSection
+    def __init__(self, line_num, body):
+        self.linenum = line_num
+        self.body = body
+
+    def __repr__(self):
+        m = re.search("(\w.*)", self.body, re.MULTILINE)
+        b = m.group(0) if m else "???"
+        return "DiffSection(linenum={n}, body='{b}'".format(n=self.linenum, b=b)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -253,33 +342,8 @@ def split_patch(patch):
     'diff' from the beginning of each diff.
     """
     files = re.split("^diff", patch, flags=re.MULTILINE)
+    msg_pos = re.findall
     return files[0], files[1:]
-
-
-# string string > [Assertion] [Assertion]
-def extract_assertions(diff, assertion_re):
-    """Produce list of Assertions generated for each assertion that appears in
-    the given file's diff, provided that if it has been changed in some way
-    (e.g, newly-added, removed, predicate-changed). Ignores unchanged
-    assertions.Assertions are detected by matching the 'asserts' regular
-    expression. Any assertions that appear suspicious or cannot be parsed
-    properly are returned in the second list (with change=Change.Unknown)
-    """
-
-    sections = extract_sections(diff)
-
-
-# string -> [DiffSection]
-def extract_sections(diff):
-
-
-
-class DiffSection():
-    """The body of a diff, beetween @@ headers."""
-    def __init__(self):
-        self.to_line = 0
-        self.to_num_lines = 0
-        self.body = ""          # the string of the body of the diff
 
 
 
@@ -343,3 +407,54 @@ Date:   Mon Jun 13 11:03:01 2016 -0700
     names.
 
 """
+
+test_log_entry = """commit 5ff371e9d87f468bf73acfafd65ba5a0d1b7bd4f
+Author: Wei Liu <wei.liu2@citrix.com>
+Date:   Fri May 27 17:16:36 2016 +0100
+
+    This reverts commit 55dc7f61260f4becc6c5e52a8155a6b8741c03cc.
+    
+    The get_maintainer.pl script showed Jan as the maintainer so I pushed
+    this patch. But in fact according to MAINTAINERS file, he's not.  Revert
+    this patch and wait until a maintainer acks it.
+
+diff --git a/tools/tests/mce-test/tools/xen-mceinj.c b/tools/tests/mce-test/tools/xen-mceinj.c
+index 51abc8a..061ec7c 100644
+--- a/tools/tests/mce-test/tools/xen-mceinj.c
++++ b/tools/tests/mce-test/tools/xen-mceinj.c
+@@ -317,10 +317,7 @@ static int inject_mci_addr(xc_interface *xc_handle,
+                            domid_t domid)
+ {
+     return add_msr_bank_intpose(xc_handle, cpu_nr,
+-                                MC_MSRINJ_F_INTERPOSE |
+-                                ((domid >= DOMID_FIRST_RESERVED &&
+-                                  domid != DOMID_SELF) ?
+-                                 0 : MC_MSRINJ_F_GPADDR),
++                                MC_MSRINJ_F_INTERPOSE | MC_MSRINJ_F_GPADDR,
+                                 MCi_type_ADDR, bank, val, domid);
+ }
+ 
+diff --git a/xen/arch/x86/cpu/mcheck/mce.c b/xen/arch/x86/cpu/mcheck/mce.c
+index 0244553..cc446eb 100644
+--- a/xen/arch/x86/cpu/mcheck/mce.c
++++ b/xen/arch/x86/cpu/mcheck/mce.c
+@@ -1427,7 +1427,6 @@ long do_mca(XEN_GUEST_HANDLE_PARAM(xen_mc_t) u_xen_mc)
+ 
+         if ( mc_msrinject->mcinj_flags & MC_MSRINJ_F_GPADDR )
+         {
+-            domid_t domid;
+             struct domain *d;
+             struct mcinfo_msr *msr;
+             unsigned int i;
+@@ -1460,7 +1452,7 @@ long do_mca(XEN_GUEST_HANDLE_PARAM(xen_mc_t) u_xen_mc)
+                     put_gfn(d, gfn);
+                     put_domain(d);
+                     return x86_mcerr("do_mca inject: bad gfn %#lx of domain %d",
+-                                     -EINVAL, gfn, domid);
++                                     -EINVAL, gfn, mc_msrinject->mcinj_domid);
+                 }
+ 
+                 msr->value = pfn_to_paddr(mfn) | (gaddr & (PAGE_SIZE - 1));
+"""
+
+
