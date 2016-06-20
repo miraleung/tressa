@@ -2,6 +2,8 @@
 
 import subprocess
 import re
+import sys
+import logging
 from enum import Enum
 
 
@@ -12,6 +14,9 @@ from enum import Enum
 
 NUM_CONTEXT_LINES = 4
 """In diffs, this number of lines above or below the changed line"""
+
+FILE_EXTENSIONS = "ch"
+"""We only want to search .c or .h files"""
 
 
 
@@ -25,6 +30,7 @@ class Source():
     """Represents all the assertions in the source files of a given revision,
     organized into files.
     """
+    # string -> Source
     def __init__(self, revision_id):
         self.revision_id = revision_id
         self.files = []
@@ -32,9 +38,14 @@ class Source():
 
 class File():
     """A container for relevant assertions in a given file"""
+    # string -> File
     def __init__(self, name):
         self.name = name
         self.assertions = []
+        self.to_inspect = []    # for difficult-to-parse automatically asserts
+
+    def __repr__(self):
+        return "File('{n}')[{a}]".format(n=self.name, a=len(self.assertions))
 
 
 class History():
@@ -49,6 +60,7 @@ class Diff():
     """The files that had assertion changes in between adjacent revisions, as
     well as the IDs of those revisions.
     """
+    # string string string -> Diff
     def __init__(self, rvn_id, author, msg):
         self.rvn_id = rvn_id    # newer revision (commit) ID
         self.author = author
@@ -75,7 +87,6 @@ class Diff():
                       Author:\ (?P<author>.*?)\n
                       .*?\n\n
                       (?P<msg>.*)"""
-
         m = re.match(pattern, log_msg, re.VERBOSE | re.MULTILINE | re.DOTALL)
 
         if m is None:
@@ -105,6 +116,7 @@ class Change(Enum):
     NA = 0
     Added = 1
     Removed = 2
+    Broken = 3     # used for cases that require manual inspection
 
 
 class Assertion():
@@ -112,6 +124,7 @@ class Assertion():
     as its original parsed string, and a basic abstract syntax tree
     representation for performing basic analysis and comparison operations.
     """
+    # int int string string Change -> Assertion
     def __init__(self, start_line, num_lines, raw_lines, assert_string, change=Change.NA):
         self.start_line = start_line
         self.num_lines = num_lines
@@ -121,6 +134,7 @@ class Assertion():
         self.ast = generateAST(raw_string)
 
 
+# string -> Assertion
 def generateAST(assertion_string):
     """Given an assertion expression, produces naive AST for basic analysis.
     (Should this be a method of Assertion? I don't think so.)
@@ -154,25 +168,66 @@ def mineAssertions(repo_path, assertion_re, branch="master"):
     history = History()
     commits = getRevisionIds(repo_path, branch)
     for commit in commits:
+        logging.info(Processing " + commit)
         patch = readPatch(repo_path, commit)
         log_msg, file_diffs = split_patch(patch)
-        diff = Diff.new(log_msg)
+        files = generate_files(file_diffs, assertion_re)
 
-        for file_diff in file_diffs:
-            assertions = extractChangedAssertions(file_diff, assertion_re)
-            if len(assertions) > 0:
-                file = makeFile(file_diff)
-                file.assertions.extend(assertions)
-                diff.files.append(file)
-
-        if len(diff.files) > 0:     # No need to keep diff if it is empty
+        if len(files) > 0:  # no need to create diff if if no assertions
+            diff = Diff.new(log_msg)
+            diff.files = files
             history.diffs.append(diff)
 
+    return history
 
-# string -> File
-def makeFile(file_diff):
-    # TODO (make it a constructor?)
-    return None
+# [string] string -> [File]
+def generate_files(file_diffs, assertion_re):
+    """Produce File for every changed-assertion-containing file_diff"""
+    ext_pattern = r".*\.[{exts}]$".format(exts=FILE_EXTENSIONS)
+    files = []
+    for file_diff in file_diffs:
+        filename = find_filename(file_diff)
+        if re.match(ext_pattern, filename):
+            asserts, inspects = extract_assertions(file_diff, assertion_re)
+
+            if len(assertions) + len(inspects) > 0:
+                file = File(filename)
+                file.assertions.extend(assertions)
+                file.to_inspect.extend(inspects)
+                files.append(file)
+
+
+# string -> string
+def find_filename(file_diff):
+    """Finds name of "to" file in given diff, for example, this gives
+    'newname.c' (it's okay if the initial 'diff' is missing):
+
+    diff --git a/oldname.c b/newname.c
+    index 91de014..c8dcc09 100644
+    --- a/oldname.c
+    +++ b/newname.c
+    @@ -12 +12 @@ int somefun(int a) {
+    -            a == 3 ||
+    +            a == 4 ||
+    """
+    pattern = r"^\+\+\+ b/(?P<filename>.+?)$"
+    m = re.search(pattern, file_diff, re.MULTILINE | re.DOTALL)
+
+    if m is None:
+        logging.error("Improperly-formatted diff string")
+        return ""
+
+    return m.group("filename")
+
+
+
+
+
+
+
+
+
+
 
 # regex string -> [string]
 def getRevisionIds(repo_path, branch):
@@ -201,16 +256,30 @@ def split_patch(patch):
     return files[0], files[1:]
 
 
-# string regex -> [Assertion]
-def extractChangedAssertions(diff, asserts):
+# string string > [Assertion] [Assertion]
+def extract_assertions(diff, assertion_re):
     """Produce list of Assertions generated for each assertion that appears in
     the given file's diff, provided that if it has been changed in some way
     (e.g, newly-added, removed, predicate-changed). Ignores unchanged
     assertions.Assertions are detected by matching the 'asserts' regular
-    expression.
+    expression. Any assertions that appear suspicious or cannot be parsed
+    properly are returned in the second list (with change=Change.Unknown)
     """
-    # TODO
-    return []
+
+    sections = extract_sections(diff)
+
+
+# string -> [DiffSection]
+def extract_sections(diff):
+
+
+
+class DiffSection():
+    """The body of a diff, beetween @@ headers."""
+    def __init__(self):
+        self.to_line = 0
+        self.to_num_lines = 0
+        self.body = ""          # the string of the body of the diff
 
 
 
@@ -220,6 +289,26 @@ def extractChangedAssertions(diff, asserts):
 
 
 
+
+
+
+
+
+
+# string -> string
+def remove_comments(text):
+    # copied from http://stackoverflow.com/a/241506
+    def replacer(match):
+        s = match.group(0)
+        if s.startswith('/'):
+            return " " # note: a space and not an empty string
+        else:
+            return s
+    pattern = re.compile(
+        r'//.*?$|/\*.*?\*/|\'(?:\\.|[^\\\'])*\'|"(?:\\.|[^\\"])*"',
+        re.DOTALL | re.MULTILINE
+    )
+    return re.sub(pattern, replacer, text)
 
 
 
@@ -227,23 +316,19 @@ def extractChangedAssertions(diff, asserts):
 
 
 # string string -> string
-def runCommand(cmd, cwd, shell=False):
+def runCommand(cmd, cwd, shell=False, input=None):
     """Given command and current working directory for command,
     returns its stdout. Throw exception if non-zero exit code. Shell=true
     means command can be written as usual; otherwise each word must be separate
     in list.
     """
     proc = subprocess.run(cmd, cwd=cwd, stdout=subprocess.PIPE, shell=shell,
-            check=True, universal_newlines=True)
+            input=input, check=True, universal_newlines=True)
     return proc.stdout
 
 
 
 
-
-# string -> 
-def eprint(msg):
-    sys.stderr.write(msg+"\n")
 
 
 
