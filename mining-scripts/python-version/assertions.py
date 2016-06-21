@@ -117,7 +117,7 @@ class Change(Enum):
     NA = 0
     Added = 1
     Removed = 2
-    Broken = 3     # used for cases that require manual inspection
+    Uncertain = 3     # used for cases that require manual inspection
 
 
 class Assertion():
@@ -219,11 +219,15 @@ def generate_files(file_diffs, assertion_re):
         filename = find_filename(file_diff)
         if re.match(ext_pattern, filename):
             # only care about files with appropriate extensions
+            logging.info("\t" + filename)
             asserts, inspects = extract_assertions(file_diff, assertion_re)
 
             if len(assertions) + len(inspects) > 0:
                 file = File(filename, assertions, inspects)
                 files.append(file)
+        else:
+            logging.info("\tSkipping " +  filename)
+
 
 
 # string -> string
@@ -262,9 +266,13 @@ def extract_assertions(diff, assertion_re):
     diff_sections = extract_sections(diff)
     asserts, inspects = [], []
     for diff_section in diff_sections:
-        a, i = diff_section.extract_changed_assertions(asserts_re)
-        asserts.extend(a)
-        inspects.extend(i)
+        try:
+            a, i = diff_section.extract_changed_assertions(asserts_re)
+            asserts.extend(a)
+            inspects.extend(i)
+        except err:
+            logging.error("{ds}.extrct_changed_assertions() failed: {err}"
+                    .format(ds=diff_section, err=err))
     return asserts, inspects
 
 
@@ -290,29 +298,30 @@ def extract_sections(file_diff):
 
 class DiffSection():
     """The body of a diff; between @@ headers. for example:
-    @@ -9 +9 @@ int otherfun()      # header: +9 is linenum
+    @@ -9 +9 @@ int otherfun()      # header: +9 is first_linenum
     -    assert(x);                 # body line 1
     +    assert(y);                 # body line 2
     """
     # int string -> DiffSection
     def __init__(self, line_num, body):
-        self.linenum = line_num
+        self.first_linenum = line_num
         self.body = body # not including @@ line
 
     def __repr__(self):
         m = re.search("(\w.*)", self.body, re.MULTILINE)
         b = m.group(0) if m else "???"
-        return "DiffSection(linenum={n}, body='{b}'".format(n=self.linenum, b=b)
+        return "DiffSection(linenum={n}, body='{b}'".format(
+                n=self.first_linenum, b=b)
 
     # string -> [Assertion] [Assertion]
     def extract_changed_assertions(self, assertion_re):
         """Produces lists of definite assertions, 'to inspect' assertions that
         must be manually investigated due to parsing difficulties.
 
-        THIS is the  that would have to be overridden if you were extending
-        this for languages other than C.
+        THIS is the method that would have to be overridden if you were
+        extending this for languages other than C.
         """
-        asserts, inserts = [], []
+        asserts, inspects = [], []
 
         regex = r"\b({asserts})\s*\(".format(asserts=asserts_re)
         matches = re.finditer(regex, self.body)
@@ -326,7 +335,55 @@ class DiffSection():
 
         matches = cons(m0, matches)
 
-        # TODO.....
+        lines = self.body.splitlines()
+        first = self.first_linenum
+        offset = 0
+
+
+        for m in matches:
+            lines, first, offset = find_line_for_pos(m.start(), lines, first,
+                    offset)
+
+            try:
+                assertion = extract_assertion_change(m.start(), lines, first
+                        offset, include="+")
+                if assertion.change == Change.Added:
+                    asserts.append(assertion)
+                elif assertion.change == Change.Uncertain:
+                    inspects.append(assertion)
+
+                assertion = extract_assertion_change(m.start(), lines, first
+                        offset, include="-")
+                if assertion.change == Change.Removed:
+                    asserts.append(assertion)
+                elif assertion.change == Change.Uncertain:
+                    inspects.append(assertion)
+
+            except err:
+                logging.error("Can't extract assert on line {n}: {e}".format(
+                    n=first, e=err))
+
+        return asserts, inspects
+
+
+# int [string] int int ("+"|"-") -> Assertion
+def extract_assertion_change(assert_start_pos, lines, first, offset, include):
+    """Given an assert location and whether we are seeking new or deleted
+    assertions, produce the approprite diff-extracted Assertion.
+
+    assert_start_pos -- position in the original DiffSection where assert begins
+    line -- The DiffSection body broken into lines and front-truncated
+            so that the assert_start_pos is on first line
+    first -- file-line number of the first line of {lines}
+    offset -- offset of first character in {lines} from original
+              (prior to front-truncation) DiffSection
+    include -- can be either "+" or "-". Indicates whether we want an
+               Added (+) assertion or a Removed (-) assertion.
+    """
+    # TODO
+
+
+
 
 
 
