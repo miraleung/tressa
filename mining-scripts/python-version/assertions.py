@@ -4,6 +4,7 @@ import subprocess
 import re
 import sys
 import logging
+import itertools
 from enum import Enum
 
 
@@ -258,8 +259,13 @@ def extract_assertions(diff, assertion_re):
     properly are returned in the second list (with change=Change.Uncertain)
     """
 
-    sections = extract_sections(diff)
-
+    diff_sections = extract_sections(diff)
+    asserts, inspects = [], []
+    for diff_section in diff_sections:
+        a, i = diff_section.extract_changed_assertions(asserts_re)
+        asserts.extend(a)
+        inspects.extend(i)
+    return asserts, inspects
 
 
 # string -> [DiffSection]
@@ -283,17 +289,44 @@ def extract_sections(file_diff):
 
 
 class DiffSection():
-    """The body of a diff, beetween @@ headers."""
+    """The body of a diff; between @@ headers. for example:
+    @@ -9 +9 @@ int otherfun()      # header: +9 is linenum
+    -    assert(x);                 # body line 1
+    +    assert(y);                 # body line 2
+    """
     # int string -> DiffSection
     def __init__(self, line_num, body):
         self.linenum = line_num
-        self.body = body
+        self.body = body # not including @@ line
 
     def __repr__(self):
         m = re.search("(\w.*)", self.body, re.MULTILINE)
         b = m.group(0) if m else "???"
         return "DiffSection(linenum={n}, body='{b}'".format(n=self.linenum, b=b)
 
+    # string -> [Assertion] [Assertion]
+    def extract_changed_assertions(self, assertion_re):
+        """Produces lists of definite assertions, 'to inspect' assertions that
+        must be manually investigated due to parsing difficulties.
+
+        THIS is the  that would have to be overridden if you were extending
+        this for languages other than C.
+        """
+        asserts, inserts = [], []
+
+        regex = r"\b({asserts})\s*\(".format(asserts=asserts_re)
+        matches = re.finditer(regex, self.body)
+
+        # before doing any further computation, test that there was at least
+        # one match
+        try:
+            m0 = next(matches)
+        except StopIteration:
+            return asserts, inserts
+
+        matches = cons(m0, matches)
+
+        # TODO.....
 
 
 
@@ -301,24 +334,10 @@ class DiffSection():
 
 
 
+def cons(item, iterable):
+    return itertools.chain([item], iterable)
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-# regex string -> [string]
 def getRevisionIds(repo_path, branch):
     """Produce list of all commit Ids in history of given branch"""
     commits = runCommand(["git", "rev-list", branch], cwd=repo_path)
