@@ -1,10 +1,10 @@
-# Python 3.5
+# Python 3.4
+# dependency pygit2
 
-import subprocess
 import re
-import sys
 import logging
 import itertools
+import pygit2
 from enum import Enum
 
 
@@ -61,41 +61,12 @@ class Diff():
     """The files that had assertion changes in between adjacent revisions, as
     well as the IDs of those revisions.
     """
-    # string string string -> Diff
-    def __init__(self, rvn_id, author, msg):
+    # string string string [File] -> Diff
+    def __init__(self, rvn_id, author, msg, files):
         self.rvn_id = rvn_id    # newer revision (commit) ID
         self.author = author
         self.msg = msg
-        self.files = []     # Filenames of newest revision
-
-    # string -> Diff
-    def new(log_msg):
-        """Produces a new Diff from a default git commit log entry, for
-        example:
-
-        commit b9f1de03869703000bf3016aa5697a09cfc55c0b
-        Author: Graham St-Laurent <gstlaurent@gmail.com>
-        Date:   Mon Jun 13 11:03:01 2016 -0700
-
-            Created git-get-diffs.sh for Git, and added dir argument to both versions.
-
-            Updated Readme and documentation comments to refer to new usage and
-            names.
-
-        """
-
-        pattern = r"""commit\ (?P<commit>[0-9a-f]{40})\n
-                      Author:\ (?P<author>.*?)\n
-                      .*?\n\n
-                      (?P<msg>.*)"""
-        m = re.match(pattern, log_msg, re.VERBOSE | re.MULTILINE | re.DOTALL)
-
-        if m is None:
-            eprint("Improperly-formatted commit log")
-            return Diff("", "", "")
-
-        msg = p = re.sub("^    ", "", m.group("msg"), flags=re.MULTILINE)
-        return Diff(m.group("commit"), m.group("author"), msg)
+        self.files = files     # using filenames of newest revision
 
     def __str__(self):
         return "Diff: {id}".format(id=self.rvn_id)
@@ -126,41 +97,27 @@ class Assertion():
     representation for performing basic analysis and comparison operations.
     """
     # int int string string Change -> Assertion
-    def __init__(self, start_line, num_lines, raw_lines, assert_string, change=Change.NA):
+    def __init__(self, start_line, num_lines, raw_lines, name, assert_string,
+            change=Change.NA):
         self.start_line = start_line
         self.num_lines = num_lines
         self.raw_lines = raw_lines          # original lines of code of assert
-        self.change = change
+        self.name = name                    # assert function name
         self.string = assert_string         # assertion expression as string
-        self.ast = generateAST(raw_string)
+        self.change = change
+        self.ast = self.generateAST()
 
-
-# string -> Assertion
-def generateAST(assertion_string):
-    """Given an assertion expression, produces naive AST for basic analysis.
-    (Should this be a method of Assertion? I don't think so.)
-            AST = Abstract Syntax Tree
-    """
-    # TODO
-    return None
+    # -> Assertion
+    def generateAST(self):
+        """Parses self.string to produce naive AST for basic analysis.
+                AST = Abstract Syntax Tree
+        """
+        # TODO
+        return None
 
 ################################################################################
 # Repo mining
 ################################################################################
-
-# mineAssertions: assertionRegex -> History
-    # history = new history
-    # commits = getrevs
-    # for commit in commits:
-            # diff = gitlog -p
-
-            # files = separateFiles
-            # for file in files:
-
-
-
-
-
 
 # path regex string -> History
 def mine_repo(repo_path, assertion_re, branch="master"):
@@ -168,267 +125,125 @@ def mine_repo(repo_path, assertion_re, branch="master"):
     in this project, produces the History object containing all assertions
     that were added or removed between revisions, for the specified branch.
     """
+
     history = History()
-    commits = getRevisionIds(repo_path, branch)
-    for commit in commits:
-        logging.info("Processing " + commit)
-        patch = readPatch(repo_path, commit)
-        diff = generate_diff(patch, assertion_re)
+    repo = pygit2.Repository(repo_path)
+    for commit in walk(repo.lookup_branch(branch).target):
+        logging.info("Processing " + commit.id)
+        diff = generate_diff(commit, asserts_re)
         if diff:
             history.diffs.append(diff) # diff won't exist if no assertions
     return history
 
-    # history = History()
-    # commits = getRevisionIds(repo_path, branch)
-    # for commit in commits:
-        # logging.info(Processing " + commit)
-        # patch = readPatch(repo_path, commit)
-        # log_msg, file_diffs = split_patch(patch)
-        # files = generate_files(file_diffs, assertion_re)
 
-        # if len(files) > 0:  # no need to create diff if if no assertions
-            # diff = Diff.new(log_msg)
-            # diff.files = files
-            # history.diffs.append(diff)
-
-    # return history
-
-# string string -> Diff | None
-def generate_diff(patch, assertion_re):
+# pygit2.Commit string -> tressa.Diff | None
+def generate_diff(commit, assertion_re):
     """If there are any changed (or uncertain) assertions (matched by
-    assertion_re) in a file in the given patch, produce Diff containing them.
+    assertion_re) in a file in the given Commit, produce Diff containing them.
     Otherwise produce None.
     """
-    log_msg, file_diffs = split_patch(patch)
-    files = generate_files(file_diffs, assertion_re)
+    parents = commit.parents
+    if len(parents) == 0:
+        diff = commit.tree.diff_to_tree(swap=True,
+                context_lines=NUM_CONTEXT_LINES)
+    elif len(parents) == 1:
+        diff = repo.diff(parents[0], commit, context_lines=NUM_CONTEXT_LINES)
+    else:
+        # don't diff merges or else we'll 'double-dip' on the assertions
+        return None
 
+    files = analyze_diff(diff, assertion_re)
     if len(files) == 0:
         return None
 
-    diff = Diff.new(log_msg)
-    diff.files = files
-    return diff
+    return Diff(commit.hex, commit.author.name, commit.message, files)
 
 
-# [string] string -> [File]
-def generate_files(file_diffs, assertion_re):
-    """Produce File for every changed-assertion-containing file_diff"""
+# pygit2.Diff string -> [Files]
+def analyze_diff(diff, assertion_re):
+    """Include File in list if it contains changed assertions"""
     ext_pattern = r".*\.[{exts}]$".format(exts=FILE_EXTENSIONS)
     files = []
-    for file_diff in file_diffs:
-        filename = find_filename(file_diff)
+    for patch in diff:
+        filename = patch.delta.new_file.path
         if re.match(ext_pattern, filename):
             # only care about files with appropriate extensions
             logging.info("\t" + filename)
-            asserts, inspects = extract_assertions(file_diff, assertion_re)
+            asserts, inspects = analyze_patch(patch, assertion_re)
 
-            if len(assertions) + len(inspects) > 0:
-                file = File(filename, assertions, inspects)
+            if len(asserts) + len(inspects) > 0:
+                file = File(filename, asserts, inspects)
                 files.append(file)
         else:
             logging.info("\tSkipping " +  filename)
+    return files
 
 
-
-# string -> string
-def find_filename(file_diff):
-    """Finds name of "to" file in given diff, for example, this gives
-    'newname.c' (it's okay if the initial 'diff' is missing):
-
-    diff --git a/oldname.c b/newname.c
-    index 91de014..c8dcc09 100644
-    --- a/oldname.c
-    +++ b/newname.c
-    @@ -12 +12 @@ int somefun(int a) {
-    -            a == 3 ||
-    +            a == 4 ||
+# pygit2.Patch string -> [Assertion] [Assertion]
+def analyze_patch(patch, assertion_re):
+    """Produce list of changed Assertions found in given patch. Assertions
+    are identified by assertion_re.
     """
-    pattern = r"^\+\+\+ b/(?P<filename>.+?)$"
-    m = re.search(pattern, file_diff, re.MULTILINE | re.DOTALL)
-
-    if m is None:
-        logging.error("Improperly-formatted diff string")
-        return ""
-
-    return m.group("filename")
-
-
-# string string > [Assertion] [Assertion]
-def extract_assertions(diff, assertion_re):
-    """Produce list of Assertions generated for each assertion that appears in
-    the given file's diff, provided that if it has been changed in some way
-    (e.g, newly-added, removed, predicate-changed). Ignores unchanged
-    assertions.Assertions are detected by matching the 'asserts' regular
-    expression. Any assertions that appear suspicious or cannot be parsed
-    properly are returned in the second list (with change=Change.Uncertain)
-    """
-
-    diff_sections = extract_sections(diff)
     asserts, inspects = [], []
-    for diff_section in diff_sections:
-        try:
-            a, i = diff_section.extract_changed_assertions(asserts_re)
-            asserts.extend(a)
-            inspects.extend(i)
-        except err:
-            logging.error("{ds}.extrct_changed_assertions() failed: {err}"
-                    .format(ds=diff_section, err=err))
+    for hunk in patch.hunks:
+        a, i = find_assertions(hunk, assertion_re)
+        asserts.extend(a)
+        inspects.extend(i)
+    return asserts, inspects
+
+# pygit2.Hunk string -> [Assertion] [Assertion]
+def generate_assertions(hunk, assertion_re):
+    assertions = locate_assertions(hunk, assertion_re)
+    asserts, inspects = [], []
+    for a in assertions:
+        add, rem, unc = a.extract_changed_assertion()
+        if add is not None:
+            asserts.append(add)
+        if rem is not None:
+            asserts.append(rem)
+        if unc is not None:
+            inspects.append(unc)
+
     return asserts, inspects
 
 
-# string -> [DiffSection]
-def extract_sections(file_diff):
-    secs = re.split(r"^@@ \S+ \+(\d+).*\n", file_diff,
-            flags=re.MULTILINE) # note, parens keeps the starting line-number
-
-    diff_secs = []
-    try:
-        pairs = iter(secs[1:]) # remove header, leaving linenum-diff pairs
-        while True:
-            linenum = int(next(pairs))
-            body = next(pairs)
-            ds = DiffSection(linenum, body)
-            diff_secs.append(ds)
-    except StopIteration:
-        return diff_secs
-    except:
-        logging.error("Malformed file diff: " + find_filename(file_diff))
-        return []
-
-
-class DiffSection():
-    """The body of a diff; between @@ headers. for example:
-    @@ -9 +9 @@ int otherfun()      # header: +9 is first_linenum
-    -    assert(x);                 # body line 1
-    +    assert(y);                 # body line 2
+# pygit2.Hunk string -> [HunkAssertion]
+def locate_assertions(hunk, assertion_re):
+    """Finds all locations in the given hunk where the given regex identifies
+    an assertion.
     """
-    # int string -> DiffSection
-    def __init__(self, line_num, body):
-        self.first_linenum = line_num
-        self.body = body # not including @@ line
+    hunk_ass = []
+    i = 0
+    while i < len(hunk.lines):
+        line = hunk.lines[i]
+        regex = r"\b({asserts})\b".format(asserts=asserts_re)
+        matches = re.finditer(regex, line)
+        if matches:
+            for m in matches:
+                ha = HunkAssertion(hunk, i, m.start(), m.end(), m.group())
+                hunk_ass.append(ha)
+    return hunk_ass
 
-    def __repr__(self):
-        m = re.search("(\w.*)", self.body, re.MULTILINE)
-        b = m.group(0) if m else "???"
-        return "DiffSection(linenum={n}, body='{b}'".format(
-                n=self.first_linenum, b=b)
 
-    # string -> [Assertion] [Assertion]
-    def extract_changed_assertions(self, assertion_re):
-        """Produces lists of definite assertions, 'to inspect' assertions that
-        must be manually investigated due to parsing difficulties.
+class HunkAssertion():
+    """An Assertion statement within a Hunk (a section of a diff's patch)."""
+    def __init__(self, hunk, start_line_index, startpos, endpos, name):
+        self.hunk = hunk
+        self.start_line_index = start_line_index
+        self.startpos = startpos
+        self.endpos = endpos
+        self.name = name
 
-        THIS is the method that would have to be overridden if you were
-        extending this for languages other than C.
+    # -> Assertion|None, Assertion|None, Assertion|None
+    def extract_changed_assertion(self):
+        """If this corresponds to what appears to be an actual Added,
+        or Removed or both assertion, then create them and return. If it
+        there is a problem parsing the assertion or it looks suspicious,
+        return it as the third. Return None for any cases where
+        an assertion wasn't found.
         """
-        asserts, inspects = [], []
-
-        regex = r"\b({asserts})\s*\(".format(asserts=asserts_re)
-        matches = re.finditer(regex, self.body)
-
-        # before doing any further computation, test that there was at least
-        # one match
-        try:
-            m0 = next(matches)
-        except StopIteration:
-            return asserts, inserts
-
-        matches = cons(m0, matches)
-
-        lines = self.body.splitlines()
-        first = self.first_linenum
-        offset = 0
-
-
-        for m in matches:
-            lines, first, offset = find_line_for_pos(m.start(), lines, first,
-                    offset)
-
-            try:
-                assertion = extract_assertion_change(m.start(), lines, first
-                        offset, include="+")
-                if assertion.change == Change.Added:
-                    asserts.append(assertion)
-                elif assertion.change == Change.Uncertain:
-                    inspects.append(assertion)
-
-                assertion = extract_assertion_change(m.start(), lines, first
-                        offset, include="-")
-                if assertion.change == Change.Removed:
-                    asserts.append(assertion)
-                elif assertion.change == Change.Uncertain:
-                    inspects.append(assertion)
-
-            except err:
-                logging.error("Can't extract assert on line {n}: {e}".format(
-                    n=first, e=err))
-
-        return asserts, inspects
-
-
-# int [string] int int ("+"|"-") -> Assertion
-def extract_assertion_change(assert_start_pos, lines, first, offset, include):
-    """Given an assert location and whether we are seeking new or deleted
-    assertions, produce the approprite diff-extracted Assertion.
-
-    assert_start_pos -- position in the original DiffSection where assert begins
-    line -- The DiffSection body broken into lines and front-truncated
-            so that the assert_start_pos is on first line
-    first -- file-line number of the first line of {lines}
-    offset -- offset of first character in {lines} from original
-              (prior to front-truncation) DiffSection
-    include -- can be either "+" or "-". Indicates whether we want an
-               Added (+) assertion or a Removed (-) assertion.
-    """
-    # TODO
-
-
-
-
-
-
-
-
-
-
-def cons(item, iterable):
-    return itertools.chain([item], iterable)
-
-
-def getRevisionIds(repo_path, branch):
-    """Produce list of all commit Ids in history of given branch"""
-    commits = runCommand(["git", "rev-list", branch], cwd=repo_path)
-    return commits.splitlines()
-
-
-# string string -> string
-def readPatch(repo_path, rvn_id):
-    """Produce commit message and diff file between given revision and its
-    parent
-    """
-    context_size = "-U{n}".format(n=NUM_CONTEXT_LINES)
-    return runCommand(["git", "log", "-p", "-1", context_size, rvn_id],
-            cwd=repo_path)
-
-
-# string -> string, [string]
-def split_patch(patch):
-    """Return the commit log message, followed by a list of the diffs for
-    each file in the patch. For simplicity's sake, it also removes the word
-    'diff' from the beginning of each diff.
-    """
-    files = re.split("^diff", patch, flags=re.MULTILINE)
-    msg_pos = re.findall
-    return files[0], files[1:]
-
-
-
-
-
-
-
-
-
+        # TODO
+        return None, None, None
 
 
 
@@ -450,21 +265,6 @@ def remove_comments(text):
     )
     return re.sub(pattern, replacer, text)
 
-
-
-
-
-
-# string string -> string
-def runCommand(cmd, cwd, shell=False, input=None):
-    """Given command and current working directory for command,
-    returns its stdout. Throw exception if non-zero exit code. Shell=true
-    means command can be written as usual; otherwise each word must be separate
-    in list.
-    """
-    proc = subprocess.run(cmd, cwd=cwd, stdout=subprocess.PIPE, shell=shell,
-            input=input, check=True, universal_newlines=True)
-    return proc.stdout
 
 
 
