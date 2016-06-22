@@ -88,7 +88,6 @@ class Change(Enum):
     NA = 0
     Added = 1
     Removed = 2
-    Uncertain = 3     # used for cases that require manual inspection
 
 
 class Assertion():
@@ -98,13 +97,14 @@ class Assertion():
     """
     # int int string string Change -> Assertion
     def __init__(self, start_line, num_lines, raw_lines, name, assert_string,
-            change=Change.NA):
+            change=Change.NA, problematic=False):
         self.start_line = start_line
         self.num_lines = num_lines
         self.raw_lines = raw_lines          # original lines of code of assert
         self.name = name                    # assert function name
         self.string = assert_string         # assertion expression as string
         self.change = change
+        self.problematic = problematic      # true if needs manual inspection
         self.ast = self.generateAST()
 
     # -> Assertion
@@ -196,13 +196,18 @@ def generate_assertions(hunk, assertion_re):
     assertions = locate_assertions(hunk, assertion_re)
     asserts, inspects = [], []
     for a in assertions:
-        add, rem, unc = a.extract_changed_assertion()
+        add, rem = a.extract_changed_assertion()
         if add is not None:
-            asserts.append(add)
+            if add.problematic:
+                inspects.append(add)
+            else:
+                asserts.append(add)
+
         if rem is not None:
-            asserts.append(rem)
-        if unc is not None:
-            inspects.append(unc)
+            if rem.problematic:
+                inspects.append(rem)
+            else:
+                asserts.append(rem)
 
     return asserts, inspects
 
@@ -212,16 +217,18 @@ def locate_assertions(hunk, assertion_re):
     """Finds all locations in the given hunk where the given regex identifies
     an assertion.
     """
+    regex = r"\b({asserts})\b".format(asserts=asserts_re)
     hunk_ass = []
     i = 0
     while i < len(hunk.lines):
         line = hunk.lines[i]
-        regex = r"\b({asserts})\b".format(asserts=asserts_re)
         matches = re.finditer(regex, line)
         if matches:
             for m in matches:
                 ha = HunkAssertion(hunk, i, m.start(), m.end(), m.group())
                 hunk_ass.append(ha)
+        i += 1
+
     return hunk_ass
 
 
@@ -234,16 +241,15 @@ class HunkAssertion():
         self.endpos = endpos
         self.name = name
 
-    # -> Assertion|None, Assertion|None, Assertion|None
+    # -> Assertion|None, Assertion|None
     def extract_changed_assertion(self):
         """If this corresponds to what appears to be an actual Added,
-        or Removed or both assertion, then create them and return. If it
-        there is a problem parsing the assertion or it looks suspicious,
-        return it as the third. Return None for any cases where
-        an assertion wasn't found.
+        or Removed or both assertion, then create them and return.
+        Return None for any cases where the assertion wasn't actually changed,
+        or it appears to be invalid for some other reason.
         """
         # TODO
-        return None, None, None
+        return None, None
 
 
 
