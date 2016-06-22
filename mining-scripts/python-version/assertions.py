@@ -6,6 +6,7 @@ import logging
 import itertools
 import pygit2
 from enum import Enum
+from collections import namedtuple
 
 
 ################################################################################
@@ -95,10 +96,10 @@ class Assertion():
     as its original parsed string, and a basic abstract syntax tree
     representation for performing basic analysis and comparison operations.
     """
-    # int int string string Change -> Assertion
-    def __init__(self, start_line, num_lines, raw_lines, name, assert_string,
+    # int int [string] string Change -> Assertion
+    def __init__(self, start_lineno, num_lines, raw_lines, name, assert_string,
             change=Change.NA, problematic=False):
-        self.start_line = start_line
+        self.start_lineno = start_lineno
         self.num_lines = num_lines
         self.raw_lines = raw_lines          # original lines of code of assert
         self.name = name                    # assert function name
@@ -133,7 +134,7 @@ def mine_repo(repo_path, assertion_re, branch="master"):
         diff = generate_diff(commit, asserts_re)
         if diff:
             history.diffs.append(diff) # diff won't exist if no assertions
-    return history
+    return historye
 
 
 # pygit2.Commit string -> tressa.Diff | None
@@ -196,13 +197,14 @@ def generate_assertions(hunk, assertion_re):
     assertions = locate_assertions(hunk, assertion_re)
     asserts, inspects = [], []
     for a in assertions:
-        add, rem = a.extract_changed_assertion()
+        add = a.extract_changed_assertion(Change.Added)
         if add is not None:
             if add.problematic:
                 inspects.append(add)
             else:
                 asserts.append(add)
 
+        rem = a.extract_changed_assertion(Change.Removed)
         if rem is not None:
             if rem.problematic:
                 inspects.append(rem)
@@ -225,7 +227,8 @@ def locate_assertions(hunk, assertion_re):
         matches = re.finditer(regex, line)
         if matches:
             for m in matches:
-                ha = HunkAssertion(hunk, i, m.start(), m.end(), m.group())
+                # ha = HunkAssertion(hunk, i, m.start(), m.end(), m.group())
+                ha = HunkAssertion(hunk, i, m)
                 hunk_ass.append(ha)
         i += 1
 
@@ -234,22 +237,87 @@ def locate_assertions(hunk, assertion_re):
 
 class HunkAssertion():
     """An Assertion statement within a Hunk (a section of a diff's patch)."""
-    def __init__(self, hunk, start_line_index, startpos, endpos, name):
+    def __init__(self, hunk, line_index, match):
         self.hunk = hunk
-        self.start_line_index = start_line_index
-        self.startpos = startpos
-        self.endpos = endpos
-        self.name = name
+        self.line_index = line_index
+        self.match = match
 
-    # -> Assertion|None, Assertion|None
-    def extract_changed_assertion(self):
-        """If this corresponds to what appears to be an actual Added,
-        or Removed or both assertion, then create them and return.
-        Return None for any cases where the assertion wasn't actually changed,
-        or it appears to be invalid for some other reason.
+    # Change -> Assertion|None
+    def extract_changed_assertion(self, change):
+        """Finds the given assertion, assuming it is Added or Removed
+        (determined by :change: input). If successful, return create
+        Assertion and return it. If it did not change as specified return None.
+        If it seems to have changed, but produced parsing difficulties,
+        return Assertion with .problematic flag turned on.
+
+        problematic:
+            - contains string that contains actual newline
+            - reaches end of hunk without closing paren
+            - reaches */ before closing paren (not preceded by /*)
+            - contains * followed by at least two spaces
+            - ASSERT line preceded by #define (could be part of another macro)
+
+         return None:
+            - first line is anti-changed
+            - no lines from open to close are appropriately Changed
+            - ASSERT is among Ignorable Characters:
+
+        Ignoreable Characters (for paren-counting):
+            - // to end of line
+            - /* to */
+            - " to " (but keep in 'string' field of Assertion)
+
         """
-        # TODO
-        return None, None
+        if change == Change.Added:
+            antichange = '-'
+        elif change == Change.Removed:
+            antichange = '+'
+        else:
+            logging.warning("Improper change argument {{{ca}}} in Hunk: {h}"
+                    .format(ca=change, h=self.hunk.header))
+            return None
+
+        state = ParseState(antichange, self.match)
+        for line in self.hunk.lines[self.start_line_index]:
+            done = state.parse(line)
+            if done:
+                break
+
+        if not state.valid:
+            return None
+
+        lines = state.lines
+        lineno= lines[0].new_lineno if change == Change.Added \
+            else lines[0].old_lineno
+        assertion = Assertion(lineno, len(lines), [l.content for l in lines],
+                self.match.group(), state.assert_string, change=change,
+                problematic=state.problematic)
+        return Assertion
+
+
+
+
+
+
+
+
+
+
+
+
+
+class ParseState():
+    def __init__(self, antichange, match):
+        self.antichange = antichange    # one-character string
+        self.match = match              # re.Match
+        self.lines = []                 # keeper pygit lines visited
+        self.parens = 0                 # num parens seen so far
+        self.comment = False
+        self.string = False
+        self.assert_string              # final string, without comments
+        self.valid = True
+        self.problematic = False
+
 
 
 
