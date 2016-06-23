@@ -108,7 +108,8 @@ class Assertion():
         self.num_lines = num_lines
         self.raw_lines = raw_lines          # original lines of code of assert
         self.name = name                    # assert function name
-        self.string = assert_string         # assertion expression as string
+        self.string = re.sub(r"\s", "", assert_string)  # assertion expression
+                                                   # as string minus whitespace
         self.change = change
         self.problematic = problematic      # true if needs manual inspection
         self.ast = self.generateAST()
@@ -134,16 +135,16 @@ def mine_repo(repo_path, assertion_re, branch="master"):
 
     history = History()
     repo = pygit2.Repository(repo_path)
-    for commit in walk(repo.lookup_branch(branch).target):
-        logging.info("Processing " + commit.id)
-        diff = generate_diff(commit, asserts_re)
+    for commit in repo.walk(repo.lookup_branch(branch).target):
+        logging.info("Processing " + commit.hex)
+        diff = generate_diff(commit, repo, assertion_re)
         if diff:
             history.diffs.append(diff) # diff won't exist if no assertions
-    return historye
+    return history
 
 
-# pygit2.Commit string -> tressa.Diff | None
-def generate_diff(commit, assertion_re):
+# pygit2.Commit pygit2.Repository string -> tressa.Diff | None
+def generate_diff(commit, repo, assertion_re):
     """If there are any changed (or uncertain) assertions (matched by
     assertion_re) in a file in the given Commit, produce Diff containing them.
     Otherwise produce None.
@@ -192,7 +193,7 @@ def analyze_patch(patch, assertion_re):
     """
     asserts, inspects = [], []
     for hunk in patch.hunks:
-        a, i = find_assertions(hunk, assertion_re)
+        a, i = generate_assertions(hunk, assertion_re)
         asserts.extend(a)
         inspects.extend(i)
     return asserts, inspects
@@ -218,7 +219,7 @@ def generate_assertions(hunk, assertion_re):
                     inspects.append(rem)
                 else:
                     asserts.append(rem)
-        except err:
+        except Exception as err:
             logging.error("Problem extracting '{a}' in {h}: {e}"
                     .format(a=a.match.group(), h=a.hunk.header, e=err))
 
@@ -230,10 +231,10 @@ def locate_assertions(hunk, assertion_re):
     """Finds all locations in the given hunk where the given regex identifies
     an assertion.
     """
-    regex = r"\b({asserts})\b".format(asserts=asserts_re)
+    regex = r"\b({asserts})\b".format(asserts=assertion_re)
     hunk_ass = []
-    while i, line in enumerate(hunk.lines):
-        matches = re.finditer(regex, line)
+    for i, line in enumerate(hunk.lines):
+        matches = re.finditer(regex, line.content)
         if matches:
             for m in matches:
                 ha = HunkAssertion(hunk, i, m)
@@ -287,7 +288,7 @@ class HunkAssertion():
             if line.origin != change.anti_prefix:
                 status = extracter.extract(line)
                 count += 1
-                if status == DONE or count > NUM_CONTEXT_LINES + 1
+                if status == DONE or count > NUM_CONTEXT_LINES + 1:
                     break
 
         if not extracter.valid or not extracter.changed:
@@ -403,108 +404,6 @@ class Extracter():
                 return DONE
 
         return MORE
-
-
-
-
-
-            # Must check for Comment status first
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-                    if self.match.start() > d.start():
-                        self.valid = False
-                        return True
-
-        return False
-
-
-
-        
-
-
-
-
-        i = delims.finditer(line.content)
-        for i in 
-
-
-
-
-
-        i = iter(line.content)
-        while True:
-            try:
-                c = next(i)
-                if c == 
-
-            except StopIteration:
-                break
-
-        # check for problematic termination
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        return False
-
-
-
-
-
-
-
-# string -> string
-def remove_comments(text):
-    # copied from http://stackoverflow.com/a/241506
-    def replacer(match):
-        s = match.group(0)
-        if s.startswith('/'):
-            return " " # note: a space and not an empty string
-        else:
-            return s
-    pattern = re.compile(
-        r'//.*?$|/\*.*?\*/|\'(?:\\.|[^\\\'])*\'|"(?:\\.|[^\\"])*"',
-        re.DOTALL | re.MULTILINE
-    )
-    return re.sub(pattern, replacer, text)
-
-
-
-
-
 
 
 
