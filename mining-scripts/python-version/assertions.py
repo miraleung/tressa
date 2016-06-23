@@ -21,6 +21,8 @@ FILE_EXTENSIONS = "ch"
 """We only want to search .c or .h files"""
 
 
+MORE = False
+DONE = True
 
 
 ################################################################################
@@ -81,14 +83,17 @@ class Diff():
 class Change(Enum):
     """If the assertion was found while repo-mining, then this indicates
     whether it was added or removed. If found while searching one
-    revision alone, then its Change state is Not Applicable (NA).
+    revision alone, then its Change state is '
     Note, this does not indicate whether two assertions are related through
     a simple change of an argument between revisions. Determining that
     is for later analysis.
     """
-    NA = 0
-    Added = 1
-    Removed = 2
+    none = (' ', ' ')
+    added = ('+', '-')
+    removed = ('-', '+')
+    def __init__(self, prefix, anti_prefix):
+        self.prefix = prefix
+        self.anti_prefix = anti_prefix
 
 
 class Assertion():
@@ -98,7 +103,7 @@ class Assertion():
     """
     # int int [string] string Change -> Assertion
     def __init__(self, start_lineno, num_lines, raw_lines, name, assert_string,
-            change=Change.NA, problematic=False):
+            change=Change.none, problematic=False):
         self.start_lineno = start_lineno
         self.num_lines = num_lines
         self.raw_lines = raw_lines          # original lines of code of assert
@@ -197,19 +202,25 @@ def generate_assertions(hunk, assertion_re):
     assertions = locate_assertions(hunk, assertion_re)
     asserts, inspects = [], []
     for a in assertions:
-        add = a.extract_changed_assertion(Change.Added)
-        if add is not None:
-            if add.problematic:
-                inspects.append(add)
-            else:
-                asserts.append(add)
+        try:
+            # if something happens while extracting an assertion, we just
+            # want to skip it and keep going, so as to not lose previous results
+            add = a.extract_changed_assertion(Change.Added)
+            if add is not None:
+                if add.problematic:
+                    inspects.append(add)
+                else:
+                    asserts.append(add)
 
-        rem = a.extract_changed_assertion(Change.Removed)
-        if rem is not None:
-            if rem.problematic:
-                inspects.append(rem)
-            else:
-                asserts.append(rem)
+            rem = a.extract_changed_assertion(Change.Removed)
+            if rem is not None:
+                if rem.problematic:
+                    inspects.append(rem)
+                else:
+                    asserts.append(rem)
+        except err:
+            logging.error("Problem extracting '{a}' in {h}: {e}"
+                    .format(a=a.match.group(), h=a.hunk.header, e=err))
 
     return asserts, inspects
 
@@ -221,16 +232,12 @@ def locate_assertions(hunk, assertion_re):
     """
     regex = r"\b({asserts})\b".format(asserts=asserts_re)
     hunk_ass = []
-    i = 0
-    while i < len(hunk.lines):
-        line = hunk.lines[i]
+    while i, line in enumerate(hunk.lines):
         matches = re.finditer(regex, line)
         if matches:
             for m in matches:
-                # ha = HunkAssertion(hunk, i, m.start(), m.end(), m.group())
                 ha = HunkAssertion(hunk, i, m)
                 hunk_ass.append(ha)
-        i += 1
 
     return hunk_ass
 
@@ -252,15 +259,19 @@ class HunkAssertion():
 
         problematic:
             - contains string that contains actual newline
-            - reaches end of hunk without closing paren
+            - reaches end of hunk or +5 lines without closing paren,
+            but at least one line had been changed
             - reaches */ before closing paren (not preceded by /*)
             - contains * followed by at least two spaces
             - ASSERT line preceded by #define (could be part of another macro)
+                - actually, a # appearing anywhere, since precomp directives...
+            - has any weird characters on first line
 
          return None:
             - first line is anti-changed
             - no lines from open to close are appropriately Changed
             - ASSERT is among Ignorable Characters:
+            - reaches end of hunk without any changed lines
 
         Ignoreable Characters (for paren-counting):
             - // to end of line
@@ -268,55 +279,206 @@ class HunkAssertion():
             - " to " (but keep in 'string' field of Assertion)
 
         """
-        if change == Change.Added:
-            antichange = '-'
-        elif change == Change.Removed:
-            antichange = '+'
-        else:
-            logging.warning("Improper change argument {{{ca}}} in Hunk: {h}"
-                    .format(ca=change, h=self.hunk.header))
+        if self.hunk.lines[self.line_index].origin == change.anti_prefix:
             return None
 
-        state = ParseState(antichange, self.match)
-        for line in self.hunk.lines[self.start_line_index]:
-            done = state.parse(line)
-            if done:
-                break
+        extracter = Extracter(change, self.match)
+        for line in self.hunk.lines[self.line_index:]:
+            if line.origin != change.anti_prefix:
+                status = extracter.extract(line)
+                count += 1
+                if status == DONE or count > NUM_CONTEXT_LINES + 1
+                    break
 
-        if not state.valid:
+        if not extracter.valid or not extracter.changed:
             return None
 
-        lines = state.lines
-        lineno= lines[0].new_lineno if change == Change.Added \
-            else lines[0].old_lineno
-        assertion = Assertion(lineno, len(lines), [l.content for l in lines],
-                self.match.group(), state.assert_string, change=change,
-                problematic=state.problematic)
-        return Assertion
+        if done != DONE:
+            extracter.problematic = True
+
+        lineno = extracter.lines[0].new_lineno if change == Change.Added \
+            else extracter.lines[0].old_lineno
+        lines = [l.content for l in extracter.lines]
+
+        assertion = Assertion(lineno, len(lines), lines, self.match.group(),
+                extracter.assert_string, change=change,
+                problematic=extracter.problematic)
+        return assertion
 
 
+class Extracter():
+    delims = re.compile(r'(//|\*  |/\*|\*/|"|#|\(|\))')
+    #                      1  2    3   4   5 6 7  8
 
-
-
-
-
-
-
-
-
-
-
-class ParseState():
-    def __init__(self, antichange, match):
-        self.antichange = antichange    # one-character string
+    def __init__(self, change, match):
+        self.change = change            # Change
         self.match = match              # re.Match
-        self.lines = []                 # keeper pygit lines visited
+        self.lines = []                 # pygit lines visited so far
         self.parens = 0                 # num parens seen so far
         self.comment = False
-        self.string = False
-        self.assert_string              # final string, without comments
+        self.assert_string = ""              # final string, without comments
         self.valid = True
         self.problematic = False
+        self.changed = False            # the assertion has been changed so far
+
+
+    # pygit2.Line -> DONE | MORE
+    def extract(self, gline):
+        """Update extracter based on next-received line. Return DONE when done,
+        otherwise MORE. Assumes already checked if this is a valid line.
+        """
+        self.lines.append(gline)
+        line = gline.content
+
+        if gline.origin == self.change.prefix:
+            self.changed = True
+
+        if len(self.lines) == 1: # first line
+            delims = Extracter.delims.finditer(line[:self.match.start()])
+            for match in delims:
+                d = match.group()
+                if d == "//":
+                    self.valid = False
+                    return DONE
+                else:
+                    self.problematic = True
+                    return DONE
+
+            self.assert_string = self.match.group()
+            line = line[self.match.end():]
+
+        if self.comment:
+            # We need to find find closing '*/' before moving on
+            m = re.search('\*/', line)
+            if m:
+                line = line[m.end():]
+            else:
+                return MORE
+
+        while len(line) > 0:
+            match = Extracter.delims.search(line)
+            if match is None:
+                self.assert_string += line
+                return MORE
+
+            if match.group() == '"':
+                m = re.search('"', line[match.end():])
+                if m:
+                    self.assert_string += line[:m.end()]
+                    line = line[m.end():]
+                    continue
+                else:
+                    self.problematic = True
+                    return DONE
+
+            elif match.group() == '/*':
+                self.assert_string += line[:match.start()]
+                m = re.search('\*/', line[match.end():])
+                if m:
+                    line = line[m.end():]
+                    continue
+                else:
+                    self.comment = True
+                    return MORE
+
+            elif match.group() == "//":
+                self.assert_string += line[:match.start()]
+                return MORE
+
+            elif match.group() == "(":
+                self.parens += 1
+                self.assert_string += line[:match.end()]
+                line = line[match.end():]
+                continue
+
+            elif match.group() == ")":
+                self.parens -= 1
+                self.assert_string += line[:match.end()]
+                if self.parens == 0:
+                    return DONE
+
+            else:
+                # '*  ' or '*/' or '#'
+                self.problematic = True
+                return DONE
+
+        return MORE
+
+
+
+
+
+            # Must check for Comment status first
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                    if self.match.start() > d.start():
+                        self.valid = False
+                        return True
+
+        return False
+
+
+
+        
+
+
+
+
+        i = delims.finditer(line.content)
+        for i in 
+
+
+
+
+
+        i = iter(line.content)
+        while True:
+            try:
+                c = next(i)
+                if c == 
+
+            except StopIteration:
+                break
+
+        # check for problematic termination
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        return False
 
 
 
