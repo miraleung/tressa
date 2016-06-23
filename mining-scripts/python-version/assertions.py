@@ -8,6 +8,7 @@ import pygit2
 from enum import Enum
 from collections import namedtuple
 
+logging.basicConfig(level=logging.DEBUG)
 
 ################################################################################
 # Constants
@@ -220,8 +221,10 @@ def generate_assertions(hunk, assertion_re):
                 else:
                     asserts.append(rem)
         except Exception as err:
-            logging.error("Problem extracting '{a}' in {h}: {e}"
-                    .format(a=a.match.group(), h=a.hunk.header, e=err))
+            header = a.hunk.header[:-1] # remove header's terminating newline
+            logging.error("\t\tProblem extracting '{a}' in {h}: {e}"
+                    .format(a=a.match.group(), h=header, e=err))
+
 
     return asserts, inspects
 
