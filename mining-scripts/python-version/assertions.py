@@ -5,13 +5,21 @@ import re
 import logging
 import itertools
 import traceback
+import sys
 
 import pygit2
 
 from enum import Enum
 from collections import namedtuple
 
+# TODO remove problematic asserts in cases of:
+    # preceded by conditional
+    # appears in /* */ comment
+# investiage unsignedlong and assert(false)
+
 logging.basicConfig(level=logging.DEBUG)
+
+
 
 ################################################################################
 # Constants
@@ -113,7 +121,7 @@ class Assertion():
         self.num_lines = num_lines
         self.raw_lines = raw_lines          # original lines of code of assert
         self.name = name                    # assert function name
-        self.string = re.sub(r"\s", "", assert_string)  # assertion expression
+        self.string = remove_whitespace(assert_string)  # assertion expression
                                                    # as string minus whitespace
         self.change = change
         self.problematic = problematic      # true if needs manual inspection
@@ -130,12 +138,18 @@ class Assertion():
         # TODO
         return None
 
+# string -> string
+def remove_whitespace(string):
+    return re.sub(r"\s", "", string)
+
+
+
 ################################################################################
 # Repo mining
 ################################################################################
 
-# path regex string -> History
-def mine_repo(repo_path, assertion_re, branch="master"):
+# string string string -> History
+def mine_repo(assertion_re, repo_path, branch):
     """Given the path to a Git repository and the name of any assertions used
     in this project, produces the History object containing all assertions
     that were added or removed between revisions, for the specified branch.
@@ -149,6 +163,31 @@ def mine_repo(repo_path, assertion_re, branch="master"):
         if diff:
             history.diffs.append(diff) # diff won't exist if no assertions
     return history
+
+
+def print_all_assertions(assertion_re, repo_path, branch):
+    logging.basicConfig(level=logging.DEBUG, filename="assertions.log")
+    hist = mine_repo(assertion_re, repo_path, branch)
+    print("\nWell-formed assertions:\n")
+    for a in assertion_iter(hist, inspects=False):
+        print(a)
+
+    print("\nAssertions requiring manual inspection:\n")
+    for a in assertion_iter(hist, inspects=True):
+        print(a)
+
+
+# History Boolean -> iterator[Assertion]
+def assertion_iter(history, inspects=False):
+    for diff in history.diffs:
+        for file in diff.files:
+            if inspects:
+                for a in file.to_inspect:
+                    raw = "".join(a.raw_lines)
+                    yield remove_whitespace(raw)
+            else:
+                for a in file.assertions:
+                    yield a
 
 
 # pygit2.Commit pygit2.Repository string -> tressa.Diff | None
@@ -289,9 +328,10 @@ class HunkAssertion():
          return None:
             - first line is anti-changed
             - no lines from open to close are appropriately Changed
-            - ASSERT is among Ignorable Characters:
+            - ASSERT is within Ignorable Characters (see below):
             - reaches end of hunk without any changed lines
             - line begins with #include
+            - first non-space character after ASSERT is not (
 
         Ignoreable Characters (for paren-counting):
             - // to end of line
@@ -376,6 +416,15 @@ class Extracter():
             else:
                 return MORE
 
+        if self.parens == 0:
+            # looking for opening '('
+            line = line.strip()
+            if line == '':
+                return MORE
+            if not line.startswith("("):
+                self.valid = False
+                return DONE
+
         while len(line) > 0:
             match = Extracter.delims.search(line)
             if match is None:
@@ -425,67 +474,14 @@ class Extracter():
 
         return MORE
 
+if __name__ == '__main__':
+    argv = sys.argv
+    if len(argv) != 4:
+        print("Usage: {py} <assertion_re> <repo_path> <branch>"
+                .format(py=argv[0]))
+        exit(-1)
 
+    print_all_assertions(argv[1], argv[2], argv[3])
 
-
-test_log_msg = """commit b9f1de03869703000bf3016aa5697a09cfc55c0b
-Author: Graham St-Laurent <gstlaurent@gmail.com>
-Date:   Mon Jun 13 11:03:01 2016 -0700
-
-    Created git-get-diffs.sh for Git, and added dir argument to both versions.
-
-    Updated Readme and documentation comments to refer to new usage and
-    names.
-
-"""
-
-test_log_entry = """commit 5ff371e9d87f468bf73acfafd65ba5a0d1b7bd4f
-Author: Wei Liu <wei.liu2@citrix.com>
-Date:   Fri May 27 17:16:36 2016 +0100
-
-    This reverts commit 55dc7f61260f4becc6c5e52a8155a6b8741c03cc.
-    
-    The get_maintainer.pl script showed Jan as the maintainer so I pushed
-    this patch. But in fact according to MAINTAINERS file, he's not.  Revert
-    this patch and wait until a maintainer acks it.
-
-diff --git a/tools/tests/mce-test/tools/xen-mceinj.c b/tools/tests/mce-test/tools/xen-mceinj.c
-index 51abc8a..061ec7c 100644
---- a/tools/tests/mce-test/tools/xen-mceinj.c
-+++ b/tools/tests/mce-test/tools/xen-mceinj.c
-@@ -317,10 +317,7 @@ static int inject_mci_addr(xc_interface *xc_handle,
-                            domid_t domid)
- {
-     return add_msr_bank_intpose(xc_handle, cpu_nr,
--                                MC_MSRINJ_F_INTERPOSE |
--                                ((domid >= DOMID_FIRST_RESERVED &&
--                                  domid != DOMID_SELF) ?
--                                 0 : MC_MSRINJ_F_GPADDR),
-+                                MC_MSRINJ_F_INTERPOSE | MC_MSRINJ_F_GPADDR,
-                                 MCi_type_ADDR, bank, val, domid);
- }
- 
-diff --git a/xen/arch/x86/cpu/mcheck/mce.c b/xen/arch/x86/cpu/mcheck/mce.c
-index 0244553..cc446eb 100644
---- a/xen/arch/x86/cpu/mcheck/mce.c
-+++ b/xen/arch/x86/cpu/mcheck/mce.c
-@@ -1427,7 +1427,6 @@ long do_mca(XEN_GUEST_HANDLE_PARAM(xen_mc_t) u_xen_mc)
- 
-         if ( mc_msrinject->mcinj_flags & MC_MSRINJ_F_GPADDR )
-         {
--            domid_t domid;
-             struct domain *d;
-             struct mcinfo_msr *msr;
-             unsigned int i;
-@@ -1460,7 +1452,7 @@ long do_mca(XEN_GUEST_HANDLE_PARAM(xen_mc_t) u_xen_mc)
-                     put_gfn(d, gfn);
-                     put_domain(d);
-                     return x86_mcerr("do_mca inject: bad gfn %#lx of domain %d",
--                                     -EINVAL, gfn, domid);
-+                                     -EINVAL, gfn, mc_msrinject->mcinj_domid);
-                 }
- 
-                 msr->value = pfn_to_paddr(mfn) | (gaddr & (PAGE_SIZE - 1));
-"""
 
 
