@@ -77,10 +77,11 @@ class Diff():
     """The files that had assertion changes in between adjacent revisions, as
     well as the IDs of those revisions.
     """
-    # string string string [File] -> Diff
-    def __init__(self, rvn_id, author, msg, files):
+    # string string int string [File] -> Diff
+    def __init__(self, rvn_id, author, time, msg, files):
         self.rvn_id = rvn_id    # newer revision (commit) ID
         self.author = author
+        self.time = time
         self.msg = msg
         self.files = files     # using filenames of newest revision
 
@@ -214,7 +215,8 @@ def generate_diff(commit, repo, assertion_re):
     if len(files) == 0:
         return None
 
-    return Diff(commit.hex, commit.author.name, commit.message, files)
+    return Diff(commit.hex, commit.author.name, commit.commit_time,
+            commit.message, files)
 
 
 # pygit2.Diff string -> [Files]
