@@ -15,7 +15,7 @@ from collections import namedtuple
 # TODO remove problematic asserts in cases of:
     # preceded by conditional
     # appears in /* */ comment
-# investiage unsignedlong and assert(false)
+# TODO should it sort them in order?
 
 logging.basicConfig(level=logging.DEBUG)
 
@@ -142,6 +142,9 @@ class Assertion():
 def remove_whitespace(string):
     return re.sub(r"\s", "", string)
 
+def reduce_whitespace(string):
+    return re.sub(r"\s+", " ", string)
+
 
 
 ################################################################################
@@ -157,7 +160,8 @@ def mine_repo(assertion_re, repo_path, branch):
 
     history = History()
     repo = pygit2.Repository(repo_path)
-    for commit in repo.walk(repo.lookup_branch(branch).target):
+    for commit in repo.walk(repo.lookup_branch(branch).target,
+            pygit2.GIT_SORT_TIME):
         logging.info("Processing " + commit.hex)
         diff = generate_diff(commit, repo, assertion_re)
         if diff:
@@ -183,8 +187,8 @@ def assertion_iter(history, inspects=False):
         for file in diff.files:
             if inspects:
                 for a in file.to_inspect:
-                    raw = "".join(a.raw_lines)
-                    yield remove_whitespace(raw)
+                    raw = " ".join(a.raw_lines)
+                    yield reduce_whitespace(raw)
             else:
                 for a in file.assertions:
                     yield a
@@ -386,8 +390,15 @@ class Extracter():
         self.valid = True
         self.problematic = False
 
+    # re.Match -> Boolean
+    def encompassed_by(self, match):
+        """Return True if the match starts after self's ASSERT statement.
+        For use with matched delimeter's, such as for '"' or '*/'
+        """
+        return match.start() > self.match.start()
 
-    # pygit2.Line -> DONE | MORE
+
+    # string -> DONE | MORE
     def extract(self, line):
         """Update extracter based on next-received line. Return DONE when done,
         otherwise MORE. Assumes already checked if this is a valid line.
@@ -395,15 +406,41 @@ class Extracter():
         self.lines.append(line)
 
         if len(self.lines) == 1: # first line
-            delims = Extracter.delims.finditer(line[:self.match.start()])
-            for match in delims:
-                d = match.group()
-                if d == "//":
-                    self.valid = False
-                    return DONE
+            define_re = r"[ \t]*#[ \t]*define[ \t]+({a})\b".format(a=self.match.re.pattern)
+            match = re.match(define_re, line)
+            if match:
+                self.valid = False
+                return DONE
+
+            pre_line = line[:self.match.start()]
+            while len(pre_line) > 0:
+                match = Extracter.delims.search(pre_line)
+                if match:
+
+                    if match.group() == '"':
+                        m = re.search('"', pre_line[match.end():])
+                        if m is None:
+                            self.valid = False
+                            return DONE
+
+                    elif match.group() == '/*':
+                        m = re.search('\*/', pre_line[match.end():])
+                        if m is None:
+                            self.valid = False
+                            return DONE
+
+                    elif match.group() == "//":
+                        self.valid = False
+                        return DONE
+
+                    elif match.group() == "#" or match.group() == "*  ":
+                        self.problematic = True
+
+                    # else:
+                        # '*/'  '('   ')'
+                    pre_line = pre_line[match.end():]
                 else:
-                    self.problematic = True
-                    return DONE
+                    pre_line = ""
 
             self.assert_string = self.match.group()
             line = line[self.match.end():]
