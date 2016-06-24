@@ -2,18 +2,27 @@
 # dependency pygit2
 
 # to print out all assertions in given repo:
-#   $ python3 assertions.py <assertion_re> <repo_path> <branch>
+#   $ python3 assertions.py <assertion_re> <repo_path> <branch> [--source]
 # Prints assertions to stdout, and log to stderr
 # Two groups of assertions: Confirmed assertions, and Those that need
 # manual inspection. The confirmed assertions are printed first, sans
 # whitespace. The # lines of the other assertions, up to where it became
 # problematic are printed afterwards, but all on one line, with all whitespace
 # compressed to one line.
+
+# There is also a --source flag (must appear last). When used, the printed
+# info will include the source of each assertion. It could be could for
+# line scripting.
+# commit:<problematic> (if applicable):file:line_number:+ (or) -:ASSERT(...)
 #
-# Example, that stores assertions in xen.asserts and log in xen.log:
-#   $ python3 assertions.py "assert|ASSERT|BUG_ON" /home/graham/xen master > xen3.asserts 2> xen3.log
+# Example, that stores assertions in xen.asserts and log in xen.log, enabling source flag.
+#   $ python3 assertions.py "assert|ASSERT|BUG_ON" /home/graham/xen master --source > xen3.asserts 2> xen3.log
 # (Xen takes approximately 3 minutes to complete on my Intel i7 desktop)
 #
+#
+#
+
+
 
 import re
 import logging
@@ -182,29 +191,42 @@ def mine_repo(assertion_re, repo_path, branch):
     return history
 
 
-def print_all_assertions(assertion_re, repo_path, branch):
+# source is supposed to print out source: commit, file, lineno
+def print_all_assertions(assertion_re, repo_path, branch, source=False):
     logging.basicConfig(level=logging.DEBUG, filename="assertions.log")
     hist = mine_repo(assertion_re, repo_path, branch)
-    print("\nWell-formed assertions:\n")
-    for a in assertion_iter(hist, inspects=False):
-        print(a)
+    if not source:
+        print("\nWell-formed assertions:\n")
+        for a in assertion_iter(hist, inspects=False):
+            print(a)
 
-    print("\nAssertions requiring manual inspection:\n")
-    for a in assertion_iter(hist, inspects=True):
-        print(a)
+        print("\nAssertions requiring manual inspection:\n")
+        for a in assertion_iter(hist, inspects=True):
+            raw = " ".join(a.raw_lines)
+            print(reduce_whitespace(raw))
+    else:
+        for a in assertion_iter(hist, inspects=False):
+            print("{commit}::{file}:{lineno}:{c}:{assertion}".format(
+                commit=a.parent_file.parent_diff.rvn_id,
+                file=a.parent_file.name, lineno=a.lineno, c=a.change.prefix,
+                assertion=a.string))
+
+        for a in assertion_iter(hist, inspects=True):
+            raw = " ".join(a.raw_lines)
+            a_str = reduce_whitespace(raw)
+            print("{commit}:<problematic>:{file}:{lineno}:{c}:{assertion}".format(
+                commit=a.parent_file.parent_diff.rvn_id,
+                file=a.parent_file.name, lineno=a.lineno, c=a.change.prefix,
+                assertion=a_str))
 
 
 # History Boolean -> iterator[Assertion]
 def assertion_iter(history, inspects=False):
     for diff in history.diffs:
         for file in diff.files:
-            if inspects:
-                for a in file.to_inspect:
-                    raw = " ".join(a.raw_lines)
-                    yield reduce_whitespace(raw)
-            else:
-                for a in file.assertions:
-                    yield a
+            list_of_asserts = file.to_inspect if inspects else file.assertions
+            for a in list_of_asserts:
+                yield a
 
 
 # pygit2.Commit pygit2.Repository string -> tressa.Diff | None
@@ -547,12 +569,13 @@ class Extracter():
 
 if __name__ == '__main__':
     argv = sys.argv
-    if len(argv) != 4:
-        print("Usage: {py} <assertion_re> <repo_path> <branch>"
+    source = True if (len(argv) == 5 and argv[4] == "--source") else False
+    if not source and len(argv) != 4:
+        print("Usage: {py} <assertion_re> <repo_path> <branch> [--source]"
                 .format(py=argv[0]))
         exit(-1)
 
-    print_all_assertions(argv[1], argv[2], argv[3])
+    print_all_assertions(argv[1], argv[2], argv[3], source)
 
 
 
