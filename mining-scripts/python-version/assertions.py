@@ -234,16 +234,20 @@ def locate_assertions(hunk, assertion_re):
     """Finds all locations in the given hunk where the given regex identifies
     an assertion.
     """
-    regex = r"\b({asserts})\b".format(asserts=assertion_re)
     hunk_ass = []
     for i, line in enumerate(hunk.lines):
-        matches = re.finditer(regex, line.content)
+        matches = match_assertions(assertion_re, line.content)
         if matches:
             for m in matches:
                 ha = HunkAssertion(hunk, i, m)
                 hunk_ass.append(ha)
 
     return hunk_ass
+
+# string string -> iterable[Match]
+def match_assertions(assertion_re, line):
+    regex = r"\b({asserts})\b".format(asserts=assertion_re)
+    return re.finditer(regex, line)
 
 
 class HunkAssertion():
@@ -283,13 +287,19 @@ class HunkAssertion():
             - " to " (but keep in 'string' field of Assertion)
 
         """
-        if self.hunk.lines[self.line_index].origin == change.anti_prefix:
+
+        first_gline = self.hunk.lines[self.line_index]
+        if first_gline.origin == change.anti_prefix:
             return None
+        lineno = first_gline.new_lineno if change == Change.Added \
+            else first_gline.old_lineno
 
         extracter = Extracter(change, self.match)
-        for line in self.hunk.lines[self.line_index:]:
-            if line.origin != change.anti_prefix:
-                status = extracter.extract(line)
+        for gline in self.hunk.lines[self.line_index:]:
+            if gline.origin != change.anti_prefix:
+                if gline.origin == change.prefix:
+                    extracter.changed = True
+                status = extracter.extract(gline.content)
                 count += 1
                 if status == DONE or count > NUM_CONTEXT_LINES + 1:
                     break
@@ -300,12 +310,8 @@ class HunkAssertion():
         if done != DONE:
             extracter.problematic = True
 
-        lineno = extracter.lines[0].new_lineno if change == Change.Added \
-            else extracter.lines[0].old_lineno
-        lines = [l.content for l in extracter.lines]
-
-        assertion = Assertion(lineno, len(lines), lines, self.match.group(),
-                extracter.assert_string, change=change,
+        assertion = Assertion(lineno, len(extracter.lines), extracter.lines,
+                self.match.group(), extracter.assert_string, change=change,
                 problematic=extracter.problematic)
         return assertion
 
@@ -327,15 +333,11 @@ class Extracter():
 
 
     # pygit2.Line -> DONE | MORE
-    def extract(self, gline):
+    def extract(self, line):
         """Update extracter based on next-received line. Return DONE when done,
         otherwise MORE. Assumes already checked if this is a valid line.
         """
-        self.lines.append(gline)
-        line = gline.content
-
-        if gline.origin == self.change.prefix:
-            self.changed = True
+        self.lines.append(line)
 
         if len(self.lines) == 1: # first line
             delims = Extracter.delims.finditer(line[:self.match.start()])
