@@ -4,7 +4,10 @@
 import re
 import logging
 import itertools
+import traceback
+
 import pygit2
+
 from enum import Enum
 from collections import namedtuple
 
@@ -50,7 +53,8 @@ class File():
         self.to_inspect = inspects    # for difficult-to-parse asserts
 
     def __repr__(self):
-        return "File('{n}')[{a}]".format(n=self.name, a=len(self.assertions))
+        return "File('{n}',<{a} asserts> <{i} inspects>)".format(n=self.name,
+                a=len(self.assertions), i = len(self.to_inspect))
 
 
 class History():
@@ -76,9 +80,9 @@ class Diff():
         return "Diff: {id}".format(id=self.rvn_id)
 
     def __repr__(self):
-        return "Diff('{id}', '{auth}', '{m}')[{files}]".format(
-                id=self.rvn_id[:8], auth=self.author[:20], m=self.msg[:30],
-                files=len(self.files))
+        return "Diff('{id}', '{auth}', '{m}', <{f} files>)".format(
+                id=self.rvn_id[:8], auth=self.author[:20],
+                m=self.msg[:30].strip(), f=len(self.files))
 
 
 class Change(Enum):
@@ -103,9 +107,9 @@ class Assertion():
     representation for performing basic analysis and comparison operations.
     """
     # int int [string] string Change -> Assertion
-    def __init__(self, start_lineno, num_lines, raw_lines, name, assert_string,
+    def __init__(self, lineno, num_lines, raw_lines, name, assert_string,
             change=Change.none, problematic=False):
-        self.start_lineno = start_lineno
+        self.lineno = lineno                # starting line num (in "to" file)
         self.num_lines = num_lines
         self.raw_lines = raw_lines          # original lines of code of assert
         self.name = name                    # assert function name
@@ -114,6 +118,9 @@ class Assertion():
         self.change = change
         self.problematic = problematic      # true if needs manual inspection
         self.ast = self.generateAST()
+
+    def __str__(self):
+        return self.string
 
     # -> Assertion
     def generateAST(self):
@@ -182,6 +189,9 @@ def analyze_diff(diff, assertion_re):
             if len(asserts) + len(inspects) > 0:
                 file = File(filename, asserts, inspects)
                 files.append(file)
+                logging.info("\t\t{a} assertions, {i} to_inspect".format(
+                        a=len(file.assertions), i=len(file.to_inspect)))
+
         else:
             logging.info("\tSkipping " +  filename)
     return files
@@ -207,23 +217,24 @@ def generate_assertions(hunk, assertion_re):
         try:
             # if something happens while extracting an assertion, we just
             # want to skip it and keep going, so as to not lose previous results
-            add = a.extract_changed_assertion(Change.Added)
+            add = a.extract_changed_assertion(Change.added)
             if add is not None:
                 if add.problematic:
                     inspects.append(add)
                 else:
                     asserts.append(add)
 
-            rem = a.extract_changed_assertion(Change.Removed)
+            rem = a.extract_changed_assertion(Change.removed)
             if rem is not None:
                 if rem.problematic:
                     inspects.append(rem)
                 else:
                     asserts.append(rem)
-        except Exception as err:
+        except:
             header = a.hunk.header[:-1] # remove header's terminating newline
-            logging.error("\t\tProblem extracting '{a}' in {h}: {e}"
-                    .format(a=a.match.group(), h=header, e=err))
+            logging.error("\t\tProblem extracting '{a}' in {h}"
+                    .format(a=a.match.group(), h=header))
+            traceback.print_exc()
 
 
     return asserts, inspects
@@ -280,6 +291,7 @@ class HunkAssertion():
             - no lines from open to close are appropriately Changed
             - ASSERT is among Ignorable Characters:
             - reaches end of hunk without any changed lines
+            - line begins with #include
 
         Ignoreable Characters (for paren-counting):
             - // to end of line
@@ -289,25 +301,29 @@ class HunkAssertion():
         """
 
         first_gline = self.hunk.lines[self.line_index]
-        if first_gline.origin == change.anti_prefix:
+        if (first_gline.origin == change.anti_prefix) or \
+            first_gline.content.startswith("#include"):
             return None
-        lineno = first_gline.new_lineno if change == Change.Added \
+
+        lineno = first_gline.new_lineno if change == Change.added \
             else first_gline.old_lineno
 
+        changed = False            # has the assertion been changed so far?
+        count = 0
         extracter = Extracter(change, self.match)
         for gline in self.hunk.lines[self.line_index:]:
             if gline.origin != change.anti_prefix:
                 if gline.origin == change.prefix:
-                    extracter.changed = True
+                    changed = True
                 status = extracter.extract(gline.content)
                 count += 1
                 if status == DONE or count > NUM_CONTEXT_LINES + 1:
                     break
 
-        if not extracter.valid or not extracter.changed:
+        if not extracter.valid or not changed:
             return None
 
-        if done != DONE:
+        if status != DONE:
             extracter.problematic = True
 
         assertion = Assertion(lineno, len(extracter.lines), extracter.lines,
@@ -329,7 +345,6 @@ class Extracter():
         self.assert_string = ""              # final string, without comments
         self.valid = True
         self.problematic = False
-        self.changed = False            # the assertion has been changed so far
 
 
     # pygit2.Line -> DONE | MORE
