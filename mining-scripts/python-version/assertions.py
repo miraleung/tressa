@@ -60,12 +60,15 @@ class Source():
 
 
 class File():
-    """A container for relevant and questionable assertions in a given file."""
-    # string -> File
-    def __init__(self, name, assertions, inspects):
+    """A container for relevant and questionable assertions in a given file.
+    If :diff: is included, it is its parent Diff from a repository mining.
+    """
+    # string (Diff) -> File
+    def __init__(self, name, parent_diff=None):
         self.name = name
-        self.assertions = assertions
-        self.to_inspect = inspects    # for difficult-to-parse asserts
+        self.assertions = []    # [Assertion]
+        self.to_inspect = []    # [Assertion] for difficult-to-parse asserts
+        self.parent_diff = parent_diff
 
     def __repr__(self):
         return "File('{n}',<{a} asserts> <{i} inspects>)".format(n=self.name,
@@ -85,12 +88,12 @@ class Diff():
     well as the IDs of those revisions.
     """
     # string string int string [File] -> Diff
-    def __init__(self, rvn_id, author, time, msg, files):
+    def __init__(self, rvn_id, author, time, msg):
         self.rvn_id = rvn_id    # newer revision (commit) ID
         self.author = author
         self.time = time
         self.msg = msg
-        self.files = files     # using filenames of newest revision
+        self.files = []     # using filenames of newest revision
 
     def __str__(self):
         return "Diff: {id}".format(id=self.rvn_id)
@@ -121,10 +124,11 @@ class Assertion():
     """The location and size within a file of an assertion expression. As well
     as its original parsed string, and a basic abstract syntax tree
     representation for performing basic analysis and comparison operations.
+    If :parent_file: exists, it points back to the File this was found in.
     """
     # int int [string] string Change -> Assertion
     def __init__(self, lineno, num_lines, raw_lines, name, assert_string,
-            change=Change.none, problematic=False):
+            change=Change.none, problematic=False, parent_file=None):
         self.lineno = lineno                # starting line num (in "to" file)
         self.num_lines = num_lines
         self.raw_lines = raw_lines          # original lines of code of assert
@@ -134,6 +138,7 @@ class Assertion():
         self.change = change
         self.problematic = problematic      # true if needs manual inspection
         self.ast = self.generateAST()
+        self.parent_file = parent_file
 
     def __str__(self):
         return self.string
@@ -208,38 +213,42 @@ def generate_diff(commit, repo, assertion_re):
     assertion_re) in a file in the given Commit, produce Diff containing them.
     Otherwise produce None.
     """
+    diff = Diff(commit.hex, commit.author.name, commit.commit_time,
+            commit.message)
     parents = commit.parents
     if len(parents) == 0:
-        diff = commit.tree.diff_to_tree(swap=True,
+        gdiff = commit.tree.diff_to_tree(swap=True,
                 context_lines=NUM_CONTEXT_LINES)
     elif len(parents) == 1:
-        diff = repo.diff(parents[0], commit, context_lines=NUM_CONTEXT_LINES)
+        gdiff = repo.diff(parents[0], commit, context_lines=NUM_CONTEXT_LINES)
     else:
         # don't diff merges or else we'll 'double-dip' on the assertions
         return None
 
-    files = analyze_diff(diff, assertion_re)
+    files = analyze_diff(gdiff, assertion_re, diff)
     if len(files) == 0:
         return None
 
-    return Diff(commit.hex, commit.author.name, commit.commit_time,
-            commit.message, files)
+    diff.files = files
+    return diff
 
 
-# pygit2.Diff string -> [Files]
-def analyze_diff(diff, assertion_re):
+# pygit2.Diff string tressa.Diff -> [Files]
+def analyze_diff(gdiff, assertion_re, diff):
     """Include File in list if it contains changed assertions"""
     ext_pattern = r".*\.[{exts}]$".format(exts=FILE_EXTENSIONS)
     files = []
-    for patch in diff:
+    for patch in gdiff:
         filename = patch.delta.new_file.path
         if re.match(ext_pattern, filename):
             # only care about files with appropriate extensions
             logging.info("\t" + filename)
-            asserts, inspects = analyze_patch(patch, assertion_re)
+            file = File(filename, diff)
+            asserts, inspects = analyze_patch(patch, assertion_re, file)
 
             if len(asserts) + len(inspects) > 0:
-                file = File(filename, asserts, inspects)
+                file.assertions = asserts
+                file.to_inspect = inspects
                 files.append(file)
                 logging.info("\t\t{a} assertions, {i} to_inspect".format(
                         a=len(file.assertions), i=len(file.to_inspect)))
@@ -249,21 +258,21 @@ def analyze_diff(diff, assertion_re):
     return files
 
 
-# pygit2.Patch string -> [Assertion] [Assertion]
-def analyze_patch(patch, assertion_re):
+# pygit2.Patch string File -> [Assertion] [Assertion]
+def analyze_patch(patch, assertion_re, file):
     """Produce list of changed Assertions found in given patch. Assertions
     are identified by assertion_re.
     """
     asserts, inspects = [], []
     for hunk in patch.hunks:
-        a, i = generate_assertions(hunk, assertion_re)
+        a, i = generate_assertions(hunk, assertion_re, file)
         asserts.extend(a)
         inspects.extend(i)
     return asserts, inspects
 
-# pygit2.Hunk string -> [Assertion] [Assertion]
-def generate_assertions(hunk, assertion_re):
-    assertions = locate_assertions(hunk, assertion_re)
+# pygit2.Hunk string File -> [Assertion] [Assertion]
+def generate_assertions(hunk, assertion_re, file):
+    assertions = locate_assertions(hunk, assertion_re, file)
     asserts, inspects = [], []
     for a in assertions:
         try:
@@ -292,8 +301,8 @@ def generate_assertions(hunk, assertion_re):
     return asserts, inspects
 
 
-# pygit2.Hunk string -> [HunkAssertion]
-def locate_assertions(hunk, assertion_re):
+# pygit2.Hunk string File -> [HunkAssertion]
+def locate_assertions(hunk, assertion_re, file):
     """Finds all locations in the given hunk where the given regex identifies
     an assertion.
     """
@@ -302,7 +311,7 @@ def locate_assertions(hunk, assertion_re):
         matches = match_assertions(assertion_re, line.content)
         if matches:
             for m in matches:
-                ha = HunkAssertion(hunk, i, m)
+                ha = HunkAssertion(hunk, i, m, file)
                 hunk_ass.append(ha)
 
     return hunk_ass
@@ -315,10 +324,11 @@ def match_assertions(assertion_re, line):
 
 class HunkAssertion():
     """An Assertion statement within a Hunk (a section of a diff's patch)."""
-    def __init__(self, hunk, line_index, match):
+    def __init__(self, hunk, line_index, match, file):
         self.hunk = hunk
         self.line_index = line_index
         self.match = match
+        self.file = file
 
     # Change -> Assertion|None
     def extract_changed_assertion(self, change):
@@ -383,7 +393,7 @@ class HunkAssertion():
 
         assertion = Assertion(lineno, len(extracter.lines), extracter.lines,
                 self.match.group(), extracter.assert_string, change=change,
-                problematic=extracter.problematic)
+                problematic=extracter.problematic, parent_file=self.file)
         return assertion
 
 
