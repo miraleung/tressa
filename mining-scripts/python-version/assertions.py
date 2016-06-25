@@ -327,9 +327,8 @@ class HunkAssertion():
             but at least one line had been changed
             - reaches */ before closing paren (not preceded by /*)
             - contains * followed by at least two spaces
-            - ASSERT line preceded by #define (could be part of another macro)
-                - actually, a # appearing anywhere, since precomp directives...
             - has any weird characters on first line
+            - has format of a declaration of the ASSERT
 
          return None:
             - first line is anti-changed
@@ -338,11 +337,14 @@ class HunkAssertion():
             - reaches end of hunk without any changed lines
             - line begins with #include
             - first non-space character after ASSERT is not (
+            - #define ASSERT
 
         Ignoreable Characters (for paren-counting):
             - // to end of line
             - /* to */
             - " to " (but keep in 'string' field of Assertion)
+
+
 
         """
 
@@ -379,8 +381,8 @@ class HunkAssertion():
 
 
 class Extracter():
-    delims = re.compile(r'(//|\*  |/\*|\*/|"|#|\(|\))')
-    #                      1  2    3   4   5 6 7  8
+    delims = re.compile(r'(//|\*  |/\*|\*/|"|\(|\))')
+    #                      1  2    3   4   5 6  7
 
     def __init__(self, change, match):
         self.change = change            # Change
@@ -408,10 +410,23 @@ class Extracter():
         self.lines.append(line)
 
         if len(self.lines) == 1: # first line
-            define_re = r"[ \t]*#[ \t]*define[ \t]+({a})\b".format(a=self.match.re.pattern)
+            assertion_re = self.match.re.pattern
+
+            # '#define ASSERT' should be ignored
+            define_re = r"[ \t]*#[ \t]*define[ \t]+({a})\b".format(
+                    a=assertion_re)
             match = re.match(define_re, line)
             if match:
                 self.valid = False
+                return DONE
+
+            # 'extern static unsigned long long ASSERT (X) {}' should be ignored
+            # an ASSERT at the beginning of a line is probably in a declaration;
+            # within a function, it would probably be indented
+            decl_re = r"(((\w+ ){{0,4}}\w+ ({a}))|^({a}))\s*\(".format(a=assertion_re)
+            match = re.match(decl_re, line)
+            if match:
+                self.problematic = True
                 return DONE
 
             pre_line = line[:self.match.start()]
@@ -435,11 +450,11 @@ class Extracter():
                         self.valid = False
                         return DONE
 
-                    elif match.group() == "#" or match.group() == "*  ":
+                    elif match.group() == "*  ":
+                        # might be mid-comment
                         self.problematic = True
 
-                    # else:
-                        # '*/'  '('   ')'
+                    # else: '*/'  '('   ')'
                     pre_line = pre_line[match.end():]
                 else:
                     pre_line = ""
@@ -507,7 +522,7 @@ class Extracter():
                     return DONE
 
             else:
-                # '*  ' or '*/' or '#'
+                # '*  ' or '*/' 
                 self.problematic = True
                 return DONE
 
