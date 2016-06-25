@@ -1,6 +1,20 @@
 # Python 3.4
 # dependency pygit2
 
+# to print out all assertions in given repo:
+#   $ python3 assertions.py <assertion_re> <repo_path> <branch>
+# Prints assertions to stdout, and log to stderr
+# Two groups of assertions: Confirmed assertions, and Those that need
+# manual inspection. The confirmed assertions are printed first, sans
+# whitespace. The # lines of the other assertions, up to where it became
+# problematic are printed afterwards, but all on one line, with all whitespace
+# compressed to one line.
+#
+# Example, that stores assertions in xen.asserts and log in xen.log:
+#   $ python3 assertions.py "assert|ASSERT|BUG_ON" /home/graham/xen master > xen3.asserts 2> xen3.log
+# (Xen takes approximately 3 minutes to complete on my Intel i7 desktop)
+#
+
 import re
 import logging
 import itertools
@@ -12,14 +26,7 @@ import pygit2
 from enum import Enum
 from collections import namedtuple
 
-# TODO remove problematic asserts in cases of:
-    # preceded by conditional
-    # appears in /* */ comment
-# TODO should it sort them in order?
-
 logging.basicConfig(level=logging.DEBUG)
-
-
 
 ################################################################################
 # Constants
