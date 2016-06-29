@@ -135,14 +135,14 @@ class Assertion():
     representation for performing basic analysis and comparison operations.
     If :parent_file: exists, it points back to the File this was found in.
     """
-    # int int [string] string Change -> Assertion
-    def __init__(self, lineno, num_lines, raw_lines, name, assert_string,
+    # int int [string] string string Change -> Assertion
+    def __init__(self, lineno, num_lines, raw_lines, name, predicate,
             change=Change.none, problematic=False, parent_file=None):
         self.lineno = lineno                # starting line num (in "to" file)
         self.num_lines = num_lines
         self.raw_lines = raw_lines          # original lines of code of assert
         self.name = name                    # assert function name
-        self.string = remove_whitespace(assert_string)  # assertion expression
+        self.predicate = reduce_whitespace(predicate)  # assertion expression
                                                    # as string minus whitespace
         self.change = change
         self.problematic = problematic      # true if needs manual inspection
@@ -150,7 +150,7 @@ class Assertion():
         self.parent_file = parent_file
 
     def __str__(self):
-        return self.string
+        return "{name}({pred})".format(name=self.name, pred=self.predicate)
 
     # -> Assertion
     def generateAST(self):
@@ -206,10 +206,10 @@ def print_all_assertions(assertion_re, repo_path, branch, source=False):
             print(reduce_whitespace(raw))
     else:
         for a in assertion_iter(hist, inspects=False):
-            print("{commit}::{file}:{lineno}:{c}:{assertion}".format(
+            print("{commit}::{file}:{lineno}:{c}:{name}({predicate})".format(
                 commit=a.parent_file.parent_diff.rvn_id,
                 file=a.parent_file.name, lineno=a.lineno, c=a.change.prefix,
-                assertion=a.string))
+                name=a.name, predicate=a.predicate))
 
         for a in assertion_iter(hist, inspects=True):
             raw = " ".join(a.raw_lines)
@@ -413,10 +413,21 @@ class HunkAssertion():
         if status != DONE:
             extracter.problematic = True
 
+        predicate = strip_parens(extracter.predicate)
         assertion = Assertion(lineno, len(extracter.lines), extracter.lines,
-                self.match.group(), extracter.assert_string, change=change,
+                self.match.group(), predicate, change=change,
                 problematic=extracter.problematic, parent_file=self.file)
         return assertion
+
+# string -> string
+def strip_parens(exp):
+    """Removes enclosing () pair from an expression"""
+    exp = exp.strip()
+    if exp[0] != "(" or exp[-1] != ")":
+        raise Exception("Predicate not enclosed by parentheses")
+    return exp[1:-1]
+
+
 
 
 class Extracter():
@@ -429,7 +440,7 @@ class Extracter():
         self.lines = []                 # pygit lines visited so far
         self.parens = 0                 # num parens seen so far
         self.comment = False
-        self.assert_string = ""              # final string, without comments
+        self.predicate = ""              # final string, without comments
         self.valid = True
         self.problematic = False
 
@@ -498,7 +509,6 @@ class Extracter():
                 else:
                     pre_line = ""
 
-            self.assert_string = self.match.group()
             line = line[self.match.end():]
 
         if self.comment:
@@ -521,13 +531,13 @@ class Extracter():
         while len(line) > 0:
             match = Extracter.delims.search(line)
             if match is None:
-                self.assert_string += line
+                self.predicate += line
                 return MORE
 
             if match.group() == '"':
                 m = re.search('"', line[match.end():])
                 if m:
-                    self.assert_string += line[:m.end()]
+                    self.predicate += line[:m.end()]
                     line = line[m.end():]
                     continue
                 else:
@@ -535,7 +545,7 @@ class Extracter():
                     return DONE
 
             elif match.group() == '/*':
-                self.assert_string += line[:match.start()]
+                self.predicate += line[:match.start()]
                 m = re.search('\*/', line[match.end():])
                 if m:
                     line = line[m.end():]
@@ -545,18 +555,20 @@ class Extracter():
                     return MORE
 
             elif match.group() == "//":
-                self.assert_string += line[:match.start()]
+                self.predicate += line[:match.start()]
                 return MORE
 
             elif match.group() == "(":
                 self.parens += 1
-                self.assert_string += line[:match.end()]
+                self.predicate += line[:match.end()]
                 line = line[match.end():]
                 continue
 
             elif match.group() == ")":
                 self.parens -= 1
-                self.assert_string += line[:match.end()]
+                self.predicate += line[:match.end()]
+                line = line[match.end():]
+
                 if self.parens == 0:
                     return DONE
 

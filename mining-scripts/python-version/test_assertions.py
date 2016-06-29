@@ -1,6 +1,9 @@
 import unittest
 from assertions import *
 
+# To run all tests:
+# python3 test_assertions
+
 # To run individual tests
 #       (from https://docs.python.org/3.4/library/unittest.html)
 # python3 -m unittest test_module1 test_module2
@@ -40,6 +43,25 @@ class TestRegex(unittest.TestCase):
         matches = match_assertions(assertion_re, line)
         actual_matches = [m.group() for m in matches]
         self.assertEqual(actual_matches, expected_matches)
+
+    def test_strip_parens(self):
+        self.assertEqual(strip_parens("   (abc)   "), "abc")
+        self.assertEqual(strip_parens("(abc)   "), "abc")
+        self.assertEqual(strip_parens("(abc)"), "abc")
+        self.assertEqual(strip_parens("   (abc)"), "abc")
+        self.assertEqual(strip_parens("((abc))"), "(abc)")
+
+        with self.assertRaises(Exception):
+            strip_parens("abc")
+        with self.assertRaises(Exception):
+            strip_parens("abc)")
+        with self.assertRaises(Exception):
+            strip_parens("(abc")
+        with self.assertRaises(Exception):
+            strip_parens("a(b)c")
+
+
+
 
 
 
