@@ -1,11 +1,19 @@
 ## Script usage
 
-Three script versions::
+The main script under active development is the `python-version`. The Readme in its directory contains more specfic information about it.
+
+The rest of the file is about the obsolecent `haskell-version`. Until recently, it was the main version.
+
+
+#### Version summary:
+Four script versions:
 - `bash-version-primitive`: an early attempt to quickly mine ASSERTs
 - `bash-version-inexact`: a strong attempt to provide ASSERT mining functionality, including preparing data for plotting. Ultimately, it still was inexact, and quite a bit hairy.
-- `haskell-version`: Compiled Haskell programs as well as Bash wrapper scripts to more completely and effectively mine repos and source. This is the best version to use, although it is slow.
+- `haskell-version`: Compiled Haskell programs as well as Bash wrapper scripts to more completely and effectively mine repos and source. **This used to be the best version to use**, although it is slow. The rest of this file explains this version.
+- `python-version`: **This is the version under active development**. It is fast and represents a complete design departure from the others in that it respresents a project with an internal data structure. 
 
-Additionally, in this directory:
+
+#### Additionally, in this directory:
 - `hg-get-diffs.sh` for Mercurial, and `git-get-diffs.sh` for Git: extract diffs between all revisions into separate files.
 - `cdf.py`: plots a Cummulative Distribution Function graph using `*-activity-count.txt` results from the other scripts.
 - `install-haskell.sh`: an easy-setup script that compiles Haskell code and copies all necessary scripts to a target directory.
