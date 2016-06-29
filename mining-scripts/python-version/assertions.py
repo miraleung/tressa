@@ -431,7 +431,7 @@ def strip_parens(exp):
 
 
 class Extracter():
-    delims = re.compile(r'(//|\*  |/\*|\*/|"|\(|\))')
+    delims = re.compile(r'(//|\*  |/\*|\*/|"|\(|\)|#)')
     #                      1  2    3   4   5 6  7
 
     def __init__(self, change, match):
@@ -504,7 +504,7 @@ class Extracter():
                         # might be mid-comment
                         self.problematic = True
 
-                    # else: '*/'  '('   ')'
+                    # else: '*/'   '('   ')'   '#"
                     pre_line = pre_line[match.end():]
                 else:
                     pre_line = ""
@@ -573,7 +573,9 @@ class Extracter():
                     return DONE
 
             else:
-                # '*  ' or '*/' 
+                # '*  ' -- probably mid-comment
+                # '*/'  -- again, probably mid-comment
+                # '#'   -- some sort of pre-processor directive in the middle
                 self.problematic = True
                 return DONE
 
