@@ -137,11 +137,14 @@ class Assertion():
     as its original parsed string, and a basic abstract syntax tree
     representation for performing basic analysis and comparison operations.
     If :parent_file: exists, it points back to the File this was found in.
+    :hunk_lineno: is included to help detect changed assertions, since they
+    will likely be nearby.
     """
-    # int int [string] string string Change -> Assertion
-    def __init__(self, lineno, num_lines, raw_lines, name, predicate,
+    # int int int [string] string string Change -> Assertion
+    def __init__(self, lineno, hunk_lineno, num_lines, raw_lines, name, predicate,
             change=Change.none, problematic=False, problem="", parent_file=None):
         self.lineno = lineno                # starting line num (in "to" file)
+        self.hunk_lineno = hunk_lineno  # index into Hunk where it was found
         self.num_lines = num_lines
         self.raw_lines = raw_lines          # original lines of code of assert
         self.name = name                    # assert function name
@@ -328,6 +331,7 @@ def generate_assertions(hunk, assertion_re, file):
                     inspects.append(rem)
                 else:
                     asserts.append(rem)
+
         except:
             header = a.hunk.header[:-1] # remove header's terminating newline
             logging.error("\t\tProblem extracting '{a}' in {h}"
@@ -363,7 +367,7 @@ class HunkAssertion():
     """An Assertion statement within a Hunk (a section of a diff's patch)."""
     def __init__(self, hunk, line_index, match, file):
         self.hunk = hunk
-        self.line_index = line_index
+        self.line_index = line_index    # index of line in Hunk
         self.match = match
         self.file = file
 
@@ -433,8 +437,8 @@ class HunkAssertion():
 
         predicate = strip_parens(extracter.predicate) \
                     if not extracter.problematic else ""
-        assertion = Assertion(lineno, len(extracter.lines), extracter.lines,
-                self.match.group(), predicate, change=change,
+        assertion = Assertion(lineno, self.line_index, len(extracter.lines),
+                extracter.lines, self.match.group(), predicate, change=change,
                 problematic=extracter.problematic, problem=extracter.problem,
                 parent_file=self.file)
         return assertion
@@ -446,8 +450,6 @@ def strip_parens(exp):
     if exp[0] != "(" or exp[-1] != ")":
         raise Exception("Predicate not enclosed by parentheses")
     return exp[1:-1]
-
-
 
 
 class Extracter():
