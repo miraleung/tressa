@@ -94,11 +94,12 @@ class History():
 
 class Diff():
     """The files that had assertion changes in between adjacent revisions, as
-    well as the IDs of those revisions.
+    well as the IDs of those revisions. Diff with at most ONE other commit.
     """
     # string string int string [File] -> Diff
     def __init__(self, rvn_id, author, time, msg):
         self.rvn_id = rvn_id    # newer revision (commit) ID
+        self.prev_id = ""       # commit id of the parent of this commit
         self.author = author
         self.time = time
         self.msg = msg
@@ -243,6 +244,7 @@ def generate_diff(commit, repo, assertion_re):
                 context_lines=NUM_CONTEXT_LINES)
     elif len(parents) == 1:
         gdiff = repo.diff(parents[0], commit, context_lines=NUM_CONTEXT_LINES)
+        diff.prev_id = commit.parent_ids[0]
     else:
         # don't diff merges or else we'll 'double-dip' on the assertions
         return None
