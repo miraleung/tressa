@@ -1,5 +1,6 @@
 # Python 3.4
 # dependency pygit2
+# pycparser
 
 # to print out all assertions in given repo:
 #   $ python3 assertions.py <assertion_re> <repo_path> <branch> [--source]
@@ -31,6 +32,7 @@ import traceback
 import sys
 
 import pygit2
+import pycparser
 
 from enum import Enum
 from collections import namedtuple
@@ -143,23 +145,38 @@ class Assertion():
         self.num_lines = num_lines
         self.raw_lines = raw_lines          # original lines of code of assert
         self.name = name                    # assert function name
-        self.predicate = reduce_whitespace(predicate)  # assertion expression
-                                                   # as string minus whitespace
+        self.predicate = reduce_whitespace(predicate) # just pred string
         self.change = change
-        self.problematic = problematic      # true if needs manual inspection
-        self.ast = self.generateAST()
+        self.problematic = problematic      # True if needs manual inspection
         self.parent_file = parent_file
+        self.ast = None # pycparser.c_ast.FuncCall <e.g., assert(a==b)>
+
+        if not problematic:
+            self.ast = generateAST(self.name, self.predicate)
+            if self.ast is None:
+                problematic = True
 
     def __str__(self):
         return "{name}({pred})".format(name=self.name, pred=self.predicate)
 
-    # -> Assertion
-    def generateAST(self):
-        """Parses self.string to produce naive AST for basic analysis.
-                AST = Abstract Syntax Tree
-        """
-        # TODO
-        return None
+
+# string string -> pycparser.c_ast.FuncCall 
+def generateAST(name, predicate):
+    """Parses self.string to produce naive AST for basic analysis.
+            AST = Abstract Syntax Tree
+    """
+    snippet = r"void func(void) {{ {a_name}({predicate}); }}".format(
+            a_name=name, predicate=predicate)
+    parser = pycparser.c_parser.CParser()
+    try:
+        ast = parser.parse(snippet)
+        func_decl = ast.ext[-1] # last item incase preceded by typedefs
+        func_body = func_decl.body
+        assertion_ast = func_body.block_items[0]
+    except:
+        assertion_ast = None
+
+    return assertion_ast
 
 # string -> string
 def remove_whitespace(string):
