@@ -415,7 +415,8 @@ class HunkAssertion():
         if status != DONE:
             extracter.problematic = True
 
-        predicate = strip_parens(extracter.predicate)
+        predicate = strip_parens(extracter.predicate) \
+                    if not extracter.problematic else ""
         assertion = Assertion(lineno, len(extracter.lines), extracter.lines,
                 self.match.group(), predicate, change=change,
                 problematic=extracter.problematic, parent_file=self.file)
