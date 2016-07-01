@@ -235,13 +235,17 @@ def mine_repo(assertion_re, repo_path, branch):
             history.diffs.append(diff) # diff won't exist if no assertions
 
     parser = pycparser.c_parser.CParser()
-    for a in assertion_iter(history):
-        a.ast = generateAST(a.name, a.predicate, parser)
-        if a.ast is None:
-            # There was a problem parsing the predicate
-            a.problematic = True
-
-
+    for diff in history.diffs:
+        for file in diff.files:
+            a_list = []
+            for a in file.assertions:
+                a.ast = generateAST(a.name, a.predicate, parser)
+                if a.ast:
+                    a_list.append(a)
+                else:
+                    a.problematic = True
+                    file.to_inspect.append(a)
+            file.assertions = a_list
 
     return history
 
