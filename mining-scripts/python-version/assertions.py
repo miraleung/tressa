@@ -151,29 +151,26 @@ class Assertion():
         self.parent_file = parent_file
         self.ast = None # pycparser.c_ast.FuncCall <e.g., assert(a==b)>
 
-        if not problematic:
-            self.ast = generateAST(self.name, self.predicate)
-            if self.ast is None:
-                problematic = True
-
     def __str__(self):
         return "{name}({pred})".format(name=self.name, pred=self.predicate)
 
 
-# string string -> pycparser.c_ast.FuncCall 
-def generateAST(name, predicate):
+# string string [pycparser.CParser] -> pycparser.c_ast.FuncCall 
+def generateAST(name, predicate, parser=None):
     """Parses self.string to produce naive AST for basic analysis.
             AST = Abstract Syntax Tree
     """
     snippet = r"void func(void) {{ {a_name}({predicate}); }}".format(
             a_name=name, predicate=predicate)
-    parser = pycparser.c_parser.CParser()
+    parser = parser if parser else pycparser.c_parser.CParser()
     try:
         ast = parser.parse(snippet)
         func_decl = ast.ext[-1] # last item incase preceded by typedefs
         func_body = func_decl.body
         assertion_ast = func_body.block_items[0]
     except:
+        logging.error("Unable to generate AST of {a_name}({pred})".format(
+            a_name=name, pred=predicate))
         assertion_ast = None
 
     return assertion_ast
@@ -206,6 +203,16 @@ def mine_repo(assertion_re, repo_path, branch):
         diff = generate_diff(commit, repo, assertion_re)
         if diff:
             history.diffs.append(diff) # diff won't exist if no assertions
+
+    parser = pycparser.c_parser.CParser()
+    for a in assertion_iter(history):
+        a.ast = generateAST(a.name, a.predicate, parser)
+        if a.ast is None:
+            # There was a problem parsing the predicate
+            a.problematic = True
+
+
+
     return history
 
 
