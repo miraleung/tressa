@@ -139,7 +139,7 @@ class Assertion():
     """
     # int int [string] string string Change -> Assertion
     def __init__(self, lineno, num_lines, raw_lines, name, predicate,
-            change=Change.none, problematic=False, parent_file=None):
+            change=Change.none, problematic=False, problem="", parent_file=None):
         self.lineno = lineno                # starting line num (in "to" file)
         self.num_lines = num_lines
         self.raw_lines = raw_lines          # original lines of code of assert
@@ -147,6 +147,7 @@ class Assertion():
         self.predicate = reduce_whitespace(predicate) # just pred string
         self.change = change
         self.problematic = problematic      # True if needs manual inspection
+        self.problem = problem              # If problematic, this is the reason
         self.parent_file = parent_file
         self.ast = None # pycparser.c_ast.FuncCall <e.g., assert(a==b)>
 
@@ -212,6 +213,8 @@ def remove_whitespace(string):
 def reduce_whitespace(string):
     return re.sub(r"\s+", " ", string)
 
+def reduce_spaces(string):
+    return re.sub(r"[ \t]+", " ", string)
 
 
 ################################################################################
@@ -244,6 +247,7 @@ def mine_repo(assertion_re, repo_path, branch):
                     a_list.append(a)
                 else:
                     a.problematic = True
+                    a.problem = "Problem generating AST"
                     file.to_inspect.append(a)
             file.assertions = a_list
 
@@ -259,10 +263,9 @@ def print_all_assertions(assertion_re, repo_path, branch, source=False):
         for a in assertion_iter(hist, inspects=False):
             print(a)
 
-        print("\nAssertions requiring manual inspection:\n")
+        print("\nProblematic assertions requiring manual inspection:\n")
         for a in assertion_iter(hist, inspects=True):
-            raw = " ".join(a.raw_lines)
-            print(reduce_whitespace(raw))
+            print([reduce_spaces(l) for l in a.raw_lines])
     else:
         for a in assertion_iter(hist, inspects=False):
             print("{commit}::{file}:{lineno}:{c}:{name}({predicate})".format(
@@ -271,12 +274,10 @@ def print_all_assertions(assertion_re, repo_path, branch, source=False):
                 name=a.name, predicate=a.predicate))
 
         for a in assertion_iter(hist, inspects=True):
-            raw = " ".join(a.raw_lines)
-            a_str = reduce_whitespace(raw)
-            print("{commit}:<problematic>:{file}:{lineno}:{c}:{assertion}".format(
-                commit=a.parent_file.parent_diff.rvn_id,
+            print("{commit}:<!{problem}!>:{file}:{lineno}:{c}:{lines})".format(
+                commit=a.parent_file.parent_diff.rvn_id, problem=a.problem,
                 file=a.parent_file.name, lineno=a.lineno, c=a.change.prefix,
-                assertion=a_str))
+                lines=[reduce_spaces(l) for l in a.raw_lines]))
 
 
 # History Boolean -> iterator[Assertion]
@@ -428,6 +429,7 @@ class HunkAssertion():
             - contains * followed by at least two spaces
             - has any weird characters on first line
             - has format of a declaration of the ASSERT
+            - (couldn't generate AST)
 
          return None:
             - first line is anti-changed
@@ -472,12 +474,15 @@ class HunkAssertion():
 
         if status != DONE:
             extracter.problematic = True
+            if not extracter.problem:
+                extracter.problem = "Exceeded max lines"
 
         predicate = strip_parens(extracter.predicate) \
                     if not extracter.problematic else ""
         assertion = Assertion(lineno, len(extracter.lines), extracter.lines,
                 self.match.group(), predicate, change=change,
-                problematic=extracter.problematic, parent_file=self.file)
+                problematic=extracter.problematic, problem=extracter.problem,
+                parent_file=self.file)
         return assertion
 
 # string -> string
@@ -504,6 +509,7 @@ class Extracter():
         self.predicate = ""              # final string, without comments
         self.valid = True
         self.problematic = False
+        self.problem = False
 
     # re.Match -> Boolean
     def encompassed_by(self, match):
@@ -538,6 +544,7 @@ class Extracter():
             match = re.match(decl_re, line)
             if match:
                 self.problematic = True
+                self.problem = "Possible function declaration"
                 return DONE
 
             pre_line = line[:self.match.start()]
@@ -550,23 +557,30 @@ class Extracter():
                         if m is None:
                             self.valid = False
                             return DONE
+                        else:
+                            pre_line = pre_line[match.end() + m.end():]
 
                     elif match.group() == '/*':
                         m = re.search('\*/', pre_line[match.end():])
                         if m is None:
                             self.valid = False
                             return DONE
+                        else:
+                            pre_line = pre_line[match.end() + m.end():]
 
                     elif match.group() == "//":
                         self.valid = False
                         return DONE
 
                     elif match.group() == "*  ":
-                        # might be mid-comment
                         self.problematic = True
+                        self.problem = "might be mid-comment"
+                        return DONE
 
-                    # else: '*/'   '('   ')'   '#"
-                    pre_line = pre_line[match.end():]
+                    else:
+                        # '*/'   '('   ')'   '#"
+                        pre_line = pre_line[match.end():]
+
                 else:
                     pre_line = ""
 
@@ -598,18 +612,19 @@ class Extracter():
             if match.group() == '"':
                 m = re.search('"', line[match.end():])
                 if m:
-                    self.predicate += line[:m.end()]
-                    line = line[m.end():]
+                    self.predicate += line[match.end() + m.end()]
+                    line = line[match.end() + m.end():]
                     continue
                 else:
                     self.problematic = True
+                    self.problem = "String seems to exceed one line"
                     return DONE
 
             elif match.group() == '/*':
                 self.predicate += line[:match.start()]
                 m = re.search('\*/', line[match.end():])
                 if m:
-                    line = line[m.end():]
+                    line = line[match.end() + m.end():]
                     continue
                 else:
                     self.comment = True
@@ -638,6 +653,8 @@ class Extracter():
                 # '*/'  -- again, probably mid-comment
                 # '#'   -- some sort of pre-processor directive in the middle
                 self.problematic = True
+                self.problem = "'*  |*/|#': possbily mid-coment or " \
+                    "mid-expression preprocessor directive"
                 return DONE
 
         return MORE
