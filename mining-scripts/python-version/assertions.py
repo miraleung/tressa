@@ -586,6 +586,9 @@ class Extracter():
 
             line = line[self.match.end():]
 
+        # The macro line continuation backslash messes up the AST parser
+        line = re.sub(r"\\\n", " ", line)
+
         if self.comment:
             # We need to find find closing '*/' before moving on
             m = re.search('\*/', line)
@@ -612,7 +615,7 @@ class Extracter():
             if match.group() == '"':
                 m = re.search('"', line[match.end():])
                 if m:
-                    self.predicate += line[match.end() + m.end()]
+                    self.predicate += line[:match.end() + m.end()]
                     line = line[match.end() + m.end():]
                     continue
                 else:
