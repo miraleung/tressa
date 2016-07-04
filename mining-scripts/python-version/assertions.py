@@ -24,7 +24,6 @@
 #
 
 
-
 import re
 import logging
 import itertools
@@ -44,8 +43,8 @@ logging.basicConfig(level=logging.DEBUG)
 ################################################################################
 
 
-NUM_CONTEXT_LINES = 4
-"""In diffs, this number of lines above or below the changed line"""
+MAX_LINES = 10
+"""Asserts longer than this may be declared problematic."""
 
 FILE_EXTENSIONS = "ch"
 """We only want to search .c or .h files"""
@@ -190,9 +189,7 @@ def parse_assertion(snippet, parser, first_attempt=True):
 
 # String -> {String}
 def get_type_casters(snippet):
-    # end_col = int(err.args[0].split(":")[2])
-    # snippet[end_col::-1]
-    type_cast_pattern = r"\( *(\w+)( *\**)?\)"
+    type_cast_pattern = r"[^\w]\( *(\w+)( *\**)?\)"
     types = re.findall(type_cast_pattern, snippet)
     types = {t for t,_ in types} # remove duplicates
     return types
@@ -274,7 +271,7 @@ def print_all_assertions(assertion_re, repo_path, branch, source=False):
                 name=a.name, predicate=a.predicate))
 
         for a in assertion_iter(hist, inspects=True):
-            print("{commit}:<!{problem}!>:{file}:{lineno}:{c}:{lines})".format(
+            print("{commit}:<!{problem}!>:{file}:{lineno}:{c}:{lines}".format(
                 commit=a.parent_file.parent_diff.rvn_id, problem=a.problem,
                 file=a.parent_file.name, lineno=a.lineno, c=a.change.prefix,
                 lines=[reduce_spaces(l) for l in a.raw_lines]))
@@ -300,9 +297,9 @@ def generate_diff(commit, repo, assertion_re):
     parents = commit.parents
     if len(parents) == 0:
         gdiff = commit.tree.diff_to_tree(swap=True,
-                context_lines=NUM_CONTEXT_LINES)
+                context_lines=MAX_LINES - 1)
     elif len(parents) == 1:
-        gdiff = repo.diff(parents[0], commit, context_lines=NUM_CONTEXT_LINES)
+        gdiff = repo.diff(parents[0], commit, context_lines=MAX_LINES -1)
         diff.prev_id = commit.parent_ids[0]
     else:
         # don't diff merges or else we'll 'double-dip' on the assertions
@@ -466,7 +463,7 @@ class HunkAssertion():
                     changed = True
                 status = extracter.extract(gline.content)
                 count += 1
-                if status == DONE or count > NUM_CONTEXT_LINES + 1:
+                if status == DONE or count > MAX_LINES:
                     break
 
         if not extracter.valid or not changed:
