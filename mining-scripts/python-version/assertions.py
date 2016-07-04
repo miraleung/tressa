@@ -1,5 +1,6 @@
 # Python 3.4
 # dependency pygit2
+# pycparser
 
 # to print out all assertions in given repo:
 #   $ python3 assertions.py <assertion_re> <repo_path> <branch> [--source]
@@ -23,7 +24,6 @@
 #
 
 
-
 import re
 import logging
 import itertools
@@ -31,6 +31,7 @@ import traceback
 import sys
 
 import pygit2
+import pycparser
 
 from enum import Enum
 from collections import namedtuple
@@ -42,12 +43,11 @@ logging.basicConfig(level=logging.DEBUG)
 ################################################################################
 
 
-NUM_CONTEXT_LINES = 4
-"""In diffs, this number of lines above or below the changed line"""
+MAX_LINES = 10
+"""Asserts longer than this may be declared problematic."""
 
 FILE_EXTENSIONS = "ch"
 """We only want to search .c or .h files"""
-
 
 MORE = False
 DONE = True
@@ -138,28 +138,70 @@ class Assertion():
     """
     # int int [string] string string Change -> Assertion
     def __init__(self, lineno, num_lines, raw_lines, name, predicate,
-            change=Change.none, problematic=False, parent_file=None):
+            change=Change.none, problematic=False, problem="", parent_file=None):
         self.lineno = lineno                # starting line num (in "to" file)
         self.num_lines = num_lines
         self.raw_lines = raw_lines          # original lines of code of assert
         self.name = name                    # assert function name
-        self.predicate = reduce_whitespace(predicate)  # assertion expression
-                                                   # as string minus whitespace
+        self.predicate = reduce_whitespace(predicate) # just pred string
         self.change = change
-        self.problematic = problematic      # true if needs manual inspection
-        self.ast = self.generateAST()
+        self.problematic = problematic      # True if needs manual inspection
+        self.problem = problem              # If problematic, this is the reason
         self.parent_file = parent_file
+        self.ast = None # pycparser.c_ast.FuncCall <e.g., assert(a==b)>
 
     def __str__(self):
         return "{name}({pred})".format(name=self.name, pred=self.predicate)
 
-    # -> Assertion
-    def generateAST(self):
-        """Parses self.string to produce naive AST for basic analysis.
-                AST = Abstract Syntax Tree
-        """
-        # TODO
+
+# string string [pycparser.CParser] -> pycparser.c_ast.FuncCall | None
+def generateAST(name, predicate, parser=None):
+    """Parses self.string to produce naive AST for basic analysis.
+            AST = Abstract Syntax Tree
+    """
+    snippet = r"void func() {{ {a_name}({predicate}); }}".format(
+            a_name=name, predicate=predicate)
+    parser = parser if parser else pycparser.c_parser.CParser()
+    try:
+        return parse_assertion(snippet, parser)
+    except Exception as err:
+        logging.error("Unable to generate AST of {a_name}({pred}): {e}".format(
+            a_name=name, pred=predicate, e=err))
         return None
+
+# string CParser -> FuncCall
+def parse_assertion(snippet, parser, first_attempt=True):
+        try:
+            ast = parser.parse(snippet)
+            func_decl = ast.ext[-1] # last item in case preceded by typedefs
+            func_body = func_decl.body
+            assertion_ast = func_body.block_items[0]
+            return assertion_ast
+        except pycparser.plyparser.ParseError as err:
+            # error may be caused by unknown types. Attempt to find them
+            # and define them.
+            if first_attempt:
+                type_casters = get_type_casters(snippet)
+                if len(type_casters) > 0:
+                    snippet = add_typdefs(type_casters, snippet)
+                return parse_assertion(snippet, parser, first_attempt=False)
+            raise err
+
+# String -> {String}
+def get_type_casters(snippet):
+    type_cast_pattern = r"[^\w]\( *(\w+)( *\**)?\)"
+    types = re.findall(type_cast_pattern, snippet)
+    types = {t for t,_ in types} # remove duplicates
+    return types
+
+
+# {string} string -> string
+def add_typdefs(types, snippet):
+    """Prepend snippet with typdefs. Only works if types is a set"""
+    for t in types:
+        snippet = r"typedef int {t}; {s}".format(t=t, s=snippet)
+    return snippet
+
 
 # string -> string
 def remove_whitespace(string):
@@ -168,6 +210,8 @@ def remove_whitespace(string):
 def reduce_whitespace(string):
     return re.sub(r"\s+", " ", string)
 
+def reduce_spaces(string):
+    return re.sub(r"[ \t]+", " ", string)
 
 
 ################################################################################
@@ -189,6 +233,21 @@ def mine_repo(assertion_re, repo_path, branch):
         diff = generate_diff(commit, repo, assertion_re)
         if diff:
             history.diffs.append(diff) # diff won't exist if no assertions
+
+    parser = pycparser.c_parser.CParser()
+    for diff in history.diffs:
+        for file in diff.files:
+            a_list = []
+            for a in file.assertions:
+                a.ast = generateAST(a.name, a.predicate, parser)
+                if a.ast:
+                    a_list.append(a)
+                else:
+                    a.problematic = True
+                    a.problem = "Problem generating AST"
+                    file.to_inspect.append(a)
+            file.assertions = a_list
+
     return history
 
 
@@ -201,10 +260,9 @@ def print_all_assertions(assertion_re, repo_path, branch, source=False):
         for a in assertion_iter(hist, inspects=False):
             print(a)
 
-        print("\nAssertions requiring manual inspection:\n")
+        print("\nProblematic assertions requiring manual inspection:\n")
         for a in assertion_iter(hist, inspects=True):
-            raw = " ".join(a.raw_lines)
-            print(reduce_whitespace(raw))
+            print([reduce_spaces(l) for l in a.raw_lines])
     else:
         for a in assertion_iter(hist, inspects=False):
             print("{commit}::{file}:{lineno}:{c}:{name}({predicate})".format(
@@ -213,12 +271,10 @@ def print_all_assertions(assertion_re, repo_path, branch, source=False):
                 name=a.name, predicate=a.predicate))
 
         for a in assertion_iter(hist, inspects=True):
-            raw = " ".join(a.raw_lines)
-            a_str = reduce_whitespace(raw)
-            print("{commit}:<problematic>:{file}:{lineno}:{c}:{assertion}".format(
-                commit=a.parent_file.parent_diff.rvn_id,
+            print("{commit}:<!{problem}!>:{file}:{lineno}:{c}:{lines}".format(
+                commit=a.parent_file.parent_diff.rvn_id, problem=a.problem,
                 file=a.parent_file.name, lineno=a.lineno, c=a.change.prefix,
-                assertion=a_str))
+                lines=[reduce_spaces(l) for l in a.raw_lines]))
 
 
 # History Boolean -> iterator[Assertion]
@@ -241,9 +297,9 @@ def generate_diff(commit, repo, assertion_re):
     parents = commit.parents
     if len(parents) == 0:
         gdiff = commit.tree.diff_to_tree(swap=True,
-                context_lines=NUM_CONTEXT_LINES)
+                context_lines=MAX_LINES - 1)
     elif len(parents) == 1:
-        gdiff = repo.diff(parents[0], commit, context_lines=NUM_CONTEXT_LINES)
+        gdiff = repo.diff(parents[0], commit, context_lines=MAX_LINES -1)
         diff.prev_id = commit.parent_ids[0]
     else:
         # don't diff merges or else we'll 'double-dip' on the assertions
@@ -370,6 +426,7 @@ class HunkAssertion():
             - contains * followed by at least two spaces
             - has any weird characters on first line
             - has format of a declaration of the ASSERT
+            - (couldn't generate AST)
 
          return None:
             - first line is anti-changed
@@ -406,7 +463,7 @@ class HunkAssertion():
                     changed = True
                 status = extracter.extract(gline.content)
                 count += 1
-                if status == DONE or count > NUM_CONTEXT_LINES + 1:
+                if status == DONE or count > MAX_LINES:
                     break
 
         if not extracter.valid or not changed:
@@ -414,12 +471,15 @@ class HunkAssertion():
 
         if status != DONE:
             extracter.problematic = True
+            if not extracter.problem:
+                extracter.problem = "Exceeded max lines"
 
         predicate = strip_parens(extracter.predicate) \
                     if not extracter.problematic else ""
         assertion = Assertion(lineno, len(extracter.lines), extracter.lines,
                 self.match.group(), predicate, change=change,
-                problematic=extracter.problematic, parent_file=self.file)
+                problematic=extracter.problematic, problem=extracter.problem,
+                parent_file=self.file)
         return assertion
 
 # string -> string
@@ -446,6 +506,7 @@ class Extracter():
         self.predicate = ""              # final string, without comments
         self.valid = True
         self.problematic = False
+        self.problem = False
 
     # re.Match -> Boolean
     def encompassed_by(self, match):
@@ -480,6 +541,7 @@ class Extracter():
             match = re.match(decl_re, line)
             if match:
                 self.problematic = True
+                self.problem = "Possible function declaration"
                 return DONE
 
             pre_line = line[:self.match.start()]
@@ -492,27 +554,37 @@ class Extracter():
                         if m is None:
                             self.valid = False
                             return DONE
+                        else:
+                            pre_line = pre_line[match.end() + m.end():]
 
                     elif match.group() == '/*':
                         m = re.search('\*/', pre_line[match.end():])
                         if m is None:
                             self.valid = False
                             return DONE
+                        else:
+                            pre_line = pre_line[match.end() + m.end():]
 
                     elif match.group() == "//":
                         self.valid = False
                         return DONE
 
                     elif match.group() == "*  ":
-                        # might be mid-comment
                         self.problematic = True
+                        self.problem = "might be mid-comment"
+                        return DONE
 
-                    # else: '*/'   '('   ')'   '#"
-                    pre_line = pre_line[match.end():]
+                    else:
+                        # '*/'   '('   ')'   '#"
+                        pre_line = pre_line[match.end():]
+
                 else:
                     pre_line = ""
 
             line = line[self.match.end():]
+
+        # The macro line continuation backslash messes up the AST parser
+        line = re.sub(r"\\\n", " ", line)
 
         if self.comment:
             # We need to find find closing '*/' before moving on
@@ -540,18 +612,19 @@ class Extracter():
             if match.group() == '"':
                 m = re.search('"', line[match.end():])
                 if m:
-                    self.predicate += line[:m.end()]
-                    line = line[m.end():]
+                    self.predicate += line[:match.end() + m.end()]
+                    line = line[match.end() + m.end():]
                     continue
                 else:
                     self.problematic = True
+                    self.problem = "String seems to exceed one line"
                     return DONE
 
             elif match.group() == '/*':
                 self.predicate += line[:match.start()]
                 m = re.search('\*/', line[match.end():])
                 if m:
-                    line = line[m.end():]
+                    line = line[match.end() + m.end():]
                     continue
                 else:
                     self.comment = True
@@ -580,6 +653,8 @@ class Extracter():
                 # '*/'  -- again, probably mid-comment
                 # '#'   -- some sort of pre-processor directive in the middle
                 self.problematic = True
+                self.problem = "'*  |*/|#': possbily mid-coment or " \
+                    "mid-expression preprocessor directive"
                 return DONE
 
         return MORE
