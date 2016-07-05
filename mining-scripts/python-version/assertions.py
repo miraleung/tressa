@@ -36,6 +36,8 @@ import pycparser
 from enum import Enum
 from collections import namedtuple
 
+
+import funast
 logging.basicConfig(level=logging.DEBUG)
 
 ################################################################################
@@ -154,55 +156,6 @@ class Assertion():
         return "{name}({pred})".format(name=self.name, pred=self.predicate)
 
 
-# string string [pycparser.CParser] -> pycparser.c_ast.FuncCall | None
-def generateAST(name, predicate, parser=None):
-    """Parses self.string to produce naive AST for basic analysis.
-            AST = Abstract Syntax Tree
-    """
-    snippet = r"void func() {{ {a_name}({predicate}); }}".format(
-            a_name=name, predicate=predicate)
-    parser = parser if parser else pycparser.c_parser.CParser()
-    try:
-        return parse_assertion(snippet, parser)
-    except Exception as err:
-        logging.error("Unable to generate AST of {a_name}({pred}): {e}".format(
-            a_name=name, pred=predicate, e=err))
-        return None
-
-# string CParser -> FuncCall
-def parse_assertion(snippet, parser, first_attempt=True):
-        try:
-            ast = parser.parse(snippet)
-            func_decl = ast.ext[-1] # last item in case preceded by typedefs
-            func_body = func_decl.body
-            assertion_ast = func_body.block_items[0]
-            return assertion_ast
-        except pycparser.plyparser.ParseError as err:
-            # error may be caused by unknown types. Attempt to find them
-            # and define them.
-            if first_attempt:
-                type_casters = get_type_casters(snippet)
-                if len(type_casters) > 0:
-                    snippet = add_typdefs(type_casters, snippet)
-                return parse_assertion(snippet, parser, first_attempt=False)
-            raise err
-
-# String -> {String}
-def get_type_casters(snippet):
-    type_cast_pattern = r"[^\w]\( *(\w+)( *\**)?\)"
-    types = re.findall(type_cast_pattern, snippet)
-    types = {t for t,_ in types} # remove duplicates
-    return types
-
-
-# {string} string -> string
-def add_typdefs(types, snippet):
-    """Prepend snippet with typdefs. Only works if types is a set"""
-    for t in types:
-        snippet = r"typedef int {t}; {s}".format(t=t, s=snippet)
-    return snippet
-
-
 # string -> string
 def remove_whitespace(string):
     return re.sub(r"\s", "", string)
@@ -239,10 +192,14 @@ def mine_repo(assertion_re, repo_path, branch):
         for file in diff.files:
             a_list = []
             for a in file.assertions:
-                a.ast = generateAST(a.name, a.predicate, parser)
-                if a.ast:
+                try:
+                    a.ast = funast.AST(a.name, a.predicate, parser)
                     a_list.append(a)
-                else:
+                except Exception as err:
+                    logging.error("Unable to generate AST of {a_name}({pred}): {e}".format(
+                        a_name=a.name, pred=a.predicate, e=err))
+
+                    a.ast = None
                     a.problematic = True
                     a.problem = "Problem generating AST"
                     file.to_inspect.append(a)
