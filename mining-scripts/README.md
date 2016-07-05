@@ -13,9 +13,9 @@ Four script versions:
 - `python-version`: **This is the version under active development**. It is fast and represents a complete design departure from the others in that it respresents a project with an internal data structure. 
 
 
-#### Additionally, in this directory:
+#### Additionally, useful:
 - `hg-get-diffs.sh` for Mercurial, and `git-get-diffs.sh` for Git: extract diffs between all revisions into separate files.
-- `cdf.py`: plots a Cummulative Distribution Function graph using `*-activity-count.txt` results from the other scripts.
+- `python-version/cdf.py`: plots a Cummulative Distribution Function graph using `*-activity-count.txt` results from the other scripts.
 - `install-haskell.sh`: an easy-setup script that compiles Haskell code and copies all necessary scripts to a target directory.
 
 Mining Script Types:
@@ -77,7 +77,7 @@ cd path/to/target/repo/dir/
 1. `DEST=/path/to/same/level/as/xen-unstable.hg`
 2. `for f in mining-scripts/bash-version-inexact/*.sh; do cp $f $DEST/; done`
 3. `for f in mining-scripts/bash-version-primitive/*.sh; do cp $f $DEST/; done`
-4. `cp mining-scripts/cdf.py $DEST/`
+4. `cp mining-scripts/python-version/cdf.py $DEST/`
 5. `cd $DEST`
 6. `./hg-get-diffs.sh` (in `mining-scripts/`)
 7. `./get-asserts.sh`
