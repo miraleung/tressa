@@ -3,6 +3,7 @@ Python 3 scripts using abstraction for pipelining analysis modules
 ## Dependencies
 - Python 3.4
 - [pygit2](http://www.pygit2.org/)
+- [pycparser](https://github.com/eliben/pycparser)
 - Git
 
 ## Instructions
