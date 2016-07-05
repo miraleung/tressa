@@ -29,15 +29,14 @@ import logging
 import itertools
 import traceback
 import sys
+from enum import Enum
+from collections import namedtuple
 
 import pygit2
 import pycparser
 
-from enum import Enum
-from collections import namedtuple
+import predast
 
-
-import funast
 logging.basicConfig(level=logging.DEBUG)
 
 ################################################################################
@@ -153,7 +152,7 @@ class Assertion():
         self.problematic = problematic      # True if needs manual inspection
         self.problem = problem              # If problematic, this is the reason
         self.parent_file = parent_file
-        self.ast = None # pycparser.c_ast.FuncCall <e.g., assert(a==b)>
+        self.ast = None # pycparser.c_ast of predicate
 
     def __str__(self):
         return "{name}({pred})".format(name=self.name, pred=self.predicate)
@@ -196,11 +195,11 @@ def mine_repo(assertion_re, repo_path, branch):
             a_list = []
             for a in file.assertions:
                 try:
-                    a.ast = funast.AST(a.name, a.predicate, parser)
+                    a.ast = predast.AST(a.predicate, parser)
                     a_list.append(a)
                 except Exception as err:
-                    logging.error("Unable to generate AST of {a_name}({pred}): {e}".format(
-                        a_name=a.name, pred=a.predicate, e=err))
+                    logging.error("Unable to generate AST of ({pred}): {e}" \
+                            .format(pred=a.predicate, e=err))
 
                     a.ast = None
                     a.problematic = True

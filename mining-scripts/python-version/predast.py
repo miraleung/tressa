@@ -1,4 +1,4 @@
-# AST wrapper class for pycparser.c_ast.FuncCall
+# AST wrapper class for pycparser.c_ast
 
 import io
 import re
@@ -10,14 +10,12 @@ class ParseError(Exception):
 
 class AST():
     # string string [pycparser.c_parser.CParser] -> AST
-    def __init__(self, funname, predicate, parser=None):
-        """Parses funname(predicate) into FuncCall Abstract Syntax Tree
+    def __init__(self, predicate, parser=None):
+        """Parses funname(predicate) into Abstract Syntax Tree
         :parser: will be instantiated as a CParser if it doesn't exist.
         Raises ParseError if parsing fails.
         """
-
-        snippet = r"void func() {{ {funname}({predicate}); }}".format(
-                funname=funname, predicate=predicate)
+        snippet = r"void func() {{ ({pred}); }}".format(pred=predicate)
         parser = parser if parser else pycparser.c_parser.CParser()
         self.ast = parse_assertion(snippet, parser)
 
@@ -26,10 +24,7 @@ class AST():
         self.ast.show(buf=buf)
         return buf.getvalue()
 
-
-
-
-# string pycparser.c_parser.CParser [Boolean] -> FuncCall
+# string pycparser.c_parser.CParser [Boolean] -> pycparser.c_ast
 def parse_assertion(snippet, parser, first_attempt=True):
     try:
         ast = parser.parse(snippet)
