@@ -92,6 +92,20 @@ class History():
     def __init__(self):
         self.diffs = []
 
+    def show(self):
+        for a in assertion_iter(self, inspects=False):
+            print("{commit}::{file}:{lineno}:{c}:{name}({predicate})".format(
+                commit=a.parent_file.parent_diff.rvn_id,
+                file=a.parent_file.name, lineno=a.lineno, c=a.change.prefix,
+                name=a.name, predicate=a.predicate))
+
+        for a in assertion_iter(self, inspects=True):
+            print("{commit}:<!{problem}!>:{file}:{lineno}:{c}:{lines}".format(
+                commit=a.parent_file.parent_diff.rvn_id, problem=a.problem,
+                file=a.parent_file.name, lineno=a.lineno, c=a.change.prefix,
+                lines=[reduce_spaces(l) for l in a.raw_lines]))
+
+
 
 class Diff():
     """The files that had assertion changes in between adjacent revisions, as
@@ -223,17 +237,7 @@ def print_all_assertions(assertion_re, repo_path, branch, source=False):
         for a in assertion_iter(hist, inspects=True):
             print([reduce_spaces(l) for l in a.raw_lines])
     else:
-        for a in assertion_iter(hist, inspects=False):
-            print("{commit}::{file}:{lineno}:{c}:{name}({predicate})".format(
-                commit=a.parent_file.parent_diff.rvn_id,
-                file=a.parent_file.name, lineno=a.lineno, c=a.change.prefix,
-                name=a.name, predicate=a.predicate))
-
-        for a in assertion_iter(hist, inspects=True):
-            print("{commit}:<!{problem}!>:{file}:{lineno}:{c}:{lines}".format(
-                commit=a.parent_file.parent_diff.rvn_id, problem=a.problem,
-                file=a.parent_file.name, lineno=a.lineno, c=a.change.prefix,
-                lines=[reduce_spaces(l) for l in a.raw_lines]))
+        hist.show()
 
 
 # History Boolean -> iterator[Assertion]
@@ -549,6 +553,7 @@ class Extracter():
             m = re.search('\*/', line)
             if m:
                 line = line[m.end():]
+                self.comment = False
             else:
                 return MORE
 
