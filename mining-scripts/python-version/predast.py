@@ -40,7 +40,7 @@ def parse_assertion(snippet, parser, first_attempt=True):
             if len(type_casters) > 0:
                 snippet = add_typdefs(type_casters, snippet)
             return parse_assertion(snippet, parser, first_attempt=False)
-        raise ASTError(str(err))
+        raise ParseError(str(err))
 
 # String -> {String}
 def get_type_casters(snippet):
