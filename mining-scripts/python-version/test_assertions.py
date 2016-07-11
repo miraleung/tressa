@@ -75,15 +75,15 @@ class TestMineRepo(unittest.TestCase):
                 "diverse.c": {
                     "confident": {
                         "added": {"good==1", "good==2", "good==3", "good==4",
-                            "good==5", "good==6", "good==7"},
+                            "good==5", "good==6", "good==7", "good==9"},
                         "removed": set()
                     },
                     "problematic" : {
-                        "added": {"maybe==2", "maybe==3"},
+                        "added": set(),
                         "removed": set()
                     },
                     "apologetic": {
-                        "added": {"maybe==1", "bad==5", "bad==8"},
+                        "added": {"maybe==1", "bad==5", "bad==8", "bad==9"},
                         "removed": set()
                     }
                 },
@@ -97,8 +97,18 @@ class TestMineRepo(unittest.TestCase):
 
     def tearDown(self):
         self.history.show()
+        print("\nNumber of apologetic matches: {num}".format(
+            num=self.count_apologetics()))
 
-    def test_comment_difficulties(self):
+    def count_apologetics(self):
+        count = 0
+        for commit in self.EXPECTED:
+            for file in commit.values():
+                if file:
+                    count += len_assert_lists(file["apologetic"])
+        return count
+
+    def test_comment_DIFFIculties(self):
         self.assertMatchedHistory(self.history, self.EXPECTED)
 
     def assertMatchedHistory(self, history, expectation):
