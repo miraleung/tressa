@@ -79,11 +79,11 @@ class TestMineRepo(unittest.TestCase):
                         "removed": set()
                     },
                     "problematic" : {
-                        "added": set(),
+                        "added": {"maybe==1"},
                         "removed": set()
                     },
                     "apologetic": {
-                        "added": {"maybe==1", "bad==5", "bad==8", "bad==9"},
+                        "added": {"bad==5", "bad==8", "bad==9"},
                         "removed": set()
                     }
                 },

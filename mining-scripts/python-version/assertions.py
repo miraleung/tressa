@@ -384,13 +384,12 @@ class HunkAssertion():
 
         problematic:
             - contains string that contains actual newline
-            - reaches end of hunk or +5 lines without closing paren,
+            - reaches end of hunk or +MAX_LINES without closing paren,
             but at least one line had been changed
             - reaches */ before closing paren (not preceded by /*)
-            - contains * followed by at least two spaces
+            - starts with *
             - has any weird characters on first line
-            - has format of a declaration of the ASSERT
-            - (couldn't generate AST)
+            - couldn't generate AST
 
          return None:
             - first line is anti-changed
@@ -444,6 +443,10 @@ class HunkAssertion():
         if not extracter.problematic and not valid_predicate(predicate):
             return None
 
+        if extracter.starred:
+            extracter.problematic = True
+            extracter.problem = "possibly mid-comment"
+
         assertion = Assertion(lineno, self.line_index, len(extracter.lines),
                 extracter.lines, self.match.group(), predicate, change=change,
                 problematic=extracter.problematic, problem=extracter.problem,
@@ -473,8 +476,10 @@ def strip_parens(exp):
 
 
 class Extracter():
-    delims = re.compile(r'(//|\*  |/\*|\*/|"|\(|\)|#)')
-    #                      1  2    3   4   5 6  7
+    delims = re.compile(r'(//|/\*|\*/|"|\(|\)|#)')
+    #                      1  2   3   4 5  6  7
+
+    comment_clue = re.compile(r"\s*\*[^/]")
 
     def __init__(self, change, match):
         self.change = change            # Change
@@ -486,6 +491,7 @@ class Extracter():
         self.valid = True
         self.problematic = False
         self.problem = False
+        self.starred = False        # if assertline begins with *
 
     # re.Match -> Boolean
     def encompassed_by(self, match):
@@ -505,6 +511,7 @@ class Extracter():
         if len(self.lines) == 1: # first line
             assertion_re = self.match.re.pattern
 
+
             # '#define ASSERT' should be ignored
             define_re = r"[ \t]*#[ \t]*define[ \t]+({a})\b".format(
                     a=assertion_re)
@@ -512,6 +519,10 @@ class Extracter():
             if match:
                 self.valid = False
                 return DONE
+
+            if Extracter.comment_clue.match(line):
+                # don't return yet, since it may be rejected by form
+                self.starred = True
 
             pre_line = line[:self.match.start()]
             while len(pre_line) > 0:
@@ -538,13 +549,8 @@ class Extracter():
                         self.valid = False
                         return DONE
 
-                    elif match.group() == "*  ":
-                        self.problematic = True
-                        self.problem = "might be mid-comment"
-                        return DONE
-
                     else:
-                        # '*/'   '('   ')'   '#"
+                        # '('   ')'   '#"
                         pre_line = pre_line[match.end():]
 
                 else:
