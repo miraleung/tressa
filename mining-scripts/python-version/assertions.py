@@ -440,11 +440,28 @@ class HunkAssertion():
 
         predicate = strip_parens(extracter.predicate) \
                     if not extracter.problematic else ""
+
+        if not extracter.problematic and not valid_predicate(predicate):
+            return None
+
         assertion = Assertion(lineno, self.line_index, len(extracter.lines),
                 extracter.lines, self.match.group(), predicate, change=change,
                 problematic=extracter.problematic, problem=extracter.problem,
                 parent_file=self.file)
         return assertion
+
+
+# string -> Boolean
+def valid_predicate(predicate):
+    """Return False if predicate is empty or a declaration"""
+    if remove_whitespace(predicate) == "":
+        # is empty
+        return False
+    if re.match(r"\s*\w+\s+\w+", predicate):
+        # is declaration
+        return False
+    return True
+
 
 # string -> string
 def strip_parens(exp):
@@ -494,16 +511,6 @@ class Extracter():
             match = re.match(define_re, line)
             if match:
                 self.valid = False
-                return DONE
-
-            # 'extern static unsigned long long ASSERT (X) {}' should be ignored
-            # an ASSERT at the beginning of a line is probably in a declaration;
-            # within a function, it would probably be indented
-            decl_re = r"(((\w+ ){{0,4}}\w+ ({a}))|^({a}))\s*\(".format(a=assertion_re)
-            match = re.match(decl_re, line)
-            if match:
-                self.problematic = True
-                self.problem = "Possible function declaration"
                 return DONE
 
             pre_line = line[:self.match.start()]
