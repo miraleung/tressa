@@ -156,7 +156,7 @@ class Assertion():
     # int int int [string] string string Change -> Assertion
     def __init__(self, lineno, hunk_lineno, num_lines, raw_lines, name, predicate,
             change=Change.none, problematic=False, problem="", parent_file=None):
-        self.lineno = lineno                # starting line num (in "to" file)
+        self.lineno = lineno            # start line num in file where it exists 
         self.hunk_lineno = hunk_lineno  # index into Hunk where it was found
         self.num_lines = num_lines
         self.raw_lines = raw_lines          # original lines of code of assert

@@ -77,38 +77,113 @@ class TestMineRepo(unittest.TestCase):
         print(self.id())
 
     def tearDown(self):
-        print("Number of apologetic matches: {num}".format(
-            num=self.count_apologetics()))
+        print("{c} confident; {p} problematic; {a} apologetic".format(
+            c=self.count_type("confident"), p=self.count_type("problematic"),
+            a=self.count_type("apologetic")))
         print()
 
-    def count_apologetics(self):
+    def count_type(self, typename):
         count = 0
         for commit in self.expected:
             for file in commit.values():
                 if file:
-                    count += len_assert_lists(file["apologetic"])
+                    count += len_assert_lists(file[typename])
         return count
 
     def test_comments(self):
+        """Verify proper behaviour involving comments in code"""
         self.expected = [
-                {
-                    "diverse.c": {
-                        "confident": {
-                            "added": {"good==1", "good==2", "good==3", "good==4",
-                                "good==5", "good==6", "good==7", "good==9"},
-                            "removed": set()
-                        },
-                        "problematic" : {
-                            "added": {"maybe==1"},
-                            "removed": set()
-                        },
-                        "apologetic": {
-                            "added": {"bad==5", "bad==8", "bad==9"},
-                            "removed": set()
-                        }
+            {
+                "comments.c": {
+                    "confident": {
+                        "added": set(),
+                        "removed": set()
                     },
+                    "problematic" : {
+                        "added": set(),
+                        "removed": set()
+                    },
+                    "apologetic": {
+                        "added": {"post_comment_changes", "mid_comment_changes==1",
+                            "comment_added==1", "good==not"},
+                        "removed": {"post_comment_changes", "mid_comment_changes==1",
+                            "comment_added==1", "good==not"}
+                    }
+                },
+            },
+            {
+                "comments.c": {
+                    "confident": {
+                        "added": {"good==1", "good==2", "good==3", "good==4",
+                            "good==5", "good==6", "good==7", "good==9",
+                            "post_comment_changes", "mid_comment_changes==1",
+                            "comment_added==1", "good==not"},
+                        "removed": set()
+                    },
+                    "problematic" : {
+                        "added": {"maybe==1"},
+                        "removed": set()
+                    },
+                    "apologetic": {
+                        "added": {"bad==5", "bad==8", "bad==9"},
+                        "removed": set()
+                    }
+                },
+            },
+        ]
+        self.assertMatchedHistory()
+
+    def test_filetypes(self):
+        """Ensure that non-c files are ignored"""
+        self.expected = [{}, {"longone.abc": None, "longone.c.ccc": None}]
+        self.assertMatchedHistory()
+
+    def test_basic(self):
+        """Basic add/remove/change situations"""
+        self.expected = [
+            {
+                "basic.c": {
+                    "confident": {
+                        "added": {"changed", "changed_surrounded",
+                            "changed==b||(c!=d&&e==f)", "a==b||(c!=changed&&e==f)",
+                            "extra_add1", "extra_add2",
+                        },
+                        "removed": {"to_delete", "to_change", "to_change_surrounded",
+                            "to_change==b||(c!=d&&e==f)", "a==b||(c!=to_change&&e==f)",
+                        },
+                    },
+                    "problematic": {
+                        "added": set(),
+                        "removed": set()
+                    },
+                    "apologetic": {
+                        "added": set(),
+                        "removed": set()
+                    }
                 }
-            ]
+            },
+            {
+                "basic.c": {
+                    "confident": {
+                        "added": {
+                            "a", "to_delete", "c", "to_change", "d",
+                            "to_change_surrounded", "f", "to_change==b||(c!=d&&e==f)",
+                            "a==b||(c!=d&&e==no_change)", "a==b||(c!=to_change&&e==f)",
+                            "good", "z", "x", "outside",
+                        },
+                        "removed": set()
+                        },
+                    "problematic": {
+                        "added": set(),
+                        "removed": set()
+                    },
+                    "apologetic": {
+                        "added": set(),
+                        "removed": set()
+                    }
+                },
+            },
+        ]
         self.assertMatchedHistory()
 
     def assertMatchedHistory(self):
@@ -123,11 +198,27 @@ class TestMineRepo(unittest.TestCase):
                 bad, so appear in .assertions field.
             "problematic": the problematic assertions that are picked up.
         There can be no whitespace in predicates.
+
+        If a removed predicate contains "to_change". Then it verifies that there
+        is an added "changed" assertion with same lineno.
         """
-        commits = zip(TestMineRepo.history.diffs, self.expected)
-        for diff, expect in commits:
+        self.assertEqual(len(self.expected), len(TestMineRepo.history.diffs))
+        commits = zip(self.expected, TestMineRepo.history.diffs)
+        for expect, diff in commits:
             for exp_filename, exp_contents in expect.items():
                 self.assertDiffFile(diff, exp_filename, exp_contents)
+
+        self.assert_changes()
+
+    def assert_changes(self):
+        # This is to verify efficacy of the tests
+        for a in assertion_iter(TestMineRepo.history):
+            if a.change == Change.removed and \
+                    re.search(r".*to_change.*", a.predicate):
+                changed_assertion = find_changed(a, a.parent_file)
+                if not changed_assertion:
+                    raise AssertionError("Could not find change for assert({p})" \
+                            .format(p=a.predicate))
 
     def assertDiffFile(self, diff, exp_filename, exp_contents):
         act_filenames = [f.name for f in diff.files]
@@ -220,53 +311,12 @@ def len_assert_lists(assert_list):
     return len(assert_list["added"]) + len(assert_list["removed"])
 
 
-
-
-
-
-
-
-
-
-
-        # self.assertEqual(num_asserts(self.hist), 8)
-        # self.assertEqual(num_file_asserts("diverse.c", self.history), 8)
-
-        # diff = self.history.diffs[-1]
-        # self.assertEqual(len(diff.files), 1)
-
-        # file = diff.files[-1]
-        # self.assertEqual(file.name, "diverse.c")
-        # self.assertEqual(num_confident(file), 8)
-        # self.assertEqual(num_problematic(file), 2)
-
-
-
-
-
-# def num_asserts(history):
-    # """Return the number of assert statements of predicate (good==X) found
-    # among both confident and problematic in entire history.
-    # """
-    # return 0
-
-# def num_file_asserts(filepath, history):
-    # """In given history, all the assertions found in the given file
-    # throughout all diffs."""
-    # return 0
-
-# def num_confident(file):
-    # """For given File object, the number of confident assertions found."""
-    # return 0
-
-# def num_problematic(file):
-    # """For given File object, the number of confident assertions found."""
-    # return 0
-
-
-
-
-
+def find_changed(assertion, file):
+    changed_pred = assertion.predicate.replace("to_change", "changed")
+    for a in file.assertions:
+        if a.predicate == changed_pred:
+            return a
+    return None
 
 
 
