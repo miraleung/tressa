@@ -65,7 +65,7 @@ class TestRegex(unittest.TestCase):
 
 
 class TestMineRepo(unittest.TestCase):
-    TEST_REPO = "test_repo"
+    TEST_REPO = "tressa_test_repo"
 
     @classmethod
     def setUpClass(cls):
