@@ -87,6 +87,7 @@ class TestMineRepo(unittest.TestCase):
     def test_comments(self):
         """Verify proper behaviour involving comments in code"""
         self.expected_history = [
+            TestCommit(),
             TestCommit(
                 TestFile("comments.c",
                     apologetic=TestAsserts(
@@ -112,6 +113,7 @@ class TestMineRepo(unittest.TestCase):
         """Ensure that non-c files are ignored"""
         self.expected_history = [
             TestCommit(),
+            TestCommit(),
             TestCommit(
                 TestFile("longone.abc"),
                 TestFile("longone.c.ccc"))
@@ -121,6 +123,7 @@ class TestMineRepo(unittest.TestCase):
     def test_basic(self):
         """Basic add/remove/change situations"""
         self.expected_history = [
+            TestCommit(),
             TestCommit(
                 TestFile("basic.c",
                     confident=TestAsserts(
@@ -138,6 +141,23 @@ class TestMineRepo(unittest.TestCase):
                             "good", "z", "x", "outside"}))),
         ]
         self.assertHistoryEqual()
+
+    def test_macros(self):
+        """Assertions within macros and including pre-processor directives"""
+        self.expected_history = [
+            TestCommit(
+                TestFile("macros.c",
+                    confident=TestAsserts(
+                        added={"(X)==1",
+                            "(fun(_a)->field&SOME_mask)==SOME_shadow||(fun(_b)->field&ANOTHER_mask)==ANOTHER_shadow"}),
+                    problematic=TestAsserts(
+                        added={"prefix##_##name==0",
+                            "a==1&&#ifdefFLAGarg==2#elsearg=3#endif&&b==2"}))),
+            TestCommit(),
+            TestCommit(),
+        ]
+        self.assertHistoryEqual()
+
 
     def assertHistoryEqual(self):
         """

@@ -625,12 +625,12 @@ class Extracter():
                     return DONE
 
             elif match.group() == "*/":
-                self.problematic = true
+                self.problematic = True
                 self.problem = "'*/': possibly mid-comment"
                 return DONE
 
             elif match.group() == "#":
-                self.problematic = true
+                self.problematic = True
                 self.problem = "'#': includes pre-processor directive"
                 self.predicate += line[:match.start()]
                 line = line[match.end():]
