@@ -22,7 +22,7 @@ class TestRegex(unittest.TestCase):
         self.assert_matches("assert", "ASSERT", [])
         self.assert_matches("assert", "assert", ["assert"])
         self.assert_matches("assert", "hi goodbye assert nice day", ["assert"])
-        self.assert_matches("assert", "in 1;assert(a==b);i\n", ["assert"])
+        self.assert_matches("assert", "in 1;assert(a==b);\n", ["assert"])
         self.assert_matches("assert",
                 "assert(a==b) assert_bob 123 bob_assert assert\n",
                 ["assert", "assert"])
@@ -71,6 +71,7 @@ class TestMineRepo(unittest.TestCase):
     def setUpClass(cls):
         cls.history = mine_repo("assert", TestMineRepo.TEST_REPO, "master")
         cls.history.show()
+        cls.test_history = history_to_testcommits(cls.history)
         print()
 
     def setUp(self):
@@ -93,120 +94,74 @@ class TestMineRepo(unittest.TestCase):
     def test_comments(self):
         """Verify proper behaviour involving comments in code"""
         self.expected = [
-            {
-                "comments.c": {
-                    "confident": {
-                        "added": set(),
-                        "removed": set()
-                    },
-                    "problematic" : {
-                        "added": set(),
-                        "removed": set()
-                    },
-                    "apologetic": {
-                        "added": {"post_comment_changes", "mid_comment_changes==1",
+            TestCommit(
+                TestFile("comments.c",
+                    apologetic=TestAsserts(
+                        added={"post_comment_changes", "mid_comment_changes==1",
                             "comment_added==1", "good==not"},
-                        "removed": {"post_comment_changes", "mid_comment_changes==1",
-                            "comment_added==1", "good==not"}
-                    }
-                },
-            },
-            {
-                "comments.c": {
-                    "confident": {
-                        "added": {"good==1", "good==2", "good==3", "good==4",
+                        removed={"post_comment_changes", "mid_comment_changes==1",
+                            "comment_added==1", "good==not"}))),
+            TestCommit(
+                TestFile("comments.c",
+                    confident=TestAsserts(
+                        added={"good==1", "good==2", "good==3", "good==4",
                             "good==5", "good==6", "good==7", "good==9",
                             "post_comment_changes", "mid_comment_changes==1",
-                            "comment_added==1", "good==not"},
-                        "removed": set()
-                    },
-                    "problematic" : {
-                        "added": {"maybe==1"},
-                        "removed": set()
-                    },
-                    "apologetic": {
-                        "added": {"bad==5", "bad==8", "bad==9"},
-                        "removed": set()
-                    }
-                },
-            },
+                            "comment_added==1", "good==not"}),
+                    problematic=TestAsserts(
+                        added={"maybe==1"}),
+                    apologetic=TestAsserts(
+                        added={"bad==5", "bad==8", "bad==9"}))),
         ]
-        self.assertMatchedHistory()
+        self.assert_matching_history()
 
     def test_filetypes(self):
         """Ensure that non-c files are ignored"""
-        self.expected = [{}, {"longone.abc": None, "longone.c.ccc": None}]
-        self.assertMatchedHistory()
+        self.expected = [
+            TestCommit(),
+            TestCommit(
+                TestFile("longone.abc"),
+                TestFile("longone.c.ccc"))
+        ]
+        self.assert_matching_history()
 
     def test_basic(self):
         """Basic add/remove/change situations"""
         self.expected = [
-            {
-                "basic.c": {
-                    "confident": {
-                        "added": {"changed", "changed_surrounded",
+            TestCommit(
+                TestFile("basic.c",
+                    confident=TestAsserts(
+                        added={"changed", "changed_surrounded",
                             "changed==b||(c!=d&&e==f)", "a==b||(c!=changed&&e==f)",
-                            "extra_add1", "extra_add2",
-                        },
-                        "removed": {"to_delete", "to_change", "to_change_surrounded",
-                            "to_change==b||(c!=d&&e==f)", "a==b||(c!=to_change&&e==f)",
-                        },
-                    },
-                    "problematic": {
-                        "added": set(),
-                        "removed": set()
-                    },
-                    "apologetic": {
-                        "added": set(),
-                        "removed": set()
-                    }
-                }
-            },
-            {
-                "basic.c": {
-                    "confident": {
-                        "added": {
-                            "a", "to_delete", "c", "to_change", "d",
+                            "extra_add1", "extra_add2"},
+                        removed={"to_delete", "to_change", "to_change_surrounded",
+                            "to_change==b||(c!=d&&e==f)", "a==b||(c!=to_change&&e==f)"}),
+            TestCommit(
+                TestFile("basic.c",
+                    confident=TestAsserts(
+                        added={"a", "to_delete", "c", "to_change", "d",
                             "to_change_surrounded", "f", "to_change==b||(c!=d&&e==f)",
                             "a==b||(c!=d&&e==no_change)", "a==b||(c!=to_change&&e==f)",
-                            "good", "z", "x", "outside",
-                        },
-                        "removed": set()
-                        },
-                    "problematic": {
-                        "added": set(),
-                        "removed": set()
-                    },
-                    "apologetic": {
-                        "added": set(),
-                        "removed": set()
-                    }
-                },
-            },
+                            "good", "z", "x", "outside"}))),
         ]
-        self.assertMatchedHistory()
+        self.assert_matching_history()
 
-    def assertMatchedHistory(self):
-        """Assuming there are the same number of commits in history as in
-        expectation, checks that the given predicates are the only ones in
-        History. It ignores files that are not included in Expectation for
-        a commit, but if you want to verify that a file is NOT present, set
-        its dict to None.
-        A file's dict consists of three parts:
-            "confident": the good assertions that are in the .assertions field
-            "apologetic": the bad assertions that are regrettably undectabley
-                bad, so appear in .assertions field.
-            "problematic": the problematic assertions that are picked up.
-        There can be no whitespace in predicates.
+    def assert_matching_history(self):
+        """
+        Assuming there are the same number of commits that affected
+        assertions in the History as there are in self.expected, this
+        checks that the given predicates match all assertions in the history
+        for the given files at each points. It ignores files that are not
+        included in a TestCommit.
 
         If a removed predicate contains "to_change". Then it verifies that there
         is an added "changed" assertion with same lineno.
         """
         self.assertEqual(len(self.expected), len(TestMineRepo.history.diffs))
-        commits = zip(self.expected, TestMineRepo.history.diffs)
-        for expect, diff in commits:
-            for exp_filename, exp_contents in expect.items():
-                self.assertDiffFile(diff, exp_filename, exp_contents)
+        commits = zip(self.expected, TestMineRepo.history.diffs)j
+        for expected_commit, actual_commit in commits:
+            for file in expected_commit.files:
+                self.assert_diff_file(diff, file)
 
         self.assert_changes()
 
@@ -220,7 +175,7 @@ class TestMineRepo(unittest.TestCase):
                     raise AssertionError("Could not find change for assert({p})" \
                             .format(p=a.predicate))
 
-    def assertDiffFile(self, diff, exp_filename, exp_contents):
+    def assert_diff_file(self, diff, file):
         act_filenames = [f.name for f in diff.files]
         if exp_contents is None:
             self.assertNotIn(exp_filename, act_filenames)
@@ -288,11 +243,6 @@ class TestMineRepo(unittest.TestCase):
 
 
 
-
-
-
-
-
 # string [File] -> File
 def find_file(filename, files):
     for file in files:
@@ -319,7 +269,79 @@ def find_changed(assertion, file):
     return None
 
 
+        # A file's dict consists of three parts:
 
+            # "confident": the good assertions that are in the .assertions field
+            # "apologetic": the bad assertions that are regrettably undectabley
+                # bad, so appear in .assertions field.
+            # "problematic": the problematic assertions that are picked up.
+        # There can be no whitespace in predicates.
+class TestCommit():
+    def __init__(self, *files):
+        self.files = files
+
+    @classmethod
+    def from_diff(cls, diff):
+        tc = cls(TestFile.from_file(f) for f in diff.files)
+        return tc
+
+
+class TestFile():
+    def __init__(self, name,
+            confident=TestAsserts(),
+            problematic=TestAsserts(),
+            apologetic=TestAsserts()):
+        self.name = name
+        self.confident = confident + apologetic
+        self.problematic = problematic
+        self.apologetic_count = apologetic.count()
+
+    @classmethod
+    def from_file(cls, file):
+        confident=TestAsserts.from_assertions(file.assertions)
+        problematic=TestAsserts.from_assertions(file.problematic)
+        tf = cls(file.name, confident, problematic)
+        return tf
+
+
+class TestAsserts():
+    def __init__(self, added=set(), removed=set()):
+        self.added = added
+        self.removed = removed
+
+    @classmethod
+    def from_assertions(cls, assertions):
+        added = set()
+        removed = set()
+        for a in assertions:
+            if a.change = Change.added:
+                target = added
+            elif a.change = Change.removed:
+                target = removed
+            else:
+                raise Exception("Wrong assertion change: {c}".format(c=a.change))
+
+            if a.problematic:
+                target.add(remove_whitespace(" ".join(a.raw_lines)))
+            else:
+                target.add(remove_whitespace(a.predicate))
+
+        # This is to guarantee that we don't accidentally create identical
+        # asserts within one revision of a test file
+        assert(len(assertions) == len(added) + len(removed))
+
+        return cls(added, removed)
+
+    def __add__(self, other):
+        added = self.added.union(other.added)
+        removed = self.removed.union(other.removed)
+        return TestAsserts(added, removed)
+
+
+
+
+def history_to_testcommits(history):
+    return [TestCommit.from_diff(d) for d in history.diffs]
 
 
 
