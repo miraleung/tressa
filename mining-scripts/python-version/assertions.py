@@ -445,7 +445,7 @@ class HunkAssertion():
 
         if extracter.starred:
             extracter.problematic = True
-            extracter.problem = "possibly mid-comment"
+            extracter.problem = "'*': possibly mid-comment"
 
         assertion = Assertion(lineno, self.line_index, len(extracter.lines),
                 extracter.lines, self.match.group(), predicate, change=change,
@@ -624,14 +624,18 @@ class Extracter():
                 if self.parens == 0:
                     return DONE
 
-            else:
-                # '*  ' -- probably mid-comment
-                # '*/'  -- again, probably mid-comment
-                # '#'   -- some sort of pre-processor directive in the middle
-                self.problematic = True
-                self.problem = "'*  |*/|#': possbily mid-coment or " \
-                    "mid-expression preprocessor directive"
+            elif match.group() == "*/":
+                self.problematic = true
+                self.problem = "'*/': possibly mid-comment"
                 return DONE
+
+            elif match.group() == "#":
+                self.problematic = true
+                self.problem = "'#': includes pre-processor directive"
+                self.predicate += line[:match.start()]
+                line = line[match.end():]
+                continue
+
 
         return MORE
 

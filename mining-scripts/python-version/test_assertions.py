@@ -1,5 +1,6 @@
 import unittest
 import re
+import pprint
 from assertions import *
 
 # To run all tests:
@@ -66,52 +67,51 @@ class TestRegex(unittest.TestCase):
 class TestMineRepo(unittest.TestCase):
     TEST_REPO = "test_repo"
 
-    """Any files that are listed in each of the ordered revisions should
-    contain what's listed. Order of revisions is latest first. "apologetic"
-    are 'confident' assertions that shouldn't exist, but that are expected.
-    """
-    EXPECTED = [
-            {
-                "diverse.c": {
-                    "confident": {
-                        "added": {"good==1", "good==2", "good==3", "good==4",
-                            "good==5", "good==6", "good==7", "good==9"},
-                        "removed": set()
-                    },
-                    "problematic" : {
-                        "added": {"maybe==1"},
-                        "removed": set()
-                    },
-                    "apologetic": {
-                        "added": {"bad==5", "bad==8", "bad==9"},
-                        "removed": set()
-                    }
-                },
-                "longone.abc": None,
-                "longone.c.ccc": None
-            }
-        ]
+    @classmethod
+    def setUpClass(cls):
+        cls.history = mine_repo("assert", TestMineRepo.TEST_REPO, "master")
+        cls.history.show()
+        print()
 
     def setUp(self):
-        self.history = mine_repo("assert", self.TEST_REPO, "master")
+        print(self.id())
 
     def tearDown(self):
-        self.history.show()
-        print("\nNumber of apologetic matches: {num}".format(
+        print("Number of apologetic matches: {num}".format(
             num=self.count_apologetics()))
+        print()
 
     def count_apologetics(self):
         count = 0
-        for commit in self.EXPECTED:
+        for commit in self.expected:
             for file in commit.values():
                 if file:
                     count += len_assert_lists(file["apologetic"])
         return count
 
-    def test_comment_DIFFIculties(self):
-        self.assertMatchedHistory(self.history, self.EXPECTED)
+    def test_comments(self):
+        self.expected = [
+                {
+                    "diverse.c": {
+                        "confident": {
+                            "added": {"good==1", "good==2", "good==3", "good==4",
+                                "good==5", "good==6", "good==7", "good==9"},
+                            "removed": set()
+                        },
+                        "problematic" : {
+                            "added": {"maybe==1"},
+                            "removed": set()
+                        },
+                        "apologetic": {
+                            "added": {"bad==5", "bad==8", "bad==9"},
+                            "removed": set()
+                        }
+                    },
+                }
+            ]
+        self.assertMatchedHistory()
 
-    def assertMatchedHistory(self, history, expectation):
+    def assertMatchedHistory(self):
         """Assuming there are the same number of commits in history as in
         expectation, checks that the given predicates are the only ones in
         History. It ignores files that are not included in Expectation for
@@ -124,7 +124,7 @@ class TestMineRepo(unittest.TestCase):
             "problematic": the problematic assertions that are picked up.
         There can be no whitespace in predicates.
         """
-        commits = zip(history.diffs, expectation)
+        commits = zip(TestMineRepo.history.diffs, self.expected)
         for diff, expect in commits:
             for exp_filename, exp_contents in expect.items():
                 self.assertDiffFile(diff, exp_filename, exp_contents)
@@ -187,7 +187,6 @@ class TestMineRepo(unittest.TestCase):
         # easily be removed, however
         match = None
         for l in assert_lines:
-            print(l)
             match = re.search(r"assert\({p}\)".format(p=re.escape(pred)), l)
             if match:
                 break
