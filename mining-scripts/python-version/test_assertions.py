@@ -67,6 +67,10 @@ class TestRegex(unittest.TestCase):
 class TestMineRepo(unittest.TestCase):
     TEST_REPO = "tressa_test_repo"
 
+    confident_count = 0
+    problematic_count = 0
+    apologetic_count = 0
+
     @classmethod
     def setUpClass(cls):
         cls.history = mine_repo("assert", TestMineRepo.TEST_REPO, "master")
@@ -74,15 +78,39 @@ class TestMineRepo(unittest.TestCase):
         cls.history.show()
         print()
 
+    @classmethod
+    def tearDownClass(cls):
+        print("Totals:")
+        print("{c} confident; {p} problematic; {a} apologetic".format(
+            c=cls.confident_count, p=cls.problematic_count,
+            a=cls.apologetic_count))
+        print()
+
     def setUp(self):
         print(self.id())
 
     def tearDown(self):
-        c,p,a = count_asserts(self.expected_history)
+        c,p,a = self.count_asserts()
+        TestMineRepo.confident_count += c
+        TestMineRepo.problematic_count += p
+        TestMineRepo.apologetic_count += a
+
         print("{c} confident; {p} problematic; {a} apologetic".format(
             c=c, p=p, a=a))
         print()
 
+    def count_asserts(self):
+        conf = 0; prob = 0; apol = 0
+        for c in self.expected_history:
+            for f in c.files:
+                conf += len(f.confident)
+                prob += len(f.problematic)
+                apol += len(f.apologetic)
+        return conf, prob, apol
+
+    ############################################################################
+    # The assertion tests
+    ############################################################################
 
     def test_comments(self):
         """Verify proper behaviour involving comments in code"""
@@ -320,6 +348,9 @@ class TestMineRepo(unittest.TestCase):
         ]
         self.assertHistoryEqual()
 
+    ############################################################################
+    # Helper methods
+    ############################################################################
 
     def assertHistoryEqual(self):
         """
@@ -413,6 +444,10 @@ class TestMineRepo(unittest.TestCase):
                 raise AssertionError("Problematic predicate not found: " + a)
 
 
+################################################################################
+# Test/Mock Classes
+################################################################################
+
 class TestAsserts():
     def __init__(self, added=set(), removed=set()):
         self.added = added
@@ -454,6 +489,14 @@ class TestAsserts():
 
 
 class TestFile():
+    """The assertions found in a file. They are grouped into three categories:
+        confident: the good assertions that are in the .assertions field
+        apologetic: the bad assertions that are regrettably undectabley
+                bad, so appear in .assertions field.
+        problematic: the problematic assertions, from the .to_inspect field
+    Not, there can be no whitespace in predicates here (any found
+    predicates get their whitespace removed before being compared).
+    """
     def __init__(self, name,
             confident=TestAsserts(),
             problematic=TestAsserts(),
@@ -476,14 +519,8 @@ class TestFile():
         return tf
 
 
-        # A file's dict consists of three parts:
-
-            # "confident": the good assertions that are in the .assertions field
-            # "apologetic": the bad assertions that are regrettably undectabley
-                # bad, so appear in .assertions field.
-            # "problematic": the problematic assertions that are picked up.
-        # There can be no whitespace in predicates.
 class TestCommit():
+    """A representation of a the assertions found in particular commit."""
     def __init__(self, *files):
         self.files = files
 
@@ -492,16 +529,6 @@ class TestCommit():
         tc = cls()
         tc.files = [TestFile.from_file(f) for f in diff.files]
         return tc
-
-def count_asserts(commits):
-    conf = 0; prob = 0; apol = 0
-    for c in commits:
-        for f in c.files:
-            conf += len(f.confident)
-            prob += len(f.problematic)
-            apol += len(f.apologetic)
-    return conf, prob, apol
-
 
 
 
