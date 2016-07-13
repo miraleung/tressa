@@ -463,7 +463,7 @@ class HunkAssertion():
 
 # string -> Boolean
 def valid_predicate(predicate):
-    """Return False if predicate is empty or a declaration"""
+    """Return False if predicate is empty or a definition"""
     if remove_whitespace(predicate) == "":
         # is empty
         return False

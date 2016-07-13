@@ -89,6 +89,7 @@ class TestMineRepo(unittest.TestCase):
         self.expected_history = [
             TestCommit(),
             TestCommit(),
+            TestCommit(),
             TestCommit(
                 TestFile("comments.c",
                     apologetic=TestAsserts(
@@ -116,6 +117,7 @@ class TestMineRepo(unittest.TestCase):
             TestCommit(),
             TestCommit(),
             TestCommit(),
+            TestCommit(),
             TestCommit(
                 TestFile("longone.abc"),
                 TestFile("longone.c.ccc"))
@@ -125,6 +127,7 @@ class TestMineRepo(unittest.TestCase):
     def test_basic(self):
         """Basic add/remove/change situations"""
         self.expected_history = [
+            TestCommit(),
             TestCommit(),
             TestCommit(),
             TestCommit(
@@ -149,6 +152,7 @@ class TestMineRepo(unittest.TestCase):
         """Assertions within macros and including pre-processor directives"""
         self.expected_history = [
             TestCommit(),
+            TestCommit(),
             TestCommit(
                 TestFile("macros.c",
                     confident=TestAsserts(
@@ -166,6 +170,7 @@ class TestMineRepo(unittest.TestCase):
     def test_string(self):
         """Tests for assertions containing strings, or within strings"""
         self.expected_history = [
+            TestCommit(),
             TestCommit(
                 TestFile("strings.c",
                     confident=TestAsserts(
@@ -179,6 +184,23 @@ class TestMineRepo(unittest.TestCase):
             TestCommit(),
             TestCommit(),
             TestCommit(),
+        ]
+        self.assertHistoryEqual()
+
+    def test_definitions(self):
+        """Testing macro and function delcarations, definitions, and prototypes"""
+        self.expected_history = [
+            TestCommit(
+                TestFile("definitions.c",
+                    problematic=TestAsserts(
+                        added={"int"}),
+                    apologetic=TestAsserts(
+                        added={"predicate"}))),
+            TestCommit(),
+            TestCommit(),
+            TestCommit(),
+            TestCommit(),
+
         ]
         self.assertHistoryEqual()
 
