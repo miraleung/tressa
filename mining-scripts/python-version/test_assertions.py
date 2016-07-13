@@ -92,6 +92,7 @@ class TestMineRepo(unittest.TestCase):
             TestCommit(),
             TestCommit(),
             TestCommit(),
+            TestCommit(),
             TestCommit(
                 TestFile("comments.c",
                     apologetic=TestAsserts(
@@ -122,6 +123,7 @@ class TestMineRepo(unittest.TestCase):
             TestCommit(),
             TestCommit(),
             TestCommit(),
+            TestCommit(),
             TestCommit(
                 TestFile("longone.abc"),
                 TestFile("longone.c.ccc"))
@@ -131,6 +133,7 @@ class TestMineRepo(unittest.TestCase):
     def test_basic(self):
         """Basic add/remove/change situations"""
         self.expected_history = [
+            TestCommit(),
             TestCommit(),
             TestCommit(),
             TestCommit(),
@@ -161,6 +164,7 @@ class TestMineRepo(unittest.TestCase):
             TestCommit(),
             TestCommit(),
             TestCommit(),
+            TestCommit(),
             TestCommit(
                 TestFile("macros.c",
                     confident=TestAsserts(
@@ -178,6 +182,7 @@ class TestMineRepo(unittest.TestCase):
     def test_strings(self):
         """Tests for assertions containing strings, or within strings"""
         self.expected_history = [
+            TestCommit(),
             TestCommit(),
             TestCommit(),
             TestCommit(),
@@ -202,6 +207,7 @@ class TestMineRepo(unittest.TestCase):
         self.expected_history = [
             TestCommit(),
             TestCommit(),
+            TestCommit(),
             TestCommit(
                 TestFile("definitions.c",
                     problematic=TestAsserts(
@@ -219,6 +225,7 @@ class TestMineRepo(unittest.TestCase):
     def test_lines(self):
         """Testing multiple asserts per line, and asserts of to many lines"""
         self.expected_history = [
+            TestCommit(),
             TestCommit(
                 TestFile("lines.c",
                     confident=TestAsserts(
@@ -250,6 +257,26 @@ class TestMineRepo(unittest.TestCase):
                             "no_change8",
 
                             "a", "b", "c", "d", "e", "f", "g"}))),
+            TestCommit(),
+            TestCommit(),
+            TestCommit(),
+            TestCommit(),
+            TestCommit(),
+
+        ]
+        self.assertHistoryEqual()
+
+    def test_mismatched(self):
+        """Too many or too few parentheses"""
+        self.expected_history = [
+            TestCommit(
+                TestFile("mismatched.c",
+                    problematic=TestAsserts(
+                        added={"(a==1)||(b==2)", "too_few==1"}),
+                    apologetic=TestAsserts( # it looks legitimate
+                        added={"(c==3)&&(d==4)"}))),
+            TestCommit(),
+            TestCommit(),
             TestCommit(),
             TestCommit(),
             TestCommit(),
