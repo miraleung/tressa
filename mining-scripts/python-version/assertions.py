@@ -92,6 +92,13 @@ class History():
     def __init__(self):
         self.diffs = []
 
+    def show(self):
+        for a in assertion_iter(self, inspects=False):
+            print(a.info())
+
+        for a in assertion_iter(self, inspects=True):
+            print(a.info())
+
 
 class Diff():
     """The files that had assertion changes in between adjacent revisions, as
@@ -142,7 +149,7 @@ class Assertion():
     # int int int [string] string string Change -> Assertion
     def __init__(self, lineno, hunk_lineno, num_lines, raw_lines, name, predicate,
             change=Change.none, problematic=False, problem="", parent_file=None):
-        self.lineno = lineno                # starting line num (in "to" file)
+        self.lineno = lineno            # start line num in file where it exists 
         self.hunk_lineno = hunk_lineno  # index into Hunk where it was found
         self.num_lines = num_lines
         self.raw_lines = raw_lines          # original lines of code of assert
@@ -156,6 +163,20 @@ class Assertion():
 
     def __str__(self):
         return "{name}({pred})".format(name=self.name, pred=self.predicate)
+
+    def info(self):
+        if self.problematic:
+            problem = "<!{p}!>".format(p=self.problem)
+            predicate = [reduce_spaces(l) for l in self.raw_lines]
+        else:
+            problem = ""
+            predicate = "{n}({p})".format(n=self.name, p=self.predicate)
+
+        return "{commit}:{problem}:{file}:{lineno}:{c}:{pred}".format(
+            commit=self.parent_file.parent_diff.rvn_id, problem=problem,
+            file=self.parent_file.name, lineno=self.lineno, c=self.change.prefix,
+            pred=predicate)
+
 
 
 # string -> string
@@ -223,17 +244,7 @@ def print_all_assertions(assertion_re, repo_path, branch, source=False):
         for a in assertion_iter(hist, inspects=True):
             print([reduce_spaces(l) for l in a.raw_lines])
     else:
-        for a in assertion_iter(hist, inspects=False):
-            print("{commit}::{file}:{lineno}:{c}:{name}({predicate})".format(
-                commit=a.parent_file.parent_diff.rvn_id,
-                file=a.parent_file.name, lineno=a.lineno, c=a.change.prefix,
-                name=a.name, predicate=a.predicate))
-
-        for a in assertion_iter(hist, inspects=True):
-            print("{commit}:<!{problem}!>:{file}:{lineno}:{c}:{lines}".format(
-                commit=a.parent_file.parent_diff.rvn_id, problem=a.problem,
-                file=a.parent_file.name, lineno=a.lineno, c=a.change.prefix,
-                lines=[reduce_spaces(l) for l in a.raw_lines]))
+        hist.show()
 
 
 # History Boolean -> iterator[Assertion]
@@ -380,13 +391,12 @@ class HunkAssertion():
 
         problematic:
             - contains string that contains actual newline
-            - reaches end of hunk or +5 lines without closing paren,
+            - reaches end of hunk or +MAX_LINES without closing paren,
             but at least one line had been changed
             - reaches */ before closing paren (not preceded by /*)
-            - contains * followed by at least two spaces
+            - starts with *
             - has any weird characters on first line
-            - has format of a declaration of the ASSERT
-            - (couldn't generate AST)
+            - couldn't generate AST
 
          return None:
             - first line is anti-changed
@@ -436,11 +446,32 @@ class HunkAssertion():
 
         predicate = strip_parens(extracter.predicate) \
                     if not extracter.problematic else ""
+
+        if not extracter.problematic and not valid_predicate(predicate):
+            return None
+
+        if extracter.starred:
+            extracter.problematic = True
+            extracter.problem = "'*': possibly mid-comment"
+
         assertion = Assertion(lineno, self.line_index, len(extracter.lines),
                 extracter.lines, self.match.group(), predicate, change=change,
                 problematic=extracter.problematic, problem=extracter.problem,
                 parent_file=self.file)
         return assertion
+
+
+# string -> Boolean
+def valid_predicate(predicate):
+    """Return False if predicate is empty or a definition"""
+    if remove_whitespace(predicate) == "":
+        # is empty
+        return False
+    if re.match(r"\s*\w+\s+\w+", predicate):
+        # is declaration
+        return False
+    return True
+
 
 # string -> string
 def strip_parens(exp):
@@ -452,8 +483,10 @@ def strip_parens(exp):
 
 
 class Extracter():
-    delims = re.compile(r'(//|\*  |/\*|\*/|"|\(|\)|#)')
-    #                      1  2    3   4   5 6  7
+    delims = re.compile(r'(//|/\*|\*/|"|\(|\)|#)')
+    #                      1  2   3   4 5  6  7
+
+    comment_clue = re.compile(r"\s*\*[^/]")
 
     def __init__(self, change, match):
         self.change = change            # Change
@@ -465,6 +498,7 @@ class Extracter():
         self.valid = True
         self.problematic = False
         self.problem = False
+        self.starred = False        # if assertline begins with *
 
     # re.Match -> Boolean
     def encompassed_by(self, match):
@@ -484,6 +518,7 @@ class Extracter():
         if len(self.lines) == 1: # first line
             assertion_re = self.match.re.pattern
 
+
             # '#define ASSERT' should be ignored
             define_re = r"[ \t]*#[ \t]*define[ \t]+({a})\b".format(
                     a=assertion_re)
@@ -492,15 +527,9 @@ class Extracter():
                 self.valid = False
                 return DONE
 
-            # 'extern static unsigned long long ASSERT (X) {}' should be ignored
-            # an ASSERT at the beginning of a line is probably in a declaration;
-            # within a function, it would probably be indented
-            decl_re = r"(((\w+ ){{0,4}}\w+ ({a}))|^({a}))\s*\(".format(a=assertion_re)
-            match = re.match(decl_re, line)
-            if match:
-                self.problematic = True
-                self.problem = "Possible function declaration"
-                return DONE
+            if Extracter.comment_clue.match(line):
+                # don't return yet, since it may be rejected by form
+                self.starred = True
 
             pre_line = line[:self.match.start()]
             while len(pre_line) > 0:
@@ -527,13 +556,8 @@ class Extracter():
                         self.valid = False
                         return DONE
 
-                    elif match.group() == "*  ":
-                        self.problematic = True
-                        self.problem = "might be mid-comment"
-                        return DONE
-
                     else:
-                        # '*/'   '('   ')'   '#"
+                        # '('   ')'   '#"
                         pre_line = pre_line[match.end():]
 
                 else:
@@ -549,6 +573,7 @@ class Extracter():
             m = re.search('\*/', line)
             if m:
                 line = line[m.end():]
+                self.comment = False
             else:
                 return MORE
 
@@ -606,14 +631,18 @@ class Extracter():
                 if self.parens == 0:
                     return DONE
 
-            else:
-                # '*  ' -- probably mid-comment
-                # '*/'  -- again, probably mid-comment
-                # '#'   -- some sort of pre-processor directive in the middle
+            elif match.group() == "*/":
                 self.problematic = True
-                self.problem = "'*  |*/|#': possbily mid-coment or " \
-                    "mid-expression preprocessor directive"
+                self.problem = "'*/': possibly mid-comment"
                 return DONE
+
+            elif match.group() == "#":
+                self.problematic = True
+                self.problem = "'#': includes pre-processor directive"
+                self.predicate += line[:match.start()]
+                line = line[match.end():]
+                continue
+
 
         return MORE
 

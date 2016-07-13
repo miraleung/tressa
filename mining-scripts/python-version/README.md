@@ -23,3 +23,18 @@ This prints the assertions to *stdout* and a progress log to *stderr*, so here's
 $ python3 assertions.py "assert|ASSERT|BUG_ON" /home/graham/xen master --source > xen.asserts 2> xen.log
 ```
 (The above command takes approximately 3 minutes to complete on my Intel i7 machine.)
+
+
+## Testing
+Tests for this are located in the `test_assertions.py` file. Their target is
+the `tressa_test_repo` directory. This is a **submodule**. In order to
+properly integrate it with your local git environment, simply run
+```
+git submodule init
+git submodule update
+```
+Alternatively, while initially cloning the Tressa repository, clone with
+the `--recursive` flag to automatically download the submodule.
+```
+git clone --recursive  https://github.com/TressaOrg/tressa.git 
+```
