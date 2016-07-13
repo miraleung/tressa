@@ -94,17 +94,10 @@ class History():
 
     def show(self):
         for a in assertion_iter(self, inspects=False):
-            print("{commit}::{file}:{lineno}:{c}:{name}({predicate})".format(
-                commit=a.parent_file.parent_diff.rvn_id,
-                file=a.parent_file.name, lineno=a.lineno, c=a.change.prefix,
-                name=a.name, predicate=a.predicate))
+            print(a.info())
 
         for a in assertion_iter(self, inspects=True):
-            print("{commit}:<!{problem}!>:{file}:{lineno}:{c}:{lines}".format(
-                commit=a.parent_file.parent_diff.rvn_id, problem=a.problem,
-                file=a.parent_file.name, lineno=a.lineno, c=a.change.prefix,
-                lines=[reduce_spaces(l) for l in a.raw_lines]))
-
+            print(a.info())
 
 
 class Diff():
@@ -170,6 +163,20 @@ class Assertion():
 
     def __str__(self):
         return "{name}({pred})".format(name=self.name, pred=self.predicate)
+
+    def info(self):
+        if self.problematic:
+            problem = "<!{p}!>".format(p=self.problem)
+            predicate = [reduce_spaces(l) for l in self.raw_lines]
+        else:
+            problem = ""
+            predicate = "{n}({p})".format(n=self.name, p=self.predicate)
+
+        return "{commit}:{problem}:{file}:{lineno}:{c}:{pred}".format(
+            commit=self.parent_file.parent_diff.rvn_id, problem=problem,
+            file=self.parent_file.name, lineno=self.lineno, c=self.change.prefix,
+            pred=predicate)
+
 
 
 # string -> string
