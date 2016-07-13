@@ -88,6 +88,7 @@ class TestMineRepo(unittest.TestCase):
         """Verify proper behaviour involving comments in code"""
         self.expected_history = [
             TestCommit(),
+            TestCommit(),
             TestCommit(
                 TestFile("comments.c",
                     apologetic=TestAsserts(
@@ -114,6 +115,7 @@ class TestMineRepo(unittest.TestCase):
         self.expected_history = [
             TestCommit(),
             TestCommit(),
+            TestCommit(),
             TestCommit(
                 TestFile("longone.abc"),
                 TestFile("longone.c.ccc"))
@@ -123,6 +125,7 @@ class TestMineRepo(unittest.TestCase):
     def test_basic(self):
         """Basic add/remove/change situations"""
         self.expected_history = [
+            TestCommit(),
             TestCommit(),
             TestCommit(
                 TestFile("basic.c",
@@ -145,6 +148,7 @@ class TestMineRepo(unittest.TestCase):
     def test_macros(self):
         """Assertions within macros and including pre-processor directives"""
         self.expected_history = [
+            TestCommit(),
             TestCommit(
                 TestFile("macros.c",
                     confident=TestAsserts(
@@ -158,6 +162,26 @@ class TestMineRepo(unittest.TestCase):
             TestCommit(),
         ]
         self.assertHistoryEqual()
+
+    def test_string(self):
+        """Tests for assertions containing strings, or within strings"""
+        self.expected_history = [
+            TestCommit(
+                TestFile("strings.c",
+                    confident=TestAsserts(
+                        added={"\"string\"", "strcmp(\"singleline\",a)==0",
+                            "strcmp(\"assert(a==b)\",a)==0",
+                            "\"assert(c==d)\"!=NULL", "good==1"}),
+                    problematic=TestAsserts(
+                        added={"strncmp(\"multiline1", "strncmp(\"multiline2"}),
+                    apologetic=TestAsserts(
+                        added={"bad==0"}))),
+            TestCommit(),
+            TestCommit(),
+            TestCommit(),
+        ]
+        self.assertHistoryEqual()
+
 
 
     def assertHistoryEqual(self):
@@ -239,9 +263,10 @@ class TestMineRepo(unittest.TestCase):
         # to predicate, and that the assert is 'assert' (the latter could
         # easily be removed, however
         def find_match(predicate, strings):
-            pattern = re.compile(r"assert\({p}\)".format(p=re.escape(predicate)))
+            # pattern = re.compile(r"assert\({p}\)".format(p=re.escape(predicate)))
             for string in strings:
-                if pattern.search(string):
+                if re.search(r"{p}".format(p=re.escape(predicate)), string):
+                # if pattern.search(string):
                     return string
             return None
 
@@ -275,7 +300,7 @@ class TestAsserts():
                 raise Exception("Wrong assertion change: {c}".format(c=a.change))
 
             if a.problematic:
-                target.add(remove_whitespace(" ".join(a.raw_lines)))
+                target.add(remove_whitespace("".join(a.raw_lines)))
             else:
                 target.add(remove_whitespace(a.predicate))
 
@@ -283,7 +308,7 @@ class TestAsserts():
 
         # This is to guarantee that we don't accidentally create identical
         # asserts within one revision of a test file
-        assert(len(assertions) == len(ta))
+        # assert(len(assertions) == len(ta))
 
         return ta
 
