@@ -149,7 +149,8 @@ class TestMineRepo(unittest.TestCase):
                 TestFile("macros.c",
                     confident=TestAsserts(
                         added={"(X)==1",
-                            "(fun(_a)->field&SOME_mask)==SOME_shadow||(fun(_b)->field&ANOTHER_mask)==ANOTHER_shadow"}),
+                            "(fun(_a)->field&SOME_mask)==SOME_shadow||(fun(_b)->field&ANOTHER_mask)==ANOTHER_shadow",
+                            "*argv"}),
                     problematic=TestAsserts(
                         added={"prefix##_##name==0",
                             "a==1&&#ifdefFLAGarg==2#elsearg=3#endif&&b==2"}))),
