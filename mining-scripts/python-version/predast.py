@@ -25,7 +25,7 @@ class AST():
         return buf.getvalue()
 
 # string pycparser.c_parser.CParser [Boolean] -> pycparser.c_ast
-def parse_assertion(snippet, parser, first_attempt=True):
+def parse_assertion(snippet, parser, num_attempts=0):
     try:
         ast = parser.parse(snippet)
         func_decl = ast.ext[-1] # last item in case preceded by typedefs
@@ -35,12 +35,24 @@ def parse_assertion(snippet, parser, first_attempt=True):
     except pycparser.plyparser.ParseError as err:
         # error may be caused by unknown types. Attempt to find them
         # and define them.
-        if first_attempt:
-            type_casters = get_type_casters(snippet)
-            if len(type_casters) > 0:
-                snippet = add_typdefs(type_casters, snippet)
-            return parse_assertion(snippet, parser, first_attempt=False)
-        raise ParseError(str(err))
+        unknown_types = set()
+        if num_attempts == 0:
+            # offsetof(S, x) fails (unless S is typedeffed, or preceded by 'struct')
+            unknown_types = get_offsetters(snippet)
+        elif num_attempts == 1:
+            unknown_types = get_type_casters(snippet)
+        else:
+            raise ParseError(str(err))
+
+        snippet = add_typdefs(unknown_types, snippet)
+        return parse_assertion(snippet, parser, num_attempts+1)
+
+def get_offsetters(snippet):
+    """String -> {String}"""
+    offsetof_pattern = r"\boffsetof\s*\(\s*(\w+)\s*,"
+    types = re.findall(offsetof_pattern, snippet)
+    types = {t for t in types} # remove duplicates
+    return types
 
 # String -> {String}
 def get_type_casters(snippet):

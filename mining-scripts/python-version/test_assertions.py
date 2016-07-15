@@ -329,13 +329,12 @@ class TestMineRepo(unittest.TestCase):
                         added={"0", "variable",
                             "(((page->flags&PG_type_mask)==PGT_writeable_page)&&(page_type_count(page)!=0))||(((page->flags&PG_type_mask)==PGT_none)&&(page_type_count(page)==0))",
                             "*a==*((bob_t*)b)", "(*((int*)a))==3", "*a==(bob_t)3",
-                            "offsetof(structS,f)==4"}), # offsetof working
+                            "offsetof(structS,f)==4",
+                            "offsetof(structure,field)==0",
+                            "sizeof(typename)==4"}),
                     problematic=TestAsserts(
                         added={"(int)a==((bob_t)b)",
-
-                            # offsetof only works when it knows it's a struct
-                            "((offsetof(structsym_reg,nc_sxfer)", # ...
-                            "offsetof(structure,field)==0"}))),
+                            "offsetof(structure,field1.field2)" }))),
             TestCommit(),
             TestCommit(),
             TestCommit(),
