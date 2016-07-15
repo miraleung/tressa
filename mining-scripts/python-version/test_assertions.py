@@ -1,6 +1,4 @@
 import unittest
-import re
-import pprint
 from assertions import *
 
 # To run all tests:
@@ -15,7 +13,6 @@ from assertions import *
 
 
 class TestRegex(unittest.TestCase):
-
     def test_match_assertions(self):
         self.assert_matches("assert", "", [])
         self.assert_matches("assert", "\n", [])
@@ -111,6 +108,7 @@ class TestMineRepo(unittest.TestCase):
     ############################################################################
     # The assertion tests
     ############################################################################
+
 
     def test_comments(self):
         """Verify proper behaviour involving comments in code"""
@@ -291,7 +289,8 @@ class TestMineRepo(unittest.TestCase):
                             "to_change==6", "no_change7", "to_change==7",
                             "no_change8",
 
-                            "a", "b", "c", "d", "e", "f", "g"}))),
+                            "a", "b", "c", "d", "e", "f", "g"}),
+                    problematic=TestAsserts(added={"too_many_lines"}))),
             TestCommit(),
             TestCommit(),
             TestCommit(),
@@ -382,19 +381,19 @@ class TestMineRepo(unittest.TestCase):
             return None
 
         for a in assertion_iter(TestMineRepo.history, inspects=False):
-            if a.change == Change.removed and \
-                    re.search(r".*to_change.*", a.predicate):
+            if a.change == Change.removed and "to_change" in a.predicate:
                 changed_assertion = find_changed(a, a.parent_file)
                 if not changed_assertion:
-                    raise AssertionError("Could not find change for assert({p})" \
-                            .format(p=a.predicate))
+                    raise AssertionError("Expected 'changed' version of "
+                        "assert({p}), but none found".format(p=a.predicate))
 
     def assertCommitEqual(self, expected_commit, actual_commit):
         def find_file(filename, files):
             for file in files:
                 if filename == file.name:
                     return file
-            raise AssertionError("Expected file, but no actual: " + filename)
+            # This isn't a bug in the test program, not tressa 
+            raise LookupError("Expected file, but no actual: " + filename)
 
         # We ignore actual files that aren't expected. This lets us
         # organize the tests by file. However, we verify that empty files
@@ -429,12 +428,14 @@ class TestMineRepo(unittest.TestCase):
     def assertAssertsMatch(self, exp_assert_set, act_assert_set):
         # TODO: This is brittle; requires enough of the assert to have been added
         # to predicate fragment
+
         def find_match(predicate, strings):
             for string in strings:
-                if re.search(r"{p}".format(p=re.escape(predicate)), string):
+                if predicate in string:
                     return string
             return None
 
+        self.assertEqual(len(exp_assert_set), len(act_assert_set))
         act_assert_set = act_assert_set.copy()
         for a in exp_assert_set:
             act_assert = find_match(a, act_assert_set)
@@ -458,6 +459,7 @@ class TestAsserts():
 
     @classmethod
     def from_assertions(cls, assertions):
+        """[Assertion] -> TestAsserts"""
         added = set()
         removed = set()
         for a in assertions:
