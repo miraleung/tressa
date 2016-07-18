@@ -94,11 +94,12 @@ class History():
         self.branch = branch
         self.diffs = []
 
-    def show(self):
-        for a in assertion_iter(self, inspects=False):
-            print(a.info())
+    def __iter__(self):
+        return itertools.chain(assertion_iter(self, inspects=False),
+                               assertion_iter(self, inspects=True))
 
-        for a in assertion_iter(self, inspects=True):
+    def show(self):
+        for a in self:
             print(a.info())
 
 
@@ -181,6 +182,11 @@ class Assertion():
             commit=self.parent_file.parent_diff.rvn_id, problem=problem,
             file=self.parent_file.name, lineno=self.file_lineno, c=self.change.prefix,
             func=self.function_name, pred=predicate)
+
+    @staticmethod
+    def help_info():
+        print("commit_id:problem reason:file name:file line number:"
+                "embedded function name:+/-:assertion_name(predicate)")
 
 
 # string -> string
