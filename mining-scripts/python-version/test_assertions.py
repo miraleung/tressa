@@ -60,6 +60,27 @@ class TestRegex(unittest.TestCase):
         with self.assertRaises(Exception):
             strip_parens("a(b)c")
 
+    def test_get_function_context(self):
+        def test_header(header, funcname):
+            self.assertEqual(get_function_context(header), funcname)
+
+
+        # Successful examples:
+        test_header("@@ -336,2 +383,2 @@ static void domain_suspend_common_guest_suspended(libxl__egc *egc,",
+                "domain_suspend_common_guest_suspended")
+        test_header("@@ -252 +252 @@ void xsave(struct vcpu *v, uint64_t mask)",
+                "xsave")
+        test_header("@@ -4132,17 +4131,0 @@ void cr3_dump_list(struct cr3_value_struct *head){",
+                "cr3_dump_list")
+
+        # Failed examples:
+        test_header("@@ -27 +26,0 @@", "")
+        test_header("@@ -67 +67 @@ endif", "")
+        test_header("@@ -283,0 +284,5 @@ struct acpi_dbg2_device {", "")
+        test_header("@@ -23,0 +24,2 @@ int fill_console_start_info(struct dom0_vga_console_info *);", "")
+        test_header("@@ -53 +53 @@ struct __packed __attribute__((aligned (64))) xsave_struct", "")
+
+
 
 class TestMineRepo(unittest.TestCase):
     TEST_REPO = "tressa_test_repo"

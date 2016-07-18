@@ -30,7 +30,7 @@ import itertools
 import traceback
 import sys
 from enum import Enum
-from collections import namedtuple
+from collections import namedtuple, defaultdict
 
 import pygit2
 import pycparser
@@ -89,7 +89,9 @@ class History():
     """Represents the results of a repository-mining session. All the assertions
     found are grouped by diff and into their files.
     """
-    def __init__(self):
+    def __init__(self, repo_path, branch):
+        self.repo_path = repo_path
+        self.branch = branch
         self.diffs = []
 
     def show(self):
@@ -148,18 +150,21 @@ class Assertion():
     """
     # int int int [string] string string Change -> Assertion
     def __init__(self, lineno, hunk_lineno, num_lines, raw_lines, name, predicate,
-            change=Change.none, problematic=False, problem="", parent_file=None):
-        self.lineno = lineno            # start line num in file where it exists 
+            change=Change.none, change_lineno=0, problematic=False, problem="",
+            parent_file=None):
+        self.file_lineno = lineno            # start line num in file where it exists 
         self.hunk_lineno = hunk_lineno  # index into Hunk where it was found
         self.num_lines = num_lines
         self.raw_lines = raw_lines          # original lines of code of assert
         self.name = name                    # assert function name
         self.predicate = reduce_whitespace(predicate) # just pred string
         self.change = change
+        self.change_lineno = change_lineno  # file_lineno for changed line in assertion
         self.problematic = problematic      # True if needs manual inspection
         self.problem = problem              # If problematic, this is the reason
         self.parent_file = parent_file
-        self.ast = None # pycparser.c_ast of predicate
+        self.ast = None # predast.AST
+        self.function_name = ""               # C function-name where embedded
 
     def __str__(self):
         return "{name}({pred})".format(name=self.name, pred=self.predicate)
@@ -172,11 +177,10 @@ class Assertion():
             problem = ""
             predicate = "{n}({p})".format(n=self.name, p=self.predicate)
 
-        return "{commit}:{problem}:{file}:{lineno}:{c}:{pred}".format(
+        return "{commit}:{problem}:{file}:{lineno}:{func}:{c}:{pred}".format(
             commit=self.parent_file.parent_diff.rvn_id, problem=problem,
-            file=self.parent_file.name, lineno=self.lineno, c=self.change.prefix,
-            pred=predicate)
-
+            file=self.parent_file.name, lineno=self.file_lineno, c=self.change.prefix,
+            func=self.function_name, pred=predicate)
 
 
 # string -> string
@@ -201,7 +205,7 @@ def mine_repo(assertion_re, repo_path, branch):
     that were added or removed between revisions, for the specified branch.
     """
 
-    history = History()
+    history = History(repo_path, branch)
     repo = pygit2.Repository(repo_path)
     for commit in repo.walk(repo.lookup_branch(branch).target,
             pygit2.GIT_SORT_TIME):
@@ -228,10 +232,83 @@ def mine_repo(assertion_re, repo_path, branch):
                     file.to_inspect.append(a)
             file.assertions = a_list
 
+    find_function_names(history)
     return history
 
+def find_function_names(history):
+    change_map = ChangeMap(history)
+    change_map.insert_function_names()
 
-# source is supposed to print out source: commit, file, lineno
+class ChangeMap():
+    def __init__(self, history):
+        self.history = history
+        # commitid filename change_lineno
+        self.addeds = defaultdict(lambda: defaultdict(dict))
+        self.removeds = defaultdict(lambda: defaultdict(dict))
+        for diff in history.diffs:
+            for file in diff.files:
+                for a in file.assertions:
+                    commits = self.addeds if a.change == Change.added \
+                            else self.removeds
+                    commits[diff.rvn_id][file.name][a.change_lineno] = a
+
+    def insert_function_names(self):
+        """For each assertion, if it is part of a sufficiently small diff
+        that its function-context is accurate -- ie, it sets the function_name
+        to the function where the assertion is embedded. Otherwise
+        it'll set the .function_name to "".
+        """
+        def walk(commits, change):
+            repo = pygit2.Repository(self.history.repo_path)
+            for (commit_id,files) in commits.items():
+                gcommit = repo.revparse_single(commit_id)
+                gdiff = repo.diff(gcommit.parents[0], gcommit, context_lines=0)
+                for patch in gdiff:
+                    filename = patch.delta.new_file.path
+                    if filename in files:
+                        asserts = files[filename]
+                        for hunk in patch.hunks:
+                            for gline in hunk.lines:
+                                lineno = get_file_lineno(gline, change)
+                                if gline.origin == change.prefix and \
+                                        lineno in asserts:
+                                            asserts[lineno].function_name = \
+                                                    get_function_context(hunk.header)
+
+        walk(self.addeds, Change.added)
+        walk(self.removeds, Change.removed)
+
+
+def get_function_context(header):
+    """Extract function name from header of hunk, IF it has an agreable format.
+    Examples:
+Good:
+@@ -336,2 +383,2 @@ static void domain_suspend_common_guest_suspended(libxl__egc *egc,
+@@ -252 +252 @@ void xsave(struct vcpu *v, uint64_t mask)
+@@ -4132,17 +4131,0 @@ void cr3_dump_list(struct cr3_value_struct *head){
+
+Bad:
+@@ -27 +26,0 @@
+@@ -67 +67 @@ endif
+@@ -283,0 +284,5 @@ struct acpi_dbg2_device {
+@@ -23,0 +24,2 @@ int fill_console_start_info(struct dom0_vga_console_info *);
+@@ -53 +53 @@ struct __packed __attribute__((aligned (64))) xsave_struct
+    """
+    fc = re.match(r"@@.*@@ (.*)", header)
+    if fc is None:
+        return ""
+    fc = fc.group(1)
+    if ";" in fc:
+        return ""
+    if re.search(r"\(.*\) *\w+", fc):
+        return ""
+    fname = re.search(r"(\w+)\(", fc)
+    if fname is None:
+        return ""
+    return fname.group(1)
+
+
+# source is suppose)d to print out source: commit, file, lineno
 def print_all_assertions(assertion_re, repo_path, branch, source=False):
     logging.basicConfig(level=logging.DEBUG, filename="assertions.log")
     hist = mine_repo(assertion_re, repo_path, branch)
@@ -421,8 +498,7 @@ class HunkAssertion():
             first_gline.content.startswith("#include"):
             return None
 
-        lineno = first_gline.new_lineno if change == Change.added \
-            else first_gline.old_lineno
+        file_lineno = get_file_lineno(first_gline, change)
 
         changed = False            # has the assertion been changed so far?
         count = 0
@@ -431,6 +507,8 @@ class HunkAssertion():
             if gline.origin != change.anti_prefix:
                 if gline.origin == change.prefix:
                     changed = True
+                    if extracter.change_lineno == 0:
+                        extracter.change_lineno = get_file_lineno(gline, change)
                 status = extracter.extract(gline.content)
                 count += 1
                 if status == DONE or count > MAX_LINES:
@@ -454,8 +532,9 @@ class HunkAssertion():
             extracter.problematic = True
             extracter.problem = "'*': possibly mid-comment"
 
-        assertion = Assertion(lineno, self.line_index, len(extracter.lines),
+        assertion = Assertion(file_lineno, self.line_index, len(extracter.lines),
                 extracter.lines, self.match.group(), predicate, change=change,
+                change_lineno=extracter.change_lineno,
                 problematic=extracter.problematic, problem=extracter.problem,
                 parent_file=self.file)
         return assertion
@@ -490,6 +569,7 @@ class Extracter():
 
     def __init__(self, change, match):
         self.change = change            # Change
+        self.change_lineno = 0          # first file lineno in assert that's changed
         self.match = match              # re.Match
         self.lines = []                 # pygit lines visited so far
         self.parens = 0                 # num parens seen so far
@@ -645,6 +725,10 @@ class Extracter():
 
 
         return MORE
+
+def get_file_lineno(gitline, change):
+    return gitline.new_lineno if change == Change.added \
+        else gitline.old_lineno
 
 if __name__ == '__main__':
     argv = sys.argv
