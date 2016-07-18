@@ -264,11 +264,21 @@ class ChangeMap():
         to the function where the assertion is embedded. Otherwise
         it'll set the .function_name to "".
         """
+        def make_diff(repo, commit):
+            parents = commit.parents
+            if len(parents) == 0:
+                return commit.tree.diff_to_tree(swap=True, context_lines=0)
+            elif len(parents) == 1:
+                return repo.diff(parents[0], commit, context_lines=0)
+            else:
+                # don't diff merges or else we'll 'double-dip' on the assertions
+                return []
+
         def walk(commits, change):
             repo = pygit2.Repository(self.history.repo_path)
             for (commit_id,files) in commits.items():
                 gcommit = repo.revparse_single(commit_id)
-                gdiff = repo.diff(gcommit.parents[0], gcommit, context_lines=0)
+                gdiff = make_diff(repo, gcommit)
                 for patch in gdiff:
                     filename = patch.delta.new_file.path
                     if filename in files:
