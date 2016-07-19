@@ -1,6 +1,8 @@
 # functions for producing analyses of History data
 import pickle
 from collections import defaultdict, OrderedDict
+import numpy as np
+import matplotlib.pyplot as plt
 
 import assertions
 
@@ -72,9 +74,6 @@ class Analysis():
         return OrderedDict(sort_tups)
 
 
-
-
-
 class Activity():
     class Lists():
         def __init__(self):
@@ -96,18 +95,55 @@ class Activity():
             l.append(a)
 
     def counts(self):
-        """Return (pred_string, added_count, removed_count) tuples"""
+        """Return [(pred_string, added_count, removed_count)] tuples"""
         if self._counts == [("",0,0)]:
             self._counts = [(pred, len(lists.addeds), len(lists.removeds)) for pred, lists in self.predicates.items()]
         return self._counts
 
     def sort_counts(self):
         """Sorts counts by most activity (higher number of adds and removes"""
-        self._counts = sorted(self.counts(), key=lambda c: c[1] + c[2])
+        self._counts = sorted(self.counts(), reverse=True, key=lambda c: c[1] + c[2])
 
     def print_counts(self):
         for (pred, nadd, nrem) in self.counts():
             print("{p} :: added:{a} removed:{r}".format(p=pred, a=nadd, r=nrem))
+
+    def graph(self):
+        self.sort_counts()
+        N = 10 #len(self.counts())
+        preds, nadds, nrems = zip(*self.counts()[:10])
+
+        ind = np.arange(N)  # the x locations for the groups
+        width = 0.35       # the width of the bars
+
+        fig, ax = plt.subplots()
+        rects1 = ax.bar(ind, nadds, width, color='r')
+        rects2 = ax.bar(ind+width, nrems, width, color='y')
+
+        # add some text for labels, title and axes ticks
+        ax.set_ylabel('Events')
+        ax.set_title('Number of added and removed events per predicate')
+        ax.set_xticks(ind + width)
+        ax.set_xticklabels(preds, rotation=45)
+
+        ax.legend((rects1[0], rects2[0]), ('Added', 'Removed'))
+
+        def autolabel(rects):
+            # attach some text labels
+            for rect in rects:
+                height = rect.get_height()
+                ax.text(rect.get_x() + rect.get_width()/2., 1.05*height,
+                        '%d' % int(height),
+                        ha='center', va='bottom')
+
+        autolabel(rects1)
+        autolabel(rects2)
+
+        plt.show()
+
+
+
+
 
 
 
