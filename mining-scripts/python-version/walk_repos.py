@@ -11,11 +11,10 @@ import traceback
 import itertools
 
 
-PICKLE_PROTOCOL = 3 # current default
-
 if __name__ == '__main__':
     dirs = os.listdir(".")
-    dirs = itertools.filterfalse(lambda d: d.endswith(".py") or d.endswith(".log") or d == 'results', dirs)
+    dirs = itertools.filterfalse(lambda d: d.endswith(".py") or d.endswith(".log")
+                                    or d in ['results', '__pycache__'], dirs)
     dirs = list(dirs)
 
     for i,d in enumerate(dirs):
@@ -23,7 +22,7 @@ if __name__ == '__main__':
         try:
             hist = assertions.mine_repo("\w*(ASSERT|assert|BUG_ON|bug_on)\w*", d, "Tressa")
             with open('results/' + d + '.pickle', 'wb') as f:
-                pickle.dump(hist, f, PICKLE_PROTOCOL)
+                pickle.dump(hist, f)
             with open('results/' + d + '.asserts', 'w') as f:
                 for a in hist:
                     f.write(a.info() + "\n")
