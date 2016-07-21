@@ -107,14 +107,18 @@ class Diff():
     """The files that had assertion changes in between adjacent revisions, as
     well as the IDs of those revisions. Diff with at most ONE other commit.
     """
-    # string string int string [File] -> Diff
-    def __init__(self, rvn_id, author, time, msg):
-        self.rvn_id = rvn_id    # newer revision (commit) ID
-        self.prev_id = ""       # commit id of the parent of this commit
-        self.author = author
-        self.time = time
-        self.msg = msg
+    # pygit2.Commit -> Diff
+    def __init__(self, commit):
+        self.rvn_id = commit.hex    # newer revision (commit) ID
+        self.parents = []       # commit_ids of parents
+        self.author = commit.author.name
+        self.commit_time = (commit.commit_time, commit.commit_time_offset)
+
+        author = commit.author
+        self.author_time = (author.time, author.offset)
+        self.msg = commit.message
         self.files = []     # using filenames of newest revision
+        self.describe = None
 
     def __str__(self):
         return "Diff: {id}".format(id=self.rvn_id)
@@ -355,15 +359,15 @@ def generate_diff(commit, repo, assertion_re):
     assertion_re) in a file in the given Commit, produce Diff containing them.
     Otherwise produce None.
     """
-    diff = Diff(commit.hex, commit.author.name, commit.commit_time,
-            commit.message)
+    diff = Diff(commit)
+    diff.describe = repo.describe(commit, show_commit_oid_as_fallback=True)
     parents = commit.parents
     if len(parents) == 0:
         gdiff = commit.tree.diff_to_tree(swap=True,
                 context_lines=MAX_LINES - 1)
     elif len(parents) == 1:
         gdiff = repo.diff(parents[0], commit, context_lines=MAX_LINES -1)
-        diff.prev_id = commit.parent_ids[0]
+        diff.parents = commit.parent_ids
     else:
         # don't diff merges or else we'll 'double-dip' on the assertions
         return None
