@@ -81,7 +81,8 @@ class Activity():
             self.removeds = []
             self.other = []
 
-    def __init__(self, history):
+    def __init__(self, history, repo_name=None):
+        self.repo_name = repo_name
         self.predicates = defaultdict(Activity.Lists)
         self._counts = [("",0,0)]
         for a in assertions.assertion_iter(history, inspects=False):
@@ -108,10 +109,16 @@ class Activity():
         for (pred, nadd, nrem) in self.counts():
             print("{p} :: added:{a} removed:{r}".format(p=pred, a=nadd, r=nrem))
 
-    def graph(self):
+    def graph(self, N=None):
         self.sort_counts()
-        N = 10 #len(self.counts())
-        preds, nadds, nrems = zip(*self.counts()[:10])
+
+        if N is None:
+            N = len(self.counts())
+            counts = self.counts()
+        else:
+            counts = self.counts()[:N]
+
+        preds, nadds, nrems = zip(*counts)
 
         ind = np.arange(N)  # the x locations for the groups
         width = 0.35       # the width of the bars
@@ -120,11 +127,15 @@ class Activity():
         rects1 = ax.bar(ind, nadds, width, color='r')
         rects2 = ax.bar(ind+width, nrems, width, color='y')
 
+        title = 'Number of added and removed events per predicate'
+        if self.repo_name:
+            title = title + " in " + self.repo_name
+
         # add some text for labels, title and axes ticks
         ax.set_ylabel('Events')
-        ax.set_title('Number of added and removed events per predicate')
+        ax.set_title(title)
         ax.set_xticks(ind + width)
-        ax.set_xticklabels(preds, rotation=45)
+        ax.set_xticklabels(preds, rotation=45, ha='right')
 
         ax.legend((rects1[0], rects2[0]), ('Added', 'Removed'))
 
@@ -139,6 +150,7 @@ class Activity():
         autolabel(rects1)
         autolabel(rects2)
 
+        plt.tight_layout() # keeps all predicates visible
         plt.show()
 
 
