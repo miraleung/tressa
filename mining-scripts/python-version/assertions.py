@@ -119,8 +119,6 @@ class Diff():
         self.author_time = (author.time, author.offset)
         self.msg = commit.message
         self.files = []     # using filenames of newest revision
-        self.describe = None
-
 
     def __str__(self):
         return "Diff: {id}".format(id=self.rvn_id)
@@ -389,7 +387,6 @@ def generate_diff(commit, repo, assertion_re):
     Otherwise produce None.
     """
     diff = Diff(commit)
-    diff.describe = repo.describe(commit, show_commit_oid_as_fallback=True)
     parents = commit.parents
     if len(parents) == 0:
         gdiff = commit.tree.diff_to_tree(swap=True,
