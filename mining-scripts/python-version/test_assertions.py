@@ -134,20 +134,6 @@ class TestMineRepo(unittest.TestCase):
     def test_comments(self):
         """Verify proper behaviour involving comments in code"""
         self.expected_history = [
-            TestCommit(),
-            TestCommit(),
-            TestCommit(),
-            TestCommit(),
-            TestCommit(),
-            TestCommit(),
-            TestCommit(),
-            TestCommit(
-                TestFile("comments.c",
-                    apologetic=TestAsserts(
-                        added={"post_comment_changes", "mid_comment_changes==1",
-                            "comment_added==1", "good==not"},
-                        removed={"post_comment_changes", "mid_comment_changes==1",
-                            "comment_added==1", "good==not"}))),
             TestCommit(
                 TestFile("comments.c",
                     confident=TestAsserts(
@@ -159,20 +145,19 @@ class TestMineRepo(unittest.TestCase):
                         added={"maybe==1"}),
                     apologetic=TestAsserts(
                         added={"bad==5", "bad==8", "bad==9"}))),
+            TestCommit(
+                TestFile("comments.c",
+                    apologetic=TestAsserts(
+                        added={"post_comment_changes", "mid_comment_changes==1",
+                            "comment_added==1", "good==not"},
+                        removed={"post_comment_changes", "mid_comment_changes==1",
+                            "comment_added==1", "good==not"}))),
         ]
         self.assertHistoryEqual()
 
     def test_filetypes(self):
         """Ensure that non-c files are ignored"""
         self.expected_history = [
-            TestCommit(),
-            TestCommit(),
-            TestCommit(),
-            TestCommit(),
-            TestCommit(),
-            TestCommit(),
-            TestCommit(),
-            TestCommit(),
             TestCommit(
                 TestFile("longone.abc"),
                 TestFile("longone.c.ccc"))
@@ -182,13 +167,13 @@ class TestMineRepo(unittest.TestCase):
     def test_basic(self):
         """Basic add/remove/change situations"""
         self.expected_history = [
-            TestCommit(),
-            TestCommit(),
-            TestCommit(),
-            TestCommit(),
-            TestCommit(),
-            TestCommit(),
-            TestCommit(),
+            TestCommit(
+                TestFile("basic.c",
+                    confident=TestAsserts(
+                        added={"a", "to_delete", "c", "to_change", "d",
+                            "to_change_surrounded", "f", "to_change==b||(c!=d&&e==f)",
+                            "a==b||(c!=d&&e==no_change)", "a==b||(c!=to_change&&e==f)",
+                            "good", "z", "x", "outside"}))),
             TestCommit(
                 TestFile("basic.c",
                     confident=TestAsserts(
@@ -197,23 +182,12 @@ class TestMineRepo(unittest.TestCase):
                             "extra_add1", "extra_add2"},
                         removed={"to_delete", "to_change", "to_change_surrounded",
                             "to_change==b||(c!=d&&e==f)", "a==b||(c!=to_change&&e==f)"}))),
-            TestCommit(
-                TestFile("basic.c",
-                    confident=TestAsserts(
-                        added={"a", "to_delete", "c", "to_change", "d",
-                            "to_change_surrounded", "f", "to_change==b||(c!=d&&e==f)",
-                            "a==b||(c!=d&&e==no_change)", "a==b||(c!=to_change&&e==f)",
-                            "good", "z", "x", "outside"}))),
         ]
         self.assertHistoryEqual()
 
     def test_macros(self):
         """Assertions within macros and including pre-processor directives"""
         self.expected_history = [
-            TestCommit(),
-            TestCommit(),
-            TestCommit(),
-            TestCommit(),
             TestCommit(),
             TestCommit(),
             TestCommit(
@@ -225,16 +199,12 @@ class TestMineRepo(unittest.TestCase):
                     problematic=TestAsserts(
                         added={"prefix##_##name==0",
                             "a==1&&#ifdefFLAGarg==2#elsearg=3#endif&&b==2"}))),
-            TestCommit(),
-            TestCommit(),
         ]
         self.assertHistoryEqual()
 
     def test_strings(self):
         """Tests for assertions containing strings, or within strings"""
         self.expected_history = [
-            TestCommit(),
-            TestCommit(),
             TestCommit(),
             TestCommit(),
             TestCommit(),
@@ -248,9 +218,6 @@ class TestMineRepo(unittest.TestCase):
                         added={"strncmp(\"multiline1", "strncmp(\"multiline2"}),
                     apologetic=TestAsserts(
                         added={"bad==0"}))),
-            TestCommit(),
-            TestCommit(),
-            TestCommit(),
         ]
         self.assertHistoryEqual()
 
@@ -263,15 +230,9 @@ class TestMineRepo(unittest.TestCase):
             TestCommit(),
             TestCommit(
                 TestFile("definitions.c",
+                    confident=TestAsserts(added={"0"}),
                     problematic=TestAsserts(
-                        added={"int"}),
-                    apologetic=TestAsserts(
-                        added={"predicate"}))),
-            TestCommit(),
-            TestCommit(),
-            TestCommit(),
-            TestCommit(),
-
+                        added={"(int ignored)", "(int ig2nored)", "(int)", "(predicate)"}))),
         ]
         self.assertHistoryEqual()
 
@@ -280,22 +241,9 @@ class TestMineRepo(unittest.TestCase):
         self.expected_history = [
             TestCommit(),
             TestCommit(),
-            TestCommit(
-                TestFile("lines.c",
-                    confident=TestAsserts(
-                        added={"changed==1", "changed==2", "changed==3",
-                            "changed==4", "changed==5", "to_add1",
-                            "changed==6", "to_add2", "changed==7",
-                            "to_add2", "to_add3"},
-                        removed={"to_change==1", "to_change==2", "to_change==3",
-                            "to_change==4", "to_delete1", "to_delete2",
-                            "to_delete3", "to_change==5", "to_change==6",
-                            "to_change==7"}),
-                    apologetic=TestAsserts(
-                        added={"no_change3", "no_change4", "no_change5",
-                            "no_change6", "no_change7", "no_change8"},
-                        removed={"no_change3", "no_change4", "no_change5",
-                            "no_change6", "no_change7", "no_change8"}))),
+            TestCommit(),
+            TestCommit(),
+            TestCommit(),
             TestCommit(
                 TestFile("lines.c",
                     confident=TestAsserts(
@@ -312,12 +260,22 @@ class TestMineRepo(unittest.TestCase):
 
                             "a", "b", "c", "d", "e", "f", "g"}),
                     problematic=TestAsserts(added={"too_many_lines"}))),
-            TestCommit(),
-            TestCommit(),
-            TestCommit(),
-            TestCommit(),
-            TestCommit(),
-
+            TestCommit(
+                TestFile("lines.c",
+                    confident=TestAsserts(
+                        added={"changed==1", "changed==2", "changed==3",
+                            "changed==4", "changed==5", "to_add1",
+                            "changed==6", "to_add2", "changed==7",
+                            "to_add2", "to_add3"},
+                        removed={"to_change==1", "to_change==2", "to_change==3",
+                            "to_change==4", "to_delete1", "to_delete2",
+                            "to_delete3", "to_change==5", "to_change==6",
+                            "to_change==7"}),
+                    apologetic=TestAsserts(
+                        added={"no_change3", "no_change4", "no_change5",
+                            "no_change6", "no_change7", "no_change8"},
+                        removed={"no_change3", "no_change4", "no_change5",
+                            "no_change6", "no_change7", "no_change8"}))),
         ]
         self.assertHistoryEqual()
 
@@ -325,25 +283,32 @@ class TestMineRepo(unittest.TestCase):
         """Too many or too few parentheses"""
         self.expected_history = [
             TestCommit(),
+            TestCommit(),
+            TestCommit(),
+            TestCommit(),
+            TestCommit(),
+            TestCommit(),
+            TestCommit(),
             TestCommit(
                 TestFile("mismatched.c",
                     problematic=TestAsserts(
                         added={"(a==1)||(b==2)", "too_few==1"}),
                     apologetic=TestAsserts( # it looks legitimate
                         added={"(c==3)&&(d==4)"}))),
-            TestCommit(),
-            TestCommit(),
-            TestCommit(),
-            TestCommit(),
-            TestCommit(),
-            TestCommit(),
-            TestCommit(),
         ]
         self.assertHistoryEqual()
 
     def test_predicates(self):
         """Different types of easy and tricky predicates"""
         self.expected_history = [
+            TestCommit(),
+            TestCommit(),
+            TestCommit(),
+            TestCommit(),
+            TestCommit(),
+            TestCommit(),
+            TestCommit(),
+            TestCommit(),
             TestCommit(
                 TestFile("predicates.c",
                     confident=TestAsserts(
@@ -352,18 +317,9 @@ class TestMineRepo(unittest.TestCase):
                             "*a==*((bob_t*)b)", "(*((int*)a))==3", "*a==(bob_t)3",
                             "offsetof(structS,f)==4",
                             "offsetof(structure,field)==0",
-                            "sizeof(typename)==4"}),
-                    problematic=TestAsserts(
-                        added={"(int)a==((bob_t)b)",
+                            "sizeof(typename)==4",
+                            "(int)a==((bob_t)b)",
                             "offsetof(structure,field1.field2)" }))),
-            TestCommit(),
-            TestCommit(),
-            TestCommit(),
-            TestCommit(),
-            TestCommit(),
-            TestCommit(),
-            TestCommit(),
-            TestCommit(),
         ]
         self.assertHistoryEqual()
 
@@ -373,17 +329,16 @@ class TestMineRepo(unittest.TestCase):
 
     def assertHistoryEqual(self):
         """
-        Assuming there are the same number of commits that affected
-        assertions in the History as there are in self.expected, this
-        checks that the given predicates match all assertions in the history
-        for the given files at each points. It ignores files that are not
-        included in a TestCommit.
+        Starting with earliest commit, checks that the given predicates match
+        all assertions in the history for the given files at each points.
+        It ignores files that are not included in a TestCommit. Additionally,
+        if there are commits after the latest one in self.expected, they
+        will be ignored.
 
         If a removed predicate contains "to_change". Then it verifies that there
         is an added corresponding "changed" assertion.
         """
 
-        self.assertEqual(len(self.expected_history), len(TestMineRepo.actual_history))
         commits = zip(self.expected_history, TestMineRepo.actual_history)
         for expected_commit, actual_commit in commits:
             self.assertCommitEqual(expected_commit, actual_commit)
@@ -450,19 +405,22 @@ class TestMineRepo(unittest.TestCase):
         # to predicate fragment
 
         def find_match(predicate, strings):
+            print("Finding " + predicate + " in " + str(strings))
             for string in strings:
                 if predicate in string:
                     return string
             return None
 
-        self.assertEqual(len(exp_assert_set), len(act_assert_set))
-        act_assert_set = act_assert_set.copy()
+        act_assert_set_copy = act_assert_set.copy()
         for a in exp_assert_set:
-            act_assert = find_match(a, act_assert_set)
+            a = remove_whitespace(a)
+            act_assert = find_match(a, act_assert_set_copy)
             if act_assert:
-                act_assert_set.remove(act_assert)
+                act_assert_set_copy.remove(act_assert)
             else:
-                raise AssertionError("Problematic predicate not found: " + a)
+                raise AssertionError("Problematic predicate '{a}' not found in {copy} copy of {ass}"
+                        .format(a=a, copy=act_assert_set_copy, ass=act_assert_set))
+        self.assertEqual(len(exp_assert_set), len(act_assert_set))
 
 
 ################################################################################
