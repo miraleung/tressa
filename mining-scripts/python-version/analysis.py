@@ -1,6 +1,6 @@
 # functions for producing analyses of History data
 import pickle
-from collections import defaultdict, OrderedDict
+from collections import defaultdict, OrderedDict, Counter
 import numpy as np
 import matplotlib.pyplot as plt
 
@@ -155,18 +155,10 @@ class Activity():
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
+def dist_btw_ass(history):
+    diffs = history.diffs
+    return Counter(d.commit_index - diffs[i].commit_index
+            for i,d in enumerate(diffs[1:]))
 
 
 

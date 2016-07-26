@@ -110,6 +110,7 @@ class Diff():
     # pygit2.Commit -> Diff
     def __init__(self, commit):
         self.rvn_id = commit.hex    # newer revision (commit) ID
+        self.commit_index = 0   # Initial commit is 0; branch head is highest
         self.parents = []       # commit_ids of parents
         self.author = commit.author.name
         self.commit_time = (commit.commit_time, commit.commit_time_offset)
@@ -119,6 +120,7 @@ class Diff():
         self.msg = commit.message
         self.files = []     # using filenames of newest revision
         self.describe = None
+
 
     def __str__(self):
         return "Diff: {id}".format(id=self.rvn_id)
@@ -208,6 +210,31 @@ def reduce_spaces(string):
 # Repo mining
 ################################################################################
 
+# 2016-07-21
+# Time would probably be more interesting if it were Author time
+# As it is, Topo and Time|Topo are identical in all cases.
+#
+#                       ---------- (midway)
+#                      /
+#  0---1----2----4----7----9------ (master)
+#       \         \       /
+#        3----5----6-----------8-- (topic)
+#  
+# master TOPOLOGICAL:        9,6,5,3,7,4,2,1,0
+# master TIME | TOPOLOGICAL: 9,6,5,3,7,4,2,1,0
+# master TIME:               9,7,6,5,4,3,2,1,0
+#
+# topic  TOPOLOGICAL:        8,6,4,2,5,3,1,0
+# topic  TIME | TOPOLOGICAL: 8,6,4,2,5,3,1,0
+# topic  TIME:               8,6,5,4,3,2,1,0
+#
+# midway TOPOLOGICAL:        7,4,2,1,0
+# midway TIME | TOPOLOGICAL: 7,4,2,1,0
+# midway TIME:               7,4,2,1,0
+#
+# I have chosen TOPOLOGICAL for the walking. (same as https://github.com/RepoGrams/RepoGrams)
+
+
 # string string string -> History
 def mine_repo(assertion_re, repo_path, branch):
     """Given the path to a Git repository and the name of any assertions used
@@ -217,12 +244,14 @@ def mine_repo(assertion_re, repo_path, branch):
 
     history = History(repo_path, branch)
     repo = pygit2.Repository(repo_path)
-    for commit in repo.walk(repo.lookup_branch(branch).target,
-            pygit2.GIT_SORT_TIME):
+    commit_index = 0
+    for commit in repo.walk(repo.lookup_branch(branch).target, pygit2.GIT_SORT_REVERSE | pygit2.GIT_SORT_TOPOLOGICAL):
         logging.info("Processing " + commit.hex)
         diff = generate_diff(commit, repo, assertion_re)
         if diff:
+            diff.commit_index = commit_index
             history.diffs.append(diff) # diff won't exist if no assertions
+        commit_index += 1
 
     parser = pycparser.c_parser.CParser()
     for diff in history.diffs:
