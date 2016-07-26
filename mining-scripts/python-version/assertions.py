@@ -166,6 +166,7 @@ class Assertion():
         self.change = change
         self.change_lineno = change_lineno  # file_lineno for changed line in assertion
         self.problematic = problematic      # True if needs manual inspection
+        self.unparseable = False            # an error occurred when parsing
         self.problem = problem              # If problematic, this is the reason
         self.parent_file = parent_file
         self.ast = None # predast.AST
@@ -176,10 +177,10 @@ class Assertion():
 
     def info(self):
         if self.problematic:
-            problem = "<!{p}!>".format(p=self.problem)
+            problem = "<!Problem: {p}!>".format(p=self.problem)
             predicate = [reduce_spaces(l) for l in self.raw_lines]
         else:
-            problem = ""
+            problem = "<Unable to generate AST>" if self.unparseable else ""
             predicate = "{n}({p})".format(n=self.name, p=self.predicate)
 
         return "{commit}:{problem}:{file}:{lineno}:{func}:{c}:{pred}".format(
@@ -258,15 +259,13 @@ def mine_repo(assertion_re, repo_path, branch):
             for a in file.assertions:
                 try:
                     a.ast = predast.AST(a.predicate, parser)
-                    a_list.append(a)
                 except Exception as err:
                     logging.error("Unable to generate AST of ({pred}): {e}" \
                             .format(pred=a.predicate, e=err))
 
                     a.ast = None
-                    a.problematic = True
-                    a.problem = "Problem generating AST"
-                    file.to_inspect.append(a)
+                    a.unparseable = True
+                a_list.append(a)
             file.assertions = a_list
 
     find_function_names(history)
@@ -611,7 +610,7 @@ class Extracter():
     delims = re.compile(r'(//|/\*|\*/|"|\(|\)|#)')
     #                      1  2   3   4 5  6  7
 
-    comment_clue = re.compile(r"\s*\*[^/]")
+    COMMENT_CLUE = re.compile(r"\s*\*[^/]")
 
     def __init__(self, change, match):
         self.change = change            # Change
@@ -653,9 +652,19 @@ class Extracter():
                 self.valid = False
                 return DONE
 
-            if Extracter.comment_clue.match(line):
+            if Extracter.COMMENT_CLUE.match(line):
                 # don't return yet, since it may be rejected by form
                 self.starred = True
+
+            # 'extern static unsigned long long ASSERT (X) {}' should be ignored
+            # Sometimes style dictates that the assert name is at the
+            # beginning of a line. This will NOT catch these, apologetically.
+            decl_re = r"((\w+ ){{0,4}}\w+ ({a}))\s*\(".format(a=assertion_re)
+            match = re.match(decl_re, line)
+            if match:
+                self.problematic = True
+                self.problem = "Possible function declaration"
+                return DONE
 
             pre_line = line[:self.match.start()]
             while len(pre_line) > 0:
