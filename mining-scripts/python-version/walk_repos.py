@@ -9,6 +9,8 @@ import assertions
 import pickle
 import traceback
 import itertools
+import time
+import datetime
 
 
 if __name__ == '__main__':
@@ -17,6 +19,8 @@ if __name__ == '__main__':
                                     or d in ['results', '__pycache__'], dirs)
     dirs = list(dirs)
 
+    starttime = time.time()
+    lasttime = starttime
     for i,d in enumerate(dirs):
         print("{d}   {i}/{n}".format(d=d, i=i+1, n=len(dirs)))
         try:
@@ -28,4 +32,9 @@ if __name__ == '__main__':
                     f.write(a.info() + "\n")
         except:
             traceback.print_exc()
+        thistime = time.time()
+        print("\t{d}, total {t}".format(
+            d=datetime.timedelta(seconds=thistime-lasttime),
+            t=datetime.timedelta(seconds=thistime-starttime)))
+        lasttime = thistime
 
