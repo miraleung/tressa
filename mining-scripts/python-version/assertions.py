@@ -153,12 +153,13 @@ class Assertion():
     :hunk_lineno: is included to help detect changed assertions, since they
     will likely be nearby.
     """
-    # int int int [string] string string Change -> Assertion
-    def __init__(self, lineno, hunk_lineno, num_lines, raw_lines, name, predicate,
+    # int int int int [string] string string Change -> Assertion
+    def __init__(self, hunkno, lineno, hunk_lineno, num_lines, raw_lines, name, predicate,
             change=Change.none, change_lineno=0, problematic=False, problem="",
             parent_file=None):
         self.file_lineno = lineno            # start line num in file where it exists 
         self.hunk_lineno = hunk_lineno  # index into Hunk where it was found
+        self.hunkno = hunkno                # index of Hunk where found
         self.num_lines = num_lines
         self.raw_lines = raw_lines          # original lines of code of assert
         self.name = name                    # assert function name
@@ -180,7 +181,7 @@ class Assertion():
             problem = "<!Problem: {p}!>".format(p=self.problem)
             predicate = [reduce_spaces(l) for l in self.raw_lines]
         else:
-            problem = "<Unable to generate AST>" if self.unparseable else ""
+            problem = "<UNPARSEABLE>" if self.unparseable else ""
             predicate = "{n}({p})".format(n=self.name, p=self.predicate)
 
         return "{commit}:{problem}:{file}:{lineno}:{func}:{c}:{pred}".format(
@@ -255,18 +256,14 @@ def mine_repo(assertion_re, repo_path, branch):
     parser = pycparser.c_parser.CParser()
     for diff in history.diffs:
         for file in diff.files:
-            a_list = []
             for a in file.assertions:
                 try:
                     a.ast = predast.AST(a.predicate, parser)
                 except Exception as err:
-                    logging.error("Unable to generate AST of ({pred}): {e}" \
-                            .format(pred=a.predicate, e=err))
-
+                    logging.error("{e}: Unable to generate AST of {a}"
+                            .format(a=a.info(), e=err))
                     a.ast = None
                     a.unparseable = True
-                a_list.append(a)
-            file.assertions = a_list
 
     find_function_names(history)
     return history
@@ -411,19 +408,22 @@ def analyze_diff(gdiff, assertion_re, diff):
     ext_pattern = r".*\.[{exts}]$".format(exts=FILE_EXTENSIONS)
     files = []
     for patch in gdiff:
-        filename = patch.delta.new_file.path
-        if re.match(ext_pattern, filename):
-            # only care about files with appropriate extensions
-            logging.info("\t" + filename)
-            file = File(filename, diff)
-            asserts, inspects = analyze_patch(patch, assertion_re, file)
+        try:
+            filename = patch.delta.new_file.path
+            if re.match(ext_pattern, filename):
+                # only care about files with appropriate extensions
+                logging.info("\t" + filename)
+                file = File(filename, diff)
+                asserts, inspects = analyze_patch(patch, assertion_re, file)
 
-            if len(asserts) + len(inspects) > 0:
-                file.assertions = asserts
-                file.to_inspect = inspects
-                files.append(file)
-                logging.info("\t\t{a} assertions, {i} to_inspect".format(
-                        a=len(file.assertions), i=len(file.to_inspect)))
+                if len(asserts) + len(inspects) > 0:
+                    file.assertions = asserts
+                    file.to_inspect = inspects
+                    files.append(file)
+                    logging.info("\t\t{a} assertions, {i} to_inspect".format(
+                            a=len(file.assertions), i=len(file.to_inspect)))
+        except:
+            logging.exception("Unable to process patch")
 
         else:
             logging.info("\tSkipping " +  filename)
@@ -436,15 +436,19 @@ def analyze_patch(patch, assertion_re, file):
     are identified by assertion_re.
     """
     asserts, inspects = [], []
-    for hunk in patch.hunks:
-        a, i = generate_assertions(hunk, assertion_re, file)
-        asserts.extend(a)
-        inspects.extend(i)
+    for i,hunk in enumerate(patch.hunks):
+        try:
+            a, prob_a = generate_assertions(i, hunk, assertion_re, file)
+            asserts.extend(a)
+            inspects.extend(prob_a)
+        except:
+            logging.exception("Unable to process hunk")
+
     return asserts, inspects
 
-# pygit2.Hunk string File -> [Assertion] [Assertion]
-def generate_assertions(hunk, assertion_re, file):
-    assertions = locate_assertions(hunk, assertion_re, file)
+# int pygit2.Hunk string File -> [Assertion] [Assertion]
+def generate_assertions(hunk_index, hunk, assertion_re, file):
+    assertions = locate_assertions(hunk_index, hunk, assertion_re, file)
     asserts, inspects = [], []
     for a in assertions:
         try:
@@ -474,8 +478,8 @@ def generate_assertions(hunk, assertion_re, file):
     return asserts, inspects
 
 
-# pygit2.Hunk string File -> [HunkAssertion]
-def locate_assertions(hunk, assertion_re, file):
+# int pygit2.Hunk string File -> [HunkAssertion]
+def locate_assertions(hunkno, hunk, assertion_re, file):
     """Finds all locations in the given hunk where the given regex identifies
     an assertion.
     """
@@ -484,7 +488,7 @@ def locate_assertions(hunk, assertion_re, file):
         matches = match_assertions(assertion_re, line.content)
         if matches:
             for m in matches:
-                ha = HunkAssertion(hunk, i, m, file)
+                ha = HunkAssertion(hunk, hunkno, i, m, file)
                 hunk_ass.append(ha)
 
     return hunk_ass
@@ -497,8 +501,9 @@ def match_assertions(assertion_re, line):
 
 class HunkAssertion():
     """An Assertion statement within a Hunk (a section of a diff's patch)."""
-    def __init__(self, hunk, line_index, match, file):
+    def __init__(self, hunk, hunkno, line_index, match, file):
         self.hunk = hunk
+        self.hunkno = hunkno
         self.line_index = line_index    # index of line in Hunk
         self.match = match
         self.file = file
@@ -577,7 +582,7 @@ class HunkAssertion():
             extracter.problematic = True
             extracter.problem = "'*': possibly mid-comment"
 
-        assertion = Assertion(file_lineno, self.line_index, len(extracter.lines),
+        assertion = Assertion(self.hunkno, file_lineno, self.line_index, len(extracter.lines),
                 extracter.lines, self.match.group(), predicate, change=change,
                 change_lineno=extracter.change_lineno,
                 problematic=extracter.problematic, problem=extracter.problem,
