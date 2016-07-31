@@ -1,6 +1,7 @@
 # functions for producing analyses of History data
 import pickle
 from collections import defaultdict, OrderedDict, Counter, namedtuple
+import itertools
 import numpy as np
 import matplotlib.pyplot as plt
 
@@ -155,25 +156,19 @@ class Activity():
 
 
 
-def dist_btw_ass(history):
-    diffs = history.diffs
-    return Counter(diffs[i+1].commit_index - diffs[i].commit_index
-            for i,_ in enumerate(diffs[1:]))
-
-# def dist_btw_ass_add(history):
-    # diffs = history.diffs
-    # return Counter(diffs[i+1].commit_index - diffs[i].commit_index
-            # for i,_ in enumerate(diffs[1:]))
-
 DataPoint = namedtuple('DataPoint', ['x_val', 'y_added', 'y_removed', 'y_combined'])
 
 class Result():
     def __init__(self, datapoints, desc, x_label, y_label, sort=None):
+        """Prouce Result from list of DataPoints
+        :sort:  if given sorting function, then sorts from Biggest to smallest
+        """
+
         self.description = desc
         self.x_label = x_label
         self.y_label = y_label
         self.datapoints = datapoints if sort is None else \
-                          sorted(datapoints, key=sort)
+                          sorted(datapoints, key=sort, reverse=True)
 
 
     def graph(self, length=None, cutoff=None, filt=None):
@@ -188,7 +183,7 @@ class Result():
 
         x_vals, y_addeds, y_removeds, y_combineds = zip(*dps)
 
-        xs = np.arange(length)   # the x locations for the groups
+        xs = np.arange(length)    # the x locations for the groups
         width = 0.27              # the width of the bars
 
         fig, ax = plt.subplots()
@@ -199,7 +194,7 @@ class Result():
         # add the text for labels, title and axes ticks
         ax.set_ylabel(self.y_label)
         ax.set_title(self.description)
-        ax.set_xticks(xs + (3*width/2))
+        ax.set_xticks(xs + (3*width/2.))
         ax.set_xticklabels(x_vals, rotation=45, ha='right')
 
         ax.legend((rects_adds[0], rects_rems[0], rects_coms[0]),
@@ -219,6 +214,39 @@ class Result():
 
         plt.tight_layout() # keeps all predicates visible
         return plt # display with .show(); save with .savefig('path.png')
+
+
+def dist_btw_assert_commits(history, change=None):
+    """Determine the number of commits between each assertion-event commit and
+    groups distances by frequency into a collections.Counter {distance: count}.
+    Caveat: Uses Assertion.commit_index which is partly determined by repo
+    commit-walk scheme (e.g., GIT_SORT_TOPOLOGICAL)
+
+    :change: if assertions.Change given, only counts differences between
+        commits that include change of that type.
+    """
+    def has_change(diff):
+        for file in diff.files:
+            for a in file.assertions:
+                if change is None or change == a.change:
+                    return True
+        return False
+
+    diffs = [d for d in history.diffs if has_change(d)]
+    return Counter(diffs[i+1].commit_index - diffs[i].commit_index
+            for i,_ in enumerate(diffs[1:]))
+
+def dist_result(history):
+    dadd = dist_btw_assert_commits(history, assertions.Change.added)
+    drem = dist_btw_assert_commits(history, assertions.Change.removed)
+    dcom = dist_btw_assert_commits(history)
+    counts = set(itertools.chain(dadd.elements(), drem.elements(), dcom.elements()))
+    dps = [DataPoint(c, dadd[c], drem[c], dcom[c]) for c in counts]
+    return Result(dps,
+                  "Number of commits between commits containing assertions",
+                  "Distances",
+                  "Counts",
+                  lambda dp: dp.y_added + dp.y_removed + dp.y_combined)
 
 
 
