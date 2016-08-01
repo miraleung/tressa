@@ -4,8 +4,11 @@ from collections import defaultdict, OrderedDict, Counter, namedtuple
 import itertools
 import numpy as np
 import matplotlib.pyplot as plt
+from textwrap import wrap
+
 
 import assertions
+
 
 def names(history):
     """Keys: assertion names
@@ -171,14 +174,28 @@ class Result():
                           sorted(datapoints, key=sort, reverse=True)
 
 
-    def graph(self, length=None, cutoff=None, filt=None):
+    def graph(self, length=None, save=None, cutoff=None, filt=None):
         """Produce graph of results. Applies given filters, if available.
         :length:    (int) max number DataPoints to plot
+        :save:      (string) instead of displaying out, save under this filename
         :cutoff:    (DataPoint) plot no datapoints that are less than this one
         :filt:      (pred func) filter out DataPoints that produce False
         """
 
-        dps = self.datapoints if length is None else self.datapoints[:length]
+        # Filter if necessary
+        def true_fun(dp): return True
+
+        dps = self.datapoints
+
+        filt_fun = filt if filt else true_fun
+        cutoff_fun = lambda dp: dp >= cutoff if cutoff else true_fun
+
+        if filt_fun or cutoff_fun:
+            filter(lambda dp: filt_fun(dp) and cutoff_fun(dp), dps)
+
+        dps = dps if length is None else dps[:length]
+
+        # Prepare graph
         length = len(dps)
 
         x_vals, y_addeds, y_removeds, y_combineds = zip(*dps)
@@ -192,8 +209,9 @@ class Result():
         rects_coms = ax.bar(xs+(2*width), y_combineds, width, color='g')
 
         # add the text for labels, title and axes ticks
+        ax.set_xlabel(self.x_label)
         ax.set_ylabel(self.y_label)
-        ax.set_title(self.description)
+        ax.set_title("\n".join(wrap(self.description, 160)))
         ax.set_xticks(xs + (3*width/2.))
         ax.set_xticklabels(x_vals, rotation=45, ha='right')
 
@@ -212,8 +230,14 @@ class Result():
         autolabel(rects_rems)
         autolabel(rects_coms)
 
-        plt.tight_layout() # keeps all predicates visible
-        return plt # display with .show(); save with .savefig('path.png')
+        fig.set_size_inches(25,13, forward=True)
+        fig.set_dpi(80)
+        fig.set_tight_layout(True)
+
+        if save:
+            fig.savefig(save)
+        else:
+            fig.show()
 
 
 def dist_btw_assert_commits(history, change=None):
@@ -243,7 +267,8 @@ def dist_result(history):
     counts = set(itertools.chain(dadd.elements(), drem.elements(), dcom.elements()))
     dps = [DataPoint(c, dadd[c], drem[c], dcom[c]) for c in counts]
     return Result(dps,
-                  "Number of commits between commits containing assertions",
+                  "Number of commits between commits containing assertions "
+                  "('Combined' commits can have either Added or Removed)",
                   "Distances",
                   "Counts",
                   lambda dp: dp.y_added + dp.y_removed + dp.y_combined)
