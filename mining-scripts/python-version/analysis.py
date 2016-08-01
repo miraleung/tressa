@@ -5,166 +5,39 @@ import itertools
 import numpy as np
 import matplotlib.pyplot as plt
 from textwrap import wrap
+import datetime
+
+import logging
 
 
 import assertions
 
 
-def names(history):
-    """Keys: assertion names
-       Value list: assertions
-    """
-    return Analysis(history,
-            lambda a: a.name,
-            lambda a: a,
-            include_problematic=True)
+# DataPoint = namedtuple('DataPoint', ['x_val', 'y_added', 'y_removed', 'y_combined'])
+# I need it to be mutable sometimes, so a class it is.
 
-def predicates(history):
-    """Keys: predicates
-       Values list: asseertions
-    """
-    return Analysis(history,
-            lambda a: assertions.remove_whitespace(a.predicate),
-            lambda a: a,
-            include_problematic=False)
+class DataPoint():
+    def __init__(self, x_val="", y_added=0, y_removed=0, y_combined=0):
+        self.x_val = x_val
+        self.y_added = y_added
+        self.y_removed = y_removed
+        self.y_combined = y_combined
 
+    def __repr__(self):
+        return "DataPoint(x_val={x}, y_added={ya}, y_removed={yr}, y_combined={yc})" \
+                .format(x=self.x_val, ya=self.y_added, yr=self.y_removed, yc=self.y_combined)
 
-
-class Analysis():
-    # def __init__(self, confident, problematic):
-    def __init__(self, history, keyfun, valfun, include_problematic=True):
-        """For each assertion in :history:, create dict with keys from
-        applying :keyfun: to assertion, and values by applying :valfun:,
-        and appending to a list.
-        If :include_problematic: is True, also create separate dict for
-        probematics.
-        """
-        self.confident = defaultdict(list)
-        self.problematic = defaultdict(list) if include_problematic else None
-        if include_problematic:
-            for a in assertions.assertion_iter(history, inspects=True):
-                self.problematic[keyfun(a)].append(valfun(a))
-        for a in assertions.assertion_iter(history, inspects=False):
-            self.confident[keyfun(a)].append(valfun(a))
-
-    def keys(self, problematic=False):
-        kvs = self.problematic if problematic else self.confident
-        return {k for k in kvs.keys()}
-
-    def unique_confident_keys(self):
-        if self.problematic == None:
-            return self.confident_keys()
-        return {k for k in self.confident_keys().difference(self.problematic_keys())}
-
-    def unique_problematic_keys(self):
-        return {k for k in self.problematic_keys().difference(self.confident_keys())}
-
-    def all_results(self):
-        results = self.confident.copy()
-        if self.problematic == None:
-            return results
-        for k,v in self.problematic.items():
-            results[k].extend(v)
-        return results
-
-    def counts(self, problematic=False):
-        kvs = self.problematic if problematic else self.confident
-        return {k:len(v) for k,v in kvs.items()}
-
-    def counts_sorted(self, problematic=False):
-        kvs = self.problematic if problematic else self.confident
-        counts = self.counts(problematic)
-        sort_tups = sorted(counts.items(), key=lambda c: c[1])
-        return OrderedDict(sort_tups)
-
-
-class Activity():
-    class Lists():
-        def __init__(self):
-            self.addeds = []
-            self.removeds = []
-            self.other = []
-
-    def __init__(self, history, repo_name=None):
-        self.repo_name = repo_name
-        self.predicates = defaultdict(Activity.Lists)
-        self._counts = [("",0,0)]
-        for a in assertions.assertion_iter(history, inspects=False):
-            pred = assertions.remove_whitespace(a.predicate)
-            if a.change == assertions.Change.added:
-                l = self.predicates[pred].addeds
-            elif a.change == assertions.Change.removed:
-                l = self.predicates[pred].removeds
-            else:
-                l = self.predicates[pred].other
-            l.append(a)
-
-    def counts(self):
-        """Return [(pred_string, added_count, removed_count)] tuples"""
-        if self._counts == [("",0,0)]:
-            self._counts = [(pred, len(lists.addeds), len(lists.removeds)) for pred, lists in self.predicates.items()]
-        return self._counts
-
-    def sort_counts(self):
-        """Sorts counts by most activity (higher number of adds and removes"""
-        self._counts = sorted(self.counts(), reverse=True, key=lambda c: c[1] + c[2])
-
-    def print_counts(self):
-        for (pred, nadd, nrem) in self.counts():
-            print("{p} :: added:{a} removed:{r}".format(p=pred, a=nadd, r=nrem))
-
-    def graph(self, N=None):
-        self.sort_counts()
-
-        if N is None:
-            N = len(self.counts())
-            counts = self.counts()
-        else:
-            counts = self.counts()[:N]
-
-        preds, nadds, nrems = zip(*counts)
-
-        ind = np.arange(N)  # the x locations for the groups
-        width = 0.35       # the width of the bars
-
-        fig, ax = plt.subplots()
-        rects1 = ax.bar(ind, nadds, width, color='r')
-        rects2 = ax.bar(ind+width, nrems, width, color='y')
-
-        title = 'Number of added and removed events per predicate'
-        if self.repo_name:
-            title = title + " in " + self.repo_name
-
-        # add some text for labels, title and axes ticks
-        ax.set_ylabel('Events')
-        ax.set_title(title)
-        ax.set_xticks(ind + width)
-        ax.set_xticklabels(preds, rotation=45, ha='right')
-
-        ax.legend((rects1[0], rects2[0]), ('Added', 'Removed'))
-
-        def autolabel(rects):
-            # attach some text labels
-            for rect in rects:
-                height = rect.get_height()
-                ax.text(rect.get_x() + rect.get_width()/2., 1.05*height,
-                        '%d' % int(height),
-                        ha='center', va='bottom')
-
-        autolabel(rects1)
-        autolabel(rects2)
-
-        plt.tight_layout() # keeps all predicates visible
-        plt.show()
-
-
-
-DataPoint = namedtuple('DataPoint', ['x_val', 'y_added', 'y_removed', 'y_combined'])
+    def __iter__(self):
+        yield self.x_val
+        yield self.y_added
+        yield self.y_removed
+        yield self.y_combined
 
 class Result():
     def __init__(self, datapoints, desc, x_label, y_label, sort=None):
         """Prouce Result from list of DataPoints
         :sort:  if given sorting function, then sorts from Biggest to smallest
+        :datapoints:    iter(Datapoint)
         """
 
         self.description = desc
@@ -197,7 +70,6 @@ class Result():
 
         # Prepare graph
         length = len(dps)
-
         x_vals, y_addeds, y_removeds, y_combineds = zip(*dps)
 
         xs = np.arange(length)    # the x locations for the groups
@@ -239,7 +111,6 @@ class Result():
         else:
             fig.show()
 
-
 def dist_btw_assert_commits(history, change=None):
     """Determine the number of commits between each assertion-event commit and
     groups distances by frequency into a collections.Counter {distance: count}.
@@ -257,8 +128,10 @@ def dist_btw_assert_commits(history, change=None):
         return False
 
     diffs = [d for d in history.diffs if has_change(d)]
-    return Counter(diffs[i+1].commit_index - diffs[i].commit_index
-            for i,_ in enumerate(diffs[1:]))
+    return Counter(d_next.commit_index - d.commit_index for d, d_next in
+            zip(diffs, _next_iter(diffs)))
+
+
 
 def dist_result(history):
     dadd = dist_btw_assert_commits(history, assertions.Change.added)
@@ -267,7 +140,7 @@ def dist_result(history):
     counts = set(itertools.chain(dadd.elements(), drem.elements(), dcom.elements()))
     dps = [DataPoint(c, dadd[c], drem[c], dcom[c]) for c in counts]
     return Result(dps,
-                  "Number of commits between commits containing assertions "
+                  "Number of COMMITS between commits containing assertions "
                   "('Combined' commits can have either Added or Removed)",
                   "Distances",
                   "Counts",
@@ -275,26 +148,101 @@ def dist_result(history):
 
 
 
+def time_btw_assert_commits(history, change=None):
+    """Determine the number of DAYS between each assertion-event commit and
+    groups durations by frequency into a collections. Counter {duration: count}.
+    Uses author_time.
+
+    :change: if assertions.Change given, only counts differences between
+        commits that include change of that type.
+    """
+    def has_change(diff):
+        for file in diff.files:
+            for a in file.assertions:
+                if change is None or change == a.change:
+                    return True
+        return False
+
+    def days_diff(time2, time1): # (seconds2, offset2) - (seconds1, offset1)
+        tz2 = datetime.timezone(datetime.timedelta(minutes=time2[1]))
+        t2 = datetime.datetime.fromtimestamp(time2[0], tz2)
+
+        tz1 = datetime.timezone(datetime.timedelta(minutes=time1[1]))
+        t1 = datetime.datetime.fromtimestamp(time1[0], tz1)
+
+        dtime = t2 - t1
+        return dtime.days
+
+    diffs = [d for d in history.diffs if has_change(d)]
+    return Counter(days_diff(d_next.author_time, d.author_time) for d, d_next in
+        zip(diffs, _next_iter(diffs)))
+
+def time_result(history):
+    dadd = time_btw_assert_commits(history, assertions.Change.added)
+    drem = time_btw_assert_commits(history, assertions.Change.removed)
+    dcom = time_btw_assert_commits(history)
+    counts = set(itertools.chain(dadd.elements(), drem.elements(), dcom.elements()))
+    dps = [DataPoint(c, dadd[c], drem[c], dcom[c]) for c in counts]
+    return Result(dps,
+                  "Number of DAYS between commits containing assertions "
+                      "('Combined' commits can have either Added or Removed)",
+                  "Durations",
+                  "Counts",
+                  lambda dp: dp.y_added + dp.y_removed + dp.y_combined)
+
+
+def activity_result(history):
+    predicates = defaultdict(lambda: DataPoint("", 0,0,0))
+    for a in assertions.assertion_iter(history, inspects=False):
+        dp = predicates[assertions.remove_whitespace(a.predicate)]
+        dp.x_val = a.predicate
+        if a.change == assertions.Change.added:
+            dp.y_added += 1
+            dp.y_combined += 1
+        elif a.change == assertions.Change.removed:
+            dp.y_removed += 1
+            dp.y_combined += 1
+        else:
+            logging.warning("{c} found while calculating Activity for {a}"
+                    .format(c=a.change, a=a.info()))
+
+    return Result(predicates.values(),
+            "Number of assertion events for each predicate, by text comparison",
+            "Predicates",
+            "Events",
+            sort=lambda dp: dp.y_combined)
+
+def names_result(history):
+    names = defaultdict(lambda: DataPoint("", 0,0,0))
+    for a in assertions.assertion_iter(history, inspects=False):
+        dp = names[a.name]
+        dp.x_val = a.name
+        if a.change == assertions.Change.added:
+            dp.y_added += 1
+            dp.y_combined += 1
+        elif a.change == assertions.Change.removed:
+            dp.y_removed += 1
+            dp.y_combined += 1
+        else:
+            logging.warning("{c} found while calculating Activity for {a}"
+                    .format(c=a.change, a=a.info()))
+
+    return Result(names.values(),
+            "Number of assertion events for each assert-function-name",
+            "Names",
+            "Events",
+            sort=lambda dp: dp.y_combined)
+
+
+# TODO dist from major release
+# TODO dist between commits for particular predicates?
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+def _next_iter(it):
+    nexts = iter(it)
+    next(nexts)
+    return nexts
 
 
 
