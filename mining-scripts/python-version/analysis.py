@@ -33,6 +33,12 @@ class DataPoint():
         yield self.y_removed
         yield self.y_combined
 
+    def __eq__(self, o):
+        return self.x_val == o.x_val and
+               self.y_added == o.y_added and
+               self.y_removed == o.y_removed and
+               self.y_combined == o.y_combined
+
 class Result():
     def __init__(self, datapoints, desc, x_label, y_label, sort=None):
         """Prouce Result from list of DataPoints
@@ -46,12 +52,10 @@ class Result():
         self.datapoints = datapoints if sort is None else \
                           sorted(datapoints, key=sort, reverse=True)
 
-
-    def graph(self, length=None, save=None, cutoff=None, filt=None):
+    def graph(self, length=None, save=None, filt=None):
         """Produce graph of results. Applies given filters, if available.
         :length:    (int) max number DataPoints to plot
         :save:      (string) instead of displaying out, save under this filename
-        :cutoff:    (DataPoint) plot no datapoints that are less than this one
         :filt:      (pred func) filter out DataPoints that produce False
         """
 
@@ -224,7 +228,7 @@ def names_result(history):
             dp.y_removed += 1
             dp.y_combined += 1
         else:
-            logging.warning("{c} found while calculating Activity for {a}"
+            logging.warning("{c} found while calculating Names for {a}"
                     .format(c=a.change, a=a.info()))
 
     return Result(names.values(),
@@ -234,8 +238,36 @@ def names_result(history):
             sort=lambda dp: dp.y_combined)
 
 
+# def function_result(history):
+    # # This isn't useful due to inaccuracy of functinon_name
+    # """Produce result of the function in which the assert is embedded."""
+    # functions = defaultdict(lambda: DataPoint("", 0,0,0))
+    # for a in assertions.assertion_iter(history, inspects=False):
+        # dp = functions[a.function_name]
+        # dp.x_val = a.function_name
+        # if a.change == assertions.Change.added:
+            # dp.y_added += 1
+            # dp.y_combined += 1
+        # elif a.change == assertions.Change.removed:
+            # dp.y_removed += 1
+            # dp.y_combined += 1
+        # else:
+            # logging.warning("{c} found while calculating Functions for {a}"
+                    # .format(c=a.change, a=a.info()))
+
+    # return Result(functions.values(),
+            # "Number of assertion events embedded within each function/method",
+            # "Functions/methods",
+            # "Events",
+            # sort=lambda dp: dp.y_combined)
+
+
+
 # TODO dist from major release
+# TODO csv
+# TODO walk repos
 # TODO dist between commits for particular predicates?
+# TODO asserts per function
 
 
 
