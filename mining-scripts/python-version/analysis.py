@@ -6,6 +6,8 @@ import numpy as np
 import matplotlib.pyplot as plt
 from textwrap import wrap
 import datetime
+import csv as Csv
+import io
 
 import logging
 
@@ -27,6 +29,13 @@ class DataPoint():
         return "DataPoint(x_val={x}, y_added={ya}, y_removed={yr}, y_combined={yc})" \
                 .format(x=self.x_val, ya=self.y_added, yr=self.y_removed, yc=self.y_combined)
 
+    @staticmethod
+    def keys():
+        return ["x_val", "y_added", "y_removed", "y_combined"]
+
+    def values(self):
+        return [self.x_val, self.y_added, self.y_removed, self.y_combined]
+
     def __iter__(self):
         yield self.x_val
         yield self.y_added
@@ -34,10 +43,12 @@ class DataPoint():
         yield self.y_combined
 
     def __eq__(self, o):
-        return self.x_val == o.x_val and
-               self.y_added == o.y_added and
-               self.y_removed == o.y_removed and
-               self.y_combined == o.y_combined
+        return (self.x_val == o.x_val and
+                self.y_added == o.y_added and
+                self.y_removed == o.y_removed and
+                self.y_combined == o.y_combined)
+
+
 
 class Result():
     def __init__(self, datapoints, desc, x_label, y_label, sort=None):
@@ -51,6 +62,20 @@ class Result():
         self.y_label = y_label
         self.datapoints = datapoints if sort is None else \
                           sorted(datapoints, key=sort, reverse=True)
+
+    def csv(self, save):
+        def write_csv(file):
+            writer = Csv.writer(file, quoting=Csv.QUOTE_MINIMAL)
+            writer.writerow([self.description])
+            writer.writerow([self.y_label + " vs. " + self.x_label])
+            writer.writerow([])
+
+            writer.writerow(DataPoint.keys())
+            for dp in self.datapoints:
+                writer.writerow(dp.values())
+
+        with open(save, 'w', newline='') as file:
+            write_csv(file)
 
     def graph(self, length=None, save=None, filt=None):
         """Produce graph of results. Applies given filters, if available.
