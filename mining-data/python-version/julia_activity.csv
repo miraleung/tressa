@@ -1,0 +1,673 @@
+x_val,y_added,y_removed,y_combined
+0,56,44,100
+jl_is_function(f),16,16,32
+"!cmp_lt(&i64, T_INT64, &d, T_DOUBLE)",9,9,18
+jl_is_gf(gf),9,9,18
+jl_is_symbol(name),12,6,18
+"cmp_lt(&d, T_DOUBLE, &i64, T_INT64)",9,9,18
+nargs > 0,8,8,16
+iscons(e),8,7,15
+jl_is_some_tag_type(a),7,7,14
+jl_is_tuple(env),7,7,14
+session != NULL,7,7,14
+tta->parameters->length == ttb->parameters->length,7,7,14
+*ip < vector_size(v),6,6,12
+jl_is_expr(l),6,6,12
+jl_is_expr(le),6,6,12
+jl_is_some_tag_type(b),6,6,12
+"cmp_lt(&i64, T_INT64, &ui64, T_UINT64)",6,6,12
+"!cmp_lt(&ui64, T_UINT64, &i64, T_INT64)",6,6,12
+jl_is_lambda_info(li),7,5,12
+mode != MODE_MODULE_POSTWORK,7,4,11
+v != NULL,7,4,11
+jl_bitstype_nbits(t)/8 == sizeof(x),5,5,10
+jl_is_bits_type(t),5,5,10
+jl_is_tuple_type(type),6,4,10
+jl_is_datatype(ty),5,4,9
+handle == NULL,4,5,9
+jl_is_struct_type(t),4,4,8
+i < vector_size(v),4,4,8
+types->length != 1,4,4,8
+jl_is_tuple(argtypes),4,4,8
+isvector(v),4,4,8
+len > 0,4,4,8
+i < vector_size(e),4,4,8
+jl_is_symbol(nm),4,4,8
+jl_is_array(le),4,4,8
+ctx != NULL,4,4,8
+jl_is_type(args[1]),4,4,8
+jl_is_symbol(sym),5,3,8
+NWORDS(sizeof(jl_expr_t))==3,4,4,8
+jl_is_tag_type(super),4,4,8
+___PAIRP(e),4,4,8
+isvector(e),4,4,8
+(size_t) len < sizeof(buf),4,4,8
+jl_is_array(ll),4,4,8
+issymbol(v),4,4,8
+waiting_for == 0,4,4,8
+jl_is_array(vil),4,4,8
+li,4,4,8
+"jl_tupleref(type,i) != (jl_value_t*)jl_bottom_type",4,4,8
+n > 0,5,2,7
+jl_svec_len(meth->sparam_syms) == jl_svec_len(sparam_vals),4,3,7
+tt->linfo == NULL,3,3,6
+jl_bitstype_nbits(v->type)/8 == sizeof(c_type),3,3,6
+*bp != (uptrint_t)HT_NOTFOUND,3,3,6
+jl_is_symbol(var),3,3,6
+jl_is_expr(ex),3,3,6
+jl_is_svec(env),3,3,6
+"cmp_eq(&d, T_DOUBLE, &i64, T_INT64, 0)",3,3,6
+jl_is_function(t->ctor_factory),3,3,6
+f->linfo != NULL,3,3,6
+gc_bits(o) != GC_QUEUED,3,3,6
+jl_is_method(m),4,2,6
+i < jl_array_len(a),6,0,6
+"!cmp_eq(&d, T_DOUBLE, &i64, T_INT64, 0)",3,3,6
+jl_is_gf(f),3,3,6
+!mfunc->linfo || !mfunc->linfo->inInference,3,3,6
+t == jl_current_task,3,3,6
+tt->env == NULL,3,3,6
+jl_is_expr(thk->ast),3,3,6
+"ptrhash_get(&backref_table, jl_cellref(jl_module_init_order, i)) != HT_NOTFOUND",3,3,6
+jl_is_tuple(newsig),3,3,6
+jl_is_typevar(tv),3,3,6
+jl_is_func(f),3,3,6
+jl_is_bits_type(v->type),3,3,6
+ast != NULL,3,3,6
+jl_is_datatype(gf),3,3,6
+jl_is_function(args[0]),3,3,6
+"cmp_lt(&ui64, T_UINT64, &i64, T_INT64)",3,3,6
+dest != NULL,3,3,6
+jl_is_function(gf),3,3,6
+jl_is_tuple(type),3,3,6
+"cmp_lt(&i64, T_INT64, &ui64b, T_UINT64)",3,3,6
+f,3,3,6
+"!cmp_lt(&i64, T_INT64, &ui64, T_UINT64)",3,3,6
+"!cmp_lt(&i64b, T_INT64, &i64, T_INT64)",3,3,6
+!t->done,3,3,6
+iscvalue(v),4,2,6
+jl_tuple_len(tta->parameters) == jl_tuple_len(ttb->parameters),3,3,6
+uid > 0,3,3,6
+jl_is_tuple(para),3,3,6
+oldast->head == lambda_sym,3,3,6
+jl_is_int32(dimarg),3,3,6
+"cmp_lt(&i64, T_INT64, &i64b, T_INT64)",3,3,6
+jl_is_lambda_info(linfo),4,2,6
+"!cmp_lt(&ui64b, T_UINT64, &i64, T_INT64)",3,3,6
+gc_bits(buf) != GC_QUEUED,3,3,6
+jl_datatype_size(t) == sizeof(x),3,2,5
+jl_is_svec(*penv),3,2,5
+"offsetof(uv_stream_t,type) == offsetof(ios_t,bm) && sizeof(((uv_stream_t*)0)->type) == sizeof(((ios_t*)0)->bm), ""UV and ios layout mismatch""",3,2,5
+*bp != HT_NOTFOUND,3,2,5
+sz > 2,3,2,5
+thread == mach_profiler_thread,3,2,5
+jl_is_tuple_type(sig),3,2,5
+issymbol(s),3,2,5
+"jl_typeis(argarr, jl_array_any_type)",3,2,5
+eof_error != NULL,3,2,5
+jl_is_datatype(t),3,2,5
+ssz > 0,3,2,5
+sz > 11,3,2,5
+j == n-ndel,3,2,5
+isfunction(e),2,2,4
+"""TODO""",2,2,4
+b->constp,2,2,4
+!ml->isstaged,2,2,4
+jl_svec_len(generator->sparam_syms) == jl_svec_len(sparam_vals),2,2,4
+jl_is_some_tag_type(parent),2,2,4
+l->head == lambda_sym,2,2,4
+f->fptr != NULL,2,2,4
+lle->head == locals_sym,2,2,4
+j < stmts->nrows,2,2,4
+jl_is_some_tag_type(child),2,2,4
+v->type == jl_type_type,2,2,4
+toplevel == jl_false || li->inInference == 0,2,2,4
+a->parameters->length == b->parameters->length,2,2,4
+newmeth->linfo->inInference == 0,2,2,4
+jl_is_tag_type(v),2,2,4
+p->freelist != NULL,2,2,4
+jl_is_func(F),2,2,4
+generator->sparam_vals == jl_emptysvec,2,2,4
+SP < N_STACK-5,2,2,4
+jl_is_tuple(b),2,2,4
+"0 && ""Unlocking a lock in a different thread.""",2,2,4
+j < stmts->length,2,2,4
+jl_is_some_tag_type(t),2,2,4
+jl_is_int32(dimargs[i]),2,2,4
+!mfunc->inInference,2,2,4
+generator->unspecialized == NULL && generator->specTypes == jl_anytuple_type,2,2,4
+found,2,2,4
+n <= lam->nslots && n > 0,2,2,4
+jl_atomic_load_acquire(&ptls->signal_request) == 0,2,2,4
+jl_is_type(super),2,2,4
+((uptrint_t)sym & 0x7) == 0,2,2,4
+mandel_sum == 14719,2,2,4
+!jl_gc_is_enabled(),2,2,4
+jl_typeof(thk) == (jl_type_t*)jl_lambda_info_type,2,2,4
+jl_is_expr(f) && ((jl_expr_t*)f)->head == lambda_sym,2,2,4
+i < jl_array_len(a) && i >= 0,2,2,4
+ml->func,2,2,4
+toktype == TOK_NONE,2,2,4
+jl_is_mtable(jl_t0(gf->env)),2,2,4
+jl_is_expr(be),2,2,4
+(szc[i] < 16 && szc[i] % sizeof(void*) == 0) || (szc[i] % 16 == 0),2,2,4
+mt->module,2,2,4
+!(region->freemap[pg_idx/32] & msk),2,2,4
+jl_is_cpointer(v),2,2,4
+NWORDS(sizeof(jl_function_t))==3,2,2,4
+elt != (jl_value_t*)jl_bottom_type,2,2,4
+tree_literal_values==NULL && mode != MODE_AST,3,1,4
+fpath != fname,2,2,4
+i > 0,2,2,4
+jl_array_len(container) > 0,2,2,4
+"find_region(o, 1) == NULL",2,2,4
+jl_array_len(le) == 4,2,2,4
+jl_is_tuple(types),2,2,4
+jl_is_function(call_func),2,2,4
+n <= jl_linfo_nslots(lam) && n > 0,2,2,4
+jl_is_expr(expr),2,2,4
+jl_is_tuple(t),2,2,4
+tree_literal_values == NULL,2,2,4
+!ta,2,2,4
+nf == t->length,2,2,4
+ff != HT_NOTFOUND,2,2,4
+!a->flags.isshared,4,0,4
+((jl_expr_t*)be)->head == body_sym,2,2,4
+bt->env == NULL,2,2,4
+ty != (jl_value_t*)jl_bottom_type,2,2,4
+jl_typeof(cache) == (jl_value_t*)jl_methcache_type,2,2,4
+jl_is_bitstype(t),2,2,4
+kind == jl_tag_kind,2,2,4
+i < jl_tuple_len(t),2,2,4
+d >= 0,2,2,4
+v,3,1,4
+sig,2,2,4
+nc,2,2,4
+jl_is_symbol(arg),2,2,4
+!(newmeth->linfo && newmeth->linfo->ast) || newmeth->fptr == &jl_trampoline,2,2,4
+jl_is_tuple(gf->env),2,2,4
+ma->a->how == 2,2,2,4
+!invariant,3,1,4
+jl_is_tuple(jl_task_arg_in_transit),2,2,4
+buftype->name == jl_buffer_type->name,2,2,4
+sig == SIGSEGV,2,2,4
+jl_is_tuple(sig),2,2,4
+pe != NULL,2,2,4
+jl_is_svec(tvars),3,1,4
+i < jl_tuple_len(t) && i >= 0,2,2,4
+ap->length == bp->length,2,2,4
+___SYMBOLP(s),2,2,4
+!ta && !tb,2,2,4
+jl_is_some_tag_type(tc),2,2,4
+jl_is_func(meth),2,2,4
+jl_t1(p) != (jl_value_t*)a,2,2,4
+jl_is_datatype(tc),3,1,4
+jl_is_symbol(fname),2,2,4
+al < bl,2,2,4
+isvector(syms),2,2,4
+jl_is_cpointer_type(args[0]),2,2,4
+f->fptr == &jl_trampoline,2,2,4
+i >= 0 && (size_t)i < jl_datatype_nfields(st),2,2,4
+mode != MODE_MODULE_LAMBDAS,2,2,4
+jl_nparams(tt) == jl_array_len(argnames) || (generator->isva && (jl_nparams(tt) >= jl_array_len(argnames) - 1)),2,2,4
+vtt == (jl_value_t*)jl_struct_kind,2,2,4
+ml->func.linfo,2,2,4
+v->length > 1,2,2,4
+!ismanaged((uptrint_t)ip),2,2,4
+jl_is_expr(lle),2,2,4
+retfunc == newmeth,2,2,4
+jl_is_array(ae),2,2,4
+bt->linfo == NULL,2,2,4
+table->n > 0,2,2,4
+szc[i] % 4 == 0,2,2,4
+"jl_svecref(newparams,i) != (jl_value_t*)jl_bottom_type",2,2,4
+!tv->bound,2,2,4
+"maybe && ""find_region failed""",2,2,4
+"jl_nparams(tt) == jl_array_len(argnames) || (jl_is_rest_arg(jl_cellref(argnames, jl_array_len(argnames)-1)) && (jl_nparams(tt) >= jl_array_len(argnames) - 1))",2,2,4
+!iscons(cdr_(ee)),2,2,4
+N_GCHND >= n,2,2,4
+jl_is_datatype(dt),3,0,3
+jl_is_slot(var),2,1,3
+excpt != NULL,2,1,3
+n <= 8,2,1,3
+jl_nparams(tt) == jl_array_len(argnames) || (func->isva && (jl_nparams(tt) >= jl_array_len(argnames) - 1)),2,1,3
+*ip < vector_size(fl_apply_v),3,0,3
+jl_is_symbol(s),2,1,3
+jl_is_array(ast),2,1,3
+dt->uid == -1,2,1,3
+!a->flags.isshared || a->flags.how==3,2,1,3
+a->name == b->name,2,1,3
+pos > 0,2,1,3
+ex->head == module_sym,2,1,3
+fabs(pi-1.644834071848065) < 1e-12,2,1,3
+jl_is_svec(para),3,0,3
+jl_array_len(args) == 0,2,1,3
+is_ntuple_long(_dims),3,0,3
+ok,1,2,3
+li->inInference == 0,2,1,3
+"0 && ""not yet implemented""",2,1,3
+jl_is_lambda_info(thk),2,1,3
+isclosure(v),2,1,3
+i < REGION_COUNT && region->pages != NULL,2,1,3
+jl_isbits(t),2,1,3
+mark_sp == 0,2,1,3
+jl_datatype_size(jl_typeof(v)) == sizeof(c_type),2,1,3
+fib(20) == 6765,2,1,3
+idx < nkw,2,1,3
+ae!=NULL && be!=NULL,2,1,3
+jl_is_expr(ast),2,1,3
+jl_is_mtable(mt),2,1,3
+idx == n,2,1,3
+jl_nparams(tta) == jl_nparams(ttb),3,0,3
+jl_typeof(jl_typeof(v)),2,1,3
+0 <= C[0],2,1,3
+ml.unknown != NULL,2,1,3
+sizeof(void*) == sizeof(size_t),2,1,3
+mandel_sum == 14791,2,1,3
+m == n,2,1,3
+sub->name->primary != NULL,2,1,3
+jl_is_tuple_type(argtypes),2,1,3
+module_stack.len == l,2,1,3
+ti != (jl_value_t*)jl_bottom_type,2,1,3
+jl_is_bitstype(jl_typeof(v)),2,1,3
+nt == T_DOUBLE,2,1,3
+jl_tuple_len(types) != 1,1,1,2
+jl_typeof(ml.unknown) == (jl_value_t*)jl_typemap_entry_type,2,0,2
+ntp == ((jl_tag_type_t*)tc)->parameters->length,1,1,2
+!func->linfo,1,1,2
+"jl_is_tuple(ret) && jl_is_pointer(jl_fieldref(ret,0))",1,1,2
+!isleaf,2,0,2
+gc_bits(v) == GC_QUEUED || gc_bits(v) == GC_MARKED || gc_bits(v) == GC_MARKED_NOESC,1,1,2
+"ptrhash_get(&backref_table, mod) != HT_NOTFOUND",1,1,2
+"jl_typeis(a, jl_array_any_type)",2,0,2
+li->functionID > 0,1,1,2
+err == EINTR,1,1,2
+jl_typeof(li) == jl_lambda_info_type,1,1,2
+jl_is_struct_type(t) || jl_is_bits_type(t),1,1,2
+((jl_bits_type_t*)t)->nbits/8 == sizeof(x),1,1,2
+jl_is_svec(env->env),1,1,2
+i >= 0 && (size_t)i < ly->nfields,2,0,2
+"0 && ""Jeff doesn't think this is supposed to happen""",1,1,2
+tname == jl_tag_kind->name,1,1,2
+jl_is_tuple_type(t),2,0,2
+jl_tuple_len(t->parameters) == 0,1,1,2
+cb,1,1,2
+jl_is_typevar(lenv),1,1,2
+o->bits.gc != GC_QUEUED,1,1,2
+prev_sweep_mask == GC_MARKED_NOESC || pg->prev_nold >= pg->nold,1,1,2
+offs >= 0 && offs < backref_list.len,1,1,2
+i < jl_tuple_len(st->names),1,1,2
+buf->bits.gc != GC_OLD,1,1,2
+"0 && ""GC synchronization failure""",1,1,2
+jl_is_function(jl_inspect),1,1,2
+jl_array_len(((jl_expr_t*)l)->args),1,1,2
+"0 && ""Shouldn't happen.""",2,0,2
+argSP >= 0 && argSP < N_STACK,1,1,2
+jl_is_symbol(scmv),2,0,2
+!(ss[0]=='g' && isdigit(ss[1])),1,1,2
+jl_is_symbol(tgt),1,1,2
+jl_is_array(args[0]),1,1,2
+"jl_subtype((jl_value_t*)tt, (jl_value_t*)newtype, 0, 0)",1,1,2
+jl_is_typevar(T),1,1,2
+jl_nparams(types) > 0,2,0,2
+jl_is_lambda_info(meth),1,1,2
+"!ismanaged(fl_ctx, (uptrint_t)ip)",1,1,2
+jl_array_len(v) > 1,1,1,2
+sz <= GC_MAX_SZCLASS + sizeof(buff_t) && sizeclasses[JL_GC_N_POOLS-1] == GC_MAX_SZCLASS + sizeof(buff_t),1,1,2
+!(newmeth->linfo && newmeth->linfo->ast) || (newmeth->linfo->specTypes == method->linfo->specTypes) || (newmeth->fptr == &jl_trampoline && newmeth->linfo->fptr == &jl_trampoline && newmeth->linfo->functionObject == NULL && newmeth->linfo->specFunctionObject == NULL && newmeth->linfo->functionID == 0 && newmeth->linfo->specFunctionID == 0),1,1,2
+tn->mt->module == jl_gf_mtable(tn->mt->kwsorter)->module,1,1,2
+"jl_is_typevar(jl_svecref(t,i))",1,1,2
+jl_is_tuple_type(types),1,1,2
+!(newmeth->linfo && newmeth->linfo->ast) || (newmeth->linfo->specTypes == method->linfo->specTypes) || (newmeth->fptr == &jl_trampoline && newmeth->linfo->fptr == &jl_trampoline && newmeth->linfo->functionObjects.functionObject == NULL && newmeth->linfo->functionObjects.specFunctionObject == NULL && newmeth->linfo->functionID == 0 && newmeth->linfo->specFunctionID == 0),1,1,2
+sub->name->ctor != NULL,1,1,2
+jl_is_func(gf),1,1,2
+cb && jl_is_function(cb),1,1,2
+"jl_is_uint32(jl_fieldref(ret,1))",1,1,2
+"!jl_in_vinfo_array(closed, sp)",1,1,2
+jl_is_uint64(jl_t1(ret)),1,1,2
+bits == GC_MARKED_NOESC,1,1,2
+r != NULL,2,0,2
+i < REGION_COUNT && regions[i].pages != NULL,1,1,2
+"0 && ""TODO""",1,1,2
+ml->func->linfo,1,1,2
+"jl_subtype(tt, newtype, 0, 0)",1,1,2
+"jl_nparams(tt) == jl_array_len(oldargnames) || (jl_is_rest_arg(jl_cellref(oldargnames,jl_array_len(oldargnames)-1)) && (jl_nparams(tt) >= jl_array_len(oldargnames)-1))",1,1,2
+tt!=NULL,1,1,2
+jl_svec_len(p) == 2,1,1,2
+jl_is_datatype(jl_tparam0(types)),2,0,2
+jl_is_long(gensym_types),1,1,2
+linfo->specTypes,1,1,2
+type->names->length == t->length,1,1,2
+mandel_sum2 == mandel_sum * 100 * NITER,1,1,2
+"jl_is_typevar(jl_tupleref(t,i))",1,1,2
+F->linfo != NULL,1,1,2
+!li->inInference && !li->inCompile && li->code != jl_nothing || li->jlcall_api == 2,1,1,2
+jl_is_tuple(tvars),1,1,2
+i < HEAP_COUNT && heaps[i] != NULL,1,1,2
+!linfo->isstaged,1,1,2
+jl_is_array(cache),1,1,2
+!t->started,1,1,2
+pg->osize == p->osize,2,0,2
+s->julia_alloc,1,1,2
+!a->isshared || a->how==3,1,1,2
+t->done==0,1,1,2
+"jl_is_array(jl_cellref(le, 3))",1,1,2
+jl_tuple_len(p) == 2,1,1,2
+gc_bits(jl_astaggedvalue(v)),1,1,2
+((jl_function_t*)F)->fptr == &jl_trampoline,1,1,2
+F->fptr == &jl_trampoline,1,1,2
+"jl_is_tuple(ret) && jl_nfields(ret)==2 && jl_is_pointer(jl_fieldref(ret,0))",1,1,2
+0 <= idx && idx < 3,2,0,2
+jl_array_len(splist) == tvarslen,1,1,2
+args >= Stack && argSP < N_STACK,1,1,2
+(v) != NULL,1,1,2
+jl_tuple_len(a->parameters) == jl_tuple_len(b->parameters),1,1,2
+l->specTypes == NULL,1,1,2
+*bp != (uintptr_t)HT_NOTFOUND,2,0,2
+!nli->code || (nli->fptr == NULL && nli->jlcall_api == 0 && nli->functionObjects.functionObject == NULL && nli->functionObjects.specFunctionObject == NULL && nli->functionObjects.cFunctionList == NULL && nli->functionID == 0 && nli->specFunctionID == 0),1,1,2
+"!is_submodule(jl_current_module, m)",1,1,2
+val != 0,1,1,2
+t->parameters->length > 0,1,1,2
+jl_svec_len(l->sparam_vals) == 0 || l->sparam_vals == sp,1,1,2
+jl_typeof(li) == (jl_type_t*)jl_lambda_info_type,1,1,2
+nargs == 2,1,1,2
+jl_is_tuple(cache),1,1,2
+"0 && ""Should not be using pools in MEMDEBUG mode""",1,1,2
+jl_is_expr(ae),1,1,2
+"jl_typeis(t,jl_simplevector_type)",2,0,2
+!jl_is_gensym(var),1,1,2
+jl_is_mtable(jl_gf_mtable(gf)),1,1,2
+meth != NULL,1,1,2
+v != HT_NOTFOUND,1,1,2
+sz <= GC_MAX_SZCLASS + sizeof(jl_taggedvalue_t) && sizeclasses[JL_GC_N_POOLS-1] == GC_MAX_SZCLASS + sizeof(jl_taggedvalue_t),1,1,2
+F->fptr != NULL,1,1,2
+jl_is_function(args[1]),1,1,2
+ptail < (char*)a->data + (a->length*a->elsize),1,1,2
+jl_typeof(args[0]) == jl_lambda_info_type,1,1,2
+((jl_function_t*)F)->fptr != NULL,1,1,2
+i < REGION_COUNT && regions[i] != NULL,1,1,2
+"jl_is_typevar(jl_tupleref(sp,i))",1,1,2
+jl_is_long(vnb),1,1,2
+jl_is_uint32(jl_t1(ret)),1,1,2
+meth->def != NULL,1,1,2
+aty == jl_typeof(a),1,1,2
+((jl_expr_t*)arg)->head == colons_sym,1,1,2
+jl_is_function(bp_f),1,1,2
+meth->sparam_vals == jl_emptysvec,1,1,2
+jl_svec_len(types) != 1,1,1,2
+" offsetof(jl_typemap_level_t, arg1) == 0 * sizeof(jl_value_t*) && offsetof(jl_typemap_level_t, targ) == 1 * sizeof(jl_value_t*) && offsetof(jl_typemap_level_t, linear) == 2 * sizeof(jl_value_t*) && offsetof(jl_typemap_level_t, key) == 3 * sizeof(jl_value_t*) && sizeof(jl_typemap_level_t) == 4 * sizeof(jl_value_t*)",1,1,2
+jl_is_tuple(ret) && jl_is_pointer(jl_t0(ret)) && jl_is_int32(jl_t1(ret)),1,1,2
+jl_is_byte_string(f),1,1,2
+li->specTypes,1,1,2
+jl_is_bits_type(jl_typeof(v)),1,1,2
+unspec->functionID > 0,1,1,2
+v != DTINSTANCE_PLACEHOLDER,1,1,2
+junk == 0,1,1,2
+buf_type->name == jl_buffer_type->name,1,1,2
+jl_is_symbol(args[0]),1,1,2
+"0 && ""general sig match not implemented""",1,1,2
+jl_is_struct_type(jl_typeof(v)),1,1,2
+iscons(flv) && car_(flv) == jl_ast_ctx(fl_ctx)->jlgensym_sym,1,1,2
+((jl_expr_t*)ae)->head == list_sym,1,1,2
+tn->mt->kwsorter == NULL,1,1,2
+jl_is_expr(f->linfo->ast),1,1,2
+jl_is_datatype(type),2,0,2
+jl_is_tuple(ml->sig),1,1,2
+jl_is_lambda_info(args[0]),1,1,2
+i < jl_svec_len(t),2,0,2
+t->nbits/8 == sizeof(x),1,1,2
+jl_is_struct_type(thetype),1,1,2
+unspec->linfo->functionID > 0,1,1,2
+jl_bitstype_nbits(jl_typeof(v))/8 == sizeof(c_type),1,1,2
+jl_is_tuple(v),1,1,2
+mark_mode & GC_MARKED,1,1,2
+jl_typeof(v) == jl_type_type,1,1,2
+p == first,1,1,2
+((jl_function_t*)F)->linfo != NULL,1,1,2
+gc_bits(jl_astaggedvalue(v)) == GC_QUEUED || gc_bits(jl_astaggedvalue(v)) == GC_MARKED || gc_bits(jl_astaggedvalue(v)) == GC_MARKED_NOESC,1,1,2
+jl_is_expr(linfo->ast),1,1,2
+owner->flags.how != 3,1,1,2
+jl_svec_len(l->sparam_syms) == jl_svec_len(sp) || sp == jl_emptysvec,1,1,2
+linfo->functionID > 0,1,1,2
+cfunc != 0,1,1,2
+0 <= st->fielddesc_type && st->fielddesc_type <= 2,1,1,2
+!ndt->pointerfree,1,1,2
+jl_is_gf(F),1,1,2
+jl_tuple_len(type->names) == jl_tuple_len(t),1,1,2
+jl_atomic_load_acquire(&ptls2->signal_request) == 0,2,0,2
+jl_is_tuple(task_arg_in_transit),1,1,2
+jl_is_tuple_type(newsig),1,1,2
+jl_is_svec(args),1,1,2
+"!jl_cellref(found, found_i + 1)",1,1,2
+func->linfo,1,1,2
+gc_bits(bnd) != GC_QUEUED,1,1,2
+linfo,1,1,2
+!method->specTypes,1,1,2
+na > 0,1,1,2
+sz <= GC_MAX_SZCLASS + sizeof(buff_t) && sizeclasses[N_POOLS-1] == GC_MAX_SZCLASS + sizeof(buff_t),1,1,2
+di != (jl_value_t*)jl_bottom_type,2,0,2
+!(heap->freemap[pg_idx/32] & msk),1,1,2
+"jl_typeis(var,jl_slot_type)",1,1,2
+gc_bits(jl_typetagof(v)) == GC_QUEUED || gc_bits(jl_typetagof(v)) == GC_MARKED || gc_bits(jl_typetagof(v)) == GC_MARKED_NOESC,1,1,2
+mfunc != jl_bottom_func,1,1,2
+t->parameters->length == 0,1,1,2
+!a->isshared,1,1,2
+mt->module == jl_gf_mtable(mt->kwsorter)->module,1,1,2
+li->def != NULL,2,0,2
+issymbol(fl_apply_v),2,0,2
+f != NULL,1,1,2
+jl_is_tuple(ae),1,1,2
+jl_svec_len(l->sparam_syms) == jl_svec_len(sp),1,1,2
+" offsetof(jl_typemap_level_t, arg1) == 0 * sizeof(jl_value_t*) && offsetof(jl_typemap_level_t, targ) == 1 * sizeof(jl_value_t*) && offsetof(jl_typemap_level_t, linear) == 2 * sizeof(jl_value_t*) && offsetof(jl_typemap_level_t, any) == 3 * sizeof(jl_value_t*) && offsetof(jl_typemap_level_t, key) == 4 * sizeof(jl_value_t*) && sizeof(jl_typemap_level_t) == 5 * sizeof(jl_value_t*)",1,1,2
+"jl_is_typevar(jl_svecref(sp,i))",1,1,2
+jl_is_tag_type(bt->super),1,1,2
+!tb,1,1,2
+!newmeth->ast || (newmeth->specTypes == method->specTypes) || (newmeth->fptr == NULL && newmeth->functionObjects.functionObject == NULL && newmeth->functionObjects.specFunctionObject == NULL && newmeth->functionID == 0 && newmeth->specFunctionID == 0),1,1,2
+((jl_bits_type_t*)v->type)->nbits/8 == sizeof(c_type),1,1,2
+unspecialized != jl_bottom_func,1,1,2
+jl_tuple_len(t->parameters) > 0,1,1,2
+"!jl_in_gc && ""Safepoint triggered in GC""",1,1,2
+jl_is_gf(sorter),1,1,2
+n <= jl_linfo_nslots(s->lam) && n > 0,2,0,2
+buf->bits.gc != GC_QUEUED,1,1,2
+jl_array_len(le) == 3,1,1,2
+jl_is_datatype(elty),1,1,2
+!toplevel || nl==0,1,1,2
+jl_is_gf(mt->kwsorter),1,1,2
+jl_is_typector(t),1,1,2
+l->sparam_vals == jl_emptysvec,1,1,2
+jl_is_typevar(temp->a),1,1,2
+jl_is_tuple(*penv),1,1,2
+jl_is_tuple(tw),1,1,2
+ndt->name->primary == (jl_value_t*)t,2,0,2
+s != NULL,1,1,2
+args >= fl_ctx->Stack && argSP < fl_ctx->N_STACK,2,0,2
+jl_tuple_len(ap) == jl_tuple_len(bp),1,1,2
+jl_is_tuple(ret) && jl_is_pointer(jl_t0(ret)),1,1,2
+iscons(flv) && car_(flv) == fl_jlgensym_sym,1,1,2
+ntp == jl_tuple_len(((jl_datatype_t*)tc)->parameters),1,1,2
+jl_is_long(lenvar),1,1,2
+tn==jl_tuple_typename || ntp == jl_svec_len(((jl_datatype_t*)tc)->parameters),1,1,2
+meth->func->functionID > 0,1,1,2
+jl_is_array(le) && jl_array_len(le) == 4,1,1,2
+"!jl_is_submodule(m, jl_current_module)",1,1,2
+gc_bits(ptr) != GC_QUEUED,1,1,2
+ioq != NULL,1,1,2
+"0 && ""find_region failed""",1,1,2
+!mt->kwsorter,1,1,2
+"jl_is_uint64(jl_fieldref(ret,1))",1,1,2
+jl_is_array(rkw),1,1,2
+isdefinition || unsorted || newrec->issimplesig,1,1,2
+ngensym == 0,1,1,2
+f->linfo->fptr != NULL,1,1,2
+p->length == 2,1,1,2
+jl_is_function(t->name->ctor_factory),1,1,2
+o->bits.gc != GC_OLD,1,1,2
+"(((uptrint_t)(p))&0x7)==0 && ""flisp requires malloc to return 8-aligned pointers""",1,1,2
+i < list->len,1,1,2
+jl_is_tuple(dims),1,1,2
+"jl_typeis(a, jl_array_uint8_type)",2,0,2
+SP < N_STACK-4,1,1,2
+!module,1,1,2
+jl_array_len(((jl_expr_t*)stmt)->args) == 1,1,1,2
+a->flags.how != 3,2,0,2
+t->done==jl_false,1,1,2
+jl_is_gf(bp_f),1,1,2
+newrec->issimplesig,1,1,2
+f != HT_NOTFOUND,1,1,2
+(jl_value_t*)dt == jl_typeof(v),1,1,2
+!nli->ast || (nli->fptr == NULL && nli->jlcall_api == 0 && nli->functionObjects.functionObject == NULL && nli->functionObjects.specFunctionObject == NULL && nli->functionObjects.cFunctionList == NULL && nli->functionID == 0 && nli->specFunctionID == 0),1,1,2
+owner->how != 3,1,1,2
+ntp == jl_tuple_len(((jl_tag_type_t*)tc)->parameters),1,1,2
+e != NULL,2,0,2
+jl_is_datatype(tt),1,1,2
+!jl_in_stackwalk,1,0,1
+meth,1,0,1
+!li->inferred || li->functionObjectsDecls.functionObject == NULL,1,0,1
+mode==MODE_AST || sz!=0 || loc,1,0,1
+jl_astaggedvalue(v)->bits.gc,1,0,1
+jl_is_array(ai),1,0,1
+jl_is_long(ssavalue_types),1,0,1
+under_wine || p == first,1,0,1
+gc_marked(mark_mode),1,0,1
+jl_is_module(scmv),1,0,1
+tag == 0 || tag == 5 || tag == 6,1,0,1
+jl_is_array(sparams),1,0,1
+newoffs <= offset,1,0,1
+nbytes >= oldnbytes,1,0,1
+np < 0x7FFFFFFF,1,0,1
+jl_is_symbol(args[i]),1,0,1
+tta->name == jl_tuple_typename,1,0,1
+jl_nparams(argtypes)>0,1,0,1
+jl_is_symbol(temp),1,0,1
+!li->inCompile,1,0,1
+jl_is_va_tuple(tt),1,0,1
+i <= 256,1,0,1
+!jl_gc_running,1,0,1
+jl_is_datatype(gf) && gf->name->mt,1,0,1
+jl_is_lambda_info(f),1,0,1
+"0 && ""jl_fs_read_byte: Invalid return value from uv_fs_read""",1,0,1
+!mark_sp,1,0,1
+ntp == jl_svec_len(((jl_datatype_t*)tc)->parameters),1,0,1
+jl_svec_len(a->parameters) == jl_svec_len(b->parameters),1,0,1
+bits == GC_MARKED,1,0,1
+jl_gc_running,1,0,1
+jl_is_method(method),1,0,1
+jl_expr_nargs(ex) != 1 || jl_is_symbol(fname),1,0,1
+jl_is_array(data),1,0,1
+"jl_typeis(m, jl_module_type)",1,0,1
+al % alignm == 0,1,0,1
+bto->owner == to,1,0,1
+!freedall,1,0,1
+name && bp,1,0,1
+stream,1,0,1
+isfunction(fl_apply_e),1,0,1
+jl_svec_len(linfo->sparam_syms) == jl_svec_len(sp) || sp == jl_emptysvec,1,0,1
+"lock->owner == jl_thread_self() && ""Unlocking a lock in a different thread.""",1,0,1
+" offsetof(jl_typemap_level_t, arg1) == 0 * sizeof(jl_value_t*) && offsetof(jl_typemap_level_t, targ) == 2 * sizeof(jl_value_t*) && offsetof(jl_typemap_level_t, linear) == 4 * sizeof(jl_value_t*) && offsetof(jl_typemap_level_t, any) == 5 * sizeof(jl_value_t*) && offsetof(jl_typemap_level_t, key) == 6 * sizeof(jl_value_t*) && sizeof(jl_typemap_level_t) == 7 * sizeof(jl_value_t*)",1,0,1
+mandel_sum2 == 14791 * NITER,1,0,1
+(jl_gc_sizeclasses[i] < 16 && jl_gc_sizeclasses[i] % sizeof(void*) == 0) || (jl_gc_sizeclasses[i] % 16 == 0),1,0,1
+"ptrhash_get(&backref_table, jl_array_ptr_ref(jl_module_init_order, i)) != HT_NOTFOUND",1,0,1
+!expect,1,0,1
+!nli->ast || (nli->fptr == NULL && nli->functionObjects.functionObject == NULL && nli->functionObjects.specFunctionObject == NULL && nli->functionObjects.cFunctionList == NULL && nli->functionID == 0 && nli->specFunctionID == 0),1,0,1
+"jl_subtype(b, (jl_value_t*)jl_builtin_type, 1)",1,0,1
+jl_is_typevar(tv) && !tv->bound,1,0,1
+sig == SIGSEGV || sig == SIGBUS,1,0,1
+nbytes == sizeof(meminfo),1,0,1
+jl_is_datatype(fieldtype) && !fieldtype->abstract && !fieldtype->mutabl,1,0,1
+region->allocmap[pg_idx/32] & msk,1,0,1
+s,1,0,1
+fl_ctx->readtoktype == TOK_NONE,1,0,1
+ftypes == NULL || ftypes == jl_emptysvec,1,0,1
+newbuf,1,0,1
+jl_get_ptls_states()->gc_state == JL_GC_STATE_WAITING,1,0,1
+jl_typeof(a) == jl_array_uint8_type,1,0,1
+jl_get_ptls_states()->gc_state != 0,1,0,1
+t->stkbuf != NULL,1,0,1
+tree_enclosing_module != NULL,1,0,1
+jl_safepoint_enable_cnt[idx] > 0,1,0,1
+inside_typedef && !istuple,1,0,1
+"jl_typeis(thk->code, jl_array_any_type)",1,0,1
+"jl_typeis(stmts, jl_array_any_type)",1,0,1
+jl_datatype_nfields(t)==1,1,0,1
+i <= Null_tag,1,0,1
+i < jl_datatype_nfields(st),1,0,1
+jl_base_module != NULL,1,0,1
+loc != NULL,1,0,1
+ma->a->flags.how == 2,1,0,1
+t < jl_n_threads,1,0,1
+partial_inst.len == 0,1,0,1
+jl_is_expr(bodyex),1,0,1
+offs < backref_list.len,1,0,1
+ptls->gc_state == 0,1,0,1
+mb != NULL,1,0,1
+"!jl_typeis(ff, jl_voidpointer_type)",1,0,1
+a->offset == 0,1,0,1
+definition->code,1,0,1
+!module_in_worklist(m),1,0,1
+jl_safepoint_enable_cnt[idx] <= 2,1,0,1
+result != NULL,1,0,1
+dt,1,0,1
+li->jlcall_api != 2,1,0,1
+iscprim(e),1,0,1
+ndims != 1,1,0,1
+dest->flags.ptrarray && src->flags.ptrarray,1,0,1
+expect,1,0,1
+id >= 0 && id < UINT16_MAX,1,0,1
+i < vector_size(fl_apply_v),1,0,1
+pg->fl_begin_offset != -1,1,0,1
+"0 && ""unexpected number of arguments to an intrinsic function""",1,0,1
+nfix >= 0,1,0,1
+!(newmeth->linfo && newmeth->linfo->ast) || (newmeth->fptr == &jl_trampoline && newmeth->linfo->fptr == &jl_trampoline && newmeth->linfo->functionObject == NULL && newmeth->linfo->specFunctionObject == NULL && newmeth->linfo->functionID == 0 && newmeth->linfo->specFunctionID == 0),1,0,1
+!prev_sweep_full || pg->prev_nold >= pg->nold,1,0,1
+linfo->functionObjectsDecls.functionObject != NULL || linfo->jlcall_api == 2,1,0,1
+jl_datatype_nfields(ft) > 0,1,0,1
+i < len,1,0,1
+jl_svec_len(func->sparam_syms) == jl_svec_len(sparam_vals),1,0,1
+buf->bits.gc == GC_OLD_MARKED,1,0,1
+tn->module,1,0,1
+"0 && ""No one should wait for the GC on another thread""",1,0,1
+jl_tls_key != TLS_OUT_OF_INDEXES,1,0,1
+"!((jl_tvar_t*)jl_svecref(para, i))->bound",1,0,1
+!ios_eof(s),1,0,1
+"!ismanaged(fl_ctx, (uintptr_t)ip)",1,0,1
+ctx->roots,1,0,1
+li->inInference,1,0,1
+m->parent != m,1,0,1
+jl_typeof(primarydt->name->mt->kwsorter) == (jl_value_t*)dt,1,0,1
+isleaf,1,0,1
+hntdll,1,0,1
+jl_is_array(args0[0]),1,0,1
+jl_is_datatype(primarydt),1,0,1
+((uintptr_t)gc_perm_pool) % JL_SMALL_BYTE_ALIGNMENT == 0,1,0,1
+request == 1,1,0,1
+done,1,0,1
+store_unboxed(el_type) == !data->flags.ptrarray,1,0,1
+jl_is_structtype(thetype),1,0,1
+jl_is_svec(cache),1,0,1
+isvector(fl_apply_v),1,0,1
+"iscons(ast) && car_(ast) == symbol(fl_ctx,""toplevel"")",1,0,1
+"(((uintptr_t)(p))&0x7)==0 && ""flisp requires malloc to return 8-aligned pointers""",1,0,1
+jl_is_svec(svec),1,0,1
+!li->inInference && !li->inCompile && (li->code != jl_nothing || li->jlcall_api == 2),1,0,1
+t_uid_ctr != 0,1,0,1
+!ndt->abstract,1,0,1
+jl_typeof(pml->unknown) == (jl_value_t*)jl_typemap_entry_type,1,0,1
+o->bits.gc == GC_OLD_MARKED,1,0,1
+linfo->sparam_vals == jl_emptysvec,1,0,1
+"oldlen == a->nrows && ""Race condition detected: recursive resizing on the same array.""",1,0,1
+bp,1,0,1
+jl_is_lambda_info(meth) && !meth->inInference,1,0,1
+ndt->name->names == jl_emptysvec,1,0,1
+i < n-1 || temp == NULL,1,0,1
+t->types == jl_emptysvec,1,0,1
+fl_ctx->N_GCHND >= n,1,0,1
+!dt->abstract,1,0,1
+t->uid != 0,1,0,1
+jl_is_string(f),1,0,1
+li->def || li->inInference == 0,1,0,1
+find_region(o) == NULL,1,0,1
+"memchr(fname, 0, len) == NULL",1,0,1
+fl_ctx->SP < fl_ctx->N_STACK-4,1,0,1
+x == isleaf,1,0,1
+args[0],1,0,1

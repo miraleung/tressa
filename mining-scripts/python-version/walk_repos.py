@@ -69,7 +69,7 @@ def analyze():
                 r.csv(prefix + ".csv")
 
             result_save(analysis.names_result, "names")
-            result_save(analysis.dist_result, "frequency")
+            result_save(analysis.dist_result, "distance")
             result_save(analysis.time_result, "time")
             result_save(analysis.activity_result, "activity")
         except:

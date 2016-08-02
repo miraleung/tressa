@@ -1,0 +1,1520 @@
+x_val,y_added,y_removed,y_combined
+0,220,168,388
+rc == MYSQL_NO_DATA,140,138,278
+"page_zip->data, page_zip_get_size(page_zip)",96,64,160
+fixed == 1,104,51,155
+"rec, rec_offs_data_size(offsets)",74,50,124
+"rec - rec_offs_extra_size(offsets), rec_offs_extra_size(offsets)",60,40,100
+1 == my_process_stmt_result(stmt),48,48,96
+(u_int32_t)(bp - (u_int8_t *)logrec.data) == logrec.size,44,44,88
+1 == my_process_result_set(result),44,44,88
+"page, UNIV_PAGE_SIZE",42,28,70
+"data, len",35,22,57
+1 == mysql_affected_rows(mysql),27,27,54
+"TABLE, FOLD",30,18,48
+1==0,24,24,48
+stmt != 0,22,18,40
+info->stack != NULL,13,26,39
+"table, fold",24,15,39
+rc == 0,21,17,38
+ 0 == my_process_result_set(result),19,19,38
+length1 == 5,18,18,36
+rc == MYSQL_NEED_DATA,18,18,36
+dst != NULL,17,18,35
+"strcmp(szData, ""venu"") == 0",17,17,34
+void,20,12,32
+entry,20,12,32
+"block, len",20,12,32
+"src, size",16,14,30
+loc == &dbenv->test_abort,14,14,28
+map->bitmap,17,11,28
+"buf, n",18,10,28
+FALSE,27,1,28
+param_count == 2,13,13,26
+nData == 20,13,13,26
+size > 0,14,12,26
+nData == 10,13,13,26
+"bpage, BUF_BUDDY_LOW << i",14,12,26
+rc == 1,13,13,26
+block->status & (BLOCK_READ | BLOCK_IN_USE),26,0,26
+src != NULL,13,12,25
+is_null[0],12,12,24
+dbenv != NULL,12,12,24
+2 == my_process_result_set(result),12,12,24
+buflen >= sizeof(struct hostent_data),12,12,24
+my_process_stmt_result(stmt) == 1,12,12,24
+"strcmp(field->name, ""col1"") == 0",12,12,24
+length[4] == 4,12,12,24
+"strcmp(szData, ""monty"") == 0",12,12,24
+block->hash_link,20,2,22
+2 == my_process_stmt_result(stmt),11,11,22
+"strcmp(s_data, buff) == 0",11,11,22
+"block->frame, UNIV_PAGE_SIZE",16,5,21
+r==0,11,10,21
+DATA,13,8,21
+"c_stream.next_in, c_stream.avail_in",12,8,20
+"bpage, sizeof *bpage",12,8,20
+"rec_get_start(insert_rec, offsets), rec_offs_size(offsets)",12,8,20
+"rec_start, extra_size",12,8,20
+"data, src - start",12,8,20
+true,10,10,20
+(int)tiny_data == my_process_result_set(result),10,10,20
+length[6] == (ulong) len,9,9,18
+length == 7,9,9,18
+t_length == 1,9,9,18
+l_length == 4,9,9,18
+length[i] == bit,9,9,18
+"F_ISSET(fhp, DB_FH_OPENED) && fhp->fd != -1",9,9,18
+my_process_stmt_result(stmt) == 0,9,9,18
+length1 == 4,9,9,18
+!block->prev_used,16,2,18
+affected_rows == exp_count,9,9,18
+length[5] == 8,9,9,18
+rc == 3,9,9,18
+s_length == 2,9,9,18
+ll_length == 8,9,9,18
+pgset != NULL,9,9,18
+field,10,6,16
+mysql != 0,9,7,16
+result==0,9,7,16
+"strcmp(field->name, ""col3"") == 0",8,8,16
+"strcmp(field->table, ""test_prep_update"") == 0",8,8,16
+1,8,8,16
+ dtuple_t* tuple,10,6,16
+"1 == my_process_result_set(mysql,result)",8,8,16
+"strcmp(field->table, ""test_prep_select"") == 0",8,8,16
+sdbc->mylock.off == LOCK_INVALID,8,8,16
+"strcmp(szData, ""mysql"") == 0",8,8,16
+block->prev_changed && *block->prev_changed == block,16,0,16
+"strncmp(c2, ""1"", 1) == 0 && l2 == 1",8,8,16
+extra != NULL,6,9,15
+al != NULL,6,9,15
+ret == BUFFER_LEN,11,4,15
+" row_get_rec_trx_id(rec, index, offsets)",7,8,15
+5 == my_process_stmt_result(stmt),7,7,14
+c1 == 2 && l2 == 4,7,7,14
+block->hash_link->file == file,14,0,14
+(size_t) buflen >= sizeof(*result),7,7,14
+count == 2,7,7,14
+"0, __FILE__, (ulint) __LINE__",9,5,14
+fixed,9,5,14
+"block->page.zip.data, zip_size",10,4,14
+"buf, len",9,5,14
+src == dst && srclen == dstlen,12,2,14
+rc,7,6,13
+ctxn == NULL,6,6,12
+get_count == set_count,6,6,12
+"1 == my_stmt_result(""SELECT * FROM test_bind_long"",50)",6,6,12
+i_data == 3999,6,6,12
+fixed == 0,8,4,12
+!block->next_used,12,0,12
+meta->dbmeta.encrypt_alg != 0,6,6,12
+flags != DB_CURRENT,6,6,12
+"((buf_block_t*) bpage)->frame, UNIV_PAGE_SIZE",8,4,12
+(u_int32_t)(bp - (u_int8_t *)logrec.data) <= logrec.size,6,6,12
+length[6] == len,6,6,12
+0 == my_process_stmt_result(stmt),6,6,12
+id == 10,6,6,12
+ctp->ct_type == CT_CURSOR,6,6,12
+length == 1,6,6,12
+!block->requests,10,2,12
+longlong_value == 35999,6,6,12
+sdbp->s_refcnt != 0,6,6,12
+block->status & BLOCK_IN_USE,12,0,12
+TRUE,6,6,12
+data[i] == round+i+1,6,6,12
+hp->hash_page_dirty != 0,6,6,12
+tiny_value == 200,6,6,12
+vio->sd >= 0,6,5,11
+map->bitmap && bitmap_bit < map->bitmap_size*8,7,4,11
+to <= end,7,4,11
+block->hash_link && block->hash_link->block == block,10,0,10
+length[0] == 1,5,5,10
+"prev_b, sizeof *prev_b",6,4,10
+al->argv != NULL,4,6,10
+"src, UNIV_PAGE_SIZE",6,4,10
+DATA->NAME,6,4,10
+"bpage->zip.data, page_zip_get_size(&bpage->zip)",6,4,10
+"dst, size",6,4,10
+"c_stream->next_in, c_stream->avail_in",6,4,10
+"page_zip, sizeof *page_zip",6,4,10
+"!memcmp(buffer, TEST_STRING, ret)",5,5,10
+4 == my_process_stmt_result(stmt),5,5,10
+"&block->page, sizeof block->page",6,4,10
+"buf, BUF_BUDDY_LOW << i",6,4,10
+pos < m_size,6,4,10
+"stored - PAGE_ZIP_DIR_SLOT_SIZE, PAGE_ZIP_DIR_SLOT_SIZE",6,4,10
+is_null[1],5,5,10
+data.size == sizeof(u_int32_t),5,5,10
+map2->bitmap,5,5,10
+stmt == 0,5,5,10
+"bpage, sizeof(buf_block_t)",6,4,10
+map->bitmap && map2->bitmap && map->bitmap_size==map2->bitmap_size,6,4,10
+"F_ISSET(dbp, DB_AM_CHKSUM)",5,5,10
+ext_end - n_ext * BTR_EXTERN_FIELD_REF_SIZE,6,4,10
+"externs - (PAGE_ZIP_DIR_SLOT_SIZE + DATA_TRX_ID_LEN + DATA_ROLL_PTR_LEN), PAGE_ZIP_DIR_SLOT_SIZE + DATA_TRX_ID_LEN + DATA_ROLL_PTR_LEN",6,4,10
+"HASH_GET_NEXT(NAME, DATA)",6,4,10
+(int)f_data == round+1+i,5,5,10
+key.size == sizeof(db_pgno_t),5,5,10
+(int)d_data == round+2+i,5,5,10
+"strcmp(szData, ""MySQL"") == 0",5,5,10
+"block[0], 3 * sizeof block[0]",6,4,10
+length[2] == 4,5,5,10
+"block[0], b - block[0]",6,4,10
+"src_zip->data, page_zip_get_size(page_zip)",6,4,10
+"col, dfield_get_type(&fields[i])",6,4,10
+!error,7,3,10
+"data, src - rec",6,4,10
+"rec, size",6,4,10
+"block[0], sizeof block[0]",6,4,10
+gNdbMem_nAWEinfo < cNdbMem_nMaxAWEinfo,5,4,9
+! ieee_buffer_emptyp (&info->vars),3,6,9
+read_length > 0,6,3,9
+block->hash_link->block == block,8,1,9
+map->bitmap && bitmap_bit < map->n_bits,6,3,9
+c,6,3,9
+!result,5,4,9
+tmpThread->hThread,5,4,9
+sd != 0,4,4,8
+cnt <= keycache->blocks_used,4,4,8
+mysql_more_results(mysql_local) == 0,4,4,8
+offset >= 0 && (unsigned) offset < array->n_extent,4,4,8
+"strcmp(data, ""MySQL - Open Source"") == 0",4,4,8
+"strcmp(c2, ""mysql"") == 0 && l2 == 5",4,4,8
+!block->prev_changed,6,2,8
+"strcmp(field->table, ""test_dateformat"") == 0",4,4,8
+exp_count == mysql_stmt_affected_rows(stmt),4,4,8
+map1->bitmap && map2->bitmap && map1->bitmap_size==map2->bitmap_size,5,3,8
+"strcmp(t_data, ""120"") == 0",4,4,8
+length == 19,4,4,8
+id == 9876,4,4,8
+block->hash_link->diskpos == filepos,8,0,8
+"strcmp(data, ""my\'sql\'"") == 0",4,4,8
+"strncmp(data, ""j"", 1) == 0 && length == 10",4,4,8
+vio->ssl_!=0,4,4,8
+"strcmp(d_data, ""58.89"") == 0",4,4,8
+"strncmp(data, ""abcd"", 4) == 0 && length == 10",4,4,8
+nData == my_process_result_set(result),4,4,8
+"strncmp(buffer, ""Database"", 8) == 0",4,4,8
+mysql_affected_rows(mysql) == NUM_ROWS,4,4,8
+"strcmp(dt, ""2010-07-10 00:00:00"") == 0",4,4,8
+"strcmp(field->table, table) == 0",4,4,8
+"strncmp(buffer, ""Popula"", 6) == 0",4,4,8
+"strcmp(ts_6, ""1999-12-29 00:00:00"") == 0",4,4,8
+udouble_val == ulonglong2double(uint64_val),4,4,8
+data.size == sizeof(VRFY_CHILDINFO),4,4,8
+db_cipher->adj_size(pg_off) == 0,4,4,8
+"strncmp(c2, ""mysq"", 4) == 0 && l2 == 5",4,4,8
+lp->lsn.file == nlsn.file,4,4,8
+"strcmp(c2, ""venu"") == 0 && l2 == 4",4,4,8
+map->bitmap && bitmap_bit < map->bitmap_size,4,4,8
+db != NULL,4,4,8
+"strcmp(field->name, ""YEAR"") == 0",4,4,8
+"strcmp(data, str_data) == 0",4,4,8
+"log_compare (&rp->lsn, &lp->lsn) == 0",4,4,8
+al->argv[i] != NULL,3,5,8
+fnp->id == DB_LOGFILEID_INVALID,4,4,8
+db_cipher != NULL,4,4,8
+"strcmp(name, ""mysql"") == 0",4,4,8
+"!F_ISSET(dbp, DB_AM_SECONDARY)",4,4,8
+"strcmp(date, ""2002-01-02"") == 0",4,4,8
+(int)f_data == rc,4,4,8
+"strcmp(name, ""updated"") == 0",4,4,8
+"strlen(canonical_buff) == out_length && strncmp(out_buff, canonical_buff, out_length) == 0",4,4,8
+pip->pi_refcount == 0,4,4,8
+"strcmp(data, ""'"") == 0",4,4,8
+ dfield_t* field,5,3,8
+"strcmp(field->db, db) == 0",4,4,8
+txn != NULL,4,4,8
+"strncmp(c2, ""venu"", 4) == 0 && l2 == 4",4,4,8
+"strcmp(var, ""max_error_count"") == 0",4,4,8
+!block->next_changed,6,2,8
+"strcmp(field->name, ""col2"") == 0",4,4,8
+r != 0,4,4,8
+"strcmp(field->org_name, org_name) == 0",4,4,8
+"strcmp(time, ""12:49:00"") == 0",4,4,8
+lp->b_off == 0,4,4,8
+cnt <= my_blocks_used,4,4,8
+"strcmp(ts, ""2002-01-02 17:46:59"") == 0",4,4,8
+count == 0,4,4,8
+"strncmp(bData, ""mysql"", 5) == 0",4,4,8
+"strcmp(field->org_table, org_table) == 0",4,4,8
+ptr->ssl_context_ != 0,4,4,8
+(int)d_data == rc,4,4,8
+"strcmp(buffer, ""Open-Source"") == 0",4,4,8
+3 == my_process_stmt_result(stmt),4,4,8
+!lp->db_log_inmemory,4,4,8
+"strcmp(field->name, name) == 0",4,4,8
+"hcp->indx == 0 && F_ISSET(hcp, H_DELETED)",4,4,8
+cnt <= _my_blocks_used,4,4,8
+length[6] == 8,4,4,8
+ptr != 0,4,4,8
+keycache->can_be_used,8,0,8
+mysql_next_result(mysql_local) == -1,4,4,8
+"0 == my_process_result_set(mysql,result)",4,4,8
+"strcmp(field->def, def) == 0",4,4,8
+"strncmp(data, ""fg"", 2) == 0 && length == 10",4,4,8
+length[5] == 4,4,4,8
+m_status == DA_OK || m_status == DA_EOF,4,3,7
+fixed == TRUE,7,0,7
+len <= sizeof(epbuf),4,3,7
+argv0 != NULL,3,4,7
+al->argv[al->argc] != NULL,3,4,7
+nope,7,0,7
+index < m_size,7,0,7
+name != NULL,4,3,7
+" dict_field_get_col(dict_index_get_nth_field( index, i)), dfield_get_type(field)",5,2,7
+mutex,4,3,7
+getopt.id == -1,6,0,6
+c1 == 1 && l1 == 4,3,3,6
+(volatile int)activeReferences >= 0,2,4,6
+LF_ISSET(DB_CREATE),3,3,6
+c1 == 2 && l1 == 4,3,3,6
+nData == 1000 || nData == 88 || nData == 389789,3,3,6
+"strcmp(data, ""5.61"") == 0",3,3,6
+d_length == 10,3,3,6
+length[3] == 1,3,3,6
+id == 1,3,3,6
+is_null == 1,3,3,6
+current_statement!=0,2,4,6
+row[i] == 0,3,3,6
+year == 2010,3,3,6
+TYPE(h) == P_INVALID,3,3,6
+b_data == 54,3,3,6
+pos_in_file == info->end_of_file,4,2,6
+t_length == 8,3,3,6
+buffer[1] == 'X',3,3,6
+long_value == -127,3,3,6
+cp->csp - cp->sp == ncp->csp - ncp->sp,3,3,6
+!block->hash_link,4,2,6
+info->type_stack != NULL && info->type_stack->type.classdef != NULL,2,4,6
+type->u.kclass->id > info->base_id,2,4,6
+length[7] == 8,3,3,6
+ts4_length == 0,3,3,6
+"strcmp(row[i], ""22"") == 0",3,3,6
+buffer[0] == 'M',3,3,6
+size < MYSQL_NO_BIT_FOUND,3,3,6
+f_data == 2,3,3,6
+ptrace_regs!=0,2,4,6
+size() == rhs.size(),3,3,6
+length[0] == 3,3,3,6
+bLength == 5,3,3,6
+szLength == 4,3,3,6
+param->buffer_length != 0,4,2,6
+10 == mysql_num_fields(result),3,3,6
+s_data == 2999,3,3,6
+info->indent == 0,2,4,6
+double_data == o_double_data,3,3,6
+info->stack->next != NULL,2,4,6
+ctp->ct_type == CT_ENV,3,3,6
+nData == (int)my_process_stmt_result(stmt),3,3,6
+HA_ERR_FIRST + array_elements(handler_error_messages) == HA_ERR_LAST + 1,4,2,6
+(ctp)->ct_type & (type),3,3,6
+field->length == length,3,3,6
+long_value == -5999,3,3,6
+!STD_LOCKING(dbc) || cp->lock_mode != DB_LOCK_NG,3,3,6
+ i == total_stmts,3,3,6
+length[2] == 2,3,3,6
+param_count == exp_count,3,3,6
+row[17] != 0,3,3,6
+data.size = sizeof(int),3,3,6
+!(block->status & BLOCK_CHANGED),6,0,6
+tm[i].year == 0 || tm[i].year == year+count,3,3,6
+data[i] == rc+i,3,3,6
+tiny_data == o_tiny_data,3,3,6
+isBlob(),2,4,6
+length == MYSQL_NULL_DATA,3,3,6
+Count >= left_length,4,2,6
+rc == (int)nData,3,3,6
+flags == 0,3,3,6
+real_data == o_real_data,3,3,6
+0 == mysql_more_results(mysql),3,3,6
+length[i] == 4,3,3,6
+tm[i].second_part == 0 || tm[i].second_part == second_part+count,3,3,6
+(head)->tqh_first == (elm),3,3,6
+param_count == 0,3,3,6
+"strcmp(row[i], ""88"") == 0",3,3,6
+"!F_ISSET(dbc->dbp, DB_AM_SECONDARY)",3,3,6
+field_count == exp_count,3,3,6
+!(block->status & BLOCK_REASSIGNED),6,0,6
+length[6] == 4,3,3,6
+dt_length == 19,3,3,6
+small_data == o_small_data,3,3,6
+"strcmp(data, ""10.22"") == 0",3,3,6
+is_null[0] == 0,3,3,6
+t_data == 19,3,3,6
+"F_ISSET(dbp, DB_AM_SECONDARY)",3,3,6
+0 <= idx && (uint) idx < arr.elements,3,3,6
+info->type_stack != NULL && info->type_stack->type.classdef != NULL && info->type_stack->type.classdef->method != NULL,2,4,6
+stmtTxActive,2,4,6
+length == 8,3,3,6
+&keycache->cache_lock,4,2,6
+short_value == -5999,3,3,6
+3 == my_process_result_set(result),3,3,6
+length[1] == len,3,3,6
+short_value == -128,3,3,6
+op == DB_TXN_PRINT,3,3,6
+tm[i].month == 0 || tm[i].month == month+count,3,3,6
+"strcmp(data, ""8.00"") == 0",3,3,6
+id == 0,3,3,6
+info->block_depth == 1,2,4,6
+tiny_value == 0,3,3,6
+length[1] == 4,3,3,6
+accessed_table >= 0 && accessed_table < STMT_ACCESS_TABLE_COUNT,4,2,6
+tm[i].second == 0 || tm[i].second == sec+count,3,3,6
+rc != 0,3,3,6
+ 1000 == mysql_num_fields(field_res),3,3,6
+data.size == sizeof(int),3,3,6
+short_value == 35999,3,3,6
+!stmt,3,3,6
+"(int)tiny_data == my_process_result_set(mysql,result)",3,3,6
+!block->status,4,2,6
+m_status == DA_OK,4,2,6
+ts_4[0] == '\0',3,3,6
+length[5] == 5,3,3,6
+field->org_name[0] == '\0',3,3,6
+length == 5,3,3,6
+is_null[i],3,3,6
+indx < BUILTIN_TYPE_COUNT,2,4,6
+long_value == 35999,3,3,6
+tm[i].day == 0 || tm[i].day == day+count,3,3,6
+longlong_value == 255,3,3,6
+b_data == 4999999,3,3,6
+length[4] == 8,3,3,6
+field->table[0] == '\0',3,3,6
+1 == my_process_result(mysql),3,3,6
+"1 == my_stmt_result(""SELECT ROW(1, 7) IN (select id, id1 from test_sub2 WHERE id1= 7)"")",3,3,6
+row_count == 2,3,3,6
+is_null[i] == 0,3,3,6
+tm[i].hour == 0 || tm[i].hour == hour+count,3,3,6
+length[3] == 2,3,3,6
+item,5,1,6
+length == 11,3,3,6
+param_count == 1,3,3,6
+big_data == o_big_data,3,3,6
+(page_st == PAGE_TO_BE_READ) || (block->status & BLOCK_READ),6,0,6
+ts_length == 19,3,3,6
+rep->priority != 0,3,3,6
+"1 == my_stmt_result(""SELECT ROW(1, 7) IN (select id, id1 from test_sub2 WHERE id1= 8)"")",3,3,6
+int_data == o_int_data,3,3,6
+6 == mysql_num_fields(result),3,3,6
+mysql_errno(mysql) == err,3,3,6
+ts6_length == 19,3,3,6
+" col, dfield_get_type(dtuple_get_nth_field( dtuple, i))",4,2,6
+y_length == 4,3,3,6
+field->type == type,3,3,6
+wtree->with_delete == 0,3,2,5
+basedir != NULL,2,3,5
+"!memcmp(buffer, test_string, ret)",5,0,5
+cp != NULL,2,3,5
+!info->bulk_insert && (!rows || rows >= MI_MIN_ROWS_TO_USE_BULK_INSERT),3,2,5
+astate != NULL,2,3,5
+dst <= end,3,2,5
+!mysql_more_results(mysql),3,2,5
+"cached_rec + templ->mysql_col_offset, templ->mysql_col_len",3,2,5
+sizeof(LARGE_INTEGER) == sizeof(query_performance_frequency),3,2,5
+thr_client_alarm,4,1,5
+keypos <= endpos,3,2,5
+0 < i && i <= m->g->nsub,5,0,5
+is_started(),5,0,5
+bitmap_size != ~(uint) 0,2,3,5
+"prebuilt->fetch_cache [prebuilt->fetch_cache_first], prebuilt->mysql_prefix_len",3,2,5
+lockfile != NULL,3,2,5
+"info->end_of_file - (info->append_read_pos-info->write_buffer) == (res=my_tell(info->file,MYF(0)))",3,2,5
+argp->flag != 0,2,2,4
+mysql_next_result(mysql_local) > 0,2,2,4
+double_val == (longlong) uint64_min,2,2,4
+block->hash_link == hash_link,4,0,4
+(A) == (B) || ((A)+(C)) <= (B) || ((B)+(C)) <= (A),2,2,4
+"strcmp(row[field],exp_data) == 0",2,2,4
+LOCK_ISSET(*lock),2,2,4
+length[1] == 2,2,2,4
+result == TCL_OK,2,2,4
+buf1_len == strlen(cp1251),2,2,4
+hcp->page != NULL,2,2,4
+dbp->type != DB_UNKNOWN,2,2,4
+err == DB_DUPLICATE_KEY,2,2,4
+"nData == my_process_result_set(mysql,result)",2,2,4
+dbinfo != NULL,2,2,4
+"nData == my_stmt_result(""SELECT * FROM test_null"")",2,2,4
+"memcmp(&datetime_canonical, &datetime_out, sizeof(datetime_out)) == 0",2,2,4
+cp->indx != 0 || adjust > 0,2,2,4
+LF_ISSET(DB_SALVAGE),2,2,4
+"F_ISSET(sdbp, DB_AM_SECONDARY)",2,2,4
+"meta->dbmeta.magic != 0 || IS_RECOVERING(dbp->dbenv) || F_ISSET(dbp, DB_AM_RECOVER)",2,2,4
+dbji->bt_compare_method_id != NULL,2,2,4
+(int) i16_data == rc,2,2,4
+strlen(data) == max_blob_length,2,2,4
+block->requests,4,0,4
+fname != NULL,2,2,4
+is_null == 0 && lii == 1,2,2,4
+uint8_val == uint8_max,2,2,4
+dbji->assoc_method_id != NULL,2,2,4
+rhs->m_length <= NAME_LEN,2,2,4
+"*(roff_t *)R_ADDR(infop, mutexp->reg_off) == R_OFFSET(infop, mutexp)",2,2,4
+20 == my_process_stmt_result(stmt),2,2,4
+0 == rc,2,2,4
+orig_cp->opd == NULL,2,2,4
+dtab != NULL,2,2,4
+((db_alignp_t)mutexp & (MUTEX_ALIGN - 1)) == 0,2,2,4
+dbenv->tx_handle != NULL,2,2,4
+"row_count == my_stmt_result(""SELECT * FROM test_date"")",2,2,4
+"buf, d_stream.total_out",3,1,4
+length[3] == 8,2,2,4
+"failedexpr, file, line",2,2,4
+extid >= array->low_extent && offset < array->n_extent,2,2,4
+lp->lsn.file >= ckplsn->file,2,2,4
+"1 == my_stmt_result(""SELECT * FROM test_bind_result"",50)",2,2,4
+TAILQ_FIRST(&txnp->kids) == NULL,2,2,4
+buf2_len == strlen(cp1251),2,2,4
+!(block->status & BLOCK_FOR_UPDATE) || fail_block(block),4,0,4
+int32_val == int32_min,2,2,4
+bhp->priority == hp->hash_priority,2,2,4
+"F_ISSET(td, TXN_RESTORED)",2,2,4
+new_lock_type == TL_WRITE_ALLOW_WRITE,2,2,4
+int16_val == int16_max,2,2,4
+3 == my_process_stmt_result(stmt_select),2,2,4
+data == 8.0,2,2,4
+"m_curr_row_end <= m_rows_end, HA_ERR_CORRUPT_EVENT",2,2,4
+"!memcmp(buf2, koi8, buf1_len)",2,2,4
+(block->offset == keycache->key_cache_block_size) || fail_block(block),4,0,4
+"0 == my_stmt_result(""SELECT * FROM test_multi_table"")",2,2,4
+h->pgno != meta->free,2,2,4
+(uint)(3-param) == my_process_stmt_result(stmt_select2),2,2,4
+"1 == my_stmt_result(""SELECT ROW(1,7) IN (select id, id1 from test_sub2 WHERE id1=7)"",100)",2,2,4
+"nData == my_stmt_result(""SELECT * FROM test_null"", 30)",2,2,4
+"4 == my_stmt_result(""SELECT a FROM test_grant"")",2,2,4
+"op != DB_HAM_DELFIRSTPG || hcp->indx == NDX_INVALID || (hcp->indx == 0 && F_ISSET(hcp, H_DELETED))",2,2,4
+stmt,2,2,4
+envinfo != NULL,2,2,4
+!ovflok,2,2,4
+mysql_more_results(mysql_local) == 1,2,2,4
+length[i] == MYSQL_NULL_DATA,2,2,4
+3 == my_stmt_result(query),2,2,4
+padLen > 0 && padLen <= 16,2,2,4
+pgno == meta->last_pgno,2,2,4
+0 == my_process_stmt_result(stmt_select),2,2,4
+vseg < end,2,2,4
+cp->page == NULL,2,2,4
+count == 1,2,2,4
+my_process_stmt_result(stmt) == 3,2,2,4
+cur_file->file == 0,2,2,4
+exact || CD_ISSET(cp),2,2,4
+int64_val == int64_max,2,2,4
+himarkp != NULL,2,2,4
+(uint)(3-param) == my_process_stmt_result(stmt_select1),2,2,4
+buf2_len == strlen(koi8),2,2,4
+mysql_affected_rows(mysql) == 1,2,2,4
+"!LOCK_ISSET(dbp->handle_lock) || dbp->lid != DB_LOCK_INVALIDID || dbp->type == DB_QUEUE || F_ISSET(dbp, DB_AM_SUBDB)",2,2,4
+(A) != 0,3,1,4
+"memcmp(&time_in, &time_out, sizeof(time_in)) == 0",2,2,4
+"F_ISSET(cp_arg, C_RENUMBER)",2,2,4
+(mysql_stmt_fetch(stmt) == 0),2,2,4
+dbp->log_filename == NULL || dbp->log_filename->id == DB_LOGFILEID_INVALID,2,2,4
+"4 == my_stmt_result(""SELECT * FROM test_prep_alter"",50)",2,2,4
+"!strcmp(ulonglong_as_string, ""18446744073709551615"")",2,2,4
+stack != NULL,2,2,4
+result_file_name,2,2,4
+m_status == DA_ERROR,3,1,4
+uint32_val == uint32_min,2,2,4
+"F_ISSET(fhp, DB_FH_VALID) && ((fhp->fd != -1) || (fhp->handle != INVALID_HANDLE_VALUE))",2,2,4
+hcp->opd == NULL,2,2,4
+inited == NONE,3,1,4
+rc != 0 && rc != MYSQL_NO_DATA,2,2,4
+(int)inp[indx] - HOFFSET(pagep) >= 0,2,2,4
+lsn_dbt.size == sizeof(lsn_rc),2,2,4
+pgip->pi_refcount == 0,2,2,4
+exp_count == NUM_ROWS,2,2,4
+TYPE(pagep) == P_OVERFLOW,2,2,4
+sp == rest,3,1,4
+map1->bitmap && map2->bitmap && map1->n_bits==map2->n_bits,3,1,4
+"mysql_stmt_prepare(stmt, ""SHOW DATABASES"", 100) != 0",2,2,4
+field->max_length == 0,2,2,4
+(i+1) == my_process_stmt_result(stmt_select),2,2,4
+"row_count == (int) my_stmt_result(""SELECT * FROM test_bind_fetch"")",2,2,4
+"4 == my_stmt_result(""SELECT * FROM test_grant"",50)",2,2,4
+"row_count == (int) my_stmt_result(""SELECT * FROM test_bind_fetch"",50)",2,2,4
+"!F_ISSET(dbc_orig, DBC_WRITER | DBC_WRITECURSOR)",2,2,4
+newname != NULL,2,2,4
+(block->status & ~BLOCK_CHANGED) == (BLOCK_READ | BLOCK_IN_USE),4,0,4
+int64_val == int64_min,2,2,4
+jc->j_curslist[i] != NULL,2,2,4
+double_val == (longlong) uint64_val,2,2,4
+"block, index",4,0,4
+(block->length == 0) || fail_block(block),4,0,4
+"memcmp(&time_canonical, &time_out, sizeof(time_out)) == 0",2,2,4
+"4 == my_stmt_result(""SELECT a FROM test_grant"",50)",2,2,4
+!LF_ISSET(DB_NOORDERCHK),2,2,4
+sdbp->s_refcnt == 0,2,2,4
+"0 == my_stmt_result(""SELECT * FROM test_multi_table"",50)",2,2,4
+is_null == 0 && lii == 2,2,2,4
+dbe->dbp == dbp,2,2,4
+data == 5.61,2,2,4
+block->hash_link->requests,4,0,4
+(block->requests > 0) || fail_block(block),4,0,4
+int32_val == int32_max,2,2,4
+"F_ISSET(dbc->dbp, DB_AM_SECONDARY)",2,2,4
+CD_ISSET(cp_arg),2,2,4
+"log_compare(&lp->s_lsn, &LSN(bhp->buf)) > 0",2,2,4
+uint16_val == uint16_max,2,2,4
+"F_ISSET(bhp, BH_DIRTY)",2,2,4
+mysql_stmt_field_count(stmt) == mysql_num_fields(result),2,2,4
+(hash_link->file == file) && (hash_link->diskpos == filepos) && (block->hash_link == hash_link),4,0,4
+dbp->meta_pgno == fnp->meta_pgno,2,2,4
+src != dst || cs->casedn_multiply == 1,4,0,4
+f == 0,2,2,4
+dbp->type == fnp->s_type,2,2,4
+"4 == my_stmt_result(""SELECT * FROM test_prep_alter"")",2,2,4
+dbji->feedback_method_id != NULL,2,2,4
+"!F_ISSET(dbp, DB_AM_RECOVER)",2,2,4
+reader_handle.dirty == 1,2,2,4
+"1 == my_stmt_result(""SELECT ROW(1,7) IN (select id, id1 from test_sub2 WHERE id1=8)"",100)",2,2,4
+trie && key && keylen,2,2,4
+n < size(),4,0,4
+rhs->m_db_name_length <= NAME_LEN,2,2,4
+dbji->bt_prefix_method_id != NULL,2,2,4
+key_lsn != NULL || max_lsn != NULL,2,2,4
+envinfo == NULL,2,2,4
+"nbytes <= P_FREESPACE(dbp, pagep)",2,2,4
+map1->bitmap,2,2,4
+"1 == my_stmt_result(""SELECT * FROM test_bind_result"")",2,2,4
+ret != 0,2,2,4
+(int) i8_data == rc,2,2,4
+((HASH_CURSOR *)dbc->internal)->opd == NULL,2,2,4
+cp_n->opd == NULL,2,2,4
+dp == rest,2,2,4
+sizeof(intptr) == sizeof(void *),2,2,4
+dbji->dup_compare_method_id != NULL,2,2,4
+"F_ISSET(dbp, DB_AM_VERIFYING)",2,2,4
+"F_ISSET(fhp, DB_FH_VALID) && fhp->fd != -1",2,2,4
+vio->packets,2,2,4
+dbji->append_recno_method_id != NULL,2,2,4
+root_pgno != ((BTREE *)file_dbp->bt_internal)->bt_root,2,2,4
+-1 == mysql_next_result(mysql),2,2,4
+"memcmp(&datetime_in, &datetime_out, sizeof(datetime_in)) == 0",2,2,4
+bhp->ref != 0,2,2,4
+LIST_FIRST(&vdp->activepips) == NULL,2,2,4
+1 == mysql_stmt_affected_rows(stmt),2,2,4
+i <= hp->generation,2,2,4
+(field - result) < fields,1,3,4
+priority <= bhp->priority,2,2,4
+mutexp->reg_off != INVALID_ROFF,2,2,4
+p->pi_refcount == 0,2,2,4
+(int) i32_data == rc,2,2,4
+"F_ISSET(partial, DB_DBT_PARTIAL)",2,2,4
+"lsn == NULL || status != TXN_COMMIT || log_compare(&hp->maxlsn, lsn) >= 0",2,2,4
+"row_count == my_stmt_result(""SELECT * FROM test_date"",50)",2,2,4
+last_lsn != NULL,2,2,4
+dbinfo == NULL,2,2,4
+map->bitmap && map2->bitmap && map->n_bits==map2->n_bits,4,0,4
+param_count == 3,2,2,4
+pdbc->mylock.off == LOCK_INVALID,2,2,4
+"info->end_of_file == my_tell(info->file,MYF(0))",2,2,4
+mutexp->reg_off == INVALID_ROFF,2,2,4
+"!strcmp(ulonglong_as_string, ""0"")",2,2,4
+1 == rc,2,2,4
+found == 1,2,2,4
+"4 == my_stmt_result(""SELECT * FROM test_grant"")",2,2,4
+sizeof(db_pgno_t) == sizeof(u_int32_t),2,2,4
+field->max_length == max_blob_length,2,2,4
+"!F_ISSET(bhp, BH_DIRTY | BH_DIRTY_CREATE | BH_LOCKED)",2,2,4
+mysql_stmt_affected_rows(stmt) == exp_count,2,2,4
+dbji->h_hash_method_id != NULL,2,2,4
+uint64_val == uint64_max,2,2,4
+NUM_ENT(epg->page) == 1,2,2,4
+IN_ELECTION(rep),2,2,4
+uint8_val == uint8_min,2,2,4
+trie,2,2,4
+bit < (map)->n_bits,4,0,4
+extra,1,3,4
+"log_compare(lsnp, &lp->lsn) == 0",2,2,4
+dblp->dbentry[ndx].dbp == NULL,2,2,4
+array->n_extent == 0,2,2,4
+have_rec == 0,2,2,4
+blob_length == max_blob_length,2,2,4
+int8_val == int8_max,2,2,4
+!DB_REDO(redo) || (cmp) >= 0 || IS_NOT_LOGGED_LSN(*lsn),2,2,4
+LOGGING_ON(dbenv),2,2,4
+key_lsn == NULL || max_lsn == NULL,2,2,4
+ctp->ct_type == CT_DB,2,2,4
+flags == DB_CURRENT || flags == DB_KEYFIRST || flags == DB_KEYLAST,2,2,4
+IS_INITIALIZED(dbc),2,2,4
+int16_val == int16_min,2,2,4
+"!strcmp(longlong_as_string, ""0"")",2,2,4
+(int) i64_data == rc,2,2,4
+"rec_get_start(rec, offsets), rec_offs_extra_size(offsets) - rec_offs_comp(offsets) ? REC_N_NEW_EXTRA_BYTES : REC_N_OLD_EXTRA_BYTES",2,2,4
+data.size = sizeof(VRFY_PAGEINFO),2,2,4
+uint64_val == uint64_min,2,2,4
+phrase,2,2,4
+!LOCK_ISSET(metalock),2,2,4
+"2 == my_stmt_result(""SELECT * FROM test_table"",50)",2,2,4
+c_mp->lru_count > c_mp->stat.st_pages / 10,2,2,4
+buf1_len == strlen(koi8),2,2,4
+"!memcmp(buf2, cp1251, buf1_len)",2,2,4
+"rec_get_start(rec, offsets), rec_size",2,2,4
+exp_count == 1,2,2,4
+rc != MYSQL_NO_DATA,2,2,4
+"tiny_data == (char) my_stmt_result(""SELECT * FROM my_prepare"")",2,2,4
+"F_ISSET(dbenv, DB_ENV_REP_MASTER)",2,2,4
+rec != NULL && rec->data != NULL && rec->size == sizeof(DB_LSN),2,2,4
+status == DB_LV_NORMAL,2,2,4
+strlen(data) == 16,2,2,4
+rectype == DB___txn_xa_regop,2,2,4
+"!memcmp(buf1, koi8, buf1_len)",2,2,4
+!block->next_used && !block->prev_used,4,0,4
+c1 == 2 && length == 4,2,2,4
+"3 == my_stmt_result(query,50)",2,2,4
+row[16] != 0,2,2,4
+"(F_ISSET(rep, REP_F_RECOVER) && !IS_ZERO_LSN(lp->verify_lsn)) || (!F_ISSET(rep, REP_F_RECOVER) && IS_ZERO_LSN(lp->verify_lsn))",2,2,4
+"3 == my_stmt_result(""SELECT * FROM test_sub2"")",2,2,4
+uint16_val == uint16_min,2,2,4
+uint32_val == uint32_max,2,2,4
+pip->pi_refcount > 0,2,2,4
+fun == neg_map[i].pos_fun,2,2,4
+"!memcmp(buf1, cp1251, buf1_len)",2,2,4
+cur_file == file_stack && cur_file->file == 0,2,2,4
+carry==1,2,2,4
+i + 1 == (int) my_process_stmt_result(select_stmt),2,2,4
+"!strcmp(longlong_as_string, ""-1"")",2,2,4
+"F_ISSET( key_arg, DB_DBT_USERMEM | DB_DBT_MALLOC) || key_n == key_arg",2,2,4
+type != H_OFFDUP,2,2,4
+"__db_mutex_lock(dbenv, mp) == 0",2,2,4
+!LF_ISSET(BI_DELETED),2,2,4
+"3 == my_stmt_result(""SELECT * FROM test_sub2"",50)",2,2,4
+"!F_ISSET(bhp, BH_TRASH)",2,2,4
+"!F_ISSET(dbjit, DBT_JAVAINFO_LOCKED)",2,2,4
+"2 == my_stmt_result(""SELECT * FROM test_table"")",2,2,4
+"log_compare(&lsn_rc.lsn, &lp->ready_lsn) >= 0",2,2,4
+lock_data->type == MDL_SHARED && lock_data->state == MDL_PENDING,2,2,4
+"memcmp(&date_canonical, &date_out, sizeof(date_out)) == 0",2,2,4
+dbp != NULL || name != NULL,2,2,4
+ result != 0,2,2,4
+filename && stream,2,2,4
+out_is_null,2,2,4
+data == 10.22,2,2,4
+"strncmp(c2,""1"",1)==0 && length == 1",2,2,4
+int8_val == int8_min,2,2,4
+lp->lsn.file == cnt,2,2,4
+lock->type == MDL_SHARED && lock->state == MDL_PENDING,2,2,4
+fullnew != NULL,2,2,4
+"tiny_data == (char) my_stmt_result(""SELECT * FROM my_prepare"",50)",2,2,4
+src != dst || cs->caseup_multiply == 1,4,0,4
+b->block!=0,1,2,3
+(precision <= DECIMAL_MAX_PRECISION)&& (frac <= DECIMAL_MAX_SCALE),2,1,3
+info->units == NULL,1,2,3
+subkeys < 0,2,1,3
+info->indent >= 2,1,2,3
+info->ft1_to_ft2==0 || subkeys >=0,2,1,3
+info.functions_size!=0,1,2,3
+locked_tables_mode == LTM_NONE,2,1,3
+blobID < blobFieldCount,1,2,3
+info->ft1_to_ft2==0,2,1,3
+flag <= 0,2,1,3
+inited==RND,2,1,3
+OP(m->g->strip[esub]) == OOR1,3,0,3
+(uint) (field - result) < fields,3,0,3
+descr!=0,1,2,3
+map->bitmap && (prefix_size <= map->bitmap_size*8 || prefix_size == (uint) ~0),2,1,3
+keynr==NO_SUCH_KEY || cs == info->s->keyinfo[keynr].seg->charset,2,1,3
+ts != NULL,1,2,3
+(slen % 4) == 0,3,0,3
+str != NULL && end != NULL && *end != NULL && error != NULL,2,1,3
+info->block!=0,1,2,3
+info->append_read_pos <= info->write_pos,2,1,3
+frac0+intg0 > 0,2,1,3
+stp >= sp,3,0,3
+s != NULL,1,2,3
+MYSQL_VERSION_ID < VerHi * 10000 + VerLo * 100,2,1,3
+!(keyseg->flag & HA_VAR_LENGTH_PART),2,1,3
+start2[1]*guess <= (x-guess*start2[0])*DIG_BASE+y,2,1,3
+thread_safe == 0,2,1,3
+formatSpace == NULL,1,2,3
+seek_offset == 0,2,1,3
+cs->casedn_multiply == 1,3,0,3
+a->block!=0,1,2,3
+exp-1 == (uint64)log2(val),1,2,3
+errno==0,1,2,3
+rest != NULL,3,0,3
+vclass != NULL,1,2,3
+"disk_pos + share->base.fields *MI_COLUMNDEF_SIZE, end_pos",2,1,3
+m_table,3,0,3
+(bitmap_size & 7) == 0,2,1,3
+f->lines==0,1,2,3
+info->filename != NULL,1,2,3
+prec2 > 0,2,1,3
+localp == nt->type.localp,1,2,3
+activeHandle == 0,1,2,3
+"""Unknown argument type""",2,1,3
+len >= srclen,1,2,3
+t[len - 1] == ' ',1,2,3
+"strncmp(Ver, MYSQL_SERVER_VERSION, sizeof(Ver)-1) > 0",2,1,3
+inited==INDEX,2,1,3
+type->kind == DEBUG_KIND_STRUCT || type->kind == DEBUG_KIND_UNION || type->kind == DEBUG_KIND_CLASS || type->kind == DEBUG_KIND_UNION_CLASS,1,2,3
+fd >= 0,2,1,3
+keycache->blocks_available >= 0,1,2,3
+reader_handle.check_point == 0,2,1,3
+info->pending_ranges != NULL,1,2,3
+sizeof(compatible_mode_normal_str)>=size_for_sql_mode,2,1,3
+name->kind == DEBUG_OBJECT_TAG,1,2,3
+scope() == GLOBAL,3,0,3
+activeReadBuf->rowCount() == 1,1,2,3
+(carry) <= 1,2,1,3
+info->state->records == 0 && (!rows || rows >= MI_MIN_ROWS_TO_DISABLE_INDEXES),2,1,3
+*optend,2,1,3
+"bfd_check_format(abfd, bfd_archive)!=true",1,2,3
+fd >= MY_FILE_MIN && fd < (int)my_file_limit,3,0,3
+info->functions!=0,1,2,3
+sizeof(dec1) == 4,3,0,3
+width > 0 && to != NULL,2,1,3
+"prebuilt->default_rec + templ->mysql_col_offset, templ->mysql_col_len",3,0,3
+src,3,0,3
+info->type_stack != NULL && info->type_stack->type.classdef != NULL && info->type_stack->type.classdef->method == NULL,1,2,3
+f!=NULL,1,2,3
+from <= str+len,2,1,3
+buflen > 0,2,1,3
+err == -1,2,1,3
+info->type_stack != NULL && ! ieee_buffer_emptyp (&info->type_stack->type.strdef),1,2,3
+"disk_pos + share->uniqueinfo[i].keysegs * HA_KEYSEG_SIZE, end_pos",2,1,3
+optend > *pos,2,1,3
+parser,3,0,3
+cs->mbmaxlen == 2,3,0,3
+m_status == DA_ERROR || m_status == DA_OK,2,1,3
+size == sizeof(ulonglong),3,0,3
+buf1 < stop1,2,1,3
+"!test_all_bits(keyseg->flag, (HA_VAR_LENGTH_PART | HA_BLOB_PART))",2,1,3
+strlen(fileSortSequence) <= 10 && strlen(fileSortSequenceLibrary) <= 10,1,2,3
+"my_memmem(haystack, 10, needle, 3) != NULL",3,0,3
+inited==NONE || (inited==RND && scan),2,1,3
+h != NULL,1,2,3
+cs->multis == NULL,3,0,3
+(*b & 128) == 0,2,1,3
+info->type_stack != NULL && info->type_stack->type.name != NULL && info->type_stack->next != NULL && info->type_stack->next->type.classdef != NULL && ! ieee_buffer_emptyp (&info->type_stack->next->type.strdef),1,2,3
+info->block==0,1,2,3
+*to_len >= 2+from->sign,2,1,3
+info->stack->next->method != NULL,1,2,3
+m_state == PFS_LOCK_ALLOCATED,2,1,3
+cachedBridge,1,2,3
+tmp,2,1,3
+map->bitmap && prefix_size <= map->bitmap_size*8,2,1,3
+reclength2 <= reclength,2,1,3
+info->stack != NULL && info->stack->next != NULL,1,2,3
+info->stack->visibility != DEBUG_VISIBILITY_IGNORE,1,2,3
+s[0] == ' ' && s[1] == ' ' && s[2] == '\0',1,2,3
+info->type_stack != NULL && info->type_stack->next != NULL && ! ieee_buffer_emptyp (&info->type_stack->next->type.strdef),1,2,3
+precision >= 0 && precision < NOT_FIXED_DEC && to != NULL,2,1,3
+row <= row_end,2,1,3
+"disk_pos + share->keyinfo[i].keysegs * HA_KEYSEG_SIZE, end_pos",2,1,3
+(uint64)(void*)data % 16 == 0,1,2,3
+optend <= *pos + strlen(*pos),2,1,3
+writer_handle.rows == TEST_LOOP_NUM,3,0,3
+! (block->hash_link && block->hash_link->requests),1,2,3
+cs->caseup_multiply == 1,3,0,3
+maxthreads>=__pthread_handles_num+2,1,2,3
+alloc_root_inited(mem_root),3,0,3
+my_blocks_available >= 0,1,1,2
+info->append_read_pos <= info->append_write_pos,1,1,2
+offset < (u_int64_t)INT64_MAX,1,1,2
+rc == FALSE,1,1,2
+dbp->log_filename != NULL,1,1,2
+4 == rc,1,1,2
+ret != BUFFER_LEN,2,0,2
+!STD_LOCKING(dbc) || orig_cp->lock_mode != DB_LOCK_NG,1,1,2
+key_n == key_arg,1,1,2
+size < NBUCKETS,1,1,2
+table_share->ha_data,1,1,2
+rc != ETIMEDOUT,2,0,2
+"slow(m, ssp, sep, ssub, esub) == rest",1,1,2
+*(u_short *)((caddr_t)(op + 1) + op->ov_size) == RMAGIC,1,1,2
+map->bitmap && map2->bitmap,2,0,2
+def_val < MAX_SET(typelib.count),2,0,2
+dt_length == 10,1,1,2
+0 <= index,1,1,2
+NEXT_PGNO(h) < *last_pgno,1,1,2
+TYPE(h) == P_LBTREE,1,1,2
+len <= msgsz,1,1,2
+OP(s) == OOR2,2,0,2
+dbji->h_hash_method_id_ != NULL,1,1,2
+!(exp),1,1,2
+dstlen >= srclen * cs->caseup_multiply,2,0,2
+"F_ISSET(&mtxmgr->reginfo, REGION_CREATE)",1,1,2
+"strcmp(dt,""2010-07-10"")==0",1,1,2
+argp->hdr.size == 0 || NUM_ENT(pagep) == 0,1,1,2
+inp[indx] >= HOFFSET(pagep),1,1,2
+block->next_used && block->prev_used && (block->next_used->prev_used == &block->next_used) && (*block->prev_used == block),2,0,2
+charset,1,1,2
+writer_handle.dirty == 1,1,1,2
+"my_memmem(NULL, 10, needle, 3) == NULL",2,0,2
+"strcmp(data,""my\""sql\"""")==0",1,1,2
+rectype == DB___txn_ckp,1,1,2
+bucket < NBUCKETS,1,1,2
+ptr == a,1,1,2
+static_cast<my_size_t>(index) < m_size,1,1,2
+delsum+(int) y/4-temp > 0,1,1,2
+keycache->cnt_for_resize_op == 0,1,1,2
+(block->status & ~(BLOCK_FOR_UPDATE | BLOCK_IN_EVICTION)) == (BLOCK_READ | BLOCK_IN_FLUSH | BLOCK_CHANGED | BLOCK_IN_USE),2,0,2
+(tlen % 2) == 0,2,0,2
+!info->share,2,0,2
+dbc->internal->opd == NULL,1,1,2
+((block->hash_link != hash_link) && (block->status & (BLOCK_IN_EVICTION | BLOCK_IN_SWITCH))) || ((block->hash_link == hash_link) && !(block->status & BLOCK_READ)) || ((block->status & BLOCK_READ) && !(block->status & (BLOCK_IN_EVICTION | BLOCK_IN_SWITCH))),2,0,2
+tables_to_lock == NULL && tables_to_lock_count == 0,1,1,2
+child_nr < m_info->tables,1,1,2
+c-- != 0,1,1,2
+type != READ_NET && info->type != READ_NET && type != WRITE_NET && info->type != WRITE_NET && type != APPEND_CACHE && info->type != APPEND_CACHE && type != SEQ_READ_APPEND && info->type != SEQ_READ_APPEND,1,1,2
+handler_tables_hash.records == 0,1,1,2
+"F_ISSET(opd, DBC_ACTIVE)",1,1,2
+cs->state & MY_CS_BINSORT,2,0,2
+ (newname == NULL && fullnew == NULL) || (newname != NULL && fullnew != NULL),1,1,2
+!STD_LOCKING(dbc) || dbc->internal->lock_mode != DB_LOCK_NG,1,1,2
+! mdl_context.lt_or_ha_sentinel() || mdl_context.is_global_lock_owner(MDL_SHARED),1,1,2
+nelemp != NULL,1,1,2
+dstlen >= srclen * cs->casedn_multiply,2,0,2
+metalock.off == LOCK_INVALID,1,1,2
+opcode != TXN_PREPARE,1,1,2
+((block->status & ~(BLOCK_REASSIGNED | BLOCK_FOR_UPDATE)) == BLOCK_IN_USE) || fail_block(block),2,0,2
+min_val <= def_val,2,0,2
+end != NULL && ((str != NULL && *end != NULL) || (str == NULL && *end == NULL)) && error != NULL,1,1,2
+" F_ISSET(dbt, DB_DBT_USERMEM | DB_DBT_MALLOC | DB_DBT_REALLOC) || bpsz != NULL || bpp != NULL",1,1,2
+writer_handle.check_point == 61,1,1,2
+dbe->refcount == 1,1,1,2
+lp->status == DB_LSTAT_HELD,1,1,2
+*to_len > 2+from->sign,1,1,2
+CRYPTO_ON(dbenv),1,1,2
+"!F_ISSET(dbc, DBC_OPD) || F_ISSET(dbc, DBC_WRITEDUP)",1,1,2
+"bpage->zip.data, zip_size",2,0,2
+"strcmp(ts_6,""1999-12-29"")==0",1,1,2
+(length % 4) == 0,2,0,2
+length[4] == (ulong) len,1,1,2
+"strcmp(data,exp_data)==0",1,1,2
+*fmt == '%',2,0,2
+0 == OK,2,0,2
+c != OUT,2,0,2
+block->hash_link->requests == 0,1,1,2
+!keycache->in_resize,1,1,2
+scope() == ONLY_SESSION,2,0,2
+stop0 <= &to->buf[to->len],1,1,2
+d_length == 8,1,1,2
+TAILQ_FIRST(&txn->kids) == NULL,1,1,2
+(char *)np < (char *)objlist->data + objlist->size,1,1,2
+dbmfp->ref >= 1,1,1,2
+ dbp->type == DB_QUEUE || dbp->type == DB_RECNO,1,1,2
+"EQ(step(m->g, startst, stopst, st, NOTHING, st), st)",2,0,2
+"! has_old_lock(lock->write.data, data->owner) || (lock_type <= lock->write.data->type && ! ((lock_type < TL_WRITE_ALLOW_READ && lock->write.data->type == TL_WRITE_ALLOW_READ) || lock->write.data->type == TL_WRITE_DELAYED))",1,1,2
+lp->status != DB_LSTAT_FREE,1,1,2
+"(F_ISSET(dbmfp, MP_OPEN_CALLED) && mfp != NULL) || (!F_ISSET(dbmfp, MP_OPEN_CALLED) && mfp == NULL)",1,1,2
+(mbytes * MEGABYTE + bytes) >= from_lsn->offset,1,1,2
+data_len == SCRAMBLE_LENGTH_323 + 1,2,0,2
+block->requests == 1,2,0,2
+precision <= DECIMAL_MAX_LENGTH,1,1,2
+strlen(word) == args->lengths[0],1,1,2
+typemore != 0,1,1,2
+"F_ISSET(dbc, DBC_ACTIVE)",1,1,2
+exp,1,1,2
+!s.uses_buffer_owned_by(this),2,0,2
+!LF_ISSET(DB_FCNTL_LOCKING),1,1,2
+"index, page_get_page_no(page)",2,0,2
+result,1,1,2
+"offset == offsetof(KEY_CACHE, param_buff_size)",1,1,2
+dbji->dup_compare_method_id_ != NULL,1,1,2
+seed != 0,1,1,2
+rw == a->rw,1,1,2
+M,2,0,2
+last_in_switch->status & (BLOCK_IN_EVICTION | BLOCK_IN_SWITCH | BLOCK_REASSIGNED),2,0,2
+"big_rec_vec->fields[i].data, extern_len",2,0,2
+"!F_ISSET(mfp, MP_DEADFILE)",1,1,2
+"disk_pos + share->keyinfo[i].keysegs * MI_KEYSEG_SIZE, end_pos",1,1,2
+(hash_link->file == file) && (hash_link->diskpos == filepos),2,0,2
+"F_ISSET(mutexp, DB_MUTEX_ALLOCATED)",1,1,2
+block->next_used && block->prev_used && *block->prev_used == block,2,0,2
+!thread->next,2,0,2
+map->bitmap && prefix_size <= map->bitmap_size,1,1,2
+bitmap_size > 0,1,1,2
+h->type != P_QAMDATA,1,1,2
+(block->status & ~BLOCK_IN_EVICTION) == (BLOCK_READ | BLOCK_IN_SWITCH | BLOCK_IN_FLUSH | BLOCK_IN_FLUSHWRITE | BLOCK_CHANGED | BLOCK_IN_USE),2,0,2
+"dest, templ->mysql_col_len",2,0,2
+(tlen % 4) == 0,2,0,2
+&(M)->m_prlock,2,0,2
+h->pgno != list[position],1,1,2
+&(M)->m_mutex,2,0,2
+mysql->field_count,1,1,2
+!_entered,1,1,2
+(int)f_data == round+2+i,1,1,2
+"!memcmp(COMMENT_STRING, comment_str, strlen(COMMENT_STRING))",2,0,2
+writer_handle.check_point == 0,1,1,2
+reader_handle.dirty == AZ_STATE_SAVED,2,0,2
+CRYPTO_ON(dbenv_src),1,1,2
+file != NULL,2,0,2
+!thread->prev,2,0,2
+m_psi == NULL,2,0,2
+opcode == TXN_ABORT,1,1,2
+root != NULL,1,1,2
+old != NULL,1,1,2
+nlist->elements,2,0,2
+argp->meta_pgno == lp[pos - 1],1,1,2
+bits <= 8 * sizeof(value),1,1,2
+intg0+frac1 <= len,1,1,2
+(int)d_data == round+3+i,1,1,2
+stmt->field_count,2,0,2
+m_root != NULL,2,0,2
+child->refcnt >= 1,1,1,2
+lp->free_fids_alloced == 0,1,1,2
+op->ov_magic == MAGIC,1,1,2
+"buf_block_get_page_zip(block), zip_size",1,1,2
+!thread->next && !thread->prev,2,0,2
+othercase(ch) != ch,1,1,2
+lp->db_log_inmemory,1,1,2
+! (keycache->waiting_for_hash_link.last_thread),1,1,2
+rows[count] == (uint)mysql_affected_rows(mysql),1,1,2
+LEVEL(epg->page) != 1,1,1,2
+(block->status & (BLOCK_READ | BLOCK_IN_USE | BLOCK_REASSIGNED)) && !(block->status & (BLOCK_IN_EVICTION | BLOCK_IN_SWITCH | BLOCK_IN_FLUSH | BLOCK_CHANGED | BLOCK_FOR_UPDATE)),2,0,2
+trie && state,1,1,2
+3 == rc,1,1,2
+n <= my_hash_links_used,1,1,2
+found <= keycache->blocks_used,2,0,2
+sizeof(ulonglong) >= sizeof(double),2,0,2
+*al != NULL,1,1,2
+msgfp->pgno == 0,1,1,2
+OP(m->g->strip[esub]) == OOR2,2,0,2
+my_process_stmt_result(stmt) != 0,1,1,2
+OP(m->g->strip[esub]) == O_CH,2,0,2
+rhs.size() == size(),1,1,2
+"tiny_data == (int) my_stmt_result(""SELECT * FROM my_prepare"",50)",1,1,2
+m_state == PFS_LOCK_DIRTY,2,0,2
+write_length == FOURGIG,1,1,2
+(i+1) == rowcount,1,1,2
+"buf, templ->mysql_col_len",2,0,2
+(page_status == PAGE_WAIT_TO_BE_READ) || ((block->hash_link->file == file) && (block->hash_link->diskpos == filepos)),2,0,2
+!DB_REDO(redo) || (cmp) >= 0,1,1,2
+reader_handle.check_point == 62,1,1,2
+nData == 1000,1,1,2
+flag & (O_TRUNC|O_APPEND) != O_TRUNC|O_APPEND,1,1,2
+result_path != NULL,1,1,2
+n <= _my_hash_links_used,1,1,2
+(res_length % 4) == 0,1,1,2
+"! has_old_lock(lock->write.data, data->owner) || ((lock_type <= lock->write.data->type || (lock_type == TL_WRITE && lock->write.data->type == TL_WRITE_LOW_PRIORITY)) && ! ((lock_type < TL_WRITE_ALLOW_READ && lock->write.data->type == TL_WRITE_ALLOW_READ) || lock->write.data->type == TL_WRITE_DELAYED))",1,1,2
+2*sizeof(table) < sizeof(show_name_buff),1,1,2
+(slen % 2) == 0,2,0,2
+keycache->blocks_used < (ulong) keycache->disk_blocks,2,0,2
+meta->pgno == PGNO_BASE_MD,1,1,2
+envp != NULL,1,1,2
+"strcmp(bData,""mysql"")==0",1,1,2
+"run_offset, num_runs * sizeof *run_offset",2,0,2
+Count >= read_len,1,1,2
+&str != this,2,0,2
+max_val >= def_val,2,0,2
+mfp->free_ref > 0,1,1,2
+write_length == TWOGIG,1,1,2
+(A) <= (B) || ((B)+(C)) <= (A),1,1,2
+m_size < MYSQL_NO_BIT_FOUND,1,1,2
+MORE(),2,0,2
+m && prefix_size <= map->bitmap_size,1,1,2
+path && stream,2,0,2
+(int32) i == no,1,1,2
+LIST_FIRST(&dbc->dbp->s_secondaries) == NULL,1,1,2
+param_count == 7,1,1,2
+ts6_length == 10,1,1,2
+keypart_map,2,0,2
+new_lock_type == TL_WRITE_ALLOW_WRITE || new_lock_type == TL_WRITE_ALLOW_READ,1,1,2
+from_intg > 0,1,1,2
+"disk_pos + share->uniqueinfo[i].keysegs * MI_KEYSEG_SIZE, end_pos",1,1,2
+dbc == dbc_n,1,1,2
+cp->csp - cp->sp == 1,1,1,2
+rows[count++] == exp_value,1,1,2
+"!LOGGING_ON(dbenv) || log_compare(&((LOG *)((DB_LOG *) dbenv->lg_handle)->reginfo.primary)->s_lsn, &LSN(bhp->buf)) > 0",1,1,2
+op->ov_rmagic == RMAGIC,1,1,2
+cnt <= my_hash_links_used,1,1,2
+param_count == 6,1,1,2
+!(block->status & (BLOCK_REASSIGNED | BLOCK_CHANGED | BLOCK_FOR_UPDATE)),2,0,2
+logfile == 0 || logfile > lp->lsn.file,1,1,2
+argp->pgno == lp[pos],1,1,2
+ha_data->auto_inc_initialized == TRUE,1,1,2
+reader_handle.auto_increment == 0,2,0,2
+keycache->used_last,1,1,2
+reader_handle.check_point == 1256,1,1,2
+p->pend[subno] != 0,2,0,2
+h->pgno != next_pgno,1,1,2
+! (!hot && keycache->waiting_for_block.last_thread),1,1,2
+_my_blocks_available >= 0,1,1,2
+precision || !scale,2,0,2
+renv != NULL,1,1,2
+"IS_RECOVERING(dbp->dbenv) || F_ISSET(dbp, DB_AM_RECOVER)",1,1,2
+"el->el_refresh.r_cursor.v >= el->el_term.t_size.v, (__F, ""\r\nre_putc: overflow! r_cursor.v == %d > %d\r\n"", el->el_refresh.r_cursor.v, el->el_term.t_size.v), abort()",1,1,2
+fp != NULL,1,1,2
+"1 == my_stmt_result(""SELECT * FROM test_bind_str"",50)",1,1,2
+isalpha(ch),1,1,2
+table_share->ha_data && !auto_increment_lock,1,1,2
+rep->op_cnt > 0,1,1,2
+recnop == NULL || LF_ISSET(S_DELNO),1,1,2
+!block->next_changed && !block->prev_changed,2,0,2
+!keycache->changed_blocks[idx],2,0,2
+sem->value != 0,1,1,2
+7 == mysql_num_fields(result),1,1,2
+map->bitmap && (prefix_size <= map->bitmap_size || prefix_size == (uint) ~0),1,1,2
+first != NULL,2,0,2
+count<= my_blocks_used,1,1,2
+array->mpfarray[offset].pinref > 0,1,1,2
+"page_zip, page_zip_get_size(page_zip)",1,1,2
+0==1,1,1,2
+optend > cur_arg,1,1,2
+stmt->field_count == stmt->mysql->field_count,1,1,2
+LF_ISSET(DB_FCNTL_LOCKING) || fhp == NULL,1,1,2
+read_length == TWOGIG,1,1,2
+writer_handle.check_point == 62,1,1,2
+mfp->free_size != 0,1,1,2
+"F_ISSET(fhp, DB_FH_OPENED) && fhp->handle != INVALID_HANDLE_VALUE",1,1,2
+scale >= 0 && precision > 0 && scale <= precision,2,0,2
+buffer[0] == az_magic[0] && buffer[1] == az_magic[1],1,1,2
+fnp->ref >= 1,1,1,2
+!hash_link->block->next_used,2,0,2
+*prebuilt->table->name == TEMP_TABLE_PREFIX,1,1,2
+((block->hash_link != hash_link) && (block->status & (BLOCK_IN_EVICTION | BLOCK_IN_SWITCH))) || ((block->hash_link == hash_link) && !(block->status & BLOCK_READ)),2,0,2
+len == max_pg_dbt.size,1,1,2
+(block->status & ~BLOCK_IN_EVICTION) == (BLOCK_READ | BLOCK_IN_SWITCH | BLOCK_IN_FLUSH | BLOCK_IN_FLUSHWRITE | BLOCK_CHANGED | BLOCK_IN_USE) || fail_block(block),2,0,2
+_my_blocks_available <= _my_blocks_used,1,1,2
+m_lt_or_ha_sentinel == NULL,1,1,2
+al->argc < ARG_MAX,1,1,2
+retval == 0,2,0,2
+fixed_precision == 0 || (fixed_precision < *to_len && fixed_precision > ((from->sign ? 1 : 0) + (fixed_decimals ? 1 : 0))),1,1,2
+!keycache->file_blocks[idx],2,0,2
+(block->status & ~BLOCK_IN_EVICTION) == (BLOCK_READ | BLOCK_IN_FLUSH | BLOCK_CHANGED | BLOCK_IN_USE),2,0,2
+bits <= 8 * sizeof(ulong),1,1,2
+ptr == primary_keys + (primary_keys_number_of * 32),1,1,2
+lock_data->state == MDL_INITIALIZED,1,1,2
+map->bitmap && (prefix_size <= map->bitmap_size*8 || prefix_size == ~0),1,1,2
+nbytes <= P_FREESPACE(pagep),1,1,2
+(size_t)(fp - *filelistp) < extent_cnt,1,1,2
+intg1x > 0,1,1,2
+"fstat(fhp->fd, &sb) != -1 && (cur_off = lseek(fhp->fd, (off_t)0, SEEK_CUR)) != -1 && cur_off <= sb.st_size",1,1,2
+dbji->append_recno_method_id_ != NULL,1,1,2
+ret == DB_NOTFOUND,1,1,2
+length[4] == len,1,1,2
+cs->multis != NULL,1,1,2
+((intptr)start) >= SIZEOF_INT,1,1,2
+param_count == 5,1,1,2
+keycache->blocks_available != 0,2,0,2
+m && prefix_size <= map->n_bits,1,1,2
+(page_st == PAGE_READ) && (read_length + offset <= block->length),2,0,2
+dbp != NULL || vdp != NULL,1,1,2
+lp->db_log_inmemory || lp->b_off == 0,1,1,2
+THR_thread_count != 0,2,0,2
+current_arena!=0,2,0,2
+cache_empty(keycache),2,0,2
+my_thread_basic_global_init_done,1,1,2
+m_waiting_for == NULL,1,1,2
+reader_handle.check_point == 1255,1,1,2
+count<=_my_blocks_used,1,1,2
+write_length == length,1,1,2
+NUM_ENT(npg) != 0,1,1,2
+(mysql_fetch(stmt) == 0),1,1,2
+dbji->feedback_method_id_ != NULL,1,1,2
+"""Pure virtual method called."" == ""Aborted""",1,1,2
+data.size == sizeof(VRFY_PAGEINFO),1,1,2
+felem == 0 || argp->last_free == list[felem - 1],1,1,2
+read_length == length,1,1,2
+lock_data->state == MDL_PENDING,1,1,2
+"buf, copied_len",2,0,2
+&LOCK_delete,1,1,2
+idx < sizeof(digits),2,0,2
+rwp,2,0,2
+query != 0,1,1,2
+h->pgno == list[0],1,1,2
+HPAGE_PTYPE(dp) == H_OFFDUP,1,1,2
+hash_link->block->requests,2,0,2
+IS_REP_MASTER(dbenv),1,1,2
+mutex == i + 1,1,1,2
+"log_compare(from_lsn, to_lsn) <= 0",1,1,2
+mfp == NULL || path == NULL,1,1,2
+!*alarmed || found,1,1,2
+c1 == 8386608 && c2 == 1,1,1,2
+OP(g->strip[pc+OPND(s)]) == OOR2,2,0,2
+lock_req->ticket == NULL,1,1,2
+fnp->ref == 1,1,1,2
+entdbp->log_filename != NULL,1,1,2
+"m_curr_row < m_rows_end, HA_ERR_CORRUPT_EVENT",2,0,2
+nent != 0,1,1,2
+n_bits > 0,1,1,2
+lock->state == MDL_PENDING,1,1,2
+next == next_hash_link->block,2,0,2
+block,2,0,2
+"!first || first == last || RINGBUF_LEN(lp, first->b_off, lp->b_off) == RINGBUF_LEN(lp, first->b_off, last->b_off) + RINGBUF_LEN(lp, last->b_off, lp->b_off)",1,1,2
+(*al)->argv[i] != NULL,1,1,2
+msgfp->pgno >= rep->ready_pg,1,1,2
+sz > 0,1,1,2
+state && c,1,1,2
+info->type == READ_CACHE,1,1,2
+my_blocks_available <= my_blocks_used,1,1,2
+"log_compare(&max_lsn, &lp->max_perm_lsn) >= 0",1,1,2
+length == 0,1,1,2
+thread->next && thread->prev,2,0,2
+last_for_update->status & BLOCK_FOR_UPDATE,2,0,2
+def_val < 2,2,0,2
+len < MAX_BUF,2,0,2
+"info->type != SEQ_READ_APPEND || info->end_of_file == my_tell(info->file,MYF(0))",1,1,2
+block->hash_link && (block->hash_link->block == block),2,0,2
+infop->allocated >= free_size,1,1,2
+((block->status & ~BLOCK_FOR_UPDATE) == BLOCK_IN_USE) || fail_block(block),2,0,2
+"buf, prebuilt->mysql_row_len",2,0,2
+reader_handle.check_point == 61,1,1,2
+!hash_link->block->prev_used,2,0,2
+istmp != 0,1,1,2
+dbji->bt_prefix_method_id_ != NULL,1,1,2
+"index, buf_block_get_page_no(block)",2,0,2
+"info->end_of_file - (info->append_read_pos-info->write_buffer) == my_tell(info->file,MYF(0))",1,1,2
+main_da.is_error(),1,1,2
+last == pgno,1,1,2
+"!F_ISSET(rep, REP_F_READY)",1,1,2
+indx <= nent,1,1,2
+!(block->status & (BLOCK_IN_EVICTION | BLOCK_IN_SWITCH)),2,0,2
+0 == mysql_next_result(mysql),1,1,2
+end % PID_LEN == 0,1,1,2
+initialized,2,0,2
+(block->status & BLOCK_IN_USE) && !(block->status & (BLOCK_IN_EVICTION | BLOCK_IN_SWITCH | BLOCK_REASSIGNED | BLOCK_IN_FLUSH | BLOCK_CHANGED | BLOCK_FOR_UPDATE)),2,0,2
+rep->curinfo->pgno == 0,1,1,2
+hash_link->requests,2,0,2
+block->hash_link && block->hash_link->block == block && block->prev_changed,2,0,2
+row[15] != 0,1,1,2
+keycache->blocks_available <= keycache->blocks_used,1,1,2
+min_val < max_val,2,0,2
+dp == sep,1,1,2
+"offset != offsetof(KEY_CACHE, param_buff_size)",1,1,2
+dbji->bt_compare_method_id_ != NULL,1,1,2
+"strncmp(Ver, MYSQL_SERVER_VERSION, sizeof(Ver)-1) >= 0",1,1,2
+!block->condvar,2,0,2
+thd->dbug_sentry == THD_SENTRY_MAGIC,1,0,1
+sp == sep,1,0,1
+!NONCHAR(ch) || ch != (char)OPND(s),1,0,1
+strlen(convbuf) < sizeof(convbuf),1,0,1
+reader_handle.comment_length == 10,1,0,1
+do_left || (dec->len * DIG_PER_DEC1 - end) >= r_mini_shift,1,0,1
+HERE() == sn+1,1,0,1
+err == FALSE,1,0,1
+rwp->state != 0,1,0,1
+paramnr < MAX_PARAM_NR,1,0,1
+FILE_BEGIN == SEEK_SET && FILE_CURRENT == SEEK_CUR && FILE_END == SEEK_END,1,0,1
+get_key ? !key_offset && !key_length : key_length,1,0,1
+block->next != block,1,0,1
+body_found,1,0,1
+length <= 0xFFFFFF,1,0,1
+OP(p->strip[p->pbegin[i]]) == OLPAREN,1,0,1
+rwp->state == 0,1,0,1
+k <= Kmax,1,0,1
+p->next == bracket+3,1,0,1
+"(A)->state >= 0 || ! pthread_equal(pthread_self(), (A)->write_thread)",1,0,1
+ha_part_data->auto_inc_initialized == TRUE,1,0,1
+row,1,0,1
+sizeof(LF_PINS) == 64,1,0,1
+intg > 0,1,0,1
+cnt <= keycache->hash_links_used,1,0,1
+size == sizeof(enum SHOW_COMP_OPTION),1,0,1
+ticket == NULL,1,0,1
+"! (A)->active_writer || ! pthread_equal(pthread_self(), (A)->writer_thread)",1,0,1
+size == sizeof(plugin_ref),1,0,1
+"new_block, index",1,0,1
+(optp->var_type & GET_TYPE_MASK) == GET_ULL,1,0,1
+count <= lock->read_no_write_count,1,0,1
+"*p == NULL || strcmp(*p, str) == 0",1,0,1
+args->lengths[0] == 0,1,0,1
+write_length != count * BUFFER_LEN,1,0,1
+!all_selects_list->next_select_in_list(),1,0,1
+read_length == write_length,1,0,1
+tmp->text[0] != 0,1,0,1
+"my_memmem(haystack, 0, needle, 3) == NULL",1,0,1
+end < dec->buf + dec->len,1,0,1
+extended_row.str[extended_row.length] == '\0',1,0,1
+"othercase(p->charset, ch) != ch",1,0,1
+ref,1,0,1
+coldp != NULL,1,0,1
+m->pmatch[i].rm_eo == -1,1,0,1
+Flags | O_WRONLY,1,0,1
+((ulonglong)(intptr)ptr) >= SIZEOF_INT,1,0,1
+reader_handle.rows == 102,1,0,1
+"(A)->active_writer && pthread_equal(pthread_self(), (A)->writer_thread)",1,0,1
+foo2 == test_value,1,0,1
+p->next == bracket+2,1,0,1
+size == sizeof(T),1,0,1
+!cshare->source_cache,1,0,1
+!(g->iflags&BAD),1,0,1
+prec1 > 0,1,0,1
+(m_state == PFS_LOCK_ALLOCATED) || ready_to_exit,1,0,1
+from < dec->buf + dec->len,1,0,1
+p->g->sets != NULL,1,0,1
+strlen(efbuf) < sizeof(efbuf),1,0,1
+foo1 == test_value,1,0,1
+"el->el_refresh.r_cursor.v >= el->el_terminal.t_size.v, (__F, ""\r\nre_putc: overflow! r_cursor.v == %d > %d\r\n"", el->el_refresh.r_cursor.v, el->el_terminal.t_size.v), abort()",1,0,1
+" dict_field_get_col(field), dfield_get_type(dtuple_get_nth_field( dtuple, i))",1,0,1
+(flag & (O_WRONLY | O_RDWR)) != (O_WRONLY | O_RDWR),1,0,1
+size == sizeof(void *),1,0,1
+size == sizeof(my_bool),1,0,1
+my_getopt_use_args_separator,1,0,1
+m_ht == NULL,1,0,1
+is_format_specifier==0,1,0,1
+my_thread_global_init_done,1,0,1
+size == sizeof(Time_zone *),1,0,1
+Flags | O_APPEND,1,0,1
+queue->elements < queue->max_elements,1,0,1
+read == row_len,1,0,1
+sizeof(off_t) >= sizeof(intptr),1,0,1
+cs_arg != NULL,1,0,1
+keyinfo->key_alg != HA_KEY_ALG_RTREE,1,0,1
+p->pbegin[i] != 0,1,0,1
+m_dest == 0,1,0,1
+fd != -1,1,0,1
+"my_isalpha(charset,ch)",1,0,1
+from,1,0,1
+mbl == 1,1,0,1
+reader_handle.forced_flushes == 4,1,0,1
+"my_memmem(haystack, 10, NULL, 3) == NULL",1,0,1
+p1 - buf1 <= len,1,0,1
+*fmt == '$',1,0,1
+optend >= cur_arg,1,0,1
+args[0]->fixed,1,0,1
+writer_handle.dirty == AZ_STATE_SAVED,1,0,1
+map->bitmap && (prefix_size <= map->n_bits || prefix_size == (uint) ~0),1,0,1
+pc == stop-1,1,0,1
+ha_part_data,1,0,1
+SSL_INITERR_NOERROR < e && e < SSL_INITERR_LASTERR,1,0,1
+current->info != 0,1,0,1
+num_threads > 1,1,0,1
+"index, b.blob_page_no",1,0,1
+a,1,0,1
+extended_row.length+1 <= extended_row.max_length,1,0,1
+vio->read_end == vio->read_pos,1,0,1
+count<= keycache->blocks_used,1,0,1
+!m_dest || !m_opt_hpop,1,0,1
+stmt_da->is_error() || killed,1,0,1
+Count > left_length,1,0,1
+l_rc == 0,1,0,1
+to->intg >=0,1,0,1
+mysql->status != MYSQL_STATUS_READY,1,0,1
+size == sizeof(uint),1,0,1
+barier + d_shift < dec->buf + dec->len,1,0,1
+m_ptr > m_tok_start,1,0,1
+key,1,0,1
+type >= 0 && type < MYSQL_CLIENT_MAX_PLUGINS,1,0,1
+!info->share || !info->share->total_threads,1,0,1
+p < end,1,0,1
+reader_handle.check_point == 1290,1,0,1
+buf != end,1,0,1
+word_ptr && prefix_size <= map->n_bits,1,0,1
+g->nplus == 0 || m->lastpos != NULL,1,0,1
+extension != NULL,1,0,1
+reader_handle.dirty == AZ_STATE_DIRTY,1,0,1
+kq_fd >= 0,1,0,1
+writer_handle.auto_increment == reader_handle.auto_increment,1,0,1
+test.fired == 0,1,0,1
+m->coldp < m->endp,1,0,1
+start==0,1,0,1
+info->s->options & HA_OPTION_COMPRESS_RECORD,1,0,1
+"child_block, index",1,0,1
+(ulong) keycache->blocks_available <= keycache->blocks_used,1,0,1
+to < dec->buf + dec->len,1,0,1
+def_val % block_size == 0,1,0,1
+typelib.count > 1,1,0,1
+"_mi_dpos(info, nod_flag, key + key_length + info->s->base.rec_reflength) < info->state->data_file_length + info->s->base.pack_reclength",1,0,1
+frac0+intg0 >= 0,1,0,1
+get_hash && (flags & HASH_KEEP_HASH),1,0,1
+share->key_cache->key_cache_inited,1,0,1
+"slow(charset, m, ssp, sep, ssub, esub) == rest",1,0,1
+hash_link->requests == 0,1,0,1
+typelib.count > 0,1,0,1
+writer_handle.forced_flushes == reader_handle.forced_flushes + 1,1,0,1
+data_len <= 255,1,0,1
+table != NULL,1,0,1
+"! (mp)->count || ! pthread_equal(pthread_self(), (mp)->thread)",1,0,1
+length == sizeof(double),1,0,1
+sizeof(buff) > SCRAMBLE_LENGTH_323,1,0,1
+!MORE() || SEE(stop),1,0,1
+writer_handle.check_point == reader_handle.check_point,1,0,1
+(d)->len > 0,1,0,1
+((elements > 0) && (first != NULL)) || ((elements == 0) || (first == NULL)),1,0,1
+never,1,0,1
+!(ha_table_flags() & HA_CAN_REPAIR),1,0,1
+field_type() == MYSQL_TYPE_GEOMETRY,1,0,1
+vseg < vseg_end,1,0,1
+buf0 == to->buf || buf0 == to->buf+1,1,0,1
+size == sizeof(char *),1,0,1
+idx < queue->max_elements,1,0,1
+"my_memmem(haystack, 10, needle, 0) == NULL",1,0,1
+OPT_keep_this_one_last == array_elements(default_options),1,0,1
+binlog_status_arg == VARIABLE_NOT_IN_BINLOG,1,0,1
+"my_memmem(haystack, 9, needle, 3) == NULL",1,0,1
+argv && *argv,1,0,1
+typelib.count <= 64,1,0,1
+on_update == 0,1,0,1
+size >= sizeof(void*) + free_ptr_offset,1,0,1
+pins->pin[i] == 0,1,0,1
+size == sizeof(double),1,0,1
+from >= dec->buf,1,0,1
+packet_length,1,0,1
+m_flags == 0,1,0,1
+c < 0xf0,1,0,1
+buflen == 4,1,0,1
+writer_handle.rows == TEST_LOOP_NUM+1,1,0,1
+m->coldp != NULL,1,0,1
+table_share != NULL,1,0,1
+copy == finish+4,1,0,1
+"_mi_kpos(nod_flag, key) < info->state->key_file_length",1,0,1
+sp == stop,1,0,1
+p->slen < p->ssize,1,0,1
+cshare->source_cache == write_cache,1,0,1
+reader_handle.rows == TEST_LOOP_NUM,1,0,1
+from <= to,1,0,1
+bytes <= table->s->null_bytes,1,0,1
+unsafe_type >= 0 && unsafe_type < BINLOG_STMT_UNSAFE_COUNT,1,0,1
+page_status != -1,1,0,1
+(d)->len >0 && ((d)->buf[0] | (d)->buf[(d)->len-1] | 1),1,0,1
+cp == g->must + g->mlen,1,0,1
+primary_keys_number_of,1,0,1
+m->lastpos != NULL,1,0,1
+!(start % sizeof(double)),1,0,1
+COND,1,0,1
+"(mp)->count > 0 && pthread_equal(pthread_self(), (mp)->thread)",1,0,1
+block_size > 0,1,0,1
+!(block->status & (BLOCK_IN_FLUSH | BLOCK_CHANGED)),1,0,1
+2*sizeof(table_name) < sizeof(show_name_buff),1,0,1
+array_elements(client_errors) == (CR_ERROR_LAST - CR_ERROR_FIRST + 2),1,0,1
+opnd < 1<<OPSHIFT,1,0,1
+ha_part_data && !auto_increment_lock,1,0,1
+s < e,1,0,1
+writer_handle.check_point == 96,1,0,1
+writer_handle.dirty == reader_handle.dirty,1,0,1
+!alloced || !Ptr || !Alloced_length || (Alloced_length >= (str_length + 1)),1,0,1
+(optp->var_type & GET_TYPE_MASK) == GET_LL,1,0,1
+sep == rest,1,0,1
+plugin,1,0,1
+((keypart_map+1) & keypart_map) == 0,1,0,1
+!write_cache || (write_cache->type == WRITE_CACHE),1,0,1
+(uint) i <= p->g->nsub,1,0,1
+writer_handle.rows == rows_to_test_for,1,0,1
+value < 1<<OPSHIFT,1,0,1
+i < NPAREN,1,0,1
+cp < g->must + g->mlen,1,0,1
+c != -1,1,0,1
+files,1,0,1
+!(flags & ~(FIND_TYPE_NO_PREFIX | FIND_TYPE_ALLOW_NUMBER | FIND_TYPE_NO_OVERWRITE | FIND_TYPE_COMMA_TERM)),1,0,1
+&LOCK_load_client_plugin,1,0,1
+current_stmt_binlog_format == BINLOG_FORMAT_STMT || current_stmt_binlog_format == BINLOG_FORMAT_ROW,1,0,1
+cursor.prev != &node->link,1,0,1
+writer_handle.auto_increment == 4,1,0,1
+key_cache_block_size >= 512,1,0,1
+m->pmatch[i].rm_so == -1,1,0,1
+"(A)->state == -1 && pthread_equal(pthread_self(), (A)->write_thread)",1,0,1
+(n % 4) == 0,1,0,1
+data[SCRAMBLE_LENGTH_323] == 0,1,0,1
+precision && precision >= frac,1,0,1
+"info->end_of_file == mysql_file_tell(info->file, MYF(0))",1,0,1
+typelib.count <= 65,1,0,1
+type != READ_NET && info->type != READ_NET && type != WRITE_NET && info->type != WRITE_NET && type != SEQ_READ_APPEND && info->type != SEQ_READ_APPEND,1,0,1
+ptr,1,0,1
+node->link != (intptr)node,1,0,1
+reader_handle.rows == 0,1,0,1
+(size_t) (stop - m->beginp) >= len,1,0,1
+row_count == 3,1,0,1
+shared_memory_base_name != NULL,1,0,1
+(flag & (O_TRUNC | O_APPEND)) != (O_TRUNC | O_APPEND),1,0,1
+sizeof(buffer) >= 4,1,0,1
+CR_OK == -1,1,0,1
+def >= 2 && def <= 7,1,0,1
+timer->id == kev.ident,1,0,1
+delsum+(int) y/4-temp >= 0,1,0,1
+start < sizeof(mbr),1,0,1
+!cmp_hash || hash->get_hash,1,0,1
+fill <= 0xFFFF,1,0,1
+block->type == Query_cache_block::RES_CONT,1,0,1
+attribute_value != NullS,1,0,1
+block->next != first_block,1,0,1
+reader_handle.forced_flushes == 1,1,0,1
+vio->type == VIO_TYPE_TCPIP || vio->type == VIO_TYPE_SOCKET || vio->type == VIO_TYPE_SSL,1,0,1
+intg0 <= ROUND_UP(from2->intg),1,0,1
+end >= dec->buf,1,0,1
+state == 0,1,0,1
+strlen(src) < (FN_REFLEN + 1),1,0,1
+mutex != &LOCK_open,1,0,1
+getopt.arg_type == OPT_ARG || getopt.id == -1,1,0,1
+old_lock_type == TL_WRITE_ONLY,1,0,1
+writer_handle.rows == reader_handle.rows,1,0,1
+OP(p->strip[p->pend[i]]) == ORPAREN,1,0,1
+"a,b,;",1,0,1
+size == sizeof(LEX_STRING),1,0,1
+reader_handle.forced_flushes == 0,1,0,1
+length || !scale,1,0,1
+arg_type == 'X' || arg_type =='x',1,0,1
+m_next == NULL,1,0,1
+m->pmatch[i].rm_so != -1,1,0,1
+start <= stop,1,0,1
+*fmt == '$' && print_arr[idx].width < MAX_ARGS,1,0,1
+PIN < LF_NUM_PINS_IN_THIS_FILE,1,0,1
+nc % CHAR_BIT == 0,1,0,1
+from->len == to->len,1,0,1
+ptr == a || ptr == b,1,0,1
+p->ssize >= p->slen + len,1,0,1
+read_cache->type == READ_CACHE,1,0,1
+((bits < 8 * sizeof(value)) && ! (value >> bits)) || (bits == 8 * sizeof(value)),1,0,1
+to >= dec->buf,1,0,1
+"my_memmem(haystack, 10, needle, 2) == NULL",1,0,1
+t_file2.type == WRITE_CACHE,1,0,1
+dst < end,1,0,1
+size > 1,1,0,1
+writer_handle.forced_flushes == 2,1,0,1
+pos > 0,1,0,1
+!*alarmed || found == 1,1,0,1
+!info->tables,1,0,1
+free_ptr_offset % sizeof(void *) == 0,1,0,1
+maxcount > 0,1,0,1
+new_point >= 0,1,0,1
+table->in_use != NULL,1,0,1
+lev+1 <= m->g->nplus,1,0,1
+"! has_old_lock(lock->write.data, data->owner) || ((lock_type <= lock->write.data->type || (lock_type == TL_WRITE && lock->write.data->type == TL_WRITE_LOW_PRIORITY)) && lock->write.data->type != TL_WRITE_DELAYED)",1,0,1
+2*sizeof(old_table_name) < sizeof(show_name_buff),1,0,1
+test.fired == 1,1,0,1
+tabledef_var && conv_table_var,1,0,1
+*end == NULL,1,0,1
+reader_handle.auto_increment == 4,1,0,1
+old_lock_type > new_lock_type,1,0,1
+(flags & ~BINLOG_STMT_UNSAFE_ALL_FLAGS) == 0,1,0,1
+pos != MY_FILEPOS_ERROR,1,0,1
+lock == 0,1,0,1
+finish >= start,1,0,1
+argc && *argc >= 1,1,0,1
+!alarm_queue.elements,1,0,1
+last->next == NULL,1,0,1
+reader_handle.check_point == 96,1,0,1
+mysql->status != MYSQL_STATUS_READY || (mysql->server_status & SERVER_STATUS_LAST_ROW_SENT),1,0,1
+is_readonly(),1,0,1
+cs_number < array_elements(all_charsets),1,0,1
+def_val < typelib.count,1,0,1
+result < max_size,1,0,1
+ftb_param->depth,1,0,1
+"my_memmem(haystack, 1, needle, 3) == NULL",1,0,1
+CR_ERROR == 0,1,0,1
+dp == NULL || dp == endp,1,0,1
+file,1,0,1
+cs->number < array_elements(all_charsets),1,0,1
+"!memcmp(FRM_STRING, comment_str, strlen(FRM_STRING))",1,0,1
+!(block->status & (BLOCK_ERROR | BLOCK_IN_FLUSH | BLOCK_CHANGED)),1,0,1
+column_index < size(),1,0,1
+to == orig_to + orig_fsize0 + orig_isize0,1,0,1
+new_owner->is_empty(),1,0,1
+barier - d_shift >= dec->buf,1,0,1
+locked == FALSE,1,0,1
+my_errno != ESPIPE,1,0,1
+mysql,1,0,1
+buf0 + (stop1 - start1) <= to->buf + to->len,1,0,1
+p0 - buf0 <= len,1,0,1
+0 <= target_state && target_state <= STATE_COUNT,1,0,1
+g->backrefs,1,0,1
+str != NULL,1,0,1
+!(MyFlags & (MY_FNABP | MY_NABP)),1,0,1
+m_ptr == NULL,1,0,1
+MYSQL_USERNAME_LENGTH == USERNAME_LENGTH,1,0,1
+!do_left || l_mini_shift <= beg,1,0,1
+func == &Arg_comparator::compare_datetime,1,0,1
+keyseg->type == HA_KEYTYPE_DOUBLE,1,0,1
+hash->get_key,1,0,1
+param->use_buffers < SIZE_T_MAX,1,0,1
+state != NO_VALUE,1,0,1
+c != 0,1,0,1
+hash_link->block->hash_link == hash_link,1,0,1
+buf0 < to->buf + to->len,1,0,1
+*fmt == '$' && print_arr[idx].length < MAX_ARGS,1,0,1
+m->pmatch != NULL,1,0,1
+"strcmp(values[typelib.count-1], ""default"") == 0",1,0,1

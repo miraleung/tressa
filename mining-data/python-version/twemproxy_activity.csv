@@ -1,0 +1,252 @@
+x_val,y_added,y_removed,y_combined
+c != NULL,37,21,58
+c->sd > 0,37,21,58
+kq > 0,15,14,29
+c->recv_active,18,11,29
+ep > 0,16,10,26
+conn->client && !conn->proxy,19,3,22
+evp > 0,14,8,22
+!conn->client && !conn->proxy,20,0,20
+r->request,10,8,18
+msg->request,16,2,18
+nevent > 0,11,6,17
+evb->n_changes < evb->nevent,8,8,16
+p == b->last,8,4,12
+b->pos <= b->last,8,4,12
+b != NULL,8,4,12
+state >= SW_START && state < SW_SENTINEL,8,4,12
+r->pos <= b->last,8,4,12
+r->pos != NULL,8,4,12
+r->type > MSG_UNKNOWN && r->type < MSG_SENTINEL,8,4,12
+r->pos >= b->pos && r->pos <= b->last,8,4,12
+r->vlen >= (uint32_t)(b->last - p),6,4,10
+!r->redis,6,4,10
+mbuf_empty(mbuf),5,5,10
+!r->request,7,2,9
+event != NULL,5,3,8
+r->token != NULL,4,4,8
+len >= 0,4,4,8
+ctx->n_changes < ctx->nevent,4,4,8
+p != b->last,4,4,8
+!s_conn->client && !s_conn->proxy,5,2,7
+!msg->request,7,0,7
+evb->kq > 0,7,0,7
+conn->owner != NULL,5,2,7
+c_conn->client && !c_conn->proxy,5,1,6
+evb->nchange < evb->nevent,6,0,6
+msg->peer == NULL,6,0,6
+r->retrieval,3,3,6
+!STAILQ_EMPTY(&r->mhdr),3,3,6
+r->storage || r->arithmetic || r->delete,3,3,6
+!conn->client && conn->connected,3,2,5
+conn->rmsg == NULL,4,1,5
+mbuf->end - mbuf->last > 0,3,2,5
+*p == '$',3,2,5
+key != NULL && keylen != 0,2,2,4
+ctx->nevent != 0,2,2,4
+conn->smsg == NULL,4,0,4
+TAILQ_EMPTY(&conn->imsg_q),4,0,4
+stm->type == STATS_GAUGE,4,0,4
+a->nelem != 0,4,0,4
+msg->request && !msg->done,4,0,4
+!pmsg->request && pmsg->peer == msg,3,1,4
+evb->kq >= 0,2,2,4
+fd > 0,2,2,4
+stm->type == STATS_COUNTER || stm->type == STATS_GAUGE,4,0,4
+nreturned <= 1,3,1,4
+evb->ep >= 0,2,2,4
+!c->send_active,3,1,4
+STAILQ_EMPTY(&r->mhdr),2,2,4
+conn->owner == NULL,4,0,4
+!c->recv_active,3,1,4
+!conn->connecting,2,1,3
+!conn->proxy,2,1,3
+conn->redis,2,1,3
+mbuf->magic == MBUF_MAGIC,3,0,3
+!msg->request && msg->peer != NULL,2,1,3
+mbuf != NULL,2,1,3
+array_n(&pool->server) != 0,3,0,3
+!pr->request,2,1,3
+ncontinuum != 0,3,0,3
+cf->sound && !cf->parsed,3,0,3
+(mbuf->last + n) <= mbuf->end,2,1,3
+TAILQ_EMPTY(&conn->omsg_q),3,0,3
+msg->owner == conn,3,0,3
+continuum != NULL,3,0,3
+evb->evp >= 0,2,1,3
+conn->rmsg == msg,2,1,3
+msg->frag_owner->nfrag == nfragment,2,1,3
+!conn->client && conn->proxy,3,0,3
+r->narg > 1,1,1,2
+n <= mbuf_size(mbuf),2,0,2
+msg->end != NULL,1,1,2
+copy >= MCOPY_GET && copy < MCOPY_SENTINEL,1,1,2
+ctx->kevents == NULL,1,1,2
+pr->mlen == 0,1,1,2
+key != NULL,2,0,2
+msize >= commandlen,1,1,2
+mbuf_size(mbuf) >= 0,1,1,2
+r->request && r->first_fragment,1,1,2
+hbuf->pos < r->narg_end && r->narg_end <= hbuf->last,1,1,2
+pmsg->request && !pmsg->done,2,0,2
+request->request && request->first_fragment,1,1,2
+array_n(&ctx->pool) != 0,2,0,2
+dst->len == 0 && dst->data == NULL,2,0,2
+npool != 0,2,0,2
+r->frag_seq == NULL,2,0,2
+ctx->kq >= 0,1,1,2
+cf->depth == 0,2,0,2
+idx >= 0,1,1,2
+conn->recv_active,2,0,2
+response != NULL,1,1,2
+ctx->event == NULL,1,1,2
+pr->request,2,0,2
+ctx->changes == NULL,1,1,2
+mbuf->end - mbuf->start == mbuf_offset,1,1,2
+pool->ncontinuum != 0,2,0,2
+nfree_connq > 0,2,0,2
+size != 0,2,0,2
+n != 0 && size != 0,2,0,2
+ctx->ep < 0,1,1,2
+conn->client && !conn->proxy && conn->redis,1,1,2
+memcache_storage(r) || memcache_arithmetic(r) || memcache_delete(r),1,1,2
+server->weight > 0,2,0,2
+msg->type == MSG_REQ_GET || msg->type == MSG_REQ_GETS,1,1,2
+0,2,0,2
+(str->len == 0 && str->data == NULL) || (str->len != 0 && str->data != NULL),2,0,2
+st->st_evb != NULL,1,1,2
+ctx->kq < 0,1,1,2
+msg->type == MSG_REQ_MC_GET || msg->type == MSG_REQ_MC_GETS,1,1,2
+cf->depth == CONF_MAX_DEPTH,2,0,2
+msg->pos == mbuf->last,1,1,2
+"STAILQ_NEXT(mbuf, next) == NULL",2,0,2
+r->type == MSG_REQ_REDIS_DEL,1,1,2
+nfree_msgq > 0,2,0,2
+pool->continuum != NULL,2,0,2
+ctx->ep >= 0,1,1,2
+s_conn->need_auth,1,1,2
+r->type == MSG_REQ_REDIS_MGET || r->type == MSG_REQ_REDIS_DEL,1,1,2
+!TAILQ_EMPTY(&send_msgq) && nsend != 0,1,1,2
+stm->type == STATS_TIMESTAMP,2,0,2
+st->sd >= 0,1,1,2
+r->type == MSG_REQ_REDIS_MGET,1,1,2
+nserver != 0,2,0,2
+mbuf->end - mbuf->start == MBUF_LEN,1,1,2
+hbuf->pos == r->narg_start,1,1,2
+conn->proxy && !conn->client,1,0,1
+array_n(&pool->server) > 0,1,0,1
+cs->valid,1,0,1
+nmsg == NULL || nmsg->request,1,0,1
+n <= mbuf_data_size(),1,0,1
+p->recv_active && p->recv_ready,1,0,1
+mbuf->end - mbuf->start == (int)mbuf_offset,1,0,1
+*p == 'V',1,0,1
+nmsg == NULL || !nmsg->request,1,0,1
+response != NULL && response->owner != NULL,1,0,1
+func != NULL,1,0,1
+nfree_connq == 0,1,0,1
+conn->smsg == msg,1,0,1
+"msg->request && req_error(conn, msg)",1,0,1
+TAILQ_EMPTY(&frag_msgq),1,0,1
+conn->done && conn->sd < 0,1,0,1
+cf->valid_parser,1,0,1
+src->len != 0 && src->data != NULL,1,0,1
+pmsg->done && !pmsg->swallow,1,0,1
+sp != NULL,1,0,1
+conn->send_active,1,0,1
+cf->sound,1,0,1
+conn->connecting && !conn->connected,1,0,1
+idx < array_n(&pool->server),1,0,1
+cf->valid_parser && !cf->valid_event,1,0,1
+pos < mbuf->start || pos >= mbuf->end,1,0,1
+a->nelem == 0,1,0,1
+cf->depth < CONF_MAX_DEPTH,1,0,1
+server->ns_conn_q > 0,1,0,1
+size > 0,1,0,1
+sp->p_conn == NULL,1,0,1
+p->proxy && !p->client,1,0,1
+memcache_retrieval(r),1,0,1
+r->mlen == mbuf_length(mbuf),1,0,1
+"msg->request && req_done(conn, msg)",1,0,1
+array_n(a) != 0,1,0,1
+msg != NULL && conn->smsg == NULL,1,0,1
+"pos[1] == ','",1,0,1
+pmsg != NULL && pmsg->peer == NULL,1,0,1
+pmsg->peer == msg,1,0,1
+!msg->quit && !msg->noreply,1,0,1
+mbuf->pos < mbuf->last,1,0,1
+TAILQ_EMPTY(&send_msgq),1,0,1
+STAILQ_EMPTY(&msg->mhdr),1,0,1
+pos[1] == ' ',1,0,1
+st->buf.data != NULL,1,0,1
+pos >= mbuf->pos && pos <= mbuf->last,1,0,1
+msg->owner != conn,1,0,1
+sig->signo != 0,1,0,1
+cf->valid_parser && !cf->valid_token,1,0,1
+r->request && (r->frag_owner == r),1,0,1
+st->buf.data == NULL && st->buf.size == 0,1,0,1
+pr->type == MSG_REQ_REDIS_MGET,1,0,1
+memcache_storage(r) || memcache_arithmetic(r) || memcache_delete(r) || memcache_touch(r),1,0,1
+array_n(r->keys) == (r->narg - 1) / key_step,1,0,1
+nc_valid_port(port),1,0,1
+evb->ep > 0,1,0,1
+TAILQ_EMPTY(&sp->c_conn_q) && sp->nc_conn_q == 0,1,0,1
+"mbuf == STAILQ_LAST(&r->mhdr, mbuf, next)",1,0,1
+!conn_authenticated(s_conn),1,0,1
+!STAILQ_EMPTY(h),1,0,1
+server->ns_conn_q == pool->server_connections,1,0,1
+!msg->request && pmsg->request,1,0,1
+nmsg->request && !nmsg->done,1,0,1
+cf->sound && cf->parsed,1,0,1
+r->end != NULL,1,0,1
+mbuf->end >= mbuf->last,1,0,1
+depth == CONF_MAX_DEPTH,1,0,1
+array_n(&cf->arg) == 0,1,0,1
+request->request && (request->frag_owner == request),1,0,1
+pmsg->request && !pmsg->swallow,1,0,1
+ptr != NULL,1,0,1
+elem >= a->elem,1,0,1
+TAILQ_EMPTY(&s->s_conn_q) && s->ns_conn_q == 0,1,0,1
+"req_done(conn, msg->peer)",1,0,1
+pmsg->peer == NULL,1,0,1
+nsend != 0,1,0,1
+!cf->valid,1,0,1
+!cf->valid_parser,1,0,1
+array_n(server) == 0,1,0,1
+s != NULL,1,0,1
+nfree_mbufq > 0,1,0,1
+pool->continuum[pointer_index].value <= pool->continuum[pointer_index + 1].value,1,0,1
+mbuf->start < mbuf->end,1,0,1
+pr->type == MSG_REQ_REDIS_DEL,1,0,1
+off % (uint32_t)a->size == 0,1,0,1
+mbuf->last >= mbuf->pos,1,0,1
+cp->valid,1,0,1
+conn->sd > 0,1,0,1
+array_n(sendv) > 0,1,0,1
+!mbuf_full(mbuf) && n <= mbuf_size(mbuf),1,0,1
+conn->connected,1,0,1
+array_n(server) == nserver,1,0,1
+conn->send_ready,1,0,1
+nfree_mbufq == 0,1,0,1
+r->narg_start == mbuf->pos,1,0,1
+array_n(server_pool) == 0,1,0,1
+p->proxy,1,0,1
+!conn->connecting && !conn->connected,1,0,1
+r->narg_start < r->narg_end,1,0,1
+nfree_msgq == 0,1,0,1
+idx < a->nelem,1,0,1
+buf != NULL,1,0,1
+stm1->type == stm2->type,1,0,1
+conn->sd < 0,1,0,1
+msg != NULL && conn->rmsg == msg,1,0,1
+!response->request,1,0,1
+!cp->valid,1,0,1
+src != NULL && srclen != 0,1,0,1
+!string_empty(&cp->name),1,0,1
+p->sd > 0,1,0,1
+nmetric == STATS_POOL_NFIELD || nmetric == STATS_SERVER_NFIELD,1,0,1
+array_n(server_pool) == npool,1,0,1
+conn->recv_ready,1,0,1
+pool->nc_conn_q != 0,1,0,1
+array_n(msg->keys) > 0,1,0,1
+server->ns_conn_q != 0,1,0,1

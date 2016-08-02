@@ -1,0 +1,113 @@
+x_val,y_added,y_removed,y_combined
+"std::is_base_of<IVariableActionContext, Ctx>::value, ""The provided context does not implement variable-action interface.""",30,25,55
+false,37,0,37
+sizeof(typename OutputByteStream::Ch) == 1,14,0,14
+sizeof(typename InputByteStream::Ch) == 1,14,0,14
+"std::is_base_of<IPolicy<Ctx>, Plc>::value, ""The specified policy does not implement IPolicy""",6,6,12
+IsObject(),11,0,11
+IsArray(),11,0,11
+"std::is_base_of<IScorer<Ctx>, Scr>::value, ""The specified scorer does not implement IScorer""",4,4,8
+A.size() == 0,3,3,6
+ec->in_use,3,2,5
+copy->in_use,3,2,5
+node >= 0 && node < total,3,2,5
+j < A.size(),2,2,4
+((void*)features_data == (void*)ec.atomics) || ((void*)features_data == (void*)ec.audit_features),2,2,4
+IsValid(),4,0,4
+end <= A.size(),2,2,4
+(*lineptr + *n) == (read_pos + nchars_avail),2,2,4
+start < A.size(),2,2,4
+i < A.size(),2,2,4
+codepoint <= 0x10FFFF,3,0,3
+IsString(),3,0,3
+sizeof(Ch) >= 4,3,0,3
+sizeof(Ch) >= 2,3,0,3
+Base::level_stack_.GetSize() >= sizeof(typename Base::Level),2,0,2
+type >= kUTF8 && type <= kUTF32BE,2,0,2
+sizeof(typename InputStream::Ch) >= 4,2,0,2
+level_stack_.GetSize() >= sizeof(Level),2,0,2
+s != NULL,2,0,2
+first <= last,2,0,2
+fp_ != 0,2,0,2
+name.IsString(),2,0,2
+"std::is_base_of<IRecorder<Ctx>, Rec>::value, ""The specified recorder does not implement IRecorder""",1,1,2
+sizeof(typename OutputStream::Ch) >= 2,2,0,2
+type == kStringType,2,0,2
+data_.o.size > 0,2,0,2
+data_.o.members != 0,2,0,2
+ret == true,2,0,2
+sizeof(typename InputStream::Ch) >= 2,2,0,2
+length > 0,1,0,1
+index < count_,1,0,1
+!(parseFlags & kParseInsituFlag),1,0,1
+first >= Begin(),1,0,1
+sizeof(B) != 0,1,0,1
+dst_ != 0,1,0,1
+(flags_ & kUint64Flag) != 0,1,0,1
+count_ < kCapacity,1,0,1
+is.Peek() == 'n',1,0,1
+flags_ & kUintFlag,1,0,1
+!Base::level_stack_.template Top<typename Base::Level>()->inArray,1,0,1
+rhs.IsString(),1,0,1
+!HasParseError(),1,0,1
+nameBuffer_ == 0,1,0,1
+x,1,0,1
+GetSize() >= sizeof(T),1,0,1
+data_.a.elements != 0,1,0,1
+data_.a.size > 0,1,0,1
+sizeof(D) != 0,1,0,1
+dst == IterativeParsingValueState,1,0,1
+token.GetUint64() <= SizeType(~0),1,0,1
+!Sign(),1,0,1
+!hasRoot_,1,0,1
+m >= MemberBegin() && m < MemberEnd(),1,0,1
+cmp != 0,1,0,1
+!Empty(),1,0,1
+codepoint >= 0x010000 && codepoint <= 0x10FFFF,1,0,1
+IsBool(),1,0,1
+bufferSize >= 4,1,0,1
+IsNumber(),1,0,1
+name <= nameBuffer_ + length,1,0,1
+GetType() == kNumberType,1,0,1
+flags_ & kIntFlag,1,0,1
+source[i] == '/',1,0,1
+stack_.GetSize() == sizeof(ValueType),1,0,1
+n >= 0 && n <= 308,1,0,1
+is.Peek() == 'f',1,0,1
+token.IsUint64(),1,0,1
+token == ColonToken,1,0,1
+!Base::hasRoot_,1,0,1
+index < data_.a.size,1,0,1
+this != &rhs,1,0,1
+tokens_ == 0,1,0,1
+(void*)this != (void const*)&rhs,1,0,1
+adjustment >= 0 && adjustment < 7,1,0,1
+is.Peek() == '[',1,0,1
+Base::level_stack_.template Top<typename Base::Level>()->inArray,1,0,1
+is.Peek() == 't',1,0,1
+size > sizeof(ChunkHeader),1,0,1
+newBuffer != 0,1,0,1
+"(internal::IsSame<bool,T>::Value)",1,0,1
+sizeof(typename OutputStream::Ch) >= 4,1,0,1
+level_stack_.template Top<Level>()->inArray,1,0,1
+!level_stack_.template Top<Level>()->inArray,1,0,1
+length <= 0xFFFFFFFF,1,0,1
+stackCapacity > 0,1,0,1
+codepoint < 0xD800 || codepoint > 0xDFFF,1,0,1
+length >= 1,1,0,1
+is.Peek() == '{',1,0,1
+source != NULL,1,0,1
+GetSize() >= count * sizeof(T),1,0,1
+first >= MemberBegin(),1,0,1
+codepoint <= 0x7F,1,0,1
+last <= MemberEnd(),1,0,1
+flags_ & kInt64Flag,1,0,1
+buffer != 0,1,0,1
+count_ + offset <= kCapacity,1,0,1
+flags_ & kUint64Flag,1,0,1
+m->name.IsString(),1,0,1
+d >= 0.0,1,0,1
+last <= End(),1,0,1
+indentChar == ' ' || indentChar == '\t' || indentChar == '\n' || indentChar == '\r',1,0,1
+*p >= '0' && *p <= '9',1,0,1
+type <= kNumberType,1,0,1

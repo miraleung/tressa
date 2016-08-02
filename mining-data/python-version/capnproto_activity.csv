@@ -1,0 +1,154 @@
+x_val,y_added,y_removed,y_combined
+"kind<RootType>() == Kind::STRUCT, ""Root type must be a Cap'n Proto struct type.""",8,8,16
+"index < elementCount, ""List index out of range.""",5,5,10
+"true, """"",4,4,8
+"sizeof(byte) == 1, ""uint8_t is not one byte?""",4,3,7
+"sizeof(word) == 8, ""uint64_t is not 8 bytes?""",4,3,7
+"sizeof(Slot) == sizeof(T), ""union is bigger than content?""",3,3,6
+"pos == size() && i == end, ""copyFrom() argument had different size.""",3,3,6
+"other.size() == size(), ""copyFrom() argument had different size.""",3,3,6
+"isIntegral<OtherNumber>(), ""Multiplied Quantity by non-integer.""",3,2,5
+"isIntegral<OtherNumber>(), ""Divided Quantity by non-integer.""",3,2,5
+"isIntegral<Number>(), ""Underlying type for Quantity must be integer.""",3,2,5
+"isIntegral<Number>(), ""Underlying type for UnitRatio must be integer.""",3,2,5
+"text[size()] == '\0', ""Text must be NUL-terminated.""",2,2,4
+"debug::refFieldIsList(descriptor, refIndex), ""StructBuilder::initListField() type mismatch.""",2,2,4
+"start <= end && end <= size_, ""Out-of-bounds slice.""",2,2,4
+"!IsLvalueReference<T>::value, ""Attempting to forward rvalue as lvalue reference.""",2,2,4
+!atEnd(),2,2,4
+"internal::debug::refFieldIsList(descriptor, refIndex), ""StructPtr::initListField() type mismatch.""",2,2,4
+"sizeof(T) < 0, ""You can't take the address of a list member because they are not stored in memory "" ""in a directly-usable format.""",2,2,4
+"debug::refFieldIsList(descriptor, refIndex), ""StructPtr::initListField() type mismatch.""",2,2,4
+"expected.size(), reader.size()",3,1,4
+"kind<T>() == Kind::STRUCT, ""DynamicStruct::Reader::as<T>() can only convert to struct types.""",2,1,3
+"kind<T>() == Kind::STRUCT, ""DynamicStruct::Builder::as<T>() can only convert to struct types.""",2,1,3
+"sizeof(result) == sizeof(value), ""double is not 64 bits?""",2,1,3
+"sizeof(T) == 2, ""Don't know how to mask this type.""",2,1,3
+"kind<T>() == Kind::LIST, ""DynamicStruct::Reader::as<T>() can only convert to list types.""",2,1,3
+"sizeof(i) == sizeof(value), ""float is not 32 bits?""",2,1,3
+"sizeof(result) == sizeof(value), ""float is not 32 bits?""",2,1,3
+"kind<T>() == Kind::LIST, ""ListSchema::requireUsableAs<T>() requires T is a list type.""",2,1,3
+"sizeof(i) == sizeof(value), ""double is not 64 bits?""",2,1,3
+"kind<T>() == Kind::LIST, ""DynamicStruct::Builder::as<T>() can only convert to list types.""",2,1,3
+"index < sizeof...(T), ""Tuple element index out-of-bounds.""",3,0,3
+"data()[size()] == '\0', ""Text must be NUL-terminated.""",1,1,2
+"internal::debug::elementsAreStructs(descriptor, elementWordSize), ""ListPtr::getStructElement() type mismatch.""",1,1,2
+" internal::debug::fieldIsData(descriptor, fieldNumber, offset, sizeof(T) * 8), ""StructReadPtr::getDataField() type mismatch.""",1,1,2
+"debug::elementsAreStructs(descriptor, elementWordSize), ""ListBuilder::getStructElement() type mismatch.""",1,1,2
+"sizeof(T) < 0, ""Continuation passed to thenInAnyThread() cannot return a promise.""",1,1,2
+"__builtin_offsetof(StructDescriptor, base) == 0, ""'base' must be the first member of StructDescriptor to allow reinterpret_cast from "" ""Descriptor to StructDescriptor.""",1,1,2
+"debug::fieldIsData(descriptor, fieldNumber, offset, sizeof(T) * 8), ""StructReadPtr::getDataField() type mismatch.""",1,1,2
+" internal::debug::elementsAreData(descriptor, sizeof(T) * 8), ""ListReadPtr::getDataElement() type mismatch.""",1,1,2
+"debug::bitFieldInRange(descriptor, offset * BITS), ""StructBuilder::getDataField<bool>() type mismatch.""",1,1,2
+"debug::refFieldIsStruct(descriptor, refIndex), ""StructBuilder::getStructField() type mismatch.""",1,1,2
+"debug::fieldIsData(descriptor, fieldNumber, offset, 1), ""StructReader::getDataField<bool>() type mismatch.""",1,1,2
+"debug::bitFieldInRange(descriptor, offset), ""StructPtr::getDataField<bool>() type mismatch.""",1,1,2
+"debug::elementsAreLists(descriptor), ""ListPtr::initListElement() type mismatch.""",1,1,2
+"scratchCounter < 6, ""Too many scratch spaces needed at once.""",1,1,2
+"debug::elementsAreData(descriptor, sizeof(T) * 8), ""ListPtr::setDataElement() type mismatch.""",1,1,2
+"debug::bitFieldInRange(descriptor, offset), ""StructPtr::setDataField<bool>() type mismatch.""",1,1,2
+"debug::elementsAreData(descriptor, 1 * BITS), ""ListBuilder::getDataElement<bool>() type mismatch.""",1,1,2
+"debug::elementsAreData(descriptor, 1), ""ListPtr::getDataElement<bool>() type mismatch.""",1,1,2
+"kind<T>() == Kind::STRUCT, ""Root type must be a Cap'n Proto struct type.""",1,1,2
+"debug::elementsAreData(descriptor, 1 * BITS), ""ListReader::getDataElement<bool>() type mismatch.""",1,1,2
+"internal::debug::elementsAreLists(descriptor), ""ListPtr::initListElement() type mismatch.""",1,1,2
+"debug::bitFieldInRange(descriptor, offset * BITS), ""StructBuilder::setDataField<bool>() type mismatch.""",1,1,2
+"debug::elementsAreData(descriptor, 1), ""ListReadPtr::getDataElement<bool>() type mismatch.""",1,1,2
+"debug::dataFieldInRange(descriptor, offset, sizeof(T)), ""StructBuilder::getDataField() type mismatch.""",1,1,2
+"debug::dataFieldInRange(descriptor, offset, sizeof(T) * BYTES), ""StructBuilder::getDataField() type mismatch.""",1,1,2
+" internal::debug::elementsAreData(descriptor, sizeof(T) * 8), ""ListPtr::setDataElement() type mismatch.""",1,1,2
+"debug::elementsAreData(descriptor, sizeof(T) * 8), ""ListPtr::getDataElement() type mismatch.""",1,1,2
+"debug::elementsAreStructs(descriptor, elementWordSize), ""ListPtr::getStructElement() type mismatch.""",1,1,2
+"debug::elementsAreLists(descriptor), ""ListPtr::getListElement() type mismatch.""",1,1,2
+"debug::dataFieldInRange(descriptor, offset, sizeof(T)), ""StructPtr::getDataField() type mismatch.""",1,1,2
+"debug::elementsAreData(descriptor, sizeof(T) * 8), ""ListBuilder::setDataElement() type mismatch.""",1,1,2
+"pos == endPtr, ""ArrayBuilder::finish() called prematurely.""",1,1,2
+"debug::elementsAreStructs(descriptor, elementSize), ""ListBuilder::getStructElement() type mismatch.""",1,1,2
+"CAPNPROTO_OFFSETOF(StructDescriptor, base) == 0, ""'base' must be the first member of StructDescriptor to allow reinterpret_cast from "" ""Descriptor to StructDescriptor.""",1,1,2
+"debug::dataFieldInRange(descriptor, offset, sizeof(T)), ""StructPtr::setDataField() type mismatch.""",1,1,2
+"debug::fieldIsData(descriptor, fieldNumber, offset, 1 * BITS), ""StructReader::getDataField<bool>() type mismatch.""",1,1,2
+"debug::fieldIsStruct(descriptor, fieldNumber, refIndex), ""StructReader::getStructField() type mismatch.""",1,1,2
+"debug::elementsAreLists(descriptor), ""ListReadPtr::getListElement() type mismatch.""",1,1,2
+"kind<T>() == Kind::INTERFACE, ""DynamicCapability::Client::as<T>() can only convert to interface types.""",2,0,2
+"debug::elementsAreData(descriptor, sizeof(T) * 8), ""ListBuilder::getDataElement() type mismatch.""",1,1,2
+"debug::elementsAreStructs(descriptor), ""ListReader::getStructElement() type mismatch.""",1,1,2
+"debug::elementsAreStructs(descriptor), ""ListReadPtr::getStructElement() type mismatch.""",1,1,2
+"size() == other.size(), ""Sizes must match to copy.""",1,1,2
+"debug::elementsAreLists(descriptor), ""ListBuilder::getListElement() type mismatch.""",1,1,2
+" internal::debug::dataFieldInRange(descriptor, offset, sizeof(T)), ""StructPtr::getDataField() type mismatch.""",1,1,2
+"internal::debug::elementsAreLists(descriptor), ""ListPtr::getListElement() type mismatch.""",1,1,2
+"debug::dataFieldInRange(descriptor, offset, sizeof(T)), ""StructBuilder::setDataField() type mismatch.""",1,1,2
+"debug::elementsAreData(descriptor, 1), ""ListBuilder::getDataElement<bool>() type mismatch.""",1,1,2
+" internal::debug::fieldIsData(descriptor, fieldNumber, offset, 1), ""StructReadPtr::getDataField<bool>() type mismatch.""",1,1,2
+"CAPNPROTO_OFFSETOF(ListDescriptor, base) == 0, ""'base' must be the first member of ListDescriptor to allow reinterpret_cast from "" ""Descriptor to ListDescriptor.""",1,1,2
+"internal::debug::refFieldIsStruct(descriptor, refIndex), ""StructPtr::getStructField() type mismatch.""",1,1,2
+"index < size_, ""Out-of-bounds Array access.""",1,1,2
+" internal::debug::elementsAreData(descriptor, 1), ""ListReadPtr::getDataElement<bool>() type mismatch.""",1,1,2
+" internal::debug::elementsAreData(descriptor, sizeof(T) * 8), ""ListPtr::getDataElement() type mismatch.""",1,1,2
+"internal::debug::elementsAreLists(descriptor), ""ListReadPtr::getListElement() type mismatch.""",1,1,2
+"scratchCounter < 4, ""Too many scratch spaces needed at once.""",1,1,2
+"debug::bitFieldInRange(descriptor, offset), ""StructBuilder::getDataField<bool>() type mismatch.""",1,1,2
+"debug::fieldIsList(descriptor, fieldNumber, refIndex), ""StructReadPtr::getListField() type mismatch.""",1,1,2
+"debug::elementsAreData(descriptor, 1), ""ListReader::getDataElement<bool>() type mismatch.""",1,1,2
+_::Mutex::SHARED,2,0,2
+"debug::elementsAreData(descriptor, 1 * BITS), ""ListBuilder::setDataElement<bool>() type mismatch.""",1,1,2
+"kind<RootType>() == Kind::STRUCT, ""Parameter must be a Reader for a Cap'n Proto struct type.""",1,1,2
+isCanonical(),1,1,2
+"!isLvalueReference<T>(), ""Attempting to forward rvalue as lvalue reference.""",1,1,2
+"debug::elementsAreData(descriptor, sizeof(T) * 8), ""ListReader::getDataElement() type mismatch.""",1,1,2
+"start <= end && end <= size_, ""Out-of-bounds ArrayPtr::slice().""",1,1,2
+"__has_trivial_copy(StructSchema) && __has_trivial_copy(ListSchema), ""Assumptions made here do not hold.""",1,1,2
+"debug::fieldIsList(descriptor, fieldNumber, refIndex), ""StructReader::getListField() type mismatch.""",1,1,2
+"index < size_, ""Out-of-bounds ArrayPtr access.""",1,1,2
+"debug::dataFieldInRange(descriptor, offset, sizeof(T) * BYTES), ""StructBuilder::setDataField() type mismatch.""",1,1,2
+"start <= end && end <= size_, ""Out-of-bounds Array::slice().""",1,1,2
+"internal::debug::elementsAreStructs(descriptor), ""ListReadPtr::getStructElement() type mismatch.""",1,1,2
+"debug::elementsAreData(descriptor, sizeof(T) * BYTES * BITS_PER_BYTE), ""ListBuilder::setDataElement() type mismatch.""",1,1,2
+"debug::elementsAreLists(descriptor), ""ListBuilder::initListElement() type mismatch.""",1,1,2
+" internal::debug::dataFieldInRange(descriptor, offset, sizeof(T)), ""StructPtr::setDataField() type mismatch.""",1,1,2
+" kind == Kind::STRUCT, ""asStruct() called on Descriptor that isn't a struct.""",1,1,2
+"kj::isReference<Other>(), ""ParseRef should not be assigned to a temporary.""",2,0,2
+"debug::refFieldIsStruct(descriptor, refIndex), ""StructPtr::getStructField() type mismatch.""",1,1,2
+"text[size] == '\0', ""Text must be NUL-terminated.""",1,1,2
+"__builtin_offsetof(ListDescriptor, base) == 0, ""'base' must be the first member of ListDescriptor to allow reinterpret_cast from "" ""Descriptor to ListDescriptor.""",1,1,2
+"debug::fieldIsStruct(descriptor, fieldNumber, refIndex), ""StructReadPtr::getStructField() type mismatch.""",1,1,2
+"internal::debug::fieldIsStruct(descriptor, fieldNumber, refIndex), ""StructReadPtr::getStructField() type mismatch.""",1,1,2
+"debug::elementsAreData(descriptor, sizeof(T) * 8), ""ListReadPtr::getDataElement() type mismatch.""",1,1,2
+"debug::elementsAreData(descriptor, 1), ""ListBuilder::setDataElement<bool>() type mismatch.""",1,1,2
+"debug::fieldIsData(descriptor, fieldNumber, offset, 1), ""StructReadPtr::getDataField<bool>() type mismatch.""",1,1,2
+"pos < endPtr, ""Added too many elements to ArrayBuilder.""",1,1,2
+"debug::elementsAreData(descriptor, sizeof(T) * BYTES * BITS_PER_BYTE), ""ListReader::getDataElement() type mismatch.""",1,1,2
+builder.isCanonical(),1,1,2
+" internal::debug::bitFieldInRange(descriptor, offset), ""StructPtr::setDataField<bool>() type mismatch.""",1,1,2
+"debug::fieldIsData(descriptor, fieldNumber, offset, sizeof(T) * 8), ""StructReader::getDataField() type mismatch.""",1,1,2
+" internal::debug::bitFieldInRange(descriptor, offset), ""StructPtr::getDataField<bool>() type mismatch.""",1,1,2
+" internal::debug::elementsAreData(descriptor, 1), ""ListPtr::setDataElement<bool>() type mismatch.""",1,1,2
+"debug::elementsAreLists(descriptor), ""ListReader::getListElement() type mismatch.""",1,1,2
+" debug::fieldIsData(descriptor, fieldNumber, offset, sizeof(T) * BYTES * BITS_PER_BYTE), ""StructReader::getDataField() type mismatch.""",1,1,2
+"style<T>() == Style::PRIMITIVE || style<T>() == Style::CAPABILITY, ""must specify an orphanage to decode an object type""",2,0,2
+"debug::bitFieldInRange(descriptor, offset), ""StructBuilder::setDataField<bool>() type mismatch.""",1,1,2
+"debug::elementsAreData(descriptor, sizeof(T) * BYTES * BITS_PER_BYTE), ""ListBuilder::getDataElement() type mismatch.""",1,1,2
+"kind == Kind::LIST, ""asList() called on Descriptor that isn't a list.""",1,1,2
+" internal::debug::elementsAreData(descriptor, 1), ""ListPtr::getDataElement<bool>() type mismatch.""",1,1,2
+"internal::debug::fieldIsList(descriptor, fieldNumber, refIndex), ""StructReadPtr::getListField() type mismatch.""",1,1,2
+"debug::elementsAreData(descriptor, 1), ""ListPtr::setDataElement<bool>() type mismatch.""",1,1,2
+"__is_polymorphic(T), ""Casting owned pointers requires that the target type is polymorphic.""",1,0,1
+"sizeof(T) == sizeof(PropagateConst<T, char>), ""releaseAsChars() only possible on arrays with char-size elements (e.g. bytes).""",1,0,1
+"sizeof...(params) == sizeof...(indexes), ""Wrong number of parameters to Tuple constructor.""",1,0,1
+"1 * POINTERS * WORDS_PER_POINTER == 1 * WORDS, ""This struct assumes a pointer is one word.""",1,0,1
+"expected.size(), list.size()",1,0,1
+"index != index, ""Index out-of-range.""",1,0,1
+"index == 0, ""Tuple element index out-of-bounds.""",1,0,1
+"sizeof(p) == sizeof(result), ""unknown ptmf layout""",1,0,1
+"sizeof(T) == sizeof(_::ListReader), ""lists are not bare readers?""",1,0,1
+"sizeof(T) == sizeof(byte), ""releaseAsBytes() only possible on arrays with byte-size elements (e.g. chars).""",1,0,1
+"part.value != nullptr, ""Bug in KJ promise framework: Promise result had neither value no exception.""",1,0,1
+"!isStringTree<Decay<T>>(), ""When passing a StringTree into kj::strTree(), either pass it by rvalue "" ""(use kj::mv(value)) or explicitly call value.flatten() to make a copy.""",1,0,1
+_::Mutex::EXCLUSIVE,1,0,1
+"kind<T>() == Kind::STRUCT, ""DynamicStruct::Pipeline::releaseAs<T>() can only convert to struct types.""",1,0,1
+"expected.size(), typed.size()",1,0,1
+"sizeof...(indexes) == sizeof...(Types), ""Incorrect use of TupleImpl.""",1,0,1
+"sizeof(T) < 0, ""MutexGuarded's type cannot be const.""",1,0,1
+"sizeof(T*) == 0, ""Sorry, tuples cannot contain references.""",1,0,1
+"expectedData.size(), reader.size()",1,0,1
+"sizeof(Tuple<T...>*) == 0, ""Tuples cannot contain other tuples -- they should be flattened.""",1,0,1

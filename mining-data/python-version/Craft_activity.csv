@@ -1,0 +1,2579 @@
+x_val,y_added,y_removed,y_combined
+ rc==SQLITE_OK ,54,27,81
+ cursorHoldsMutex(pCur) ,50,25,75
+ sqlite3_mutex_held(pBt->mutex) ,44,22,66
+pPager,44,22,66
+ sqlite3_mutex_held(db->mutex) ,44,22,66
+" sqlite3SchemaMutexHeld(db, iDb, 0) ",42,21,63
+ assert_pager_state(pPager) ,42,21,63
+ pFile ,42,21,63
+ pOp->p1>=0 && pOp->p1<p->nCursor ,40,20,60
+ sqlite3_mutex_held(pPage->pBt->mutex) ,34,17,51
+ sqlite3_mutex_held(pCtx->s.db->mutex) ,34,17,51
+ p!=0 ,28,14,42
+ pMem->db==0 || sqlite3_mutex_held(pMem->db->mutex) ,28,14,42
+ v!=0 ,24,12,36
+ sqlite3_mutex_held(p->db->mutex) ,22,11,33
+ 0 ,22,11,33
+" !ExprHasProperty(pExpr, EP_IntValue) ",22,11,33
+ argc==1 ,20,10,30
+ (pMem->flags & MEM_RowSet)==0 ,20,10,30
+ pCur->eState==CURSOR_VALID ,20,10,30
+ sqlite3_mutex_held(mem3.mutex) ,20,10,30
+ !pagerUseWal(pPager) ,20,10,30
+ sqlite3PagerIswriteable(pPage->pDbPage) ,20,10,30
+ !db->mallocFailed ,18,9,27
+ !MEMDB ,18,9,27
+p,18,9,27
+ p->magic==VDBE_MAGIC_INIT ,18,9,27
+ iDb>=0 && iDb<db->nDb ,16,8,24
+ sqlite3BtreeHoldsMutex(p) ,16,8,24
+ db!=0 ,16,8,24
+ p->pSegments==0 ,14,7,21
+ pWal->writeLock ,14,7,21
+ pOp->p1>=0 && pOp->p1<db->nDb ,14,7,21
+ pEList!=0 ,14,7,21
+ EIGHT_BYTE_ALIGNMENT(pMem) ,14,7,21
+ v ,14,7,21
+ sqlite3BtreeHoldsAllMutexes(db) ,14,7,21
+ rc!=SQLITE_DONE ,12,6,18
+ db->mallocFailed ,12,6,18
+ pPager->errCode==SQLITE_OK ,12,6,18
+ sqlite3_mutex_held(pCur->pBtree->db->mutex) ,12,6,18
+ pOp->p3>0 && pOp->p3<=p->nMem ,12,6,18
+ isOpen(pPager->jfd) ,12,6,18
+ pPager->eState!=PAGER_ERROR ,12,6,18
+" !ExprHasProperty(pExpr, EP_xIsSelect) ",12,6,18
+ eFileLock<=SHARED_LOCK ,10,5,15
+ id!=0 ,10,5,15
+ pPage->isInit ,10,5,15
+ pTab!=0 ,10,5,15
+ p->nRef>0 ,10,5,15
+ pOp->p4type==P4_INT32 ,10,5,15
+ iDb>=0 ,10,5,15
+ (p->btreeMask & (((yDbMask)1)<<pOp->p1))!=0 ,10,5,15
+ iIndex>=0 && iIndex<p->nIndex ,10,5,15
+ p->pEList ,10,5,15
+ pPager->eState==PAGER_OPEN ,10,5,15
+ pH!=0 ,10,5,15
+ nColumn==1 ,8,4,12
+ sqlite3BtreeHoldsAllMutexes(pParse->db) ,8,4,12
+ pOp->p3<=p->nMem ,8,4,12
+ nByte>0 ,8,4,12
+ ((Fts3Table *)pCsr->base.pVtab)->pSegments==0 ,8,4,12
+ unixMutexHeld() ,8,4,12
+ pOp->p3>0 ,8,4,12
+ pParse!=0 ,8,4,12
+ hHeap!=INVALID_HANDLE_VALUE ,8,4,12
+ pList!=0 ,8,4,12
+ p->nPendingData==0 ,8,4,12
+ amt>0 ,8,4,12
+ sqlite3PagerIswriteable(pParent->pDbPage) ,8,4,12
+ p->nOp>0 ,8,4,12
+ p->inTrans==TRANS_WRITE ,8,4,12
+ pIn1->flags&MEM_Int ,8,4,12
+ pParse->nErr==0 ,8,4,12
+ IsVirtual(pTab) ,8,4,12
+ pBt->inTransaction==TRANS_WRITE ,8,4,12
+ rc==SQLITE_OK || ppStmt==0 || *ppStmt==0 ,8,4,12
+ hHeap!=0 ,8,4,12
+ iDb<db->nDb ,8,4,12
+ pOp->p2>0 ,8,4,12
+ pTabList->nSrc==1 ,8,4,12
+ argc==1 || argc==2 ,6,3,9
+ pBt!=0 ,6,3,9
+ pH->htsize>0 ,6,3,9
+ nBytes>=0 ,6,3,9
+ p->id==SQLITE_MUTEX_FAST || p->id==SQLITE_MUTEX_RECURSIVE ,6,3,9
+ pCur->aiIdx[pCur->iPage]<pCur->apPage[pCur->iPage]->nCell ,6,3,9
+ pList->nExpr>0 ,6,3,9
+ iLangid>=0 ,6,3,9
+ pIdx->pSchema==pTab->pSchema ,6,3,9
+ pOp->p2<=p->nMem ,6,3,9
+ pHdr->iForeGuard==FOREGUARD ,6,3,9
+ n>0 && n<=4 ,6,3,9
+ pPage->nOverflow==0 ,6,3,9
+ (pBt->btsFlags & BTS_READ_ONLY)==0 ,6,3,9
+" sqlite3MemdebugHasType(p, MEMTYPE_DB) ",6,3,9
+ i>=0 && i<mem5.nBlock ,6,3,9
+ op>=0 && op<ArraySize(wsdStat.nowValue) ,6,3,9
+ enc==SQLITE_UTF8 || enc==SQLITE_UTF16LE || enc==SQLITE_UTF16BE ,6,3,9
+ pShmNode->pInode==pDbFd->pInode ,6,3,9
+ pKeyInfo->aSortOrder!=0 ,6,3,9
+ pPager->journalHdr<=pPager->journalOff ,6,3,9
+ argc==3 ,6,3,9
+(size_t) index < sizeof(attribs) / sizeof(attribs[0]),6,3,9
+ pOp->p1>=0 ,6,3,9
+ pPg->flags&PGHDR_DIRTY ,6,3,9
+ pName->nSrc==1 ,6,3,9
+" !ExprHasAnyProperty(pExpr, EP_TokenOnly|EP_Reduced) ",6,3,9
+rc==SQLITE_OK || rc==SQLITE_NOMEM,6,3,9
+ isOpen(pPager->fd) || pPager->tempFile ,6,3,9
+" sqlite3MemdebugHasType(p, MEMTYPE_LOOKASIDE|MEMTYPE_HEAP) ",6,3,9
+ p->id==SQLITE_MUTEX_RECURSIVE || debugMutexNotheld(pX) ,6,3,9
+ pList ,6,3,9
+ p->db!=0 ,6,3,9
+ omitTable==0 ,6,3,9
+ db==0 || sqlite3_mutex_held(db->mutex) ,6,3,9
+ isOpen(pPager->fd) ,6,3,9
+ i>=1 ,6,3,9
+ pOp[-1].opcode==OP_CollSeq ,6,3,9
+ nKey>=0 ,6,3,9
+ pNew!=0 ,6,3,9
+ iLevel<FTS3_SEGDIR_MAXLEVEL ,6,3,9
+ pPager->eState==PAGER_WRITER_CACHEMOD || pPager->eState==PAGER_WRITER_DBMOD ,6,3,9
+ (z-zBuf)==n ,6,3,9
+ nCell<nMaxCells ,6,3,9
+ iLogsize>=0 && iLogsize<=LOGMAX ,6,3,9
+ id ,6,3,9
+ pCur->pgnoRoot==0 || pCur->apPage[pCur->iPage]->nCell==0 ,6,3,9
+ p->nRef==0 ,6,3,9
+ i>0 ,6,3,9
+ p->eLock!=UNKNOWN_LOCK ,6,3,9
+ pPrior!=0 ,6,3,9
+ z!=0 ,6,3,9
+" sqlite3SchemaMutexHeld(db, j, 0) ",6,3,9
+ pTab->pSelect==0 ,6,3,9
+ isOpen(p->jfd) || p->journalMode==PAGER_JOURNALMODE_OFF || p->journalMode==PAGER_JOURNALMODE_WAL ,6,3,9
+ pWal->nWiData>0 && pWal->apWiData[0] ,6,3,9
+ pPager->eState>=PAGER_WRITER_LOCKED ,6,3,9
+ sqlite3_mutex_held(pCache->pGroup->mutex) ,6,3,9
+ pBt->autoVacuum ,6,3,9
+ (pH->htsize & (pH->htsize-1))==0 ,6,3,9
+ pOrTerm->eOperator & WO_EQ ,6,3,9
+ pPager->eLock==EXCLUSIVE_LOCK ,6,3,9
+ sqlite3BtreeCursorIsValid(pCur) ,6,3,9
+ pPage->pBt!=0 ,6,3,9
+ !db->init.busy ,6,3,9
+ pCur->aiIdx[pCur->iPage]<pPage->nCell ,6,3,9
+ rc!=SQLITE_OK ,6,3,9
+ pFile!=0 ,6,3,9
+ iCol>=0 ,6,3,9
+ pParse->pNewTable==0 ,6,3,9
+p->op==RTREE_LE || p->op==RTREE_LT || p->op==RTREE_GE || p->op==RTREE_GT || p->op==RTREE_EQ || p->op==RTREE_MATCH ,4,2,6
+ (sqlite3FtsUnicodeIsalnum(iCode) & 0xFFFFFFFE)==0 ,4,2,6
+ 0!=pFile->eFileLock ,4,2,6
+ (!isDelete && zName) || eType!=SQLITE_OPEN_MAIN_DB ,4,2,6
+ pBt->pPage1->aData ,4,2,6
+ (f & (MEM_Static|MEM_Dyn))==0 ,4,2,6
+ TK_GT==OP_Gt ,4,2,6
+ !pPager->tempFile ,4,2,6
+ p->mxSavepoint >= iSavepoint ,4,2,6
+ p->eLock>=RESERVED_LOCK ,4,2,6
+ pPager->eState>=PAGER_WRITER_CACHEMOD ,4,2,6
+ sqlite3_mutex_notheld(pcache1.grp.mutex) ,4,2,6
+ p->nRef==1 ,4,2,6
+ pWal->readLock>=0 ,4,2,6
+ TK_LT==TK_GT+2 ,4,2,6
+ pToRelease==0 || sqlite3PagerIswriteable(pToRelease->pDbPage) ,4,2,6
+ db ,4,2,6
+ aRegIdx ,4,2,6
+ pFile->eFileLock!=NO_LOCK || eFileLock==SHARED_LOCK ,4,2,6
+ pMem->flags & MEM_Blob ,4,2,6
+ pA->pRight==0 || pA->v<=pA->pRight->v ,4,2,6
+ !IsVirtual(pTab) ,4,2,6
+ ofst>=0 && ofst+n<=SQLITE_SHM_NLOCK ,4,2,6
+ p->aSample!=0 ,4,2,6
+ sqlite3_mutex_held(pGroup->mutex) ,4,2,6
+ pExpr->op==TK_AGG_FUNCTION ,4,2,6
+ lockType==F_WRLCK ,4,2,6
+ pSorter ,4,2,6
+ aHash[iKey]==i ,4,2,6
+ pDb->pSchema!=0 ,4,2,6
+ pShmNode==pDbFd->pInode->pShmNode ,4,2,6
+"!""Invalid flags argument""",4,2,6
+ sqlite3BtreeCursorIsValid(u.ao.pCrsr) ,4,2,6
+ sqlite3PagerGetExtra(pPage->pDbPage) == (void*)pPage ,4,2,6
+ pExpr->u.zToken[0]=='x' || pExpr->u.zToken[0]=='X' ,4,2,6
+ eType==SQLITE_OPEN_MAIN_DB || eType==SQLITE_OPEN_TEMP_DB || eType==SQLITE_OPEN_MAIN_JOURNAL || eType==SQLITE_OPEN_TEMP_JOURNAL || eType==SQLITE_OPEN_SUBJOURNAL || eType==SQLITE_OPEN_MASTER_JOURNAL || eType==SQLITE_OPEN_TRANSIENT_DB || eType==SQLITE_OPEN_WAL ,4,2,6
+ p->inTransaction!=0 ,4,2,6
+ seenReplace==0 ,4,2,6
+ TK_ISNULL==OP_IsNull ,4,2,6
+isDelete==0 || isCreate,4,2,6
+ iLookAhead!=YYNOCODE ,4,2,6
+ pNC!=0 ,4,2,6
+ EIGHT_BYTE_ALIGNMENT(p) ,4,2,6
+ p || *piDocid==0 ,4,2,6
+ db->mallocFailed==0 ,4,2,6
+ sqlite3_mutex_held(sqlite3MutexAlloc(SQLITE_MUTEX_STATIC_MASTER)) ,4,2,6
+ p->db->mallocFailed ,4,2,6
+ pPage->leaf ,4,2,6
+ eFileLock==SHARED_LOCK ,4,2,6
+isCreate==0 || isReadWrite,4,2,6
+ p->inTransaction ,4,2,6
+ nNew>0 ,4,2,6
+ pBt->pageSize>=512 && pBt->pageSize<=65536 ,4,2,6
+ pIn1->flags & MEM_Str || db->mallocFailed ,4,2,6
+ szRegion==pShmNode->szRegion || pShmNode->nRegion==0 ,4,2,6
+ target>0 && target<=pParse->nMem ,4,2,6
+ sqlite3_data_count(pCsr->pStmt)==0 ,4,2,6
+ (PAGER_JOURNALMODE_TRUNCATE & 5)==1 ,4,2,6
+ eType==SQLITE_TEXT || eType==SQLITE_BLOB ,4,2,6
+ pPager->dbOrigSize==pPager->dbFileSize ,4,2,6
+ sz<=pBt->maxLocal+23 ,4,2,6
+ rc!=SQLITE_IOERR_SHORT_READ ,4,2,6
+ size>=2 ,4,2,6
+ nMap>=0 || pFd->nFetchOut==0 ,4,2,6
+ isWriteLock==0 || isWriteLock==1 ,4,2,6
+ pLevel->p5==0 ,4,2,6
+ pTable!=0 ,4,2,6
+ pFrom->pTab==0 ,4,2,6
+ p->pBt->pPager!=0 ,4,2,6
+ aiCol || pFKey->nCol==1 ,4,2,6
+ rc2==SQLITE_OK ,4,2,6
+ p->addrOpenEphm[0] == -1 ,4,2,6
+ zColl!=0 ,4,2,6
+ rc==SQLITE_OK || pCsr==0 ,4,2,6
+" !ExprHasProperty(pNew, EP_xIsSelect) ",4,2,6
+ db->init.busy ,4,2,6
+ keyClass==FTS3_HASH_BINARY ,4,2,6
+ pOp[-1].p4type==P4_COLLSEQ ,4,2,6
+" sqlite3SchemaMutexHeld(db, pOp->p1, 0) ",4,2,6
+pCsr->pNode,4,2,6
+ c==i ,4,2,6
+ pExpr->pLeft==0 && pExpr->pRight==0 ,4,2,6
+ pTrigger->zName==0 || pTab==tableOfTrigger(pTrigger) ,4,2,6
+ size==mem3.aPool[i+size-1].u.hdr.prevSize ,4,2,6
+ pSrc ,4,2,6
+" ExprHasProperty(pExpr, EP_xIsSelect) ",4,2,6
+ (PAGER_JOURNALMODE_PERSIST & 5)==1 ,4,2,6
+ (rc&0xff)==rc ,4,2,6
+ pParse ,4,2,6
+ pagerUseWal(pPager) ,4,2,6
+ pPg->pPager==pPager ,4,2,6
+ nTerm>0 ,4,2,6
+leafCorrection==4,4,2,6
+ p==0 || p==&((u8 *)pFd->pMapRegion)[iOff] ,4,2,6
+ (n&0x7fffffff)==n ,4,2,6
+ pPager->pInJournal==0 ,4,2,6
+ pParse->pNewTrigger==0 ,4,2,6
+ memIsValid(pIn1) ,4,2,6
+ p->op==RTREE_MATCH ,4,2,6
+ pIn->nSdst==1 ,4,2,6
+ nDoclist>0 ,4,2,6
+(isReadonly==0 || isReadWrite==0) && (isReadWrite || isReadonly),4,2,6
+ pX!=0 ,4,2,6
+ n==pPage->pgno && e==PTRMAP_BTREE ,4,2,6
+ pFd->nFetchOut==0 ,4,2,6
+ target>0 ,4,2,6
+ pTable ,4,2,6
+ pTab ,4,2,6
+ TK_GE==OP_Ge ,4,2,6
+ (p->sharedMask & mask)==0 ,4,2,6
+ WAL_FRAME_HDRSIZE==24 ,4,2,6
+ pMem->z!=0 ,4,2,6
+ op>0 && op<0xff ,4,2,6
+ pFd->nFetchOut>=0 ,4,2,6
+ p->magic==VDBE_MAGIC_RUN ,4,2,6
+ iFirst>=0 ,4,2,6
+" osHeapValidate(pWinMemData->hHeap, SQLITE_WIN32_HEAP_FLAGS, NULL) ",4,2,6
+ sizeof(u32)==4 ,4,2,6
+ pcacheCheckSynced(p) ,4,2,6
+ pH->first==0 ,4,2,6
+ iVar>0 ,4,2,6
+ pDbFd->pShm==0 ,4,2,6
+ u.bc.oc==OP_SeekLt || u.bc.oc==OP_SeekLe ,4,2,6
+ sizeof(Mem3Block)==8 ,4,2,6
+ sqlite3PagerIswriteable(pRoot->pDbPage) ,4,2,6
+ pPager->eState>=PAGER_READER ,4,2,6
+ flags==(SQLITE_SHM_LOCK | SQLITE_SHM_SHARED) || flags==(SQLITE_SHM_LOCK | SQLITE_SHM_EXCLUSIVE) || flags==(SQLITE_SHM_UNLOCK | SQLITE_SHM_SHARED) || flags==(SQLITE_SHM_UNLOCK | SQLITE_SHM_EXCLUSIVE) ,4,2,6
+ SQLITE_UTF16LE==2 && SQLITE_UTF16BE==3 ,4,2,6
+ iCol==-1 || (iCol>=0 && iCol<pTab->nCol) ,4,2,6
+ pShmNode->h<0 || pDbFd->pInode->bProcessLock==0 ,4,2,6
+" osHeapValidate(hHeap, SQLITE_WIN32_HEAP_FLAGS, NULL) ",4,2,6
+ jumpIfNull==SQLITE_JUMPIFNULL || jumpIfNull==0 ,4,2,6
+ IsPowerOfTwo(pTerm->eOperator & ~WO_EQUIV) ,4,2,6
+ op==SAVEPOINT_RELEASE || op==SAVEPOINT_ROLLBACK ,4,2,6
+ (mem5.aCtrl[i] & CTRL_LOGSIZE)==iLogsize ,4,2,6
+ pInode->nShared!=0 ,4,2,6
+ sqlite3_mutex_held(p->pSrc->pBt->mutex) ,4,2,6
+ pOp->p4.z!=0 ,4,2,6
+ (pFrom->flags & MEM_RowSet)==0 ,4,2,6
+ (!isDelete && zName) || eType!=SQLITE_OPEN_MASTER_JOURNAL ,4,2,6
+ offset>=0 ,4,2,6
+ pTerm!=0 ,4,2,6
+ pH->count==0 ,4,2,6
+ pIn3->flags&MEM_Int ,4,2,6
+ pPager->eLock>=SHARED_LOCK ,4,2,6
+ x>='a' && x<='z' ,4,2,6
+ TK_EQ==OP_Eq ,4,2,6
+ len>0 ,4,2,6
+ pParse->db!=0 ,4,2,6
+ (!isDelete && zName) || eType!=SQLITE_OPEN_MAIN_JOURNAL ,4,2,6
+ *pPgno!=PENDING_BYTE_PAGE(pBt) ,4,2,6
+ pOp->p1>0 ,4,2,6
+pCur,4,2,6
+ pPager->eLock==SHARED_LOCK || pPager->eLock==EXCLUSIVE_LOCK ,4,2,6
+ (pX->exclMask & (p->exclMask|p->sharedMask))==0 ,4,2,6
+ pSrc!=0 ,4,2,6
+ pPager->useJournal ,4,2,6
+" sqlite3MemdebugNoType(p, MEMTYPE_DB) ",4,2,6
+" p->id==SQLITE_MUTEX_RECURSIVE || winMutexNotheld2(p, tid) ",4,2,6
+ (rc&db->errMask)==rc ,4,2,6
+ pWinMemData->hHeap!=INVALID_HANDLE_VALUE ,4,2,6
+ pInode->eFileLock==pFile->eFileLock ,4,2,6
+ pExpr->pLeft && pExpr->pRight ,4,2,6
+ (p==0)==(pFd->nFetchOut==0) ,4,2,6
+" db!=0 || sqlite3MemdebugNoType(p, MEMTYPE_LOOKASIDE) ",4,2,6
+ mem.disallow==0 ,4,2,6
+ zDb!=0 || sqlite3BtreeHoldsAllMutexes(db) ,4,2,6
+ p->locked==0 ,4,2,6
+ p->pOffset==0 ,4,2,6
+ pOp->p1>0 && pOp->p1<=p->nMem ,4,2,6
+ pPager->eState==PAGER_WRITER_DBMOD ,4,2,6
+ p->nRef==0 || p->id==SQLITE_MUTEX_RECURSIVE ,4,2,6
+ pShmNode->h>=0 || pDbFd->pInode->bProcessLock==1 ,4,2,6
+ rc==SQLITE_OK || pStmt==0 ,4,2,6
+ TK_NOTNULL==OP_NotNull ,4,2,6
+ pPager!=0 ,4,2,6
+ db->lookaside.bEnabled==0 ,4,2,6
+SQLITE_IOCAP_ATOMIC64K==(65536>>8),4,2,6
+ j<nMaxCells ,4,2,6
+ i>=0 ,4,2,6
+ n>=1 ,4,2,6
+ pCur->iPage>=0 && pCur->apPage[pCur->iPage] ,4,2,6
+ pParse->db->mallocFailed ,4,2,6
+ u.bg.pC->rowidIsValid==0 ,4,2,6
+ p->pOrderBy==0 ,4,2,6
+ (pIn1->flags & MEM_Dyn)==0 ,4,2,6
+ esc==0 ,4,2,6
+ eLock==READ_LOCK || eLock==WRITE_LOCK ,4,2,6
+ TK_NE==OP_Ne ,4,2,6
+ z2==(char*)sqlite3_value_text(argv[0]) ,4,2,6
+ nVal==1 ,4,2,6
+ mem1.zMalloc==0 ,4,2,6
+ iLevel==FTS3_SEGCURSOR_ALL || iLevel==FTS3_SEGCURSOR_PENDING || iLevel>=0 ,4,2,6
+ pPager->eState==PAGER_READER ,4,2,6
+ pFile->pUnused==0 || offset>=PENDING_BYTE+512 || offset+amt<=PENDING_BYTE ,4,2,6
+ *pbEof==0 ,4,2,6
+ p!=0 && (p->rsFlags & ROWSET_NEXT)==0 ,4,2,6
+ pKey!=0 ,4,2,6
+(flags&0x0F)==SQLITE_SYNC_NORMAL || (flags&0x0F)==SQLITE_SYNC_FULL ,4,2,6
+ (!isDelete && zName) || eType!=SQLITE_OPEN_WAL ,4,2,6
+ p->nRef>0 || p->owner==0 ,4,2,6
+ pWal->readLock>=0 || pWal->lockError ,4,2,6
+ (f & (MEM_Static|MEM_Ephem))==0 ,4,2,6
+ p->bFts4==0 ,4,2,6
+ pOut!=pIn1 ,4,2,6
+ pInode->nShared==0 ,4,2,6
+ pPager->dbOrigSize==pPager->dbHintSize ,4,2,6
+ pPage->pBt ,4,2,6
+ n==1 || (flags & SQLITE_SHM_EXCLUSIVE)!=0 ,4,2,6
+ (SQLITE_PTR_TO_INT(ptr)&1)==0 ,4,2,6
+ pOp->p4type==P4_VTAB ,4,2,6
+ u<=LARGEST_INT64 ,4,2,6
+ n>0 ,4,2,6
+ rc!=SQLITE_OK || isOpen(pPager->jfd) ,4,2,6
+ onError==OE_Replace ,4,2,6
+ pShmNode->nRef>0 ,4,2,6
+ (mem3.aPool[i-1].u.hdr.size4x & 1)==0 ,4,2,6
+ TK_LT==OP_Lt ,4,2,6
+ pCsr->isRequireSeek==0 ,4,2,6
+ pLeft ,4,2,6
+ pCur->skipNext!=SQLITE_OK ,4,2,6
+ p->eLock==EXCLUSIVE_LOCK ,4,2,6
+ pSelect==0 ,4,2,6
+ pPager->setMaster==0 ,4,2,6
+ pMem->n>=0 ,4,2,6
+ pLhs->aNode && pRhs->aNode ,4,2,6
+ pPage->pCache==pCache ,4,2,6
+ eFileLock!=PENDING_LOCK ,4,2,6
+ rc==SQLITE_NOMEM || rc==SQLITE_OK ,4,2,6
+isExclusive==0 || isCreate,4,2,6
+ pInode->nShared>0 ,4,2,6
+ p->inTrans>TRANS_NONE ,4,2,6
+ iPg<=pCheck->nPage && sizeof(pCheck->aPgRef[0])==1 ,4,2,6
+ (pageSize & 7)==0 ,4,2,6
+" !ExprHasAnyProperty(p, EP_TokenOnly|EP_Reduced) ",4,2,6
+ iType-2 >= 0 ,4,2,6
+ p->id==SQLITE_MUTEX_RECURSIVE || pthreadMutexNotheld(p) ,4,2,6
+ pCsr->pNode==pRoot ,4,2,6
+ p->pGroupBy==0 ,4,2,6
+ pExpr->u.zToken[1]=='\'' ,4,2,6
+" sqlite3SchemaMutexHeld(db, 0, pDb->pSchema) ",4,2,6
+ pX->op==TK_IN ,4,2,6
+" sqlite3MemdebugHasType(p, MEMTYPE_HEAP) ",4,2,6
+ memIsValid(&aMem[pOp->p3]) ,4,2,6
+ level>=1 && level<=3 ,4,2,6
+ j==1 ,4,2,6
+ rc==SQLITE_NOMEM ,4,2,6
+ pzErrMsg!=0 ,4,2,6
+ pFile->eFileLock==0 ,4,2,6
+ pInode->eFileLock==0 ,4,2,6
+ pInode->nLock>=0 ,4,2,6
+SQLITE_IOCAP_ATOMIC512==(512>>8),4,2,6
+ u.bc.oc==OP_SeekGe || u.bc.oc==OP_SeekGt ,4,2,6
+ TK_LE==OP_Le ,4,2,6
+" !ExprHasProperty(pF->pExpr, EP_xIsSelect) ",4,2,6
+ pWal->writeLock==0 ,4,2,6
+ n>=0 ,4,2,6
+ offset <= (int)pBt->usableSize-5 ,4,2,6
+ onError==OE_Rollback || onError==OE_Abort || onError==OE_Fail || onError==OE_Ignore || onError==OE_Replace ,4,2,6
+ pPager->eState==PAGER_WRITER_LOCKED ,4,2,6
+ xHash!=0 ,4,2,6
+ n>1 || mask==(1<<ofst) ,4,2,6
+ (f & (MEM_Dyn|MEM_Ephem))==0 ,4,2,6
+ u.bi.pC->isTable ,4,2,6
+ p==0 ,4,2,6
+" hasSharedCacheTableLock(p, pCur->pgnoRoot, pCur->pKeyInfo!=0, 2) ",4,2,6
+" osHeapValidate(hHeap, SQLITE_WIN32_HEAP_FLAGS, pPrior) ",4,2,6
+ p && p->pFunc ,4,2,6
+ eFileLock!=RESERVED_LOCK || pFile->eFileLock==SHARED_LOCK ,4,2,6
+" sqlite3MemdebugHasType(p, MEMTYPE_PCACHE) ",4,2,6
+ (pIn2->flags & MEM_Int)!=0 ,4,2,6
+ pPager->eState==PAGER_OPEN || pPager->eState==PAGER_READER ,4,2,6
+glfwGetCurrentContext() == NULL,2,2,4
+glfwGetCurrentContext() == thread->window,2,2,4
+ xConstruct ,2,1,3
+ pPager->journalOff==JOURNAL_HDR_SZ(pPager) ,2,1,3
+ winMutex_isInit==1 ,2,1,3
+ bDescDoclist==0 || bDescDoclist==1 ,2,1,3
+ u.bd.pC->isTable ,2,1,3
+ idx >= end+2 ,2,1,3
+ u.bm.pC->isSorter==0 ,2,1,3
+ (balance_quick_called++)==0 ,2,1,3
+ pIter->aBuffer==0 ,2,1,3
+ pIter>=&pDL->aAll[pDL->nAll] || *pIter ,2,1,3
+ p->aList==&aList[iList&~((2<<iSub)-1)] ,2,1,3
+ z && pColl && pColl->xCmp ,2,1,3
+ (u.ao.payloadSize64 & SQLITE_MAX_U32)==(u64)u.ao.payloadSize64 ,2,1,3
+ azResult!=0 ,2,1,3
+ iStart<=pSrc->nSrc ,2,1,3
+ nReserve>=0 && nReserve<1000 ,2,1,3
+ pExpr->op==TK_EXISTS || pExpr->op==TK_SELECT ,2,1,3
+ u.bw.iCnt==1 ,2,1,3
+ TK_LT>TK_EQ && TK_LT<TK_GE ,2,1,3
+ piLeaf || piLeaf2 ,2,1,3
+ p->pForest==0 ,2,1,3
+ pPager->doNotSpill==0 ,2,1,3
+ pSorter->nPMA==0 ,2,1,3
+ !pTable || pTable->nRef>0 ,2,1,3
+ pParse->pVdbe!=0 ,2,1,3
+ zB==sqlite3_value_text(argv[0]) ,2,1,3
+ !(u.ao.pDest->flags & MEM_Dyn) ,2,1,3
+ SQLITE_OPEN_READWRITE == 0x02 ,2,1,3
+ errcode!=SQLITE_OK ,2,1,3
+ pCur->apPage[pCur->iPage]->nOverflow==0 ,2,1,3
+ pReader->iCurrentBlock<=pReader->iLeafEndBlock ,2,1,3
+ pFd->mmapSizeActual>=pFd->mmapSize ,2,1,3
+" hasSharedCacheTableLock(p, iTable, pKeyInfo!=0, wrFlag+1) ",2,1,3
+ memIsValid(u.cq.pName) ,2,1,3
+ offset>=c ,2,1,3
+ UNIX_SHM_BASE==WALINDEX_LOCK_OFFSET ,2,1,3
+ p->nRef==0 && p->owner==0 ,2,1,3
+ i>=0 && i<p->db->nDb && i<(int)sizeof(yDbMask)*8 ,2,1,3
+ nArg>=(-1) || createFlag==0 ,2,1,3
+ pcache1.isInit==0 ,2,1,3
+ p->rc==SQLITE_OK || p->rc==SQLITE_BUSY ,2,1,3
+ addr>=0 || p->db->mallocFailed ,2,1,3
+ zFilename!=0 ,2,1,3
+ gap+nByte<=top ,2,1,3
+ op!=TK_ISNULL || c==WO_ISNULL ,2,1,3
+ z[n]=='\'' ,2,1,3
+ EIGHT_BYTE_ALIGNMENT(pNew) ,2,1,3
+ sqlite3_value_type(argv[0])==SQLITE_NULL ,2,1,3
+ sizeof(Pgno)==4 ,2,1,3
+ !piLeaf2 || !piLeaf || rc!=SQLITE_OK || (*piLeaf<=*piLeaf2) ,2,1,3
+ pSrc->nSrc>iRight ,2,1,3
+ sDistinct.isTnct ,2,1,3
+ a ,2,1,3
+ (isCommit!=0)==(nTruncate!=0) ,2,1,3
+ aHardLimit[SQLITE_LIMIT_EXPR_DEPTH]==SQLITE_MAX_EXPR_DEPTH ,2,1,3
+ u.ay.p2<=p->nMem ,2,1,3
+ newi > mem3.iMaster+1 ,2,1,3
+ pagerUseWal(pPager)==0 || szJ==0 ,2,1,3
+ pSub!=0 ,2,1,3
+ p->eType!=FTSQUERY_PHRASE ,2,1,3
+ rc!=SQLITE_OK || pPager->eState==PAGER_WRITER_LOCKED ,2,1,3
+ u.al.p1>0 && u.al.p1+u.al.n<=p->nMem+1 ,2,1,3
+ (m.flags & MEM_Str)!=0 || db->mallocFailed ,2,1,3
+" sqlite3SchemaMutexHeld(pParse->db, 0, pTmpSchema) ",2,1,3
+ p->journalMode==PAGER_JOURNALMODE_OFF || p->useJournal ,2,1,3
+ p->sharable==0 || p->locked==0 || sqlite3_mutex_held(p->pBt->mutex) ,2,1,3
+ pTC ,2,1,3
+ id-2 >= 0 ,2,1,3
+ pEntry->count>=0 ,2,1,3
+ pVal->db==0 || sqlite3_mutex_held(pVal->db->mutex) ,2,1,3
+ mem3.aPool[i+nBlock-1].u.hdr.prevSize==nBlock ,2,1,3
+ aff1==0 || aff2==0 ,2,1,3
+ pRoot->nOverflow>0 ,2,1,3
+ pName1!=0 ,2,1,3
+ !pSubParse->pTriggerPrg && !pSubParse->nMaxArg ,2,1,3
+ ArraySize(aSyscall)==24 ,2,1,3
+ (pBt->openFlags & BTREE_SINGLE)==0 || pgnoRoot==2 ,2,1,3
+ pNode->nRef>0 ,2,1,3
+ MX_CELL_SIZE(pBt) >= nCell ,2,1,3
+ rc!=SQLITE_OK || sqlite3PagerIswriteable((*ppPage)->pDbPage) ,2,1,3
+ zFilename==0 || zFilename[0]=='/' || pVfs->pAppData==(void*)&autolockIoFinder ,2,1,3
+nData>=1,2,1,3
+ WO_LE==SQLITE_INDEX_CONSTRAINT_LE ,2,1,3
+ p->pOrderBy!=0 ,2,1,3
+ k<=n ,2,1,3
+ u.bs.pC!=0 ,2,1,3
+ p->db==0 || p->db==db ,2,1,3
+ pEnd->leftCursor==iCur ,2,1,3
+ u.bq.pC!=0 ,2,1,3
+ pParent==0 || pParent->pLeft==p ,2,1,3
+rc==SQLITE_NOMEM || pMem->enc==desiredEnc,2,1,3
+ pTab && (pTab->tabFlags & TF_Virtual)!=0 && !pTab->pVTable ,2,1,3
+ nDist>0 ,2,1,3
+ p->eLock>=SHARED_LOCK ,2,1,3
+ j+1 < ArraySize(apCopy) ,2,1,3
+ (pOp->p5&(OPFLAG_P2ISREG|OPFLAG_BULKCSR))==pOp->p5 ,2,1,3
+ u.as.pSavepoint==db->pSavepoint ,2,1,3
+ mem.pFirst==pHdr ,2,1,3
+ pPager->eLock==NO_LOCK || pPager->eLock==UNKNOWN_LOCK ,2,1,3
+ pTab->iPKey<0 ,2,1,3
+ pCsr ,2,1,3
+ start<=iLast ,2,1,3
+ pPager->pPCache!=0 ,2,1,3
+ u.bj.pC->deferredMoveto==0 ,2,1,3
+ pIn2->flags & MEM_Blob ,2,1,3
+ TK_LE>TK_EQ && TK_LE<TK_GE ,2,1,3
+ pNew!=&standin ,2,1,3
+ pCur->pgnoRoot==0 || pCur->apPage[pCur->iPage]->isInit ,2,1,3
+ pOp->opflags==sqlite3OpcodeProperty[pOp->opcode] ,2,1,3
+ pCol->zType==0 ,2,1,3
+ pTrigger || tmask==0 ,2,1,3
+ iOfst+iAmt<=p->endpoint.iOffset ,2,1,3
+ isDeferred==0 || isDeferred==1 ,2,1,3
+ mem5.currentOut>0 || mem5.currentCount==0 ,2,1,3
+ u.aw.pDb->pBt!=0 ,2,1,3
+ sqlite3BtreeHoldsMutex(pBt) ,2,1,3
+" iOffset==walFrameOffset(iFrame, szPage) ",2,1,3
+ pLock->eLock==READ_LOCK || pLock->pBtree==p ,2,1,3
+ p->bIgnoreSavepoint==0 ,2,1,3
+ pNew->n<=pNew->nAlloc ,2,1,3
+ sizeof(SIZE_T)==sizeof(sqlite3_int64) || nMap<=0xffffffff ,2,1,3
+ iLevel>=0 || iLevel==FTS3_SEGCURSOR_ALL ,2,1,3
+nOverflow>0 || iOverflow<i ,2,1,3
+ pVfs ,2,1,3
+ nCell>=0 && nCell<=(int)MX_CELL(pPage->pBt) && (int)MX_CELL(pPage->pBt)<=10921,2,1,3
+ pInfo->nBackfill==pWal->hdr.mxFrame ,2,1,3
+ p->pSrc!=0 ,2,1,3
+ (*pNum)==SMALLEST_INT64 ,2,1,3
+ p>mem3.aPool && p<&mem3.aPool[mem3.nPool] ,2,1,3
+ nArg<=(int)ArraySize(aStatic) || aArg==aDyn ,2,1,3
+ SQLITE_DBSTATUS_CACHE_HIT+2==SQLITE_DBSTATUS_CACHE_WRITE ,2,1,3
+ pIdx->azColl!=0 ,2,1,3
+ p->pPrior==0 ,2,1,3
+ v->aVar[0].flags&MEM_Int ,2,1,3
+ pRes!=0 ,2,1,3
+!(*ppStmt),2,1,3
+ p2->xUnlockNotify==p->xUnlockNotify || !seen ,2,1,3
+ p->aList && p->nList<=(1<<iSub) ,2,1,3
+ strlen((char*)pFile->lockingContext)<=MAXPATHLEN ,2,1,3
+ pCache->nRef==0 && pCache->pDirty==0 ,2,1,3
+ p==pColl ,2,1,3
+ sqlite3PcacheRefCount(pPager->pPCache)>0 ,2,1,3
+ pCsr->pSorter->pUnpacked!=0 ,2,1,3
+ ArraySize(pPage->apOvfl)==ArraySize(pPage->aiOvfl) ,2,1,3
+ sqlite3_data_count(pStmt)==1 ,2,1,3
+ p->nList<=(1<<iSub) ,2,1,3
+ pExpr->pPhrase->iDoclistToken==0 ,2,1,3
+ pParent!=0 ,2,1,3
+p->iSize<=p->nBuf,2,1,3
+ (MEM_Blob>>3) == MEM_Str ,2,1,3
+ db->writeVdbeCnt>0 || db->autoCommit==0 || db->nDeferredCons==0 ,2,1,3
+ iIdx<=pParent->nCell ,2,1,3
+ pTerm->pExpr ,2,1,3
+ pBt->pPage1 ,2,1,3
+ u.bg.pC->pseudoTableReg==0 ,2,1,3
+ pTopNC!=0 ,2,1,3
+ iReg>0 ,2,1,3
+ SQLITE_OPEN_CREATE == 0x04 ,2,1,3
+ pMem->flags & MEM_Real ,2,1,3
+ op!=TK_IN || c==WO_IN ,2,1,3
+ u.al.p2>0 && u.al.p2+mx<=p->nMem+1 ,2,1,3
+ pSrc->nSrc>0 ,2,1,3
+ pOp->p3<SQLITE_N_BTREE_META ,2,1,3
+ TK_GE==TK_EQ+4 ,2,1,3
+ pPage==p->pDirtyTail ,2,1,3
+ pFrom->a[0].pOn==0 ,2,1,3
+ !p->locked || p->wantToLock>0 ,2,1,3
+ u.bm.pC->deferredMoveto==0 ,2,1,3
+ *p2!=POS_END && *p2!=POS_COLUMN ,2,1,3
+ pInt[nReserve/sizeof(int)]==(int)REARGUARD ,2,1,3
+ affinity==SQLITE_AFF_INTEGER || affinity==SQLITE_AFF_REAL || affinity==SQLITE_AFF_NUMERIC ,2,1,3
+ pNode->block.nAlloc>=p->nNodeSize ,2,1,3
+ pFunc->nArg==-1 || (pFunc->nArg&0xff)==pFunc->nArg ,2,1,3
+ (pBt->btsFlags & BTS_PENDING)==0 || pBt->pWriter ,2,1,3
+ pFile->locktype!=NO_LOCK || locktype==SHARED_LOCK ,2,1,3
+ rc!=SQLITE_ROW && rc!=SQLITE_DONE ,2,1,3
+ (pIn3->flags & MEM_Zero)==0 ,2,1,3
+ pOp->p3==0 ,2,1,3
+ pCsr->isIncrblobHandle ,2,1,3
+ p->pRightmost==p ,2,1,3
+ pOld==pIndex || pOld==0 ,2,1,3
+ IsVirtual(p) ,2,1,3
+eMode==PAGER_LOCKINGMODE_NORMAL||eMode==PAGER_LOCKINGMODE_EXCLUSIVE,2,1,3
+sizeof(x)==sizeof(y),2,1,3
+ iDb<pParse->db->nDb ,2,1,3
+ p->nData<p->nSpace ,2,1,3
+" sz==cellSizePtr(pPage, pCell) || (sz==8 && iChild>0) ",2,1,3
+ memIsValid(u.bh.pMem) ,2,1,3
+ CURSOR_FAULT > CURSOR_REQUIRESEEK ,2,1,3
+ pTab->nCol>0 ,2,1,3
+ !pBt->pWriter ,2,1,3
+ pBt && pBt->pPager ,2,1,3
+" sWBI.notValid & getMask(pMaskSet, pTabList->a[bestJ].iCursor) ",2,1,3
+ i+size<=mem3.nPool+1 ,2,1,3
+ MAP_FAILED!=0 ,2,1,3
+ (pKey==0)==(pCur->pKeyInfo==0) ,2,1,3
+ iLeft<iRight ,2,1,3
+ !isOpen(pPager->jfd) ,2,1,3
+ idx==pCur->aiIdx[pCur->iPage] ,2,1,3
+ d<nMaxCells ,2,1,3
+ pc>=-1 && pc<p->nOp ,2,1,3
+ pPrior->pRightmost!=pPrior ,2,1,3
+ eStmt<SizeofArray(azSql) && eStmt>=0 ,2,1,3
+ pOp[-1].opcode==OP_Integer ,2,1,3
+ pNew==0 ,2,1,3
+ (u.af.pMem[u.af.i].flags & MEM_Ephem)==0 || (u.af.pMem[u.af.i].flags & (MEM_Str|MEM_Blob))==0 ,2,1,3
+ p->pPage==0 ,2,1,3
+ u.bn.pC->pCursor!=0 ,2,1,3
+pDest->eDest==SRT_Exists || pDest->eDest==SRT_Union || pDest->eDest==SRT_Except || pDest->eDest==SRT_Discard,2,1,3
+ zCsr <= &((char *)p)[nByte] ,2,1,3
+ yymsp[-1].minor.yy327!=0 ,2,1,3
+ (rc&0xFF)==(rcp&0xFF) ,2,1,3
+ zRawSql[0]==':' || zRawSql[0]=='$' || zRawSql[0]=='@' ,2,1,3
+ pExpr->op!=TK_LE || op==OP_Gt ,2,1,3
+ p1>=0 && p2>=0 ,2,1,3
+ nByte>=8 ,2,1,3
+ zBuffer ,2,1,3
+ pList!=0 || db->mallocFailed!=0 ,2,1,3
+ pMem->flags&MEM_Str ,2,1,3
+ locktype!=RESERVED_LOCK || pFile->locktype==SHARED_LOCK ,2,1,3
+ pIn1<=&aMem[p->nMem] ,2,1,3
+ pFKey->isDeferred==0 || pFKey->isDeferred==1 ,2,1,3
+ pPager->eState>=PAGER_READER && pPager->eState!=PAGER_ERROR ,2,1,3
+ iSavepoint>=0 ,2,1,3
+ rc==SQLITE_OK || *ppExpr==0 ,2,1,3
+ iVersion==1 || iVersion==2 ,2,1,3
+ !isOpen(pJournal) ,2,1,3
+" iNewLevel<getAbsoluteLevel(p, iLangid, iIndex,FTS3_SEGDIR_MAXLEVEL) ",2,1,3
+ p->nSample>0 ,2,1,3
+ win_mem_data.magic==WINMEM_MAGIC ,2,1,3
+ &db->pVtabCtx ,2,1,3
+ pVtab->pModule!=0 ,2,1,3
+ (u.ak.flags1 & MEM_Cleared)==0 ,2,1,3
+ p->cnt==0 ,2,1,3
+ pPager->tempFile==0 || eMode!=PAGER_JOURNALMODE_WAL ,2,1,3
+ pIdxInfo->idxStr==0 ,2,1,3
+ p->pPrev==0 || p->pPrev->pBt<p->pBt ,2,1,3
+ zP4!=0 ,2,1,3
+ p->cost.plan.u.pIdx==0 || (p->cost.plan.wsFlags&WHERE_ROWID_EQ)==0 ,2,1,3
+ pPager->pWal==0 && pPager->tempFile==0 ,2,1,3
+" sz==cellSize(pPage, idx) ",2,1,3
+ db->mallocFailed || !pOffset || pLimit ,2,1,3
+ idx>0 && idx<=p->nVar ,2,1,3
+ (&p[1])==pEnd || p[0].db==p[1].db ,2,1,3
+ iVal-*piPrev > 0 || (*piPrev==0 && iVal==0) ,2,1,3
+ sqlite3PagerIswriteable(pChild->pDbPage) ,2,1,3
+ pgszSrc==sqlite3BtreeGetPageSize(p->pSrc) ,2,1,3
+ pgszDest==sqlite3BtreeGetPageSize(p->pDest) ,2,1,3
+ u.bm.pC->isTable || pOp->opcode!=OP_RowData ,2,1,3
+nArg==1 || nArg==2,2,1,3
+ (pMem->flags & (MEM_Blob|MEM_Str))!=0 ,2,1,3
+ (addr>=0 && addr<p->nOp) || p->db->mallocFailed ,2,1,3
+ pFile->pInode->nLock>0 || pFile->pInode->bProcessLock==0 ,2,1,3
+ u.cn.pCur->pVtabCursor ,2,1,3
+ n==(db->nSavepoint + db->isTransactionSavepoint) ,2,1,3
+ (p->btreeMask & (((yDbMask)1)<<pOp->p2))!=0 ,2,1,3
+ iCol==4 ,2,1,3
+ noContent==0 || bMmapOk==0 ,2,1,3
+ rc!=SQLITE_ROW || (db->flags&SQLITE_CountRows) ,2,1,3
+ pRtree->eCoordType==RTREE_COORD_INT32 ,2,1,3
+ iSrcPg!=PENDING_BYTE_PAGE(p->pSrc->pBt) ,2,1,3
+ db->pVdbe==p ,2,1,3
+ pSorter->pRecord==0 ,2,1,3
+ TK_BITAND==OP_BitAnd ,2,1,3
+ pGroup->pLruHead!=pPage && pGroup->pLruTail!=pPage ,2,1,3
+ HASHTABLE_NPAGE==(1<<(ArraySize(aSub)-1)) ,2,1,3
+ z!=0 || N==0 ,2,1,3
+ pParse->azVar==0 ,2,1,3
+ OP_SeekLe == OP_SeekLt+1 ,2,1,3
+ pMem->enc!=desiredEnc ,2,1,3
+ allowedOp(op) ,2,1,3
+ pgno>0 ,2,1,3
+" db==0 || sqlite3SchemaMutexHeld(db, 0, pIndex->pSchema) ",2,1,3
+" sqlite3MemdebugNoType(p, ~MEMTYPE_SCRATCH) ",2,1,3
+ pTo!=0 ,2,1,3
+ (flags & BTREE_SINGLE)==0 || isTempDb ,2,1,3
+ pPrg || pParse->nErr || pParse->db->mallocFailed ,2,1,3
+ pTab->addColOffset>0 ,2,1,3
+ yymsp[-2].minor.yy327!=0 ,2,1,3
+!pExpr,2,1,3
+ u.ao.pC!=0 ,2,1,3
+ u.ad.n>0 && u.ad.p1>0 && u.ad.p2>0 ,2,1,3
+ pWal->exclusiveMode!=WAL_HEAPMEMORY_MODE || op==-1 ,2,1,3
+ k<nNew ,2,1,3
+ pIndexedBy!=0 ,2,1,3
+ pE!=0 ,2,1,3
+ pWal->ckptLock==0 ,2,1,3
+pExpr->x.pList->nExpr > 0,2,1,3
+ (nVal==0)==(idxNum==FTS3_FULLSCAN_SEARCH) ,2,1,3
+ pParse->nested<10 ,2,1,3
+" p->op!=TK_INTEGER || (p->flags & EP_IntValue)!=0 || sqlite3GetInt32(p->u.zToken, &rc)==0 ",2,1,3
+ u.bh.pC->isTable ,2,1,3
+ pNode->pNext==0 ,2,1,3
+ p->pDestDb ,2,1,3
+ pCsr->nDoclist==0 ,2,1,3
+ u.aq.i==u.aq.nByte ,2,1,3
+ u.bq.pCrsr ,2,1,3
+ u.cq.pVtab->pModule->xRename ,2,1,3
+ iPos>=0 ,2,1,3
+ pIdx->autoIndex ,2,1,3
+ (pFirstTerm->eOperator & (WO_EQ|WO_ISNULL|WO_IN))!=0 ,2,1,3
+ memIsValid(u.cr.pX) ,2,1,3
+ db->aLimit[SQLITE_LIMIT_LENGTH]>=0 ,2,1,3
+ p->addrOpenEphm[1] == -1 ,2,1,3
+ sqlite3IsNaN(y) ,2,1,3
+ u.br.pC->pCursor ,2,1,3
+ TK_GT>TK_EQ ,2,1,3
+ *pbFound==0 ,2,1,3
+ WRITE_LOCK>READ_LOCK ,2,1,3
+ pMem->zMalloc ,2,1,3
+ winSysInfo.dwAllocationGranularity>0 ,2,1,3
+ isOpen(pPager->fd) || pPager->noSync ,2,1,3
+ pNC ,2,1,3
+ pOp->p4type==P4_NOTUSED || pOp->p4type==P4_INT32 ,2,1,3
+ pOp->p4.i>0 && pOp->p4.i<=p->nMem ,2,1,3
+ pOrig!=0 ,2,1,3
+!pCur->aOverflow[iIdx] || pCur->aOverflow[iIdx]==nextPage,2,1,3
+ pPager->fullSync==0 ,2,1,3
+vfsList,2,1,3
+ eLock==READ_LOCK || pBt->inTransaction==TRANS_WRITE ,2,1,3
+ pSrc->a!=0 ,2,1,3
+ iPrev>=0 ,2,1,3
+ pHdr->pPrev->pNext==pHdr ,2,1,3
+ pPager->journalMode==PAGER_JOURNALMODE_WAL ,2,1,3
+ SQLITE_UTF8==1 && SQLITE_UTF16LE==2 && SQLITE_UTF16BE==3 ,2,1,3
+ p->flags==PGHDR_MMAP ,2,1,3
+ isOpen(pPager->jfd) || pPager->pInJournal==0 ,2,1,3
+ inodeList==pInode ,2,1,3
+ p->pBt->inTransaction>=p->inTrans ,2,1,3
+ iOvflSpace <= (int)pBt->pageSize ,2,1,3
+ pRowSet!=0 && (pRowSet->rsFlags & ROWSET_NEXT)==0 ,2,1,3
+ pOut->zMalloc==pOut->z ,2,1,3
+ pParse->nTab>iCur+i+1 ,2,1,3
+ pWInfo->untestedTerms ,2,1,3
+ rc==SQLITE_OK || pList==0 ,2,1,3
+ pFile->inNormalWrite==0 || pFile->dbUpdate==0 || pFile->transCntrChng==1 ,2,1,3
+ u.bl.pC->isSorter ,2,1,3
+ pParent->pHaving==0 ,2,1,3
+ rc==SQLITE_OK || *ppStmt==0 ,2,1,3
+ pOp->p2==SQLITE_CHECKPOINT_PASSIVE || pOp->p2==SQLITE_CHECKPOINT_FULL || pOp->p2==SQLITE_CHECKPOINT_RESTART ,2,1,3
+sizeof(x)==8,2,1,3
+pList || pParse->db->mallocFailed ,2,1,3
+ nNew==1 ,2,1,3
+ (pUpper->eOperator & (WO_LT|WO_LE))!=0 ,2,1,3
+ pLevel->plan.wsFlags & WHERE_INDEXED ,2,1,3
+ mem1.flags & MEM_Int ,2,1,3
+ pOrTerm->u.leftColumn==iColumn ,2,1,3
+ OPFLAG_BULKCSR==BTREE_BULKLOAD ,2,1,3
+ PAGER_STAT_HIT==0 && PAGER_STAT_MISS==1 && PAGER_STAT_WRITE==2 ,2,1,3
+ pTab && pExpr->pTab==pTab ,2,1,3
+ to_op==OP_ToText || aff!=SQLITE_AFF_TEXT ,2,1,3
+ !(fg&MEM_Zero) ,2,1,3
+ i<pIdx->nSample ,2,1,3
+ isPrepareV2==1 || isPrepareV2==0 ,2,1,3
+ pPager->errCode || pPager->eState!=PAGER_ERROR ,2,1,3
+ (offset-c)<JOURNAL_HDR_SZ(pPager) ,2,1,3
+ db->init.iDb==0 || db->init.busy ,2,1,3
+ srcType==MEM_Ephem || srcType==MEM_Static ,2,1,3
+" !ExprHasProperty(pExpr, EP_xIsSelect) && pExpr->x.pList ",2,1,3
+ unionTab==dest.iSDParm || dest.eDest!=priorOp ,2,1,3
+ u.bc.pC->pseudoTableReg==0 ,2,1,3
+" countValidCursors(pBt, 1)==0 ",2,1,3
+ pNew->nCell>0 || (nNew==1 && cntNew[0]==0) ,2,1,3
+ pTo->db==pFrom->db ,2,1,3
+ pFile->pShm==0 ,2,1,3
+size==0,2,1,3
+ pCache->nPage >= pCache->nRecyclable ,2,1,3
+ sqlite3PcacheRefCount(pPager->pPCache)==0 || pPager->tempFile ,2,1,3
+ 1 >= ((pMem->zMalloc && pMem->zMalloc==pMem->z) ? 1 : 0) + (((pMem->flags&MEM_Dyn)&&pMem->xDel) ? 1 : 0) + ((pMem->flags&MEM_Ephem) ? 1 : 0) + ((pMem->flags&MEM_Static) ? 1 : 0) ,2,1,3
+ nShift<=nDesired ,2,1,3
+ iCsr>=iStart ,2,1,3
+ sqlite3BtreeIsInTrans(u.au.pBt) ,2,1,3
+ eType!=PTRMAP_FREEPAGE ,2,1,3
+ EIGHT_BYTE_ALIGNMENT(pIndex->aiRowEst) ,2,1,3
+ pCur->cachedRowid==iRowid ,2,1,3
+ u.bz.iDb>=0 && u.bz.iDb<db->nDb ,2,1,3
+ *pbFirst || *piPrev==0 ,2,1,3
+ dirSync==0 || dirSync==1 ,2,1,3
+ pMem1->enc==SQLITE_UTF8 || pMem1->enc==SQLITE_UTF16LE || pMem1->enc==SQLITE_UTF16BE ,2,1,3
+ pPayload<pPage->aData || pPayload>=&pPage->aData[pBt->pageSize] || sqlite3PagerIswriteable(pPage->pDbPage) ,2,1,3
+ &((char*)&likeInfoAlt)[1] == (char*)&likeInfoAlt.matchOne ,2,1,3
+ OP_ShiftRight==OP_ShiftLeft+1 ,2,1,3
+ (pTab->tabFlags & TF_Virtual)!=0 ,2,1,3
+ !p || p->iLastDocid<=iDocid ,2,1,3
+ bufpt>zOut ,2,1,3
+ u.bi.pC->iDb>=0 ,2,1,3
+ db->vtabOnConflict>=1 && db->vtabOnConflict<=5 ,2,1,3
+ pList==0 || IsVirtual(pTab)==0 ,2,1,3
+ ap[1]==pBusyHandlerArg ,2,1,3
+ i<nNew-1 || j==nCell ,2,1,3
+ pParse->checkSchema ,2,1,3
+ resetSchemaOnFault==0 || resetSchemaOnFault==u.bw.iDb+1 ,2,1,3
+ rc!=SQLITE_SCHEMA ,2,1,3
+" countValidCursors(pBt,0)==0 || pBt->inTransaction>TRANS_NONE ",2,1,3
+" sqlite3SchemaMutexHeld(db, idx, 0) ",2,1,3
+ isDirectMode==0 ,2,1,3
+ (mem5.aCtrl[iBlock] & CTRL_FREE)==0 ,2,1,3
+ (pMsr->aBuffer[nList] & 0xFE)==0x00 ,2,1,3
+ pTable->nCol>=0 ,2,1,3
+ zDatabase!=0 || sqlite3BtreeHoldsAllMutexes(db) ,2,1,3
+ (pList->flags&PGHDR_NEED_SYNC)==0 ,2,1,3
+ zPattern==sqlite3_value_text(argv[1]) ,2,1,3
+ p->explain==0 ,2,1,3
+ CURSOR_VALID < CURSOR_REQUIRESEEK ,2,1,3
+ sqlite3PagerRefcount(pBt->pPager)==1 ,2,1,3
+ isSaveLeft==0 || isExact==0 ,2,1,3
+ iIndexCur>=0 ,2,1,3
+ u.bo.pC!=0 ,2,1,3
+ aHardLimit[SQLITE_LIMIT_FUNCTION_ARG]==SQLITE_MAX_FUNCTION_ARG ,2,1,3
+ db->aDb[i].zName ,2,1,3
+ p->rc!=SQLITE_ROW && p->rc!=SQLITE_DONE ,2,1,3
+ pOp->p1 <= SQLITE_MAX_LENGTH ,2,1,3
+ iDb>=0 && iDb<pParse->db->nDb ,2,1,3
+ pPager->dbSize>=nPage ,2,1,3
+ sWBI.pSrc->pIndex==0 || (sWBI.cost.plan.wsFlags & WHERE_NOT_FULLSCAN)==0 || sWBI.cost.plan.u.pIdx==sWBI.pSrc->pIndex ,2,1,3
+ pPage->aData[0]==(PTF_INTKEY|PTF_LEAFDATA|PTF_LEAF) ,2,1,3
+ xleft1<=xright1 && (xleft1<xright1 || xleft2<=xright2) ,2,1,3
+ pcacheCheckSynced(pCache) ,2,1,3
+ strlen(argv[0])==4 ,2,1,3
+ (p->flags & MEM_Agg)==0 ,2,1,3
+ p->pgno < p->pDirty->pgno ,2,1,3
+ sqlite3_mutex_notheld(pBt->mutex) ,2,1,3
+ u.cd.pProgram->nCsr==u.cd.pFrame->nChildCsr ,2,1,3
+ j>iFrom ,2,1,3
+ pTo->nVar==pFrom->nVar ,2,1,3
+ memIsValid(u.cf.pIn1) ,2,1,3
+ i>=0 && i<db->nDb ,2,1,3
+ pSrc->a[iLeft].pTab ,2,1,3
+ pPager->doNotSpill==1 ,2,1,3
+ zData!=0 ,2,1,3
+ pagerUseWal(pPager)==0 ,2,1,3
+ pCache->nPage==nPage ,2,1,3
+ pLater->pNext==0 || pLater->pNext->pBt>pLater->pBt ,2,1,3
+ sqlite3PagerIswriteable(pPage1->pDbPage) ,2,1,3
+" !hasReadConflicts(pCsr->pBtree, pCsr->pgnoRoot) ",2,1,3
+ u.bj.pC!=0 ,2,1,3
+ pWC->op==TK_AND ,2,1,3
+ pGroup->nMaxPage >= pCache->nMax ,2,1,3
+ cnt==db->activeVdbeCnt ,2,1,3
+ pOp>aOp ,2,1,3
+ rc!=SQLITE_OK || isOpen(pFile) ,2,1,3
+ pFarg->a[0].pExpr!=0 ,2,1,3
+ iMeta==0 || iMeta==1 ,2,1,3
+ pgno<=pBt->nPage ,2,1,3
+ pLeft->iColumn!=(-1) ,2,1,3
+ pPager->mxPgno>=pPager->dbSize ,2,1,3
+ pOp->opcode==OP_IdxGE ,2,1,3
+ pNew->pInode==NULL ,2,1,3
+ pLock->pBtree->inTrans>=pLock->eLock ,2,1,3
+ p->base.zErrMsg==0 ,2,1,3
+ SQLITE_LIMIT_TRIGGER_DEPTH==(SQLITE_N_LIMIT-1) ,2,1,3
+ rc!=SQLITE_OK || (nByte>0 && nByte<=nIn) ,2,1,3
+ u.ai.n==0 || (pOp->p2>0 && pOp->p2+u.ai.n<=p->nMem+1) ,2,1,3
+nPage>0,2,1,3
+ !pSelect && pCons && pEnd ,2,1,3
+ pWal->ckptLock && pWal->hdr.mxFrame>0 ,2,1,3
+ p1>=0 && p1<(pTab->nCol*2+2) ,2,1,3
+ rc!=0 ,2,1,3
+ n==4-4*pPage->leaf ,2,1,3
+ db->nStatement==0 ,2,1,3
+ pDbPage->pBt==pBt ,2,1,3
+ pFile->locktype==SHARED_LOCK ,2,1,3
+ pPage->pLruPrev==0 && pPage->pLruNext==0 ,2,1,3
+ pInfo->aReadMark[0]==0 ,2,1,3
+ (PAGER_JOURNALMODE_OFF & 5)==0 ,2,1,3
+ memIsValid(u.aq.pRec) ,2,1,3
+ pSelect!=0 ,2,1,3
+ p->zText!=0 || p->nChar==0 ,2,1,3
+ p->inTrans>0 ,2,1,3
+ pItem->iOrderByCol>0 && pItem->iOrderByCol<=p->pEList->nExpr ,2,1,3
+ db->activeVdbeCnt>0 || db->autoCommit==0 || db->nStatement==0 ,2,1,3
+ pPage->nCell<=MX_CELL(pPage->pBt) && MX_CELL(pPage->pBt)<=10921 ,2,1,3
+ pPager->dbOrigSize<=pPager->dbHintSize ,2,1,3
+pDb==&db->aDb[0],2,1,3
+ memIsValid(&aMem[u.al.p2+u.al.idx]) ,2,1,3
+ p->l_whence==SEEK_SET ,2,1,3
+ pCsr->nSegment==0 ,2,1,3
+ !pWinMemData->bOwned ,2,1,3
+ get4byte(&pParent->aData[pParent->hdrOffset+8])==iChild ,2,1,3
+ pPager->pInJournal!=0 ,2,1,3
+ aArg==aDyn || (aDyn==0 && aArg==aStatic) ,2,1,3
+ pCsr->pKeyInfo && pCsr->pBt==0 ,2,1,3
+ sizeof(v)==sizeof(pMem->r) ,2,1,3
+ sqlite3PagerIswriteable(pNew->pDbPage) ,2,1,3
+ p && p->pPrior ,2,1,3
+ op==TK_INSERT || op==TK_UPDATE || op==TK_DELETE ,2,1,3
+ rc!=SQLITE_OK || nDocSize>0 ,2,1,3
+ pRes ,2,1,3
+ pPager->pWal==0 || rc==SQLITE_OK ,2,1,3
+ v || db->mallocFailed ,2,1,3
+ isNew==1 || isNew==0 ,2,1,3
+ READ_LOCK+1==WRITE_LOCK ,2,1,3
+ yyact == YY_ERROR_ACTION ,2,1,3
+ pPager->journalMode==PAGER_JOURNALMODE_MEMORY ,2,1,3
+ 0==pTable->pIndex ,2,1,3
+ pPhrase->nToken==1 ,2,1,3
+ iFrom>=iTo+nReg || iFrom+nReg<=iTo ,2,1,3
+ action==OE_None ,2,1,3
+ eFileLock==SHARED_LOCK || ((unixFile *)id)->nFetchOut==0 ,2,1,3
+ pCur->iPage<BTCURSOR_MAX_DEPTH ,2,1,3
+ rc==SQLITE_OK || rc==SQLITE_LOCKED_SHAREDCACHE ,2,1,3
+ pIdxInfo!=0 || p->pParse->db->mallocFailed ,2,1,3
+ nLocal<=nKey ,2,1,3
+ pParent->nOverflow==0 || pParent->nOverflow==1 ,2,1,3
+ pSrcIdx ,2,1,3
+ pPage->intKey ,2,1,3
+ zTerm && nTerm>0 ,2,1,3
+ pzBuffer==0 || isReduced ,2,1,3
+ maxRootPgno!=PENDING_BYTE_PAGE(pBt) ,2,1,3
+ !u.bm.pC->isTable ,2,1,3
+ z[0]!=0 ,2,1,3
+ nBuf>=0 ,2,1,3
+ memIsValid(&u.bc.r.aMem[i]) ,2,1,3
+" sqlite3SchemaMutexHeld(db, i, 0) ",2,1,3
+(size_t)nBuf>=(sizeof(time_t)+sizeof(int)),2,1,3
+ p && p->pFunc && p->pFunc->xStep ,2,1,3
+ pPager->walSyncFlags==0 ,2,1,3
+ pMinMax==0 || pMinMax->nExpr==1 ,2,1,3
+ sqlite3_mutex_held(p->s.db->mutex) ,2,1,3
+ aContent[aList[i]] > aContent[aList[i-1]] ,2,1,3
+ -1-pOp->p2<p->nLabel ,2,1,3
+ u.bc.oc!=OP_SeekGt || u.bc.r.flags==UNPACKED_INCRKEY ,2,1,3
+ op==TK_DELETE || op==TK_UPDATE || op==TK_INSERT ,2,1,3
+ p->iReg==0 || p->iTable!=iTab || p->iColumn!=iCol ,2,1,3
+ 0==pCur->pKey ,2,1,3
+ p->iAddr<nOp ,2,1,3
+ i<pTab->nCol ,2,1,3
+ TK_LE==TK_GT+1 ,2,1,3
+ r2==r1 ,2,1,3
+ pExpr->op==TK_OR ,2,1,3
+ u.bc.pC!=0 ,2,1,3
+ pItem->pExpr->op==TK_COLLATE ,2,1,3
+ sqlite3VdbeCurrentAddr(v)==iJump ,2,1,3
+ u.ai.apVal || u.ai.n==0 ,2,1,3
+ idx<pPage->nCell ,2,1,3
+ n==1 || lockType!=F_RDLCK ,2,1,3
+ sqlite3_mutex_notheld(mem0.mutex) ,2,1,3
+ u.ay.p2>0 ,2,1,3
+ p->pSchema!=0 ,2,1,3
+ pbegin>addr || pbegin==0 ,2,1,3
+ sizeof(x)==8 && sizeof(pMem->r)==8 ,2,1,3
+ pFrom->pSelect==0 ,2,1,3
+ !p || p->xCmp ,2,1,3
+ rc==SQLITE_OK || mxLevel==0 ,2,1,3
+lockPath!=NULL,2,1,3
+" SQLITE_OK==querySharedCacheTableLock(p, iTable, eLock) ",2,1,3
+ !(fg&(MEM_Str|MEM_Blob)) ,2,1,3
+ (p->btreeMask & (((yDbMask)1)<<u.bw.iDb))!=0 ,2,1,3
+ PAGER_JOURNALMODE_TRUNCATE==3 ,2,1,3
+ left<=right ,2,1,3
+ mem0.nScratchFree <= (u32)sqlite3GlobalConfig.nScratch ,2,1,3
+ isOpen(pPager->fd) || tempFile ,2,1,3
+ pOut<=&aMem[p->nMem] ,2,1,3
+ nPathname>0 ,2,1,3
+ *pRc==SQLITE_OK ,2,1,3
+ pLeft!=0 ,2,1,3
+ precision>0 ,2,1,3
+ SQLITE_DBSTATUS_CACHE_HIT+1==SQLITE_DBSTATUS_CACHE_MISS ,2,1,3
+ !pS ,2,1,3
+" !ExprHasProperty(pColExpr, EP_IntValue) ",2,1,3
+ (info.nData+(pPage->intKey?0:info.nKey))==info.nPayload ,2,1,3
+ n==nColumn ,2,1,3
+ pBt->nPage>0 ,2,1,3
+ *ppDb || rc==SQLITE_NOMEM ,2,1,3
+ ppStmt ,2,1,3
+ SQLITE_DBSTATUS_CACHE_WRITE==SQLITE_DBSTATUS_CACHE_HIT+2 ,2,1,3
+ info.nHeader==nHeader ,2,1,3
+ to_op==OP_ToInt || aff!=SQLITE_AFF_INTEGER ,2,1,3
+ pPage->nCell>0 ,2,1,3
+ db->mallocFailed==0 || pTab==0 ,2,1,3
+ zArg[i]==FTS3_MATCHINFO_HITS ,2,1,3
+ u.bn.pC!=0 ,2,1,3
+ pEType!=0 ,2,1,3
+ pBt->usableSize>32 ,2,1,3
+ op!=0 ,2,1,3
+ cbrk+size<=usableSize && cbrk>=iCellFirst ,2,1,3
+ nSize==debuginfo.nSize ,2,1,3
+ size>=0 ,2,1,3
+ pcache1.nFreeSlot<=pcache1.nSlot ,2,1,3
+ pSchema ,2,1,3
+ iWrite2==0 ,2,1,3
+ nByte==ROUND8(nByte) ,2,1,3
+ regOld==0 && regNew!=0 ,2,1,3
+ EIGHT_BYTE_ALIGNMENT(pIndex->azColl) ,2,1,3
+ pSelect->pEList ,2,1,3
+ zFilename!=0 || (ctrlFlags & UNIXFILE_NOLOCK)!=0 ,2,1,3
+ op==TK_CASE ,2,1,3
+ useJournal || pPager->tempFile ,2,1,3
+ pTable->pSelect ,2,1,3
+ aSortOrder!=0 ,2,1,3
+ u.bf.pCx->deferredMoveto==0 ,2,1,3
+ memIsValid(&u.be.r.aMem[i]) ,2,1,3
+ pbegin>addr ,2,1,3
+ !zName || xDel!=SQLITE_DYNAMIC ,2,1,3
+ iCol<0 || iCol<p->nColumn ,2,1,3
+ pItem->notIndexed==0 && pItem->zIndex==0 ,2,1,3
+ TK_GE==TK_GT+3 ,2,1,3
+ !isSavepnt ,2,1,3
+ u.bu.pC->isTable==0 ,2,1,3
+ eStat==SQLITE_DBSTATUS_CACHE_HIT || eStat==SQLITE_DBSTATUS_CACHE_MISS || eStat==SQLITE_DBSTATUS_CACHE_WRITE ,2,1,3
+ u.al.i<u.al.pKeyInfo->nField ,2,1,3
+ eAuto>=0 && eAuto<=2 ,2,1,3
+ pE->aMI==0 ,2,1,3
+ nTries>1 ,2,1,3
+ iStart>=0 ,2,1,3
+ winShmMutexHeld() ,2,1,3
+ memIsValid(&aMem[u.al.p1+u.al.idx]) ,2,1,3
+ pIn1 <= &p->aMem[p->nMem] ,2,1,3
+ pInode->pShmNode==0 ,2,1,3
+ tempFile==PAGER_LOCKINGMODE_NORMAL || tempFile==PAGER_LOCKINGMODE_EXCLUSIVE ,2,1,3
+" !ExprHasProperty(pE, EP_FromJoin) ",2,1,3
+ db->u1.isInterrupted ,2,1,3
+ pName1->z ,2,1,3
+ pPage->nOverflow==1 ,2,1,3
+ p->wantToLock>0 ,2,1,3
+nOverflow<2 || pOld->aiOvfl[0]==pOld->aiOvfl[1]-1,2,1,3
+ pFree==0 ,2,1,3
+ pParse->ckBase>0 ,2,1,3
+ db->mutex!=0 || isThreadsafe==0 || sqlite3GlobalConfig.bFullMutex==0 ,2,1,3
+ (PAGER_JOURNALMODE_MEMORY & 5)!=1 ,2,1,3
+ pList->pDirty==0 || isCommit ,2,1,3
+ sizeof(unsigned short)==2 && sizeof(unsigned char)==1 ,2,1,3
+ (combined_flags & MEM_RowSet)==0 ,2,1,3
+ u.cr.nArg>1 && u.cr.apArg[0] && (u.cr.apArg[0]->flags&MEM_Null) ,2,1,3
+ !pReader->pBlob || (pFrom>=pReader->aNode && pFrom<&pReader->aNode[pReader->nNode]) ,2,1,3
+ pPrior->pOrderBy==0 ,2,1,3
+ aEntry[0]<key ,2,1,3
+ nArg==1 ,2,1,3
+ u.bs.pC->isSorter==(pOp->opcode==OP_SorterInsert) ,2,1,3
+ nCellKey>intKey ,2,1,3
+ pRoot->pgno==pCur->pgnoRoot ,2,1,3
+ pUnpacked->flags & UNPACKED_PREFIX_MATCH ,2,1,3
+ aHardLimit[SQLITE_LIMIT_LENGTH]==SQLITE_MAX_LENGTH ,2,1,3
+ pPhrase->doclist.pList ,2,1,3
+ (m.flags & MEM_Term)!=0 || db->mallocFailed ,2,1,3
+ pExpr->op==TK_COLLATE ,2,1,3
+ (pVal->flags & MEM_RowSet)==0 ,2,1,3
+ (pIdxKey==0)==(pCur->pKeyInfo==0) ,2,1,3
+ *pnOut<=n1+n2+FTS3_VARINT_MAX-1 ,2,1,3
+ (rc & p->db->errMask)==rc ,2,1,3
+ isSavepnt ,2,1,3
+ pPager->eState!=PAGER_WRITER_FINISHED ,2,1,3
+ rc!=SQLITE_OK || pPager->journalOff>=szJ ,2,1,3
+PROXY_HOSTIDLEN == sizeof(uuid_t),2,1,3
+ pOp->p3<pOp->p2 || pOp->p3>=pOp->p2+u.ai.n ,2,1,3
+ !(p->db->flags&SQLITE_ReadUncommitted)||eLock==WRITE_LOCK||iTab==1 ,2,1,3
+ pLevel->iIdxCur>=0 ,2,1,3
+ key>=aEntry[iRes] ,2,1,3
+nOverflow<3 || pOld->aiOvfl[1]==pOld->aiOvfl[2]-1,2,1,3
+ op!=TK_LE || c==WO_LE ,2,1,3
+ pPager->journalMode==PAGER_JOURNALMODE_DELETE || pPager->journalMode==PAGER_JOURNALMODE_MEMORY || pPager->journalMode==PAGER_JOURNALMODE_WAL ,2,1,3
+ pCol->affinity==SQLITE_AFF_NONE || pCol->affinity==sqlite3AffinityType(zType) ,2,1,3
+ p->inTrans!=TRANS_NONE ,2,1,3
+ iDb==0 || pId2->z ,2,1,3
+ pOp->p4type==P4_COLLSEQ || pOp->p4.pColl==0 ,2,1,3
+ pOp->p1>0 && pOp->p1<=p->nVar ,2,1,3
+ *pp==pId ,2,1,3
+ nToken==ii ,2,1,3
+ pCur->apPage[1]->nOverflow ,2,1,3
+ idx>=0 && idx<pPage->nCell ,2,1,3
+ pPager->eState==PAGER_WRITER_LOCKED || pPager->eState==PAGER_WRITER_CACHEMOD || pPager->eState==PAGER_WRITER_DBMOD || pPager->eState==PAGER_ERROR ,2,1,3
+ pPgOld ,2,1,3
+ iOut>0 ,2,1,3
+ p->xUnlockNotify ,2,1,3
+ (p->selFlags & SF_Expanded)!=0 ,2,1,3
+ regRow!=pDest->iSdst+i ,2,1,3
+ pPage->leaf==0 || pPage->leaf==1 ,2,1,3
+ u.cd.pProgram->nMem+u.cd.pProgram->nCsr==u.cd.pFrame->nChildMem ,2,1,3
+ db->aDb[u.av.iDb].pBt!=0 ,2,1,3
+ eDest==SRT_Discard ,2,1,3
+ TK_GT<TK_LE ,2,1,3
+ pBt->autoVacuum || iMeta==0 ,2,1,3
+ p->owner==tid ,2,1,3
+ info.nKey==nKey ,2,1,3
+j<=nBuf,2,1,3
+ iValue>=0 ,2,1,3
+ pOut->flags & MEM_Dyn ,2,1,3
+ (PAGER_JOURNALMODE_WAL & 5)==5 ,2,1,3
+ p->journalMode==PAGER_JOURNALMODE_OFF || p->journalMode==PAGER_JOURNALMODE_MEMORY ,2,1,3
+ nOut<SQLITE_MAX_LENGTH ,2,1,3
+ pCur->eState==CURSOR_INVALID || pCur->apPage[pCur->iPage]->nCell>0 ,2,1,3
+ pIdx->zName || (pIdx->nColumn==1 && pIdx->aiColumn[0]==-1) ,2,1,3
+ pOp->p4.ai ,2,1,3
+ pList->a!=0 ,2,1,3
+ allowedOp(pExpr->op) && pExpr->op!=TK_IN ,2,1,3
+ (h>='0' && h<='9') || (h>='a' && h<='f') || (h>='A' && h<='F') ,2,1,3
+pX->pLeft,2,1,3
+" wrFlag==0 || !hasReadConflicts(p, iTable) ",2,1,3
+ pOp->opcode!=OP_Next || pOp->p4.xAdvance==sqlite3BtreeNext ,2,1,3
+ db->mallocFailed || pParse->nErr>0 || pParse->iCacheLevel==iCacheLevel ,2,1,3
+ p->usesStmtJournal ,2,1,3
+ csr.nSegment>0 ,2,1,3
+ nNew<=pFd->mmapSizeMax ,2,1,3
+ r2->nField>0 ,2,1,3
+ u.al.p2>0 && u.al.p2+u.al.n<=p->nMem+1 ,2,1,3
+ (*p1&0xFE)==0 && (*p2&0xFE)==0 ,2,1,3
+ zColl ,2,1,3
+ pName->z!=0 ,2,1,3
+ pNextTo->pPrevTo==0 ,2,1,3
+ nArg>=(-2) ,2,1,3
+ p->pTab==0 || (p->pTab->tabFlags & TF_Virtual)!=0 ,2,1,3
+ szExtra < 300 ,2,1,3
+ (flags & BTREE_UNORDERED)==0 || (flags & BTREE_SINGLE)!=0 ,2,1,3
+ idxNum>=0 && idxNum<=(FTS3_FULLTEXT_SEARCH+p->nColumn) ,2,1,3
+ pExpr->iTable==0 || pExpr->iTable==1 ,2,1,3
+ ((u8 *)pOld-mem5.zPool)%mem5.szAtom==0 ,2,1,3
+ idxStr==0 ,2,1,3
+ p->a || p->nSrc==0 ,2,1,3
+ f2&MEM_Int ,2,1,3
+ pPgHdr->pExtra==(void *)&pPgHdr[1] ,2,1,3
+ flags==EXPRDUP_REDUCE || flags==0 ,2,1,3
+ pTableName->nSrc==1 ,2,1,3
+ pOther->szExtra<512 ,2,1,3
+ 0==(1&SQLITE_PTR_TO_INT(pVal->z)) ,2,1,3
+ u.bt.pC->deferredMoveto==0 ,2,1,3
+ EIGHT_BYTE_ALIGNMENT(aSpace1) ,2,1,3
+ pBt->pPage1==0 ,2,1,3
+ sqlite3_mutex_held(pFile->mutex) || pFile->nRef==0 ,2,1,3
+ p->eLock>=EXCLUSIVE_LOCK ,2,1,3
+ pOrderBy!=0 ,2,1,3
+ sqlite3PagerGetData(pPage->pDbPage)==pPage->aData ,2,1,3
+ zIn==sqlite3_value_text(argv[0]) ,2,1,3
+ pChanged ,2,1,3
+ pCur->eState==CURSOR_INVALID || pCur->eState==CURSOR_VALID ,2,1,3
+ pExpr->op!=TK_AS && pExpr->op!=TK_COLLATE ,2,1,3
+u.ao.aType,2,1,3
+ rc==SQLITE_ROW || rc==SQLITE_DONE || rc==SQLITE_ERROR || rc==SQLITE_BUSY || rc==SQLITE_MISUSE ,2,1,3
+ u.cc.iSet==-1 || u.cc.iSet>=0 ,2,1,3
+ (HASHTABLE_NSLOT & (HASHTABLE_NSLOT-1))==0 ,2,1,3
+ &pKey->aSortOrder[nCol]==&(((u8 *)pKey)[nBytes]) ,2,1,3
+ !isRowid ,2,1,3
+ MAX_SECTOR_SIZE>=512 ,2,1,3
+ rc!=SQLITE_OK || (nExpect==pSorter->iWriteOff) ,2,1,3
+ rc==SQLITE_OK || pFile->pMethods==0 ,2,1,3
+ pPgHdr->pCache==pCache ,2,1,3
+ (pExpr->iTable&0x0000FFFF)==pExpr->iTable ,2,1,3
+ (size&1)==0 ,2,1,3
+ pPage->pBt->usableSize <= SQLITE_MAX_PAGE_SIZE ,2,1,3
+ isOpen(pPager->jfd) || pPager->journalMode==PAGER_JOURNALMODE_OFF || pPager->journalMode==PAGER_JOURNALMODE_WAL ,2,1,3
+ (pBt->btsFlags & BTS_EXCLUSIVE)==0 || pBt->pWriter==pLock->pBtree ,2,1,3
+ TK_PLUS==OP_Add ,2,1,3
+ !p || (p>aDoclist && p<&aDoclist[nDoclist]) ,2,1,3
+ count>=0 ,2,1,3
+ pCur->apPage[0]->intKey==1 || pCur->apPage[0]->intKey==0 ,2,1,3
+ pPager->dbSize==pPager->dbOrigSize ,2,1,3
+ iCol>=0 && iCol<pEList->nExpr ,2,1,3
+ pPager->eState==PAGER_WRITER_LOCKED || pPager->eState==PAGER_WRITER_FINISHED || (pagerUseWal(pPager) && pPager->eState==PAGER_WRITER_CACHEMOD) ,2,1,3
+ pTest!=0 ,2,1,3
+ pParse->cookieGoto==0 || pParse->cookieGoto==-1 ,2,1,3
+ pParse->pNewTrigger==pTrigger ,2,1,3
+ (p->btreeMask & (((yDbMask)1)<<u.ay.iDb))!=0 ,2,1,3
+ p->btreeMask==0 ,2,1,3
+ p->apCsr[i]==0 ,2,1,3
+ zRep==sqlite3_value_text(argv[2]) ,2,1,3
+ u.bj.pC->pCursor!=0 ,2,1,3
+ TK_RSHIFT==OP_ShiftRight ,2,1,3
+ pExpr->eType==FTSQUERY_OR || pExpr->eType==FTSQUERY_AND || pExpr->eType==FTSQUERY_NEAR ,2,1,3
+ u.br.pC->deferredMoveto==0 ,2,1,3
+ pOp->p4.pI64!=0 ,2,1,3
+isDelete && !isOpenJournal,2,1,3
+ pMaskSet->n<=(int)sizeof(Bitmask)*8 ,2,1,3
+ pOp->p1<p->nOnceFlag ,2,1,3
+ pIter->pFile ,2,1,3
+ pPager->nSavepoint==nSavepoint ,2,1,3
+ db->activeVdbeCnt>=db->writeVdbeCnt ,2,1,3
+ mxSafeFrame==pWal->hdr.mxFrame ,2,1,3
+ nWrite==0 || nWrite<=(DWORD)nRem ,2,1,3
+ n>5 && n<=9 ,2,1,3
+ p->db==0 || sqlite3_mutex_held(p->db->mutex) ,2,1,3
+ db->flags&SQLITE_CountRows ,2,1,3
+ u<=pKeyInfo->nField + 1 ,2,1,3
+ pOp->p1<=p->nMem ,2,1,3
+ aHardLimit[SQLITE_LIMIT_TRIGGER_DEPTH]==SQLITE_MAX_TRIGGER_DEPTH ,2,1,3
+ pParse==pWalker->pParse ,2,1,3
+ idx>=1 && idx<=15 ,2,1,3
+ zSql!=0 ,2,1,3
+ (enc&3)==(enc&~SQLITE_UTF16_ALIGNED) ,2,1,3
+ mem5.currentCount>0 ,2,1,3
+ u.ao.p1<p->nCursor ,2,1,3
+ pCur!=0 && pCur->iPage>=0 && pCur->apPage[pCur->iPage],2,1,3
+ db->magic==SQLITE_MAGIC_OPEN || db->magic==SQLITE_MAGIC_ZOMBIE ,2,1,3
+ (nBytes&(nBytes-1))==0 ,2,1,3
+" db==0 || sqlite3SchemaMutexHeld(db, 0, pTab->pSchema) ",2,1,3
+ memIsValid(u.cn.pQuery) ,2,1,3
+ TK_LSHIFT==OP_ShiftLeft ,2,1,3
+ bestPlan.plan.u.pIdx==pIdx ,2,1,3
+ PAGER_LOCKINGMODE_QUERY<0 ,2,1,3
+ pFree ,2,1,3
+" DbHasProperty(db, u.bz.iDb, DB_SchemaLoaded) ",2,1,3
+ octet>=0 && octet<256 ,2,1,3
+BtCursor *pCur,2,1,3
+ p->nRef || (p->flags&PGHDR_NEED_SYNC) ,2,1,3
+ pParent->nOverflow==0 || pParent->aiOvfl[0]==iParentIdx ,2,1,3
+ pOp->p4type==P4_KEYINFO ,2,1,3
+ pWal->exclusiveMode==0 ,2,1,3
+ i<=p->iSize ,2,1,3
+ rc!=SQLITE_OK || pPage->nCell>0 || pPage->nOverflow>0 ,2,1,3
+pArg->z < p->z,2,1,3
+(pExpr->x.pList->nExpr % 2) == 0,2,1,3
+ OP_SeekGe == OP_SeekLt+2 ,2,1,3
+ p->sharable==0 || p->locked==0 || p->db==p->pBt->db ,2,1,3
+ op!=TK_LT || c==WO_LT ,2,1,3
+ mem.nCurrent[i]>=0 ,2,1,3
+ z<=zTerm ,2,1,3
+ 1==sqlite3BtreeIsInTrans(pMain) ,2,1,3
+ p->pInode==pFd->pInode ,2,1,3
+ pFKey->nCol==1 || (aiFree && pIdx) ,2,1,3
+ !(u.ao.pDest->flags & (MEM_Blob|MEM_Str)) || u.ao.pDest->z==u.ao.sMem.z ,2,1,3
+ db->pSavepoint==0 || db->autoCommit==0 ,2,1,3
+ !pPager->pTmpSpace ,2,1,3
+ pPage->aData == sqlite3PagerGetData(pPage->pDbPage) ,2,1,3
+ zStr==sqlite3_value_text(argv[0]) ,2,1,3
+ p->isEof==0 ,2,1,3
+ sqlite3_mutex_held(pBt->db->mutex) ,2,1,3
+ nFToken>0 ,2,1,3
+ TOKEN.z[0] ,2,1,3
+num_iter > 0,2,1,3
+ OE_Rollback==1 && OE_Abort==2 && OE_Fail==3 ,2,1,3
+ (pMem->n+(desiredEnc==SQLITE_UTF8?1:2))<=len ,2,1,3
+ pSrc->nSrc==1 ,2,1,3
+ pId2 ,2,1,3
+ apNew[0]->nFree == (get2byte(&apNew[0]->aData[5])-apNew[0]->cellOffset-apNew[0]->nCell*2) ,2,1,3
+ ((VTable *)zP4)->db==p->db ,2,1,3
+ rc==SQLITE_OK || !MEMDB ,2,1,3
+ pLevel->plan.wsFlags & WHERE_IN_ABLE ,2,1,3
+ u.bh.v>0 ,2,1,3
+ pagerUseWal(p)==0 ,2,1,3
+ pPage->nOverflow<=ArraySize(pPage->apOvfl) ,2,1,3
+ p->aList==&aList[nList&~((2<<iSub)-1)] ,2,1,3
+ PAGER_LOCKINGMODE_EXCLUSIVE==1 ,2,1,3
+ sqlite3PagerIswriteable(pBt->pPage1->pDbPage) ,2,1,3
+ desiredEnc==SQLITE_UTF8 || desiredEnc==SQLITE_UTF16LE || desiredEnc==SQLITE_UTF16BE ,2,1,3
+ idxNum==FTS4AUX_EQ_CONSTRAINT || idxNum==0 || idxNum==FTS4AUX_LE_CONSTRAINT || idxNum==FTS4AUX_GE_CONSTRAINT || idxNum==(FTS4AUX_LE_CONSTRAINT|FTS4AUX_GE_CONSTRAINT) ,2,1,3
+" !ExprHasProperty(p, EP_FromJoin) ",2,1,3
+ j+nStr-i+1==nOut ,2,1,3
+ pItem && pSrc->nSrc==1 ,2,1,3
+pParse->nTab==1,2,1,3
+ pSel ,2,1,3
+ sqlite3_mutex_held(p->pGroup->mutex) ,2,1,3
+ pPager->eState==PAGER_WRITER_CACHEMOD || pPager->eState==PAGER_WRITER_DBMOD || pPager->eState==PAGER_WRITER_LOCKED ,2,1,3
+ pOrig->flags & EP_Resolved ,2,1,3
+ u.ay.iDb>=0 && u.ay.iDb<db->nDb ,2,1,3
+ (u32)n==pLevel->plan.nEq ,2,1,3
+ pFree!=0 ,2,1,3
+ a!=0 ,2,1,3
+ pBt->usableSize<=pBt->pageSize && pBt->usableSize+255>=pBt->pageSize,2,1,3
+ p->iTable>=0 ,2,1,3
+ fg&(MEM_Int|MEM_Real) ,2,1,3
+" sqlite3SchemaMutexHeld(db, 0, p->pSchema) ",2,1,3
+ p->pTabSchema!=0 ,2,1,3
+ *pRc || pNode->key.nAlloc==0 ,2,1,3
+ mem5.currentCount>0 || mem5.currentOut==0 ,2,1,3
+ pExpr->pRight==0 ,2,1,3
+ iPage>1 ,2,1,3
+ db->pDfltColl!=0 ,2,1,3
+ SLOT_2_0 == ((0x7f<<14) | (0x7f)) ,2,1,3
+ u.bi.pC->pCursor!=0 ,2,1,3
+ pExpr->aMI ,2,1,3
+ u.bc.oc==OP_SeekLe || u.bc.oc==OP_SeekGt ,2,1,3
+ pFile->h!=NULL && pFile->h!=INVALID_HANDLE_VALUE ,2,1,3
+ op==TK_UPDATE || op==TK_INSERT || op==TK_DELETE ,2,1,3
+ op!=TK_GE || c==WO_GE ,2,1,3
+ pNode->nRef==1 ,2,1,3
+ pPage->nFree>=nByte ,2,1,3
+ isOpen(pPager->jfd) || pagerUseWal(pPager) ,2,1,3
+ u.bv.pC->isOrdered ,2,1,3
+ p->pEList!=0 ,2,1,3
+ rc==SQLITE_ERROR ,2,1,3
+nNumberOfBytesToUnlockLow == (DWORD)SHARED_SIZE || nNumberOfBytesToUnlockLow == 1,2,1,3
+ i+size<=usableSize ,2,1,3
+ sqlite3BtreeHoldsMutex(p->pSrc) ,2,1,3
+ pRight->op==TK_VARIABLE || pRight->op==TK_REGISTER ,2,1,3
+ pPager->eState>=PAGER_WRITER_CACHEMOD || (pPager->eState==PAGER_OPEN && pPager->eLock==EXCLUSIVE_LOCK) ,2,1,3
+" GLOBAL(int, mutexIsInit) ",2,1,3
+ pSubWInfo || pParse->nErr || pParse->db->mallocFailed ,2,1,3
+ zPath[nDb]!='\n' ,2,1,3
+ pMem->enc!=0 ,2,1,3
+ pE->op!=TK_DOT || (pE->pLeft!=0 && pE->pLeft->op==TK_ID) ,2,1,3
+ newPgno>0 ,2,1,3
+ pc>=0 && pc<p->nOp ,2,1,3
+ WO_GE==SQLITE_INDEX_CONSTRAINT_GE ,2,1,3
+ (p->btreeMask & (((yDbMask)1)<<pOp->p5))!=0 ,2,1,3
+ !memDb ,2,1,3
+ pOrWc->nTerm>=2 ,2,1,3
+ u.bm.pC!=0 ,2,1,3
+ nKey==4 ,2,1,3
+ pc>=iCellFirst && pc<=iCellLast ,2,1,3
+ pSorter->iWriteOff==0 ,2,1,3
+ PAGER_JOURNALMODE_MEMORY==4 ,2,1,3
+ iFromCol>=0 ,2,1,3
+ pSorter->pUnpacked==(UnpackedRecord *)d ,2,1,3
+ pOrTerm->wtFlags & (TERM_COPIED|TERM_VIRTUAL) ,2,1,3
+ pOp->p4type==P4_INTARRAY ,2,1,3
+ aHardLimit[SQLITE_LIMIT_VARIABLE_NUMBER]==SQLITE_MAX_VARIABLE_NUMBER,2,1,3
+ zByte!=0 ,2,1,3
+ pRet && pPrev ,2,1,3
+ sizeof(res.azResult[0])>= sizeof(res.nData) ,2,1,3
+ rc==SQLITE_BUSY || rc==SQLITE_OK || rc==SQLITE_ERROR ,2,1,3
+ pMem1->enc==pMem2->enc ,2,1,3
+ eOld==PAGER_JOURNALMODE_MEMORY || eOld==PAGER_JOURNALMODE_OFF ,2,1,3
+ var<COLNAME_N ,2,1,3
+ pPage->cellOffset == hdr + 12 - 4*pPage->leaf ,2,1,3
+ u.bc.oc!=OP_SeekGe || u.bc.r.flags==0 ,2,1,3
+" xCmp(apSegment[i], apSegment[i+1])<0 ",2,1,3
+ pBlob==sqlite3_value_blob(argv[0]) ,2,1,3
+ p->apCsr[pOp->p1]!=0 ,2,1,3
+ debugMutexHeld(pX) ,2,1,3
+ WAL_CKPT_LOCK==WAL_ALL_BUT_WRITE ,2,1,3
+ db->autoCommit==0 || db->nVTrans==0 ,2,1,3
+ rc!=0 || !zName || (pColName->flags&MEM_Term)!=0 ,2,1,3
+ u.aj.op==OP_ShiftRight || u.aj.op==OP_ShiftLeft ,2,1,3
+ TK_REM==OP_Remainder ,2,1,3
+" sqlite3MemdebugHasType(p, MEMTYPE_SCRATCH) ",2,1,3
+ dest.nSdst==nColumn ,2,1,3
+ iPos>p->iLastPos || (iPos==0 && p->iLastPos==0) ,2,1,3
+ u.bg.pC!=0 ,2,1,3
+" pCur->apPage[pCur->iPage-1], pCur->aiIdx[pCur->iPage-1], pCur->apPage[pCur->iPage]->pgno ",2,1,3
+ m.z || db->mallocFailed ,2,1,3
+ pOp->p1+pOp->p2<=p->nMem+1 ,2,1,3
+ u.bz.iDb==1 || sqlite3BtreeHoldsMutex(db->aDb[u.bz.iDb].pBt) ,2,1,3
+ pTerm->eOperator & WO_OR ,2,1,3
+ pPager->eState!=PAGER_READER ,2,1,3
+ memIsValid(&aMem[pOp->p2]) ,2,1,3
+ nTries==3 ,2,1,3
+ pAndTerm->pExpr ,2,1,3
+ memIsValid(u.bi.pKey) ,2,1,3
+ pParse->pTriggerTab && pParse->pToplevel ,2,1,3
+" !ExprHasAnyProperty(pB, EP_TokenOnly|EP_Reduced) ",2,1,3
+uPattern!=0,2,1,3
+" pExpr->u.zToken[0]=='?' || strcmp(pExpr->u.zToken, pParse->azVar[pExpr->iColumn-1])==0 ",2,1,3
+ p->nOp - i >= 3 ,2,1,3
+ u.bv.pC!=0 ,2,1,3
+nArg==2,2,1,3
+ pBt->usableSize > 4 ,2,1,3
+ !SAVEPOINT_BEGIN && SAVEPOINT_RELEASE==1 && SAVEPOINT_ROLLBACK==2 ,2,1,3
+ zFile[0]!=0 ,2,1,3
+ p->zSql==0 ,2,1,3
+ pPage->intKey || nKey>=0 ,2,1,3
+" sqlite3ExprIsInteger(pE, &i)==0 ",2,1,3
+ p->pEList && pPrior->pEList ,2,1,3
+ u.ad.p1+u.ad.n<=u.ad.p2 || u.ad.p2+u.ad.n<=u.ad.p1 ,2,1,3
+ ((int(*)(void *))(ap[0]))==xBusyHandler ,2,1,3
+ SQLITE_FUNC_TYPEOF==OPFLAG_TYPEOFARG ,2,1,3
+ (nCellKey & SQLITE_MAX_U32)==(u64)nCellKey ,2,1,3
+ zTab==0 && zDb==0 ,2,1,3
+ (p->flags2 & EP2_Irreducible)==0 ,2,1,3
+ get2byteNotZero(&data[hdr+5])==nUsable ,2,1,3
+ u.ap.zAffinity[pOp->p2]==0 ,2,1,3
+ !isFatalError(p->rc) ,2,1,3
+ pIdx->onError!=OE_None ,2,1,3
+ op==TK_UNION || op==TK_EXCEPT || op==TK_INTERSECT || op==TK_ALL ,2,1,3
+ p->nPgsz>0 || rc!=SQLITE_OK ,2,1,3
+ PAGER_JOURNALMODE_DELETE==0 ,2,1,3
+ u.bi.pData->flags & (MEM_Blob|MEM_Str) ,2,1,3
+ iType-2 < ArraySize(staticMutexes) ,2,1,3
+ z[0]=='?' ,2,1,3
+ (*ppPage)->pPager==pPager || (*ppPage)->pPager==0 ,2,1,3
+ !pLeft->bDeferred || !pRight->bDeferred ,2,1,3
+ pTo->db==0 || sqlite3_mutex_held(pTo->db->mutex) ,2,1,3
+ p->pPrev==0 || p->pPrev->db==p->db ,2,1,3
+ 0==argc ,2,1,3
+ (u.ca.pnErr->flags & MEM_Int)!=0 ,2,1,3
+ start>=pPage->hdrOffset+6+pPage->childPtrSize ,2,1,3
+ pTab && !pTab->pSelect && pExpr ,2,1,3
+ keyClass>=FTS3_HASH_STRING && keyClass<=FTS3_HASH_BINARY ,2,1,3
+ !pBt->pCursor ,2,1,3
+ r<nMaxCells ,2,1,3
+ u.bs.pC->isTable==0 ,2,1,3
+ (pOther->szPage & (pOther->szPage-1))==0 && pOther->szPage>=512 ,2,1,3
+ pKeyDup==0 ,2,1,3
+ rc==SQLITE_OK || iHash>0 ,2,1,3
+ pWal->apWiData[walFramePage(pWal->hdr.mxFrame)] ,2,1,3
+ pItem->isCorrelated==0 && nRef<=0 ,2,1,3
+ u.ao.sMem.z==u.ao.sMem.zMalloc ,2,1,3
+ pExpr->op>=TK_GT && pExpr->op<=TK_GE ,2,1,3
+ iSpace1 <= (int)pBt->pageSize ,2,1,3
+ (u.cn.pQuery->flags&MEM_Int)!=0 && u.cn.pArgc->flags==MEM_Int ,2,1,3
+ sizeof(zMagicHeader)==16 ,2,1,3
+ pCol->affinity-SQLITE_AFF_TEXT >= 0 ,2,1,3
+ pParse->pVdbe || pParse->db->mallocFailed ,2,1,3
+ pPager->eState>=PAGER_WRITER_CACHEMOD || isMainJrnl ,2,1,3
+ pthreadMutexHeld(p) ,2,1,3
+ p->nIndex>0 ,2,1,3
+ memIsValid(pIn2) ,2,1,3
+ u.ao.pC->pVtabCursor==0 ,2,1,3
+ aHardLimit[SQLITE_LIMIT_COLUMN]==SQLITE_MAX_COLUMN ,2,1,3
+ pDest->nSdst==nResultCol ,2,1,3
+ iType-2 < ArraySize(winMutex_staticMutexes) ,2,1,3
+ pPage->pDirtyNext || pPage==p->pDirtyTail ,2,1,3
+ pIx->pSchema==pTab->pSchema ,2,1,3
+" SQLITE_OK==querySharedCacheTableLock(p, MASTER_ROOT, READ_LOCK) ",2,1,3
+ pExpr->pTab && j<pExpr->pTab->nCol ,2,1,3
+ cntNew[0]>0 || (pParent->pgno==1 && pParent->nCell==0) ,2,1,3
+ nTemp==0 ,2,1,3
+ db->nStatement>=0 && db->nSavepoint>=0 ,2,1,3
+ sqlite3_mutex_held(p->pBt->mutex) ,2,1,3
+ pzOriginTab && pzOriginCol ,2,1,3
+ !pColl || pColl->xCmp ,2,1,3
+ memIsValid(u.ao.pReg) ,2,1,3
+ pBt->nTransaction>0 ,2,1,3
+ pRight==0 || p->zMalloc==0 ,2,1,3
+ u.bu.pC->deferredMoveto==0 ,2,1,3
+ pLater->sharable ,2,1,3
+ zTabName!=0 ,2,1,3
+ !pLater->locked || pLater->wantToLock>0 ,2,1,3
+" sqlite3SchemaMutexHeld(db, 0, pTable->pSchema) ",2,1,3
+ p->wantToLock==0 ,2,1,3
+ idx1==szHdr1 && rc ,2,1,3
+ u.bg.pC->isTable ,2,1,3
+ pGroup->mxPinned == pGroup->nMaxPage + 10 - pGroup->nMinPage ,2,1,3
+ (flags&0xff)==flags ,2,1,3
+ pVfs->mxPathname==MAX_PATHNAME ,2,1,3
+ (errCode&0xff)==SQLITE_CONSTRAINT ,2,1,3
+ pFile->locktype==NO_LOCK ,2,1,3
+ (pTerm->wtFlags & TERM_ORINFO)!=0 ,2,1,3
+ pMem->xDel!=SQLITE_DYNAMIC ,2,1,3
+" !usedAsColumnCache(pParse, i, i+n-1) ",2,1,3
+ pParse==sqlite3ParseToplevel(pParse) ,2,1,3
+ SizeofArray(azSql)==SizeofArray(p->aStmt) ,2,1,3
+ zPrefix ,2,1,3
+ pOp->opcode==OP_Noop || pOp->opcode==OP_Explain ,2,1,3
+ nWrite==db->writeVdbeCnt ,2,1,3
+ ppDb ,2,1,3
+ p->sharable==0 || p->locked==0 || sqlite3_mutex_held(p->db->mutex) ,2,1,3
+ db->aDb[iDb].pBt!=0 ,2,1,3
+ u.ao.avail>=0 ,2,1,3
+ nReserve>=-1 && nReserve<=255 ,2,1,3
+ isMainJrnl || pDone ,2,1,3
+ sqlite3_value_type(argv[1])==SQLITE_NULL || sqlite3_context_db_handle(context)->mallocFailed ,2,1,3
+ nRead>0 ,2,1,3
+ SQLITE_CHECKPOINT_FULL<SQLITE_CHECKPOINT_RESTART ,2,1,3
+ iSavepoint>=0 || (iSavepoint==-1 && op==SAVEPOINT_ROLLBACK) ,2,1,3
+ nFarg>=2 ,2,1,3
+ iA1*iB0==0 || iA0*iB1==0 ,2,1,3
+ pIndex->onError!=OE_None ,2,1,3
+ SLOT_4_2_0 == ((0xfU<<28) | (0x7f<<14) | (0x7f)) ,2,1,3
+ (PAGER_JOURNALMODE_DELETE & 5)!=1 ,2,1,3
+ (int)strlen(conchPath) == len+7 ,2,1,3
+ pFrom->nSrc==1 ,2,1,3
+ nData==(pRtree->nDim*2 + 3) ,2,1,3
+ pWal==0 || pWal->readLock>=0 ,2,1,3
+ fg & MEM_Real ,2,1,3
+ i==0 ,2,1,3
+ checkSavepointCount(db) ,2,1,3
+ locktype<=SHARED_LOCK ,2,1,3
+ u.bo.pC->pCursor || u.bo.pC->pVtabCursor ,2,1,3
+" !ppDirectory || sqlite3MemdebugHasType(*ppDirectory, MEMTYPE_HEAP) ",2,1,3
+ pDel==0 || pDel==pColl ,2,1,3
+ nList<=HASHTABLE_NPAGE && nList>0 ,2,1,3
+ (*ppPage)->pgno==pgno ,2,1,3
+ pLvl->iIdxCur==iCovCur ,2,1,3
+ pExpr->eType==FTSQUERY_PHRASE ,2,1,3
+ pIn!=0 ,2,1,3
+ !pReader->pOffsetList ,2,1,3
+ pagerUseWal(pPager) || pageInJournal(pPg) || pPg->pgno>pPager->dbOrigSize ,2,1,3
+" memcmp(&info, &pCur->info, sizeof(info))==0 ",2,1,3
+ (*ppLast)->pRight==0 ,2,1,3
+ !pPager->aSavepoint && !pPager->pInJournal ,2,1,3
+ ret>0 ,2,1,3
+ CURSOR_INVALID < CURSOR_REQUIRESEEK ,2,1,3
+ p==p->pParent->pRight || p==p->pParent->pLeft ,2,1,3
+ p->tempFile==0 || p->eLock==EXCLUSIVE_LOCK ,2,1,3
+ pPrior!=0 && nByte>0 ,2,1,3
+ pOp->p5==0 || pOp->p5==1 ,2,1,3
+ pCache->szExtra<512 ,2,1,3
+" (sqlite3_strnicmp(argv[0], ""fts4"", 4)==0 && isFts4) || (sqlite3_strnicmp(argv[0], ""fts3"", 4)==0 && !isFts4) ",2,1,3
+ pPg->nRef>0 || pPg->pPager->memDb ,2,1,3
+isDelete && !syncDir,2,1,3
+ eLock==READ_LOCK || pIter->pBtree==p || pIter->eLock==READ_LOCK,2,1,3
+ badHdr==0 || pWal->writeLock==0 ,2,1,3
+ pConstraint->op==RTREE_MATCH ,2,1,3
+ m.z==m.zMalloc ,2,1,3
+ p->eState!=PAGER_ERROR && p->eState!=PAGER_OPEN ,2,1,3
+ pbOpen!=0 || (!pPager->tempFile && !pPager->pWal) ,2,1,3
+ pWinMemData->hHeap!=0 ,2,1,3
+nNumberOfBytesToUnlockLow == (DWORD)SHARED_SIZE,2,1,3
+ n>0 && tokenType!=TK_ILLEGAL ,2,1,3
+ n<=9 ,2,1,3
+ pCur->apPage[pCur->iPage]->leaf ,2,1,3
+ (PAGER_JOURNALMODE_DELETE & 5)==0 ,2,1,3
+ *pbFirst==0 || iWrite>0 ,2,1,3
+ pBt->nRef>0 ,2,1,3
+ 0==(pMem->flags&MEM_Dyn) && !pMem->xDel ,2,1,3
+ u.bn.pC->pseudoTableReg==0 || u.bn.pC->nullRow ,2,1,3
+ p->pLimit==0 ,2,1,3
+nKey==elem->nKey,2,1,3
+ pOp->p4type==P4_COLLSEQ ,2,1,3
+ *p==0 ,2,1,3
+ offset%JOURNAL_HDR_SZ(pPager)==0 ,2,1,3
+ pExcept==0 || pExcept->pBt==pBt ,2,1,3
+ pOp->p5<db->nDb ,2,1,3
+ idx<pIdx->nSample ,2,1,3
+ db->aDb[iDb].pBt!=0 || iDb==1 ,2,1,3
+ pInode->pPrev->pNext==pInode ,2,1,3
+ pInode->nLock==0 ,2,1,3
+ pVfs!=0 ,2,1,3
+ sqlite3_mutex_held(pShmNode->mutex) || pShmNode->nRef==0 ,2,1,3
+ (WO_EQ<<(op-TK_EQ)) < 0x7fff ,2,1,3
+ pName2!=0 ,2,1,3
+ pDistinct->eTnctType==WHERE_DISTINCT_UNORDERED ,2,1,3
+ flag==0 || (pMinMax!=0 && pMinMax->nExpr==1) ,2,1,3
+" !ExprHasProperty(pE, EP_xIsSelect) ",2,1,3
+ p->pSchema==0 || p->zDatabase==0 ,2,1,3
+ leafCorrection==0 ,2,1,3
+ iRead==iRead2 ,2,1,3
+ pCur->aiIdx[pCur->iPage]==pCur->apPage[pCur->iPage]->nCell-1 ,2,1,3
+ !pParse->pNewTrigger ,2,1,3
+ p->pPager==pPager ,2,1,3
+ pcache1.isInit!=0 ,2,1,3
+ ((Fts3Table *)pVtab)->mxSavepoint < iSavepoint ,2,1,3
+ i > mem3.aPool[i-1].u.hdr.prevSize ,2,1,3
+ p==pIndex ,2,1,3
+ pExpr->affinity==OE_Rollback || pExpr->affinity==OE_Abort || pExpr->affinity==OE_Fail || pExpr->affinity==OE_Ignore ,2,1,3
+ p->pNext==0 || p->pNext->db==p->db ,2,1,3
+ pDbFd ,2,1,3
+ p->eState==PAGER_OPEN || p->eState==PAGER_READER || p->eState==PAGER_WRITER_LOCKED || p->eState==PAGER_WRITER_CACHEMOD || p->eState==PAGER_WRITER_DBMOD || p->eState==PAGER_WRITER_FINISHED || p->eState==PAGER_ERROR ,2,1,3
+ p->op==TK_UNION ,2,1,3
+ scratchAllocOut<=1 ,2,1,3
+ eMode==PAGER_LOCKINGMODE_QUERY || eMode==PAGER_LOCKINGMODE_NORMAL || eMode==PAGER_LOCKINGMODE_EXCLUSIVE ,2,1,3
+ p->syncFlags & (SQLITE_SYNC_NORMAL|SQLITE_SYNC_FULL) ,2,1,3
+ p->pParent && p->pParent->pLeft==p ,2,1,3
+ nNew>pFd->mmapSize ,2,1,3
+ u.bm.pC->pseudoTableReg==0 ,2,1,3
+ iLimit>0 ,2,1,3
+ nDb>0 ,2,1,3
+ pIdx->nColumn>=nEq ,2,1,3
+ sqlite3GlobalConfig.nRefInitMutex==0 ,2,1,3
+ pPage->nCell==0 ,2,1,3
+ fd>=0 ,2,1,3
+ nExtra>=nColl ,2,1,3
+ pWriter->zTerm==pWriter->zMalloc ,2,1,3
+ pPage->pDirtyNext->pDirtyPrev==0 ,2,1,3
+ p->iStatement==(db->nStatement+db->nSavepoint) ,2,1,3
+ u.av.iDb>=0 && u.av.iDb<db->nDb ,2,1,3
+ yyruleno>=0 && yyruleno<sizeof(yyRuleInfo)/sizeof(yyRuleInfo[0]) ,2,1,3
+ u.ca.z==0 ,2,1,3
+ SQLITE_FUNC_LENGTH==OPFLAG_LENGTHARG ,2,1,3
+ argc>1 ,2,1,3
+ pGroup->nMinPage >= pCache->nMin ,2,1,3
+ iHeight>=0 ,2,1,3
+ rc!=SQLITE_OK || !pCsr->pNode || pCsr->iCell<NCELL(pCsr->pNode) ,2,1,3
+ p->db==pBt->db ,2,1,3
+ (new_size & (new_size-1))==0 ,2,1,3
+ (pVal->flags & (MEM_Ephem|MEM_Static))!=0 ,2,1,3
+ y<=pWal->hdr.mxFrame ,2,1,3
+ pList->a!=0 || pList->nExpr==0 ,2,1,3
+pDup,2,1,3
+ WO_MATCH==SQLITE_INDEX_CONSTRAINT_MATCH ,2,1,3
+ pInfo->estimatedCost>1000000.0 ,2,1,3
+ iDb==1 || sqlite3BtreeHoldsMutex(db->aDb[iDb].pBt) ,2,1,3
+ u.co.pModule->xColumn ,2,1,3
+ pWal->readLock<0 ,2,1,3
+ useTempTable==0 ,2,1,3
+ !db || pRet ,2,1,3
+ pPg->pgno!=PAGER_MJ_PGNO(pPager) ,2,1,3
+ pFirstTerm->eOperator & WO_IN ,2,1,3
+ db==0 || p->pUnlockConnection!=db ,2,1,3
+ (pLevel->plan.wsFlags & WHERE_ORDERED)!=0 ,2,1,3
+u.cm.pVtab && u.cm.pModule,2,1,3
+ aNext!=p->aAlloc ,2,1,3
+ id-2 < (int)(sizeof(aStatic)/sizeof(aStatic[0])) ,2,1,3
+ nArg<=ArraySize(azArg) ,2,1,3
+ iTrigDb==iDb || iTrigDb==1 ,2,1,3
+ nSrcPage>=0 ,2,1,3
+ !p || (p>=aDoclist && p<=&aDoclist[nDoclist]) ,2,1,3
+ !pBt->pPage1 && !pBt->pCursor ,2,1,3
+ isSorter(u.bk.pC) ,2,1,3
+ u.bc.oc!=OP_SeekLe || u.bc.r.flags==UNPACKED_INCRKEY ,2,1,3
+ pOp->p3<=u.bh.pFrame->nMem ,2,1,3
+ p2==0 ,2,1,3
+ pOp->p2!=0 ,2,1,3
+ !pnCkpt || *pnCkpt==-1 ,2,1,3
+p || db->mallocFailed,2,1,3
+ len==sqlite3_value_bytes(argv[0]) ,2,1,3
+ u.at.desiredAutoCommit==1 ,2,1,3
+ pSorter->aTree==0 ,2,1,3
+ pEnd!=0 ,2,1,3
+ iStartLeaf<=iEndLeaf ,2,1,3
+ nAlloc>=pNew->nCol && nAlloc%8==0 && nAlloc-pNew->nCol<8 ,2,1,3
+ pPager->fd->pMethods->iVersion>=3 ,2,1,3
+ u.bm.pC->nullRow==0 ,2,1,3
+ aData ,2,1,3
+ nNew<=pPhrase->doclist.nList && nNew>0 ,2,1,3
+ cbrk>=iCellFirst ,2,1,3
+ pPage->iKey==iOld ,2,1,3
+ EIGHT_BYTE_ALIGNMENT(pPager->jfd) ,2,1,3
+ pPager->pWal ,2,1,3
+ (rc&0xff)!=SQLITE_BUSY ,2,1,3
+ pExpr->iColumn>=-1 && pExpr->iColumn<pTab->nCol ,2,1,3
+ TK_MINUS==OP_Subtract ,2,1,3
+ pOther!=pDef && pOther->pNext!=pDef ,2,1,3
+ !subjRequiresPage(pPg) || pPg->pgno<=pPg->pPager->dbSize ,2,1,3
+ pExpr->op!=TK_LT || op==OP_Ge ,2,1,3
+ pOrTerm->leftCursor==iCursor ,2,1,3
+ p->pgno>0 ,2,1,3
+ pVar->flags & MEM_Blob ,2,1,3
+ 0==(p->db->flags&SQLITE_ReadUncommitted) || eLock==WRITE_LOCK ,2,1,3
+ (pPager->eLock>=locktype) || (pPager->eLock==NO_LOCK && locktype==SHARED_LOCK) || (pPager->eLock==RESERVED_LOCK && locktype==EXCLUSIVE_LOCK) ,2,1,3
+ (p->btreeMask & (((yDbMask)1)<<p1))!=0 ,2,1,3
+ SQLITE_CHECKPOINT_FULL>SQLITE_CHECKPOINT_PASSIVE ,2,1,3
+SQLITE_DEFAULT_PAGE_SIZE<=SQLITE_MAX_DEFAULT_PAGE_SIZE,2,1,3
+ isIgnoreEmpty || (isRequirePos && !isColFilter) ,2,1,3
+ nColumn>0 ,2,1,3
+ pParse->iCacheLevel==0 ,2,1,3
+ pCsr->aMatchinfo ,2,1,3
+ j==0 || j>i+size ,2,1,3
+ sqlite3_mutex_held(p->pCache->pGroup->mutex) ,2,1,3
+ iCur<p->nCursor ,2,1,3
+ *pzErrMsg==0 ,2,1,3
+ pColl ,2,1,3
+ pCsr->nTerm==0 ,2,1,3
+" strcmp(pDb->zName,""vacuum_db"")==0 ",2,1,3
+ db2 ,2,1,3
+ pNew->nCol>0 ,2,1,3
+ pExpr->op!=TK_NE || op==OP_Eq ,2,1,3
+ db->mallocFailed || pItem->pExpr==pSpan->pExpr ,2,1,3
+ (nMap % winSysInfo.dwPageSize)==0 ,2,1,3
+ pTable->pSchema==pTrigger->pSchema || iDb==1 ,2,1,3
+ !pPrior->pLimit ,2,1,3
+ aWalData[3]!=pWal->nCkpt || aWalData[0]<=pWal->hdr.mxFrame ,2,1,3
+ pExpr->op!=TK_NOTNULL || op==OP_IsNull ,2,1,3
+ sqlite3BtreeGetReserveNoMutex(p->pSrc)>=0 ,2,1,3
+ iCol>=0 && iCol<pTab->nColumn ,2,1,3
+ pExpr->flags&EP_xIsSelect ,2,1,3
+!isView || pTrigger,2,1,3
+ iDb==1 ,2,1,3
+ i<(int)sizeof(p->btreeMask)*8 ,2,1,3
+ (pCache->szPage & (pCache->szPage-1))==0 && pCache->szPage>=512 ,2,1,3
+ rc!=SQLITE_OK || pSorter->aIter[ pSorter->aTree[1] ].pFile ,2,1,3
+ (op-SQLITE_DBSTATUS_LOOKASIDE_HIT)>=0 ,2,1,3
+ pbegin <= (int)pPage->pBt->usableSize-4 ,2,1,3
+ next==0 || rc==SQLITE_DONE ,2,1,3
+ zFilename ,2,1,3
+ mask==-1 || mask==0 ,2,1,3
+ db->lookaside.nOut==0 ,2,1,3
+ ArraySize(aSyscall)==74 ,2,1,3
+ db->aDb[iDb].pSchema ,2,1,3
+ !db->xCollNeeded || !db->xCollNeeded16 ,2,1,3
+ pPager->tempFile ,2,1,3
+ sqlite3BtreeCursorIsValid(u.bh.pC->pCursor) ,2,1,3
+ pLeft->bStart || pLeft->iDocid==pRight->iDocid ,2,1,3
+ p->pParent==0 || p->pParent->pLeft==p ,2,1,3
+ db->activeVdbeCnt>0 ,2,1,3
+pEList == 0 || pSelect == 0,2,1,3
+ pItem->iOrderByCol>0 ,2,1,3
+ bRev==0 || bRev==1 ,2,1,3
+ p->pExtra==(void *)&p[1] ,2,1,3
+ sizeof(t)+sizeof(pid)<=(size_t)nBuf ,2,1,3
+ pPager->dbFileSize>0 ,2,1,3
+ pB->pRight==0 || pB->v<=pB->pRight->v ,2,1,3
+ u.bj.pC->iDb>=0 ,2,1,3
+ zSrcData ,2,1,3
+ db==0 || p->pBlockingConnection!=db ,2,1,3
+ eMode>=0 && eMode<=ArraySize(azModeName) ,2,1,3
+ p==pOld ,2,1,3
+"!""Unexpected return value from ucol_strcoll()""",2,1,3
+ pMaskSet->n < ArraySize(pMaskSet->ix) ,2,1,3
+ pBt->maxLeaf + 23 <= MX_CELL_SIZE(pBt) ,2,1,3
+ (int)strlen((char*)pFile->lockingContext)<=MAXPATHLEN ,2,1,3
+ pList!=0 || pParse->db->mallocFailed!=0 ,2,1,3
+ N>0 ,2,1,3
+ pCsr->aDoclist==0 ,2,1,3
+ u.at.desiredAutoCommit==1 || u.at.iRollback==0 ,2,1,3
+ u.ao.payloadSize==0 || u.ao.zRec!=0 ,2,1,3
+ eOp==SAVEPOINT_ROLLBACK || eOp==SAVEPOINT_RELEASE,2,1,3
+ u.at.desiredAutoCommit==1 || u.at.desiredAutoCommit==0 ,2,1,3
+ pPage->intKey==(pIdxKey==0) ,2,1,3
+ (pExpr->flags & (EP_Reduced|EP_TokenOnly))==0 ,2,1,3
+ pCur->aiIdx[ii]==pCur->apPage[ii]->nCell ,2,1,3
+ pCur->pgnoRoot==0 || pCur->apPage[pCur->iPage] ,2,1,3
+pPgnoNext,2,1,3
+ handleNFSUnlock==0 ,2,1,3
+ zName!=0 ,2,1,3
+ pReader->pBlob==0 ,2,1,3
+ pB==0 || pB->pRight==0 || pB->v<=pB->pRight->v ,2,1,3
+ !db->init.busy || !pSelect ,2,1,3
+ pOp->opcode==OP_SorterNext ,2,1,3
+ !p->pGroupBy ,2,1,3
+ p->aOp ,2,1,3
+ cnt==(cnt&0x1ffff) ,2,1,3
+ pPg->nRef>0 ,2,1,3
+ pOBItem->sortOrder==0 || pOBItem->sortOrder==1 ,2,1,3
+ p==pBt->pWriter ,2,1,3
+ !pPager->exclusiveMode || pPager->eLock==eLock ,2,1,3
+ pMem->z || pMem->n==0 ,2,1,3
+ rc!=SQLITE_IOERR_BLOCKED ,2,1,3
+ u.cj.eNew==PAGER_JOURNALMODE_DELETE || u.cj.eNew==PAGER_JOURNALMODE_TRUNCATE || u.cj.eNew==PAGER_JOURNALMODE_PERSIST || u.cj.eNew==PAGER_JOURNALMODE_OFF || u.cj.eNew==PAGER_JOURNALMODE_MEMORY || u.cj.eNew==PAGER_JOURNALMODE_WAL || u.cj.eNew==PAGER_JOURNALMODE_QUERY ,2,1,3
+" walFramePgno(pWal, iFrame)==iDbpage ",2,1,3
+ pCursor->pNode==pChild ,2,1,3
+ p->aCol==0 ,2,1,3
+ sqlite3PagerPageRefcount(pData)>0 ,2,1,3
+ i<=usableSize-4 ,2,1,3
+ v->expired==0 ,2,1,3
+ u.bt.pC!=0 ,2,1,3
+ pgnoRoot>=3 ,2,1,3
+ opcode==OP_OpenWrite || opcode==OP_OpenRead ,2,1,3
+ zMaster[sqlite3Strlen30(zMaster)-3]=='9' ,2,1,3
+ pToken ,2,1,3
+ iSortOrder==0 || iSortOrder==1 ,2,1,3
+ p->iStatement==0 || db->flags&SQLITE_CountRows ,2,1,3
+ bBulk==0 ,2,1,3
+ enc!=0 ,2,1,3
+ pPage->pgno==sqlite3PagerPagenumber(pPage->pDbPage) ,2,1,3
+ pOp->opcode==OP_OpenWrite || pOp->p5==0 ,2,1,3
+ j+1 < nOld ,2,1,3
+ u.ao.pReg->flags & MEM_Blob ,2,1,3
+ nVal==0 || nVal==1 || nVal==2 ,2,1,3
+ u.cg.n>=0 ,2,1,3
+ nKey==(i64)(int)nKey ,2,1,3
+ isIgnoreErrors==0 || (regOld!=0 && regNew==0) ,2,1,3
+ aHardLimit[SQLITE_LIMIT_VDBE_OP]==SQLITE_MAX_VDBE_OP ,2,1,3
+ eMode==BTALLOC_ANY || (nearby>0 && IfNotOmitAV(pBt->autoVacuum)) ,2,1,3
+ rc==0 ,2,1,3
+ (eType!=SQLITE_OPEN_MAIN_DB) || (flags & SQLITE_OPEN_URI) || zUtf8Name[strlen(zUtf8Name)+1]==0 ,2,1,3
+ idx <= HASHTABLE_NSLOT/2 + 1 ,2,1,3
+ eType==SQLITE_OPEN_WAL || eType==SQLITE_OPEN_MAIN_JOURNAL ,2,1,3
+ pWinMemData->bOwned ,2,1,3
+ PENDING_BYTE+1==RESERVED_BYTE ,2,1,3
+ pFrom->zErrMsg==0 || pFrom->nErr ,2,1,3
+ pVdbe!=0 ,2,1,3
+ p->op==SQLITE_INDEX_CONSTRAINT_MATCH ,2,1,3
+ !isOpen(pPager->jfd) && !isOpen(pPager->sjfd) ,2,1,3
+ pId->nRef>0 ,2,1,3
+ rc==SQLITE_OK || db->nDeferredCons>0 ,2,1,3
+ p->lock.pBtree==p && p->lock.iTable==1 ,2,1,3
+ *p ,2,1,3
+ pExpr->x.pSelect==0 ,2,1,3
+ pVTab->nRef>0 ,2,1,3
+ sqlite3_mutex_held(mem5.mutex) ,2,1,3
+ pPrev && pPrev->pLeft && pPrev->pRight==0 ,2,1,3
+ iRes<0 || c>=aEntry[iRes].iCode ,2,1,3
+ u.cp.pCur->pVtabCursor ,2,1,3
+ chngRowid || pTrigger || hasFK || regOldRowid==regNewRowid ,2,1,3
+ pCell<pPage->aData || pCell>=&pPage->aData[pBt->pageSize] || sqlite3PagerIswriteable(pPage->pDbPage) ,2,1,3
+ pCur->apPage[0]->intKey || pIdxKey ,2,1,3
+ pList->nExpr==2 ,2,1,3
+ p->iOff<=p->nNode ,2,1,3
+ 1==(int)pParse->nQueryLoop ,2,1,3
+ n<=pTab->nCol ,2,1,3
+" !ExprHasAnyProperty(pExpr, EP_IntValue|EP_Reduced|EP_TokenOnly) ",2,1,3
+(pg1+nPage)>pPg->pgno,2,1,3
+ pTabList ,2,1,3
+ pPager->tempFile && rc==SQLITE_OK ,2,1,3
+ pParent->pOrderBy==0 ,2,1,3
+ bAlnum==0 || bAlnum==1 ,2,1,3
+ pReader->aNode ,2,1,3
+ (start + size) <= (int)pPage->pBt->usableSize ,2,1,3
+ u.be.pC->isTable==0 ,2,1,3
+ pCur->apPage[pCur->iPage] ,2,1,3
+ iOut<pSorter->nTree && iOut>0 ,2,1,3
+ iCur>=0 ,2,1,3
+ pgno==MASTER_ROOT+1 ,2,1,3
+ pRight->bStart || pLeft->iDocid==pRight->iDocid ,2,1,3
+ p->pEList->a[0].pExpr!=0 ,2,1,3
+ p->locked==1 ,2,1,3
+ i!=YY_REDUCE_USE_DFLT ,2,1,3
+ nBlock>=2 ,2,1,3
+ pTab==pOld ,2,1,3
+ (char*)&likeInfoAlt == (char*)&likeInfoAlt.matchAll ,2,1,3
+ pCsr->apPage[pCsr->iPage]->intKey ,2,1,3
+ pWInfo->nLevel==1 || pWInfo->nLevel==pTabList->nSrc ,2,1,3
+ pSrc->a[iRight].pTab ,2,1,3
+ pLock->iTable!=1 || pLock==&p->lock ,2,1,3
+ IN_INDEX_INDEX_DESC == IN_INDEX_INDEX_ASC+1 ,2,1,3
+ pDest->eDest==SRT_Output ,2,1,3
+ to_op==OP_ToReal || aff!=SQLITE_AFF_REAL ,2,1,3
+ u.bm.pC->pCursor!=0 ,2,1,3
+ pCache->n90pct == pCache->nMax*9/10 ,2,1,3
+ pEList!=0 && pExpr->iColumn<pEList->nExpr ,2,1,3
+ aHardLimit[SQLITE_LIMIT_SQL_LENGTH]==SQLITE_MAX_SQL_LENGTH ,2,1,3
+ pBt->pPage1!=0 ,2,1,3
+ pVfs->mxPathname>=MAX_PATH ,2,1,3
+ pE->op!=TK_DOT || pE->pRight!=0 ,2,1,3
+ rc!=SQLITE_BUSY ,2,1,3
+ p->nMem>9 ,2,1,3
+ (pVal->flags&MEM_Blob)==0 ,2,1,3
+ TK_NOT==OP_Not ,2,1,3
+ rc!=SQLITE_OK || *ppTok ,2,1,3
+ rc!=SQLITE_OK || isOpen(pPager->fd) ,2,1,3
+ pExpr->u.zToken[0]!=0 ,2,1,3
+iStart<=iEnd,2,1,3
+ pDest->pTable!=pSrc->pTable ,2,1,3
+ (int)pWal->szPage==szPage ,2,1,3
+ p->zContentTbl==0 || bContent==0 ,2,1,3
+ pParse->nVar==0 ,2,1,3
+ u.cp.pModule->xNext ,2,1,3
+ zVal[nVal]=='\'' ,2,1,3
+ sz > (int)sizeof(LookasideSlot*) ,2,1,3
+ p->pCache->pGroup==pGroup ,2,1,3
+ sortOrder==0 || sortOrder==1 ,2,1,3
+ pTable->aCol==0 ,2,1,3
+ (pPg->flags & PGHDR_MMAP)==0 ,2,1,3
+ pPage == sqlite3PagerGetExtra(pPage->pDbPage) ,2,1,3
+ ((p->pBt->nPage)&0x8000000)==0 ,2,1,3
+ pParse->nErr==0 || rc ,2,1,3
+ rc==SQLITE_OK || pExpr==0 ,2,1,3
+ p->iBufEnd<p->nBuffer ,2,1,3
+ pName==0 ,2,1,3
+ iStatement>p->db->nSavepoint ,2,1,3
+ pSub->pSrc!=0 ,2,1,3
+ fd!=0 ,2,1,3
+ (sizeof(struct MemBlockHdr)&7) == 0 ,2,1,3
+ pToken->pDeferred==0 ,2,1,3
+ xtype==etINVALID ,2,1,3
+ (pBlock[-1].u.hdr.size4x&1)!=0 ,2,1,3
+ pPgHdr==0 || rc==SQLITE_OK ,2,1,3
+sizeof(int) <= sizeof(char *),2,1,3
+ tr_tm==TRIGGER_BEFORE || tr_tm==TRIGGER_AFTER ,2,1,3
+ (m.flags & MEM_Dyn)!=0 || db->mallocFailed ,2,1,3
+ db->init.busy==0 ,2,1,3
+ sqlite3_value_type(argv[1])!=SQLITE_NULL ,2,1,3
+ pCsr->zTerm==0 ,2,1,3
+ CURSOR_VALID==pCur->eState ,2,1,3
+ pIndex->pSchema==pTable->pSchema ,2,1,3
+ p1==p2 ,2,1,3
+ pParse->pTriggerTab==0 ,2,1,3
+ !fts3SegReaderIsPending(pReader) ,2,1,3
+ ckOptimal==0 || ckOptimal==1 ,2,1,3
+ (p->flags&MEM_RowSet)==0 ,2,1,3
+ p->eLock!=PENDING_LOCK ,2,1,3
+ !ppDirectory || type==SQLITE_WIN32_DATA_DIRECTORY_TYPE || type==SQLITE_WIN32_TEMP_DIRECTORY_TYPE ,2,1,3
+ pNode->n<=pNode->nAlloc ,2,1,3
+ pPg || !MEMDB ,2,1,3
+ pParse->iCacheLevel>=N ,2,1,3
+ !pIdx || pIdx->pTable==pTab ,2,1,3
+ pOld->hdrOffset==0 ,2,1,3
+ nearby>0 ,2,1,3
+ nTabList==0 || (pLevel->plan.wsFlags & WHERE_ALL_UNIQUE)!=0 ,2,1,3
+ (nByte % pgsz)==0 ,2,1,3
+ pHdr->pNext->pPrev==pHdr ,2,1,3
+ u.cq.pName->flags & MEM_Str ,2,1,3
+ info.nData==(u32)(nData+nZero) ,2,1,3
+ p->rc!=SQLITE_IOERR_BLOCKED ,2,1,3
+ p->aOp==0 || p->aOp[p->nOp-1].zComment==0 || p->db->mallocFailed ,2,1,3
+ pCache->nMin==0 || pCache->bPurgeable ,2,1,3
+ WAL_ALL_BUT_WRITE==WAL_WRITE_LOCK+1 ,2,1,3
+ rc==SQLITE_OK || pPager->eState==PAGER_READER ,2,1,3
+ (pLevel->plan.wsFlags & WHERE_IDX_ONLY)==0 || j<pIdx->nColumn ,2,1,3
+ op!=TK_GT || c==WO_GT ,2,1,3
+ aiCol[i]!=pTab->iPKey ,2,1,3
+ argc==3 || argc==2 ,2,1,3
+ u.by.pDb->pBt!=0 ,2,1,3
+ p && p->pMem && p->pFunc && p->pFunc->xStep ,2,1,3
+ (p->selFlags & SF_NestedFrom)==0 || ((flags & SQLITE_FullColNames)==0 && (flags & SQLITE_ShortColNames)!=0) ,2,1,3
+ nString==0 ,2,1,3
+ pPrevTrunk==0 ,2,1,3
+ u.al.p1>0 && u.al.p1+mx<=p->nMem+1 ,2,1,3
+" !hasReadConflicts(p, pCur->pgnoRoot) ",2,1,3
+ sqlite3_mutex_held(mutexOpen) ,2,1,3
+" walFramePgno(pWal, iFrame)!=1 ",2,1,3
+ pB!=0 ,2,1,3
+ (p->btreeMask & (((yDbMask)1)<<u.av.iDb))!=0 ,2,1,3
+ pOp->p2==1 || pOp->p5==OE_Fail || pOp->p5==OE_Rollback || pOp->p5==OE_Abort || pOp->p5==OE_Ignore || pOp->p5==OE_Replace ,2,1,3
+ cArg==FTS3_MATCHINFO_HITS ,2,1,3
+ pMatch->iCursor==pExpr->iTable ,2,1,3
+ pNew->pSrc!=0 || pParse->nErr>0 ,2,1,3
+ zAbsoluteName[0]=='/' ,2,1,3
+ pDest && pSrc ,2,1,3
+ pName && pName->z ,2,1,3
+ nReserve>=0 && nReserve<=255 ,2,1,3
+ idx>=0 && idx<=15 ,2,1,3
+ isOpen(pPager->fd) || pPager->exclusiveMode ,2,1,3
+ pPager->state == (tempFile ? PAGER_EXCLUSIVE : PAGER_UNLOCK) ,2,1,3
+ pbOpen==0 || *pbOpen==0 ,2,1,3
+ pOp->p2>0 && pOp->p2+pOp->p3<=p->nMem+1 ,2,1,3
+ memIsValid(u.bi.pData) ,2,1,3
+" !ExprHasProperty(pE->pLeft, EP_IntValue) ",2,1,3
+ ppStmt && *ppStmt==0 ,2,1,3
+ 1==sqlite3BtreeIsInTrans(pTemp) ,2,1,3
+ TK_AND==OP_And ,2,1,3
+ u.bu.pC!=0 ,2,1,3
+ u.bj.pC->rowidIsValid ,2,1,3
+ nByte < usableSize-8 ,2,1,3
+ pPhrase->aToken[0].pSegcsr ,2,1,3
+ pBlob->pStmt || db->mallocFailed ,2,1,3
+ eType!=PTRMAP_ROOTPAGE ,2,1,3
+ TK_GE==TK_LE+2 ,2,1,3
+ pOrderBy ,2,1,3
+ c==t ,2,1,3
+ eLock==READ_LOCK || (p==pBt->pWriter && p->inTrans==TRANS_WRITE) ,2,1,3
+ pParse->nzVar==0 ,2,1,3
+ sqlite3_mutex_held(pCsr->pBtree->db->mutex) ,2,1,3
+ pFile->locktype>=SHARED_LOCK ,2,1,3
+ (szPage & (szPage-1))==0 && szPage>=512 && szPage<=65536 ,2,1,3
+ x<mem5.nBlock ,2,1,3
+ szNew <= MX_CELL_SIZE(pBt) ,2,1,3
+ q - (unsigned char *)p <= FTS3_VARINT_MAX ,2,1,3
+ p->zErrMsg==0 ,2,1,3
+ winSysInfo.dwPageSize>0 ,2,1,3
+ OE_Ignore==4 && OE_Replace==5 ,2,1,3
+ p->flags&PGHDR_DIRTY ,2,1,3
+ pE->pLeft!=0 ,2,1,3
+ rc!=SQLITE_OK || pPhrase->bIncr==0 ,2,1,3
+ pOp->opcode==OP_Eq || pOp->opcode==OP_Ne ,2,1,3
+ nByte>=0 ,2,1,3
+ noContent==0 || bReadonly==0 ,2,1,3
+ pCur->eState>=CURSOR_REQUIRESEEK ,2,1,3
+ u.bv.pC->deferredMoveto==0 ,2,1,3
+ pPager->journalMode==PAGER_JOURNALMODE_OFF || pageInJournal(pPg) || pPg->pgno>pPager->dbOrigSize ,2,1,3
+ pListItem->pExpr->op==TK_COLLATE ,2,1,3
+ TK_CONCAT==OP_Concat ,2,1,3
+ p->bDestLocked ,2,1,3
+" db==0 || sqlite3SchemaMutexHeld(db, 0, p->pSchema) ",2,1,3
+ pParse->pToplevel==0 ,2,1,3
+ nRef>=sqlite3PagerRefcount(pPager) ,2,1,3
+ sqlite3Isdigit(zRawSql[1]) ,2,1,3
+ pItem->addrFillSub==0 ,2,1,3
+ j<pCsr->nSegment && pSeg->iIdx==i ,2,1,3
+ OP_SeekGt == OP_SeekLt+3 ,2,1,3
+ PAGER_LOCKINGMODE_NORMAL>=0 && PAGER_LOCKINGMODE_EXCLUSIVE>=0 ,2,1,3
+ pToken->pDeferred==0 || pToken->pSegcsr==0 ,2,1,3
+ iExclude==-1 ,2,1,3
+ createFlag==1 || createFlag==0 ,2,1,3
+ p->pOrderBy || (p->cost.plan.wsFlags&WHERE_ORDERED)==0 ,2,1,3
+" 0==fts3HashFind(pHash, zToken, nToken) ",2,1,3
+ iFreePg<iLastPg ,2,1,3
+ pMem->u.pRowSet!=0 ,2,1,3
+ to_op==OP_ToBlob || aff!=SQLITE_AFF_NONE ,2,1,3
+ pE->op!=TK_DOT || pRight!=0 ,2,1,3
+ p->sharable || p->wantToLock==0 ,2,1,3
+ p->inTransaction!=1 ,2,1,3
+ encnames[SQLITE_UTF16BE].enc==SQLITE_UTF16BE ,2,1,3
+ state==PAGER_OPEN || state==PAGER_READER ,2,1,3
+ (isSavepnt&~1)==0 ,2,1,3
+ iRight>=nRight || aContent[aRight[iRight]]>dbpage ,2,1,3
+ pExpr->bEof==0 ,2,1,3
+ p!=0 && *p1!=0 && *p2!=0 ,2,1,3
+ sqlite3_value_type(apVal[0])==SQLITE_INTEGER ,2,1,3
+ bBulk==0 || bBulk==1 ,2,1,3
+ nCol>1 ,2,1,3
+ !pTrigger ,2,1,3
+ (pMem->flags & (MEM_Int|MEM_Real|MEM_Null))!=0 ,2,1,3
+ nDestTruncate==0 || (i64)nDestTruncate*(i64)pgszDest >= iSize || ( nDestTruncate==(int)(PENDING_BYTE_PAGE(p->pDest->pBt)-1) && iSize>=PENDING_BYTE && iSize<=PENDING_BYTE+pgszDest ),2,1,3
+ TK_SLASH==OP_Divide ,2,1,3
+ zBlob==sqlite3_value_blob(argv[0]) ,2,1,3
+ pU8[nReserve]==0x65 ,2,1,3
+" !ExprHasAnyProperty(pEq, EP_TokenOnly|EP_Reduced) ",2,1,3
+ pIter->eLock==READ_LOCK || pIter->eLock==WRITE_LOCK ,2,1,3
+ pColl->enc==SQLITE_UTF8 ,2,1,3
+ preserve==0 || pMem->flags&(MEM_Blob|MEM_Str) ,2,1,3
+ *pRc!=SQLITE_OK || pRight->bStart ,2,1,3
+ pNew ,2,1,3
+ nOld>0 ,2,1,3
+ iHeight>=1 && iHeight<128 ,2,1,3
+ pExpr->u.zToken!=0 ,2,1,3
+ pgno<=PAGER_MAX_PGNO && pgno!=PAGER_MJ_PGNO(pPager) ,2,1,3
+ pNode->nAlloc>=1 ,2,1,3
+ sizeof(db->aLimit)==sizeof(aHardLimit) ,2,1,3
+ (PAGER_JOURNALMODE_WAL & 5)!=1 ,2,1,3
+ u.ao.p2<u.ao.nField ,2,1,3
+ nDoclist>0 || iDelta==iDocid ,2,1,3
+" !pParse->isMultiWrite || sqlite3VdbeAssertMayAbort(v, pParse->mayAbort)",2,1,3
+ iNextLeaf==iFree ,2,1,3
+ (u.ca.pnErr->flags & (MEM_Str|MEM_Blob))==0 ,2,1,3
+ pWriter ,2,1,3
+ mem5.currentOut>=(size*mem5.szAtom) ,2,1,3
+ n==pPage->pgno && e==PTRMAP_OVERFLOW1 ,2,1,3
+ pIter ,2,1,3
+ zC!=0 ,2,1,3
+ pRoot->bEof==0 ,2,1,3
+ pStep->op==TK_SELECT ,2,1,3
+ p->aData[p->nData]==0 ,2,1,3
+ pInode!=0 ,2,1,3
+ desiredEnc==SQLITE_UTF16BE ,2,1,3
+ sqlite3PagerGetData(pPage->pDbPage) == data ,2,1,3
+ u.aq.nField>0 && pOp->p2>0 && pOp->p2+u.aq.nField<=p->nMem+1 ,2,1,3
+ p->rc==SQLITE_OK || p->rc==SQLITE_BUSY || p->rc==SQLITE_NOMEM ,2,1,3
+*pp,2,1,3
+ (zCsr-zIn)==len ,2,1,3
+ u-1==LARGEST_INT64 ,2,1,3
+ pParent==p ,2,1,3
+ pParent->isInit ,2,1,3
+ zWalName && zWalName[0] ,2,1,3
+ u.cg.apVal || u.cg.n==0 ,2,1,3
+ yy_lookahead[i]==iLookAhead ,2,1,3
+ u.bm.pC->isIndex || pOp->opcode==OP_RowData ,2,1,3
+ sqlite3_mutex_held(mem0.mutex) ,2,1,3
+ c>=0 ,2,1,3
+ zCol ,2,1,3
+ sleepObj!=NULL ,2,1,3
+ j>=0 && j<p->nLabel ,2,1,3
+ iMin<0xffffffff ,2,1,3
+ pPager->changeCountDone==0 || pPager->eLock>=RESERVED_LOCK ,2,1,3
+ pageSize==0 || (pageSize>=512 && pageSize<=SQLITE_MAX_PAGE_SIZE) ,2,1,3
+ pDL->pNextDocid==0 ,2,1,3
+ p->journalMode!=PAGER_JOURNALMODE_OFF || !isOpen(p->jfd) ,2,1,3
+ nCell==get2byte(&data[hdr+3]) ,2,1,3
+ (iHash==0 || iFrame>HASHTABLE_NPAGE_ONE) && (iHash>=1 || iFrame<=HASHTABLE_NPAGE_ONE) && (iHash<=1 || iFrame>(HASHTABLE_NPAGE_ONE+HASHTABLE_NPAGE)) && (iHash>=2 || iFrame<=HASHTABLE_NPAGE_ONE+HASHTABLE_NPAGE) && (iHash<=2 || iFrame>(HASHTABLE_NPAGE_ONE+2*HASHTABLE_NPAGE)) ,2,1,3
+ pOp->opcode==OP_InsertInt ,2,1,3
+ p->xDel!=SQLITE_DYNAMIC ,2,1,3
+ p->pFirst ,2,1,3
+ op==SAVEPOINT_RELEASE||op==SAVEPOINT_ROLLBACK||op==SAVEPOINT_BEGIN ,2,1,3
+ u.br.pC->isSorter==(pOp->opcode==OP_SorterNext) ,2,1,3
+ leafCorrection==0 || leafCorrection==4 ,2,1,3
+ p->bFts4 ,2,1,3
+ pOp->p3<pOp->p1 || pOp->p3>=pOp->p1+pOp->p2 ,2,1,3
+ u.bi.pC->pseudoTableReg==0 ,2,1,3
+ p->zText ,2,1,3
+ pPage->hdrOffset==(pPage->pgno==1 ? 100 : 0) ,2,1,3
+ pOp->p2>0 && pOp->p2<p->nOp ,2,1,3
+ pSel!=0 ,2,1,3
+ pPager->pTmpSpace!=0 ,2,1,3
+ u.bh.pC!=0 ,2,1,3
+ sqlite3BtreeIsInTrans(pTo) ,2,1,3
+ nExtra>=1 ,2,1,3
+ pOp->p5<=ArraySize(p->aCounter) ,2,1,3
+ pToken->pSegcsr==0 ,2,1,3
+ pOffset == 0 ,2,1,3
+ sWBI.pSrc->pTab ,2,1,3
+ autoInc==0 || autoInc==1 ,2,1,3
+ (nByte & 7)==0 ,2,1,3
+ pPhrase->doclist.pList[nNew]=='\0' ,2,1,3
+ pOp->opcode!=OP_Prev || pOp->p4.xAdvance==sqlite3BtreePrevious ,2,1,3
+ pBt->pPage1 && pBt->pPage1->aData ,2,1,3
+ pPage->pDirtyNext==0 && pPage->pDirtyPrev==0 && p->pDirty!=pPage ,2,1,3
+ db==0 || db->pnBytesFreed==0 ,2,1,3
+ f1&MEM_Int ,2,1,3
+ thisMark!=READMARK_NOT_USED ,2,1,3
+ pIn3->flags & MEM_Blob ,2,1,3
+ pParent->pParent==0 || pParent->pParent->pLeft==pParent ,2,1,3
+ !pCur->apPage[0]->intKey || !pCur->pKey ,2,1,3
+ cursorHoldsMutex(pCsr) ,2,1,3
+ iKey>=0 && iKey<pTab->nCol ,2,1,3
+ pStart->leftCursor==iCur ,2,1,3
+ nExtra<1000 ,2,1,3
+ p->nIndex>=1 ,2,1,3
+ state==pPager->eState ,2,1,3
+ pCsr->bDesc==0 || pCsr->bDesc==1 ,2,1,3
+(iOffset+nAlloc)>mem5.nBlock,2,1,3
+ eLock==SHARED_LOCK || eLock==RESERVED_LOCK || eLock==EXCLUSIVE_LOCK ,2,1,3
+ (pIn3->flags & MEM_Real)!=0 ,2,1,3
+ aHardLimit[SQLITE_LIMIT_LIKE_PATTERN_LENGTH]== SQLITE_MAX_LIKE_PATTERN_LENGTH ,2,1,3
+ u.ca.nRoot>0 ,2,1,3
+pEList != 0 || pSelect != 0 || db->mallocFailed,2,1,3
+ pPager->eState>=PAGER_READER && !MEMDB ,2,1,3
+ pSrcList && pSrcList->nSrc==1 ,2,1,3
+ pWal->nWiData>walFramePage(pWal->hdr.mxFrame) ,2,1,3
+ pPager->doNotSyncSpill==0 ,2,1,3
+ !pMemPage || pMemPage->pgno==iPage ,2,1,3
+ pOp->p4.z==0 || pOp->p4.z==p->azVar[pOp->p1-1] ,2,1,3
+ pBt->nPage!=PENDING_BYTE_PAGE(pBt) ,2,1,3
+ !sqlite3IsNaN(value) ,2,1,3
+ zName[strlen(zName)+1]==0 ,2,1,3
+ p->tempFile==0 || pPager->changeCountDone ,2,1,3
+ EIGHT_BYTE_ALIGNMENT(*ppFrom) ,2,1,3
+ pSem ,2,1,3
+ (pTrigger && tmask) || (pTrigger==0 && tmask==0) ,2,1,3
+ pPager->eState!=PAGER_OPEN || pPg==0 ,2,1,3
+" get4byte(findCell(pParent, iIdx))==iChild ",2,1,3
+ pPager->eState==PAGER_READER || rc!=SQLITE_OK ,2,1,3
+ pPager->eState==PAGER_OPEN || pbOpen ,2,1,3
+ pCache->bPurgeable || pCache->nMin==0 ,2,1,3
+ pChild->nCell==pRoot->nCell ,2,1,3
+ p2==p1 ,2,1,3
+" szNew==cellSizePtr(pPage, newCell) ",2,1,3
+ u.bd.pC!=0 ,2,1,3
+ sizeof(*p)==BITVEC_SZ ,2,1,3
+ memIsValid(u.ai.pArg) ,2,1,3
+ EIGHT_BYTE_ALIGNMENT(zCsr) ,2,1,3
+ (pLower->eOperator & (WO_GT|WO_GE))!=0 ,2,1,3
+ j==nCell ,2,1,3
+ zFilename==0 || zFilename[0]=='/' ,2,1,3
+ pSplit->pParent->pRight==pSplit ,2,1,3
+ (idxStr==0 && argc==0) || (idxStr && (int)strlen(idxStr)==argc*2) ,2,1,3
+ pCache->bPurgeable==0 || pCache->nMin==10 ,2,1,3
+ pPhrase->doclist.bFreeList==0 ,2,1,3
+ pBt->db ,2,1,3
+ iPage==0 || *ppPage || rc!=SQLITE_OK ,2,1,3
+ iOpt==6 ,2,1,3
+ pBt->autoVacuum==1 || pBt->autoVacuum==0 ,2,1,3
+ pPrior ,2,1,3
+ nOrderBy>=nExpr || db->mallocFailed ,2,1,3
+ nLookaside==0 || nLookaside==db->lookaside.nOut ,2,1,3
+ pPage->pDirtyPrev || pPage==p->pDirty ,2,1,3
+ u.bc.nField>0 ,2,1,3
+ sizeof(RtreeCoord)==4 ,2,1,3
+ TK_BITOR==OP_BitOr ,2,1,3
+ sqlite3GlobalConfig.bMemstat || sqlite3GlobalConfig.bCoreMutex==0 || mem.mutex!=0 ,2,1,3
+ pPager->eLock>=eLock ,2,1,3
+ pIter->aAlloc==0 ,2,1,3
+ pExpr->bDeferred || pPhrase->doclist.bFreeList==0 ,2,1,3
+ pDatabase==0 || pTable!=0 ,2,1,3
+ (wctrlFlags & WHERE_ONEPASS_DESIRED)==0 || pWInfo->nLevel==1 ,2,1,3
+ encnames[SQLITE_UTF16LE].enc==SQLITE_UTF16LE ,2,1,3
+ p->aColName!=0 ,2,1,3
+ ppIdx && *ppIdx==0 ,2,1,3
+ pItem->zName==0 ,2,1,3
+ (sizeof(Mem5Link)&(sizeof(Mem5Link)-1))==0 ,2,1,3
+ pCell!=0 ,2,1,3
+ bestJ==iFrom || (pTabList->a[iFrom].jointype & JT_LEFT)==0 ,2,1,3
+" chngToIN==getMask(pMaskSet, iCursor) ",2,1,3
+ pcache1.nFreeSlot>=0 ,2,1,3
+ (u.bf.aMx[u.bf.nField].flags & MEM_Null)==0 ,2,1,3
+ flag==0 ,2,1,3
+ rc==SQLITE_OK || pPage==0 ,2,1,3
+ db->aDb[i].zName!=0 ,2,1,3
+ nFarg==1 ,2,1,3
+ !isView ,2,1,3
+ db == v->db ,2,1,3
+ pTrunk->aData!=0 ,2,1,3
+ pMem->db->mallocFailed || flags&(MEM_Str|MEM_Blob) ,2,1,3
+ db->nDb>iDb ,2,1,3
+ TK_OR==OP_Or ,2,1,3
+ !pPrior->pOrderBy ,2,1,3
+ i<nMaxCells ,2,1,3
+ !p->pUnused ,2,1,3
+ rc!=SQLITE_OK || zErr==0 ,2,1,3
+ roundUp==0 || roundUp==1 ,2,1,3
+ p->isTable ,2,1,3
+ pFrom->nFree>=iToHdr ,2,1,3
+ p->pOffset==0 || p->pLimit!=0 ,2,1,3
+ pTree->aData==(char *)&pTree[1] ,2,1,3
+ sizeof(u16)==2 ,2,1,3
+ !db || sqlite3_mutex_held(db->mutex) ,2,1,3
+ offset==(i64)ii*(4+pPager->pageSize) ,2,1,3
+ p->pUnlockConnection || p->pBlockingConnection ,2,1,3
+ pLoop->addrOpenEphm[1]<0 ,2,1,3
+ iTarget>0 ,2,1,3
+" hasSharedCacheTableLock(pCsr->pBtree, pCsr->pgnoRoot, 0, 2) ",2,1,3
+ (pPg->flags&PGHDR_DIRTY) || pPg->pageHash==pager_pagehash(pPg) ,2,1,3
+ !aPgno[idx] ,2,1,3
+ (mCovered&mSeen)==mCovered ,2,1,3
+ (p->selFlags & SF_Aggregate)==0 ,2,1,3
+ iOfst==p->endpoint.iOffset ,2,1,3
+ PTF_LEAF == 1<<3 ,2,1,3
+ idx>0 ,2,1,3
+ zName ,2,1,3
+ PAGER_JOURNALMODE_OFF==2 ,2,1,3
+ pExpr->op!=TK_GE || op==OP_Lt ,2,1,3
+ (m-1)==toTheLeft ,2,1,3
+ pCur->wrFlag && pBt->inTransaction==TRANS_WRITE && (pBt->btsFlags & BTS_READ_ONLY)==0 ,2,1,3
+ sqlite3PagerPagenumber(pPage->pDbPage)==pPage->pgno ,2,1,3
+ pTokenizer ,2,1,3
+ sqlite3BtreeIsInTrans(u.cj.pBt)==0 ,2,1,3
+ TK_GT>TK_EQ && TK_GT<TK_GE ,2,1,3
+ ((Fts3Table *)pVtab)->inTransaction ,2,1,3
+ (p->locked==0 && p->sharable) || p->pBt->db==p->db ,2,1,3
+ p->eType==FTSQUERY_PHRASE || p->pPhrase==0 ,2,1,3
+ pTab->iPKey<pTab->nCol ,2,1,3
+ iSavepoint>=0 || op==SAVEPOINT_ROLLBACK ,2,1,3
+ (pBt->pageSize & 7)==0 ,2,1,3
+ iFreePg==iLastPg ,2,1,3
+ iCol<pTab->nCol ,2,1,3
+ u.bj.pC->isTable ,2,1,3
+ idx<p->nResColumn ,2,1,3
+ eDest==SRT_Output || eDest==SRT_Coroutine ,2,1,3
+ db->pSavepoint || db->isTransactionSavepoint==0 ,2,1,3
+ pFrom->a[0].pUsing==0 ,2,1,3
+ p1>=0 && p1<db->nDb ,2,1,3
+ bestJ>=0 ,2,1,3
+ p->selFlags & SF_Resolved ,2,1,3
+ FTS3_SEGCURSOR_ALL<0 && FTS3_SEGCURSOR_PENDING<0 ,2,1,3
+ pCsr->isEof==0 ,2,1,3
+ bAllowIN==0 || bAllowIN==1 ,2,1,3
+" sqlite3SchemaMutexHeld(db, u.ay.iDb, 0) ",2,1,3
+ !pPager->tempFile && isOpen(pPager->fd) ,2,1,3
+ pPage ,2,1,3
+ p->nToken==1 ,2,1,3
+ mxReadMark<=pWal->hdr.mxFrame ,2,1,3
+ pOp>p->aOp ,2,1,3
+ u.as.p1==SAVEPOINT_BEGIN||u.as.p1==SAVEPOINT_RELEASE||u.as.p1==SAVEPOINT_ROLLBACK ,2,1,3
+ i<p->nSample ,2,1,3
+ pagerUseWal(pPager)==0 || (!isMainJrnl && isSavepnt) ,2,1,3
+ locktype!=PENDING_LOCK ,2,1,3
+ pDel==0 || pDel==pMod ,2,1,3
+ k>=0 && k<pSrc->nSrc ,2,1,3
+ p->eType==FTSQUERY_AND ,2,1,3
+ pPrior<pPage->aData || pPrior>=&pPage->aData[pBt->pageSize] || sqlite3PagerIswriteable(pPage->pDbPage) ,2,1,3
+ pCsr->pFilter==0 ,2,1,3
+ (rc & (v->db->errMask))==rc ,2,1,3
+ pCache!=0 ,2,1,3
+ aHardLimit[SQLITE_LIMIT_COMPOUND_SELECT]==SQLITE_MAX_COMPOUND_SELECT,2,1,3
+ pTab->nCol>cnum ,2,1,3
+ p->noSync ,2,1,3
+ (PAGER_JOURNALMODE_OFF & 5)!=1 ,2,1,3
+ &((char*)&likeInfoAlt)[2] == (char*)&likeInfoAlt.matchSet ,2,1,3
+ pStart==0 || pEnd!=0 ,2,1,3
+ pOp->p4.pVtab!=0 ,2,1,3
+ u.be.pC!=0 ,2,1,3
+ nIter>0 ,2,1,3
+ nFull>=pVfs->mxPathname ,2,1,3
+ PAGER_JOURNALMODE_WAL==5 ,2,1,3
+ pPager->exclusiveMode || 0==sqlite3WalHeapMemory(pPager->pWal) ,2,1,3
+" !ExprHasAnyProperty(pA, EP_TokenOnly|EP_Reduced) ",2,1,3
+ iCol>=0 && iCol<=p->nColumn+2 ,2,1,3
+ mask==BTREE_BULKLOAD || mask==0 ,2,1,3
+" (x = va_arg(ap,int))!=0 ",2,1,3
+ n>=1 && n<SQLITE_SHM_NLOCK ,2,1,3
+ pInode->pNext->pPrev==pInode ,2,1,3
+ nCol==pSelect->pEList->nExpr || db->mallocFailed ,2,1,3
+ eFileLock==RESERVED_LOCK || eFileLock==EXCLUSIVE_LOCK ,2,1,3
+ j<nOld ,2,1,3
+ i<nTemp ,2,1,3
+ EIGHT_BYTE_ALIGNMENT(SQLITE_INT_TO_PTR(journalFileSize)) ,2,1,3
+ pConstraint->pGeom ,2,1,3
+ (nByte&0x00000007)==0 ,2,1,3
+ iCell<NCELL(pNode) ,2,1,3
+ pStep!=0 ,2,1,3
+ pCur->apPage[pCur->iPage]->nCell>0 ,2,1,3
+ j<pTabList->nSrc ,2,1,3
+ *ppMinMax==0 || (*ppMinMax)->nExpr==1 ,2,1,3
+ pPager->eState>=PAGER_READER && pPager->eState<PAGER_ERROR ,2,1,3
+ rc!=SQLITE_OK || pSorter->pTemp1 ,2,1,3
+ nLeft>0 && nRight>0 ,2,1,3
+ p==0 || sqlite3_mutex_held(p->db->mutex) ,2,1,3
+ db->nDb<=2 ,2,1,3
+ pIdx->nColumn==1 ,2,1,3
+ pStart==0 ,2,1,3
+" ExprHasProperty(p, EP_Reduced)==0 ",2,1,3
+ pSize!=0 ,2,1,3
+ pc==u.cd.pFrame->pc ,2,1,3
+ azCols[i]!=0 ,2,1,3
+ *p1!=POS_END && *p1!=POS_COLUMN ,2,1,3
+ rc==SQLITE_CORRUPT ,2,1,3
+ rc!=SQLITE_OK || ( pPhrase->pList==0 && pPhrase->pHead==0 && pPhrase->pTail==0 ),2,1,3
+ sqlite3VdbeDb(v)==db ,2,1,3
+ (pCsr->pBt->btsFlags & BTS_READ_ONLY)==0 && pCsr->pBt->inTransaction==TRANS_WRITE ,2,1,3
+ IsPowerOfTwo(chngToIN) ,2,1,3
+ db->aDb[iDb].pSchema==pTab->pSchema ,2,1,3
+ pVtab!=0 ,2,1,3
+ b.rc!=SQLITE_OK ,2,1,3
+ wrFlag==0 ,2,1,3
+ pMem->n<=nBuf ,2,1,3
+ p->nResColumn==pOp->p2 ,2,1,3
+" !ExprHasProperty(p, EP_IntValue) || p->u.iValue>=0 ",2,1,3
+ encnames[SQLITE_UTF8].enc==SQLITE_UTF8 ,2,1,3
+ rc==SQLITE_OK || p->pStmt==0 ,2,1,3
+ (pLevel->plan.wsFlags & WHERE_IDX_ONLY)==0 || (pLevel->plan.wsFlags & WHERE_INDEXED)!=0 ,2,1,3
+ nBuf==(nBuf&0x1ffff) ,2,1,3
+rc==SQLITE_OK || pMem->enc!=desiredEnc,2,1,3
+ nEntry==idx ,2,1,3
+SQLITE_MAX_DEFAULT_PAGE_SIZE<=65536,2,1,3
+ pExpr->pLeft ,2,1,3
+ pPage->aData ,2,1,3
+ (PAGER_JOURNALMODE_MEMORY & 5)==4 ,2,1,3
+ (pPager->eLock==SHARED_LOCK) || (pPager->exclusiveMode && pPager->eLock>SHARED_LOCK) ,2,1,3
+ pCsr->nRowAvg>0 ,2,1,3
+ u.bq.pC->isSorter==(pOp->opcode==OP_SorterSort) ,2,1,3
+ pCur->iPage>0 ,2,1,3
+ pPager->doNotSyncSpill==1 ,2,1,3
+ n>3 && n<=9 ,2,1,3
+ pPager->journalOff==JOURNAL_HDR_SZ(pPager) || !pPager->journalOff ,2,1,3
+ (pMem->flags & MEM_Null)!=0 || pFunc==pMem->u.pDef ,2,1,3
+ pp && p ,2,1,3
+" sqlite3SchemaMutexHeld(db, 0, pSchema) ",2,1,3
+ p->pNext==0 || p->pNext->pBt>p->pBt ,2,1,3
+ pIdx->nSample>0 ,2,1,3
+ iDelta>0 || (nDoclist==0 && iDelta==iDocid) ,2,1,3
+ nTemp>=20 ,2,1,3
+ u.cd.pProgram->nOp>0 ,2,1,3
+ (pOrTerm->wtFlags & (TERM_ANDINFO|TERM_ORINFO))==0 ,2,1,3
+ pCsr->eState!=CURSOR_REQUIRESEEK ,2,1,3
+ pNC->pSrcList!=0 ,2,1,3
+ isOptimal || (sWBI.cost.used&sWBI.notValid)==0 ,2,1,3
+ j<=nOut ,2,1,3
+ u.al.n>0 ,2,1,3
+ p->explain ,2,1,3
+ pOp->p2<SQLITE_N_BTREE_META ,2,1,3
+" sqlite3MemdebugNoType(pOld, ~MEMTYPE_HEAP) ",2,1,3
+ pFrom->isInit ,2,1,3
+ pgno!=0 ,2,1,3
+ p->sharable ,2,1,3
+ u.bp.pC!=0 ,2,1,3
+ nCell<=nMaxCell ,2,1,3
+ pOp!=0 ,2,1,3
+ pCol->iMem>0 ,2,1,3
+ pX->op==TK_COLUMN ,2,1,3
+ pName2!=0 || pName1==0 ,2,1,3
+ pTop->pVdbe ,2,1,3
+ u.ap.zAffinity!=0 ,2,1,3
+ (op==TK_UPDATE)==(pChanges!=0) ,2,1,3
+ p->op==TK_INTERSECT ,2,1,3
+ zTabName ,2,1,3
+" 0==strcmp(sqlite3_errmsg(db), ""unknown tokenizer: nosuchtokenizer"") ",2,1,3
+ pWal->ckptLock==1 || pWal->ckptLock==0 ,2,1,3
+ (pPg->flags&PGHDR_NEED_SYNC)==0 ,2,1,3
+ TRANS_WRITE==pBt->inTransaction ,2,1,3
+ pBt->incrVacuum==1 || pBt->incrVacuum==0 ,2,1,3
+ pWinMemData->magic==WINMEM_MAGIC ,2,1,3
+ pSubSrc ,2,1,3
+ pFrom->db==0 || sqlite3_mutex_held(pFrom->db->mutex) ,2,1,3
+ !pnLog || *pnLog==-1 ,2,1,3
+ u.bc.oc!=OP_SeekLt || u.bc.r.flags==0 ,2,1,3
+ u.ay.pX!=0 ,2,1,3
+ (regOld==0)!=(regNew==0) ,2,1,3
+ u.al.pKeyInfo!=0 ,2,1,3
+" 0==PTRMAP_ISPAGE(pBt, PENDING_BYTE_PAGE(pBt)) ",2,1,3
+ iIdx>=0 ,2,1,3
+ top+nByte <= (int)pPage->pBt->usableSize ,2,1,3
+ pPage->leaf || !pPage->intKey ,2,1,3
+ !paiCol || *paiCol==0 ,2,1,3
+ (pSelect->selFlags & SF_Resolved)!=0 ,2,1,3
+ sqlite3BtreeHoldsMutex(pBtree) ,2,1,3
+ pTab->pVTable==p && p->pNext==0 ,2,1,3
+ memIsValid(&u.bf.r.aMem[i]) ,2,1,3
+ scratchAllocOut>=1 && scratchAllocOut<=2 ,2,1,3
+ pPager->eState==PAGER_READER || pPager->eState==PAGER_OPEN || pPager->eState==PAGER_ERROR ,2,1,3
+ aOp && !p->db->mallocFailed ,2,1,3
+ pParent->pGroupBy==0 ,2,1,3
+ p->pParent==0 || p==p->pParent->pRight || p==p->pParent->pLeft ,2,1,3
+ (balance_deeper_called++)==0 ,2,1,3
+ pParent || pNode->iNode==1 ,2,1,3
+ pDb!=0 ,2,1,3
+ (flags & SQLITE_OPEN_URI) || zName[strlen(zName)+1]==0 ,2,1,3
+ nData+nReq<=pWriter->nSize ,2,1,3
+ pParse->nQueryLoop >= (double)1 ,2,1,3
+ pTerm->eOperator & (WO_IN|WO_EQ|WO_LT|WO_LE|WO_GT|WO_GE|WO_MATCH) ,2,1,3
+" sqlite3MemdebugHasType(pOld, MEMTYPE_HEAP) ",2,1,3
+ zShellStatic ,2,1,3
+ pCache->bPurgeable || createFlag!=1 ,2,1,3
+ zRawSql[0] || nToken==0 ,2,1,3
+ iDb>=2 ,2,1,3
+ pRoot->bStart ,2,1,3
+ u.bs.pC->deferredMoveto==0 ,2,1,3
+ p->nSample - iMin - 1 >= 0 ,2,1,3
+ pNew->nOverflow==0 ,2,1,3
+ N >= ROUND8(sizeof(*p)) ,2,1,3
+ (p->selFlags & SF_Resolved)==0 ,2,1,3
+ op!=TK_REGISTER || p->op2!=TK_COLLATE ,2,1,3
+ pPager->eState!=PAGER_OPEN ,2,1,3
+ (rc==SQLITE_OK)==(pMod!=0) ,2,1,3
+ p->aMem[i].flags==MEM_Invalid ,2,1,3
+ mem3.szMaster>=nBlock ,2,1,3
+ lwr==upr+1 || (pPage->intKey && !pPage->leaf) ,2,1,3
+ iScore>=0 ,2,1,3
+ p->wantToLock==0 && p->locked==0 ,2,1,3
+ sqlite3BtreeCursorIsValid(u.bm.pCrsr) ,2,1,3
+ (piTab==0)==(piCol==0) ,2,1,3
+ iBuddy>=0 ,2,1,3
+ iDb<SQLITE_MAX_ATTACHED+2 ,2,1,3
+ pNode->n>0 ,2,1,3
+ pCsr->nDoc>0 ,2,1,3
+ pTab->iPKey<0 || pExpr->iColumn!=pTab->iPKey ,2,1,3
+ p->iForeGuard==(int)FOREGUARD ,2,1,3
+" sizeof(r1)==sizeof(t2) && memcmp(&r1, &t2, sizeof(r1))==0 ",2,1,3
+ iLeft>=nLeft || aContent[aLeft[iLeft]]>dbpage ,2,1,3
+ jrnlOpen==0 || ( sqlite3OsDeviceCharacteristics(pPager->jfd) & SQLITE_IOCAP_UNDELETABLE_WHEN_OPEN ),2,1,3
+ IfNotOmitAV(pBt->bDoTruncate)==0 ,2,1,3
+ pNC->nRef>=nRef ,2,1,3
+ mem3.aPool[i-1].u.hdr.size4x/4==nBlock ,2,1,3
+ eLock!=NO_LOCK || pagerUseWal(pPager)==0 ,2,1,3
+ db!=0 || rc==SQLITE_NOMEM ,2,1,3
+ pPager->memDb==0 ,2,1,3
+ iCol>=-1 && iCol<32768 ,2,1,3
+ p->pRightmost!=p ,2,1,3
+ pCur->eState==CURSOR_VALID || pCur->eState==CURSOR_INVALID ,2,1,3
+ *pRc || pNode->block.nAlloc==0 ,2,1,3
+ (u.ch.pMem->flags & ~(MEM_Null|MEM_Agg))==0 ,2,1,3
+ WO_EQ==SQLITE_INDEX_CONSTRAINT_EQ ,2,1,3
+ sqlite3PcacheRefCount(pPager->pPCache)==0 ,2,1,3
+ iCol==0 ,2,1,3
+ get2byte(&aFrom[iFromHdr+5]) <= (int)pBt->usableSize ,2,1,3
+ page0 || pWal->writeLock==0 ,2,1,3
+ MEM_Str==(MEM_Blob>>3) ,2,1,3
+ pBt->inTransaction==TRANS_WRITE && p->inTrans==TRANS_WRITE ,2,1,3
+ p->pBt->inTransaction!=TRANS_NONE || p->pBt->nTransaction==0 ,2,1,3
+ j<=usableSize-4 ,2,1,3
+ pCol->affinity-SQLITE_AFF_TEXT < ArraySize(azType) ,2,1,3
+ nUri>=0 ,2,1,3
+ pTrigger->pSchema==pTab->pSchema || pTrigger->pSchema==db->aDb[1].pSchema ,2,1,3
+ pSrc->pIndex==0 || p->cost.plan.u.pIdx==0 || p->cost.plan.u.pIdx==pSrc->pIndex ,2,1,3
+ nPrefix<nTerm ,2,1,3
+ pOffset==0 || pLimit!=0 ,2,1,3
+ pCur->wrFlag ,2,1,3
+ isPrefix==0 || isScan==0 ,2,1,3
+ pExpr->op!=TK_ISNULL || op==OP_NotNull ,2,1,3
+ rc!=SQLITE_BUSY && rc!=SQLITE_LOCKED ,2,1,3
+ idx+sz <= (int)pPage->pBt->usableSize ,2,1,3
+ u.bc.pC->isOrdered ,2,1,3
+ pPager->errCode!=SQLITE_OK ,2,1,3
+ pTab!=0 && pTab->zName!=0 ,2,1,3
+ pFrom->db==0 || pTo->db==0 || pFrom->db==pTo->db ,2,1,3
+ wrFlag==0 || p->inTrans==TRANS_WRITE ,2,1,3
+ rc ,2,1,3
+ enc>=SQLITE_UTF8 && enc<=SQLITE_UTF16BE ,2,1,3
+ p->aMem[i].db==p->db ,2,1,3
+ u.bi.pC!=0 ,2,1,3
+ pNode->nAlloc>=1+sqlite3Fts3VarintLen(iChild) ,2,1,3
+ db->aDb[1].pSchema ,2,1,3
+ pAlias!=0 ,2,1,3
+ matchSet<0x80 ,2,1,3
+ eType==PTRMAP_OVERFLOW2 || eType==PTRMAP_OVERFLOW1 || eType==PTRMAP_BTREE || eType==PTRMAP_ROOTPAGE ,2,1,3
+ eMode==PAGER_JOURNALMODE_DELETE || eMode==PAGER_JOURNALMODE_TRUNCATE || eMode==PAGER_JOURNALMODE_PERSIST || eMode==PAGER_JOURNALMODE_OFF || eMode==PAGER_JOURNALMODE_WAL || eMode==PAGER_JOURNALMODE_MEMORY ,2,1,3
+ pItem->pExpr->pLeft==pE ,2,1,3
+ pWInfo->eDistinct==0 ,2,1,3
+ (pDest->tabFlags & TF_Autoincrement)==0 ,2,1,3
+ nMin==-1 || nMin==0 || nMin<SQLITE_WIN32_DBG_BUF_SIZE ,2,1,3
+ yyact == YYNSTATE + YYNRULE + 1 ,2,1,3
+ SQLITE_OPEN_READONLY == 0x01 ,2,1,3
+ pParent!=p ,2,1,3
+ (pTerm->prereqRight & newNotReady)!=0 ,2,1,3
+ nVal>=1 ,2,1,3
+ iLevel==FTS3_SEGCURSOR_ALL || iLevel>=0 ,2,1,3
+ (mem3.aPool[i-1].u.hdr.size4x&1)==1 ,2,1,3
+ pgsz>0 ,2,1,3
+ (isTemp & 1)==isTemp ,2,1,3
+ pCache->bPurgeable || (pCache->nMax==0 && pCache->nMin==0) ,2,1,3
+ pPage==p->pDirty ,2,1,3
+ sqlite3_mutex_held(sqlite3VdbeDb(p)->mutex) ,2,1,3
+ pName1 && pName2 ,2,1,3
+ memIsValid(&u.bt.r.aMem[i]) ,2,1,3
+ pIn1!=pOut ,2,1,3
+" iNewLevel>=getAbsoluteLevel(p, iLangid, iIndex, 0) ",2,1,3
+ !pSubParse->pAinc && !pSubParse->pZombieTab ,2,1,3
+ pSorter->iWriteOff>iStart ,2,1,3
+ z && zName ,2,1,3
+ pCur->pVtabCursor ,2,1,3
+zType[i-1]==' ',2,1,3
+ pExpr->x.pList==0 ,2,1,3
+ pExpr->op!=TK_EQ || op==OP_Ne ,2,1,3
+ p->inTrans>TRANS_NONE && pBt->inTransaction>TRANS_NONE ,2,1,3
+ rc==SQLITE_OK || (p->rc&0xff)==SQLITE_CONSTRAINT ,2,1,3
+ (isMainJrnl&~1)==0 ,2,1,3
+ isSavepnt || pDone==0 ,2,1,3
+ sizeof(i64)==8 || sizeof(i64)==4 ,2,1,3
+ nArg==1 || nArg==(2 + p->nColumn + 3) ,2,1,3
+ pDel==0 || pDel->pParent==0 ,2,1,3
+ nSuspect<=nSegment ,2,1,3
+ pTrunk!=0 ,2,1,3
+ rc==SQLITE_BUSY || (pWal->readOnly & WAL_SHM_RDONLY)!=0 ,2,1,3
+ pPager->ckptSyncFlags==0 ,2,1,3
+ pTab->azModuleArg && pTab->azModuleArg[0] ,2,1,3
+ rc==SQLITE_OK || rc==SQLITE_FULL || rc==SQLITE_CORRUPT || rc==SQLITE_NOMEM || (rc&0xFF)==SQLITE_IOERR ,2,1,3
+ mem.pLast==pHdr ,2,1,3
+ iLastPg>nFin ,2,1,3
+ (pNode->a[0]=='\0')==(aDoclist!=0) ,2,1,3
+ SQLITE_DBSTATUS_CACHE_MISS==SQLITE_DBSTATUS_CACHE_HIT+1 ,2,1,3
+ pSrc && iFrom>=0 && iFrom<pSrc->nSrc ,2,1,3
+ pPager->nSavepoint>0 ,2,1,3
+ to_op==OP_ToNumeric || aff!=SQLITE_AFF_NUMERIC ,2,1,3
+ pP1!=0 ,2,1,3
+ pTerm->pExpr!=0 ,2,1,3
+ len<=(u32)nBuf ,2,1,3
+ WO_LT==SQLITE_INDEX_CONSTRAINT_LT ,2,1,3
+ pDistinct!=0 ,2,1,3
+ pPrior->pRightmost==p->pRightmost ,2,1,3
+ isOpen(pPager->sjfd) || pPager->nSubRec==0 ,2,1,3
+pBt[0],2,1,3
+ eLock==NO_LOCK || eLock==SHARED_LOCK ,2,1,3
+ pCur->eState==CURSOR_VALID || (pCur->eState==CURSOR_INVALID && loc) ,2,1,3
+ iCurrent<=iMinPos ,2,1,3
+ memIsValid(&u.af.pMem[u.af.i]) ,2,1,3
+ !p->pFirst ,2,1,3
+ rc!=SQLITE_OK || pSorter->iReadOff<=pSorter->iWriteOff ,2,1,3
+ pPager->errCode==SQLITE_FULL || pPager->errCode==SQLITE_OK || (pPager->errCode & 0xff)==SQLITE_IOERR ,2,1,3
+ WO_GT==SQLITE_INDEX_CONSTRAINT_GT ,2,1,3
+ TK_BITNOT==OP_BitNot ,2,1,3
+ p->aNode ,2,1,3
+ key>=aDia[iRes] ,2,1,3
+ iBlock+size-1<(u32)mem5.nBlock ,2,1,3
+ sizeof(u64)==8 || sizeof(u64)==4 ,2,1,3
+ pReader->aDoclist ,2,1,3
+ eState==3 ,2,1,3
+ nVal==1 || nVal==2 ,2,1,3
+ pOp->p4type==P4_FUNCDEF || pOp->p4type==P4_VDBEFUNC ,2,1,3
+ PAGER_JOURNALMODE_PERSIST==1 ,2,1,3
+ db->aDb==db->aDbStatic ,2,1,3
+ p->rc!=SQLITE_OK ,2,1,3
+ pCur->iPage>=0 ,2,1,3
+ pExpr->op==TK_COLUMN || pExpr->op==TK_TRIGGER ,2,1,3
+ pRight->op==TK_DOT ,2,1,3
+ pEList->nExpr==nColumn ,2,1,3
+ eFileLock==NO_LOCK ,2,1,3
+ reader.aNode ,2,1,3
+ !pPgOld || pPgOld->nRef==1 ,2,1,3
+ p->rc==SQLITE_OK ,2,1,3
+ sqlite3BtreeIsInTrans(pTo)==0 ,2,1,3
+ (op-SQLITE_DBSTATUS_LOOKASIDE_HIT)<3 ,2,1,3
+ i>=0 && i<=pPage->nCell+pPage->nOverflow ,2,1,3
+ pPager->eState==PAGER_READER || !pbOpen ,2,1,3
+ !sqlite3IsNaN(*pOp->p4.pReal) ,2,1,3
+ iBlock>=0 && iBlock<mem5.nBlock ,2,1,3
+ ovflPgno==0 || nOvfl>0 ,2,1,3
+ nIncr==1 ,2,1,3
+ WIN_SHM_BASE==WALINDEX_LOCK_OFFSET ,2,1,3
+ pPgHdr->pgno==pgno ,2,1,3
+ pStepList ,2,1,3
+ pRoot->isInit && (pCur->pKeyInfo==0)==pRoot->intKey ,2,1,3
+pg1<=pPg->pgno,2,1,3
+ p->pSchema==p->pTabSchema || p->pSchema==pParse->db->aDb[1].pSchema ,2,1,3
+" !ExprHasProperty(sAggInfo.aFunc[i].pExpr, EP_xIsSelect) ",2,1,3
+ desiredEnc==SQLITE_UTF8 ,2,1,3
+ sz==info.nPayload ,2,1,3
+ ppStmt!=0 ,2,1,3
+ memIsValid(u.cg.pRec) ,2,1,3
+ SQLITE_CHECKPOINT_PASSIVE+2==SQLITE_CHECKPOINT_RESTART ,2,1,3
+ aSample[i].eType==SQLITE_FLOAT ,2,1,3
+ u.bn.pModule->xRowid ,2,1,3
+ pSelect->pOffset==0 ,2,1,3
+ (u.bh.pMem->flags & MEM_Int)!=0 ,2,1,3
+ pPager->eState==PAGER_WRITER_LOCKED || pPager->eState==PAGER_WRITER_CACHEMOD || pPager->eState==PAGER_WRITER_DBMOD ,2,1,3
+ memIsValid(&u.bv.r.aMem[i]) ,2,1,3
+ stateno<=YY_REDUCE_COUNT ,2,1,3
+ aMerge==aList ,2,1,3
+ nDestTruncate>0 ,2,1,3
+ pTokenizer && pModule ,2,1,3
+ contentOffset<=usableSize ,2,1,3
+ p->iPrevDocid==*pRowid ,2,1,3
+pVal->enc==(enc & ~SQLITE_UTF16_ALIGNED) || pVal->db==0 || pVal->db->mallocFailed ,2,1,3
+ rcauth==SQLITE_OK || rcauth==SQLITE_DENY || rcauth==SQLITE_IGNORE ,2,1,3
+ pSrcList->a[i].iCursor>=0 && pSrcList->a[i].iCursor<pParse->nTab,2,1,3
+ pTo->zErrMsg==0 || pTo->nErr ,2,1,3
+ p->nOp>0 || p->aOp==0 ,2,1,3
+ pList==0 ,2,1,3
+ pgno!=0 || rc==SQLITE_CORRUPT ,2,1,3
+pSelect->pSrc,2,1,3
+ sqlite3_mutex_notheld(p->pBt->mutex) ,2,1,3
+ pIdx->azColl[i]!=0 ,2,1,3
+" sqlite3GetVTable(pParse->db, pTab) ",2,1,3
+ addr<p->nOp ,2,1,3
+ pColExpr!=0 ,2,1,3
+ pLower || pUpper ,2,1,3
+ p->pLeft && p->pRight ,2,1,3
+ v->db->init.busy==0 ,2,1,3
+ pEList->a[0].pExpr ,2,1,3
+ pMem->n + ((pMem->flags & MEM_Zero)?pMem->u.nZero:0) == (int)sqlite3VdbeSerialTypeLen(serial_type) ,2,1,3
+ wrFlag==0 || wrFlag==1 ,2,1,3
+ (p->flags2 & EP2_MallocedToken)==0 ,2,1,3
+ iStatement>0 ,2,1,3
+ iPage>0 ,2,1,3
+ sqlite3_mutex_notheld(pcache1.mutex) ,2,1,3
+ pnBlob ,2,1,3
+ db->nStatement>0 ,2,1,3
+ pExpr->op==TK_EQ || pExpr->op==TK_IN || pExpr->op==TK_LT || pExpr->op==TK_GT || pExpr->op==TK_GE || pExpr->op==TK_LE || pExpr->op==TK_NE || pExpr->op==TK_IS || pExpr->op==TK_ISNOT ,2,1,3
+ !pParent || !pNode->pParent || pNode->pParent==pParent ,2,1,3
+ u.bi.pKey->flags & MEM_Int ,2,1,3
+ op!=TK_EQ || c==WO_EQ ,2,1,3
+ argc==1 || p==0 || p->n>0x7fffffff || p->n==sqlite3_aggregate_count(context) ,2,1,3
+ (pTerm->wtFlags & (TERM_DYNAMIC|TERM_ORINFO|TERM_ANDINFO))==0 ,2,1,3
+ pWal->readLock>=0 || (op<=0 && pWal->exclusiveMode==0) ,2,1,3
+ nBytes>0 ,2,1,3
+ iToken!=p->iDoclistToken ,2,1,3
+ p->bHasStat==p->bFts4 ,2,1,3
+ pExpr->op!=TK_GT || op==OP_Le ,2,1,3
+ aHardLimit[SQLITE_LIMIT_ATTACHED]==SQLITE_MAX_ATTACHED ,2,1,3
+ p->sharable==0 || p->locked==0 || p->wantToLock>0 ,2,1,3
+ p->aBuffer ,2,1,3
+ pParent==pRoot ,2,1,3
+ j<(int)(sizeof(pPage->apOvfl)/sizeof(pPage->apOvfl[0])) ,2,1,3
+ pPager->syncFlags==0 ,2,1,3
+" sqlite3SchemaMutexHeld(db, 0, pIndex->pSchema) ",2,1,3
+ p->sharable || 0==*ppIter ,2,1,3
+ pToken->z!=0 || pToken->n==0 ,2,1,3
+ memIsValid(&aMem[pOp->p1]) ,2,1,3
+ rc!=SQLITE_OK || p->nToken<1 || p->aToken[0].pSegcsr==0 || p->bIncr ,2,1,3
+ pIdx->nSample==0 ,2,1,3
+ p->sharable || (p->pNext==0 && p->pPrev==0) ,2,1,3
+ pPgHdr->pData==pPage->pBuf ,2,1,3
+ i>=0 && i<YY_ACTTAB_COUNT ,2,1,3
+" iDb==sqlite3SchemaToIndex(db, pIdx->pSchema) ",2,1,3
+ x==0 ,2,1,3
+count <= 6,1,0,1
+window->wgl.ARB_pixel_format,1,0,1

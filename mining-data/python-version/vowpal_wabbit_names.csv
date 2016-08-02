@@ -1,0 +1,5 @@
+x_val,y_added,y_removed,y_combined
+RAPIDJSON_ASSERT,164,0,164
+static_assert,41,36,77
+assert,25,21,46
+RAPIDJSON_STATIC_ASSERT,40,0,40

@@ -1,0 +1,487 @@
+x_val,y_added,y_removed,y_combined
+!empty(),31,10,41
+calledBack_,8,8,16
+ (state_ == State::UNLOCKED && readers_ == 0) || (state_ == State::READ_LOCKED && readers_ > 0),9,6,15
+read_waiters_.empty(),10,5,15
+ready(),7,7,14
+dd_->guardCount_ > 0,8,6,14
+" std::is_same<LeftValue, RightValue>::value, ""Generators may ony be combined if Values are the exact same type.""",8,4,12
+detached_ == 1 || detached_ == 2,6,6,12
+"std::is_same<T, void>::value, ""Use setValue(value) instead""",6,5,11
+s_.isSane(),6,4,10
+"!std::is_same<T, void>::value, ""Use setValue() instead""",6,4,10
+detached_ == 2,4,4,8
+c == isMedium || c == isLarge,4,4,8
+i < n,4,4,8
+n > 0,6,2,8
+"sum < OOR && ""Assumption: string only has digits""",4,4,8
+empty(),4,3,7
+"!std::is_reference<T>::value, ""Try may not be used with reference types""",4,3,7
+eventBaseAttached_,4,2,6
+result.size() == 1,4,2,6
+" std::is_copy_constructible<T>::value, ""T must be copyable for Try<T> to be copyable""",4,2,6
+b_ < e_,6,0,6
+capacity() >= minCapacity,5,1,6
+"std::is_integral<Value>::value && std::is_unsigned<Value>::value, ""Value should be unsigned integral""",4,2,6
+"std::distance(first, last) >= 0",4,2,6
+writer.lock_ != nullptr,4,2,6
+"std::is_same<Expected, Value>::value, ""assert_type() check failed""",4,2,6
+(state & ~(kWaitingAny | kPrevDefer)) == kHasE,4,2,6
+n < size(),4,2,6
+state_ == State::READ_LOCKED,4,2,6
+d >= 1,3,3,6
+state_ == INVALID,4,2,6
+d <= 2,3,3,6
+slot < kMaxDeferredReaders,4,2,6
+"n <= static_cast<size_t>(std::distance(first, last))",4,2,6
+sizeof(*this) == sizeof(int),3,3,6
+"!Source::infinite, ""Cannot foldl infinite source""",3,2,5
+" !Traits::IsConst::value || OtherFunction::Traits::IsConst::value, ""Function: cannot move Function<R(Args...)> into "" ""Function<R(Args...) const>; "" ""use folly::constCastFunction!""",2,3,5
+" std::is_convertible< Result, typename std::remove_reference< typename FirstArgOf<G>::type>::type::element_type>::value, ""finally(Try<T>&&): T must be convertible from func()'s return type""",3,2,5
+ctx->v.size() < n,3,2,5
+!delayed,3,2,5
+this != &other,5,0,5
+"!Source::infinite, ""Cannot sum infinite source""",3,2,5
+"!std::is_reference<Value>::value && !std::is_const<Value>::value, ""Value mustn't be const or ref.""",3,2,5
+"!Source::infinite, ""Calling contains on an infinite source might cause "" ""an infinite loop.""",3,2,5
+"!std::is_reference<Container>::value, ""Can't copy into a reference""",3,2,5
+" std::is_same<typename detail::Extract<F>::Return, Future<T>>::value, ""Return type of onError callback must be T or Future<T>""",4,1,5
+"!Source::infinite, ""Cannot count infinite source""",3,2,5
+" state_ == State::WRITE_LOCKED && readers_ == 0 && ""read waiters can only accumulate while write locked""",3,2,5
+*dataType_ == typeid(T),3,2,5
+ Baton(THREAD_WAITING).futex_.futex == static_cast<uint32_t>(THREAD_WAITING),3,2,5
+ fiber->state_ == Fiber::NOT_STARTED || fiber->state_ == Fiber::READY_TO_RUN,3,2,5
+"!std::is_reference<StorageType>::value, ""StorageType must be decayed""",3,2,5
+" IsRvalueRefTry<typename FirstArgOf<G>::type>::value, ""finally(arg): arg must be Try<T>&&""",3,2,5
+first <= last,3,2,5
+ (state_ == State::READ_LOCKED && readers_ > 0) || (state_ == State::WRITE_LOCKED && readers_ == 0),3,2,5
+next(t) == nullptr,3,2,5
+category() == isMedium || category() == isLarge,2,2,4
+crtCapacity < n,2,2,4
+head_ == nullptr,2,2,4
+(state & (kWaitingNotS | kHasSolo)) == 0,3,1,4
+" !forever, ""Cycle limit consturctor should not be used when forever == true.""",2,2,4
+count <= sizeof(T) * 8,2,2,4
+bv == b_,2,2,4
+b_ <= e_,2,2,4
+IsRelocatable<T>::value,2,2,4
+idx >= 0 && idx < length(),3,1,4
+count <= sizeof(UnderlyingType) * 8,2,2,4
+" sizeof(T) <= kStorageSize, ""Requested access to object not fitting into ExecutorStore "" ""(this is a bug in the Function implementation)""",2,2,4
+"nallocx(goodSize, 0) == goodSize",2,2,4
+b_ == p,2,2,4
+(state & (kWaitingNotS | kHasSolo)) == 0 && (state & kHasS) != 0,2,2,4
+" std::is_same< typename Traits::NonConstFunctionType, typename OtherFunction::Traits::NonConstFunctionType>::value, ""Function: cannot move into a Function with different "" ""parameter signature""",2,2,4
+"alignof(detail::Unaligned<T>) == 1, ""Invalid alignment""",2,2,4
+"endless, ""Must supply 'end'""",2,2,4
+(state & (kHasE | kBegunE)) != 0 || state < state + kIncrHasS,2,2,4
+hasValue(),2,2,4
+(prev & kWaiterMask) != 0,2,2,4
+"n <= std::distance(first, last)",2,2,4
+"alignof(MaxAlign) > 0 && FOLLY_CACHE_LINE_SIZE % alignof(MaxAlign) == 0 && sizeof(T) <= alignof(MaxAlign), ""T can cross cache line boundaries""",2,2,4
+"!Source::infinite, ""Cannot call 'all' on infinite source""",2,2,4
+" std::is_base_of<ExecutorIf, T>::value, ""Function::access<T>: ExecutorIf must be base class of T "" ""(this is a bug in the Function implementation)""",2,2,4
+"memcmp(this->data(), data, size * sizeof(Char)) == 0",2,2,4
+sturn - current_sturn < std::numeric_limits<uint32_t>::max() / 2,2,2,4
+get(),2,2,4
+"!std::is_reference<Value>::value, ""Just requires non-ref types""",2,2,4
+capacity() > capBytes / sizeof(T),2,2,4
+"kMaxCpus - 1 <= std::numeric_limits<CompactStripe>::max(), ""stripeByCpu element type isn't wide enough""",2,1,3
+currentFiber_ == nullptr,2,1,3
+waitingFiber_.is_lock_free(),2,1,3
+activeFiber_ == nullptr,2,1,3
+n != 0,2,1,3
+id_ != static_cast<size_t>(-1),2,1,3
+state_ == State::WRITE_LOCKED && readers_ == 0,2,1,3
+"N > 0, ""Can't mask an empty ByteArray""",2,1,3
+state_ == State::WRITE_LOCKED,2,1,3
+isValid(cpos),2,1,3
+upgraded.lock_ != nullptr,2,1,3
+"!infinite, ""Cannot call foreach on infinite GenImpl""",2,1,3
+hasCompleted() || hasPending(),2,1,3
+"!std::is_rvalue_reference<Value>::value, ""Cannot use indirect on an rvalue""",2,1,3
+(state & (kHasE | kBegunE)) != 0,2,1,3
+isValid(position),2,1,3
+n2 >= 0,2,1,3
+"!Source::infinite, ""Cannot sort infinite source!""",2,1,3
+this->size() == size,2,1,3
+amount <= tailroom(),2,1,3
+before == WAITING,2,1,3
+(state & (kHasE | kBegunE)) != 0 && (state & kHasU) == 0,2,1,3
+(state & ~(kWaitingAny | kMayDefer)) == 0,2,1,3
+" kFalseSharingRange == 128, ""FOLLY_ALIGN_TO_AVOID_FALSE_SHARING should track kFalseSharingRange""",2,1,3
+currentFiberManager_ != nullptr,2,1,3
+(next_ == this) == (prev_ == this),2,1,3
+crtBuf_->next() == buffer_,2,1,3
+"!(kDeferredSearchDistance & (kDeferredSearchDistance - 1)), ""kDeferredSearchDistance must be a power of 2""",2,1,3
+"!std::is_reference<Value>::value, ""SingleReference requires non-ref types""",2,1,3
+"std::is_integral<IntType>::value, ""PicoSpinLock needs an integral type""",2,1,3
+"sizeof(PaddedSpinLock) == FOLLY_CACHE_LINE_SIZE, ""Invalid size of PaddedSpinLock""",2,1,3
+state_ != State::UNLOCKED,2,1,3
+"!std::is_same<Tag, void>::value, ""Must use a unique Tag to use the accessAllThreads feature""",2,1,3
+(state & kBegunE) != 0,2,1,3
+enableTimeMeasurement_,3,0,3
+currentFiberManager_ == this,2,1,3
+futex_.futex.is_lock_free(),2,1,3
+"state == encode(turn << kTurnShift, decodeMaxWaitersDelta(state))",2,1,3
+"!Gen::infinite, ""Cannot pull all values from an infinite sequence.""",2,1,3
+"std::is_standard_layout<T>::value, ""must be standard layout""",2,1,3
+upgrade.lock_ != nullptr,2,1,3
+(uint64_t(n) * sizeof(T)) < (uint64_t(1) << 32),2,1,3
+idx < N * kBitsPerBlock,3,0,3
+(state & (kPrevDefer | kHasE | kBegunE)) != kPrevDefer,2,1,3
+"!std::is_reference<Value>::value, ""SingleCopy requires non-ref types""",2,1,3
+category() == Category::isSmall && size() == 0,2,1,3
+" std::is_convertible<typename std::result_of<F()>::type, T>::value, ""TaskIterator<T>: T must be convertible from func()'s return type""",2,1,3
+state < state + kIncrHasS,2,1,3
+"sizeof(IntType) == 2 || sizeof(IntType) == 4 || sizeof(IntType) == 8, ""PicoSpinLock can't work on integers smaller than 2 bytes""",2,1,3
+Baton(TIMEOUT).futex_.futex == static_cast<uint32_t>(TIMEOUT),2,1,3
+size() == n,3,0,3
+size() == oldSize + n,2,1,3
+numStripes > 0,2,1,3
+!slotValueIsThis(slotValue),2,1,3
+token.type_ == Token::Type::INLINE_SHARED || token.type_ == Token::Type::DEFERRED_SHARED,2,1,3
+state_.load() == State::GLOBAL,3,0,3
+readers_ == 0,2,1,3
+other.empty(),3,0,3
+tail != this,2,1,3
+results.size() == n,2,1,3
+amount <= headroom(),2,1,3
+(state & kHasE) == 0,2,1,3
+" std::is_same<typename detail::Extract<F>::RawReturn, T>::value, ""Return type of onError callback must be T or Future<T>""",2,1,3
+head != this,2,1,3
+Baton(NO_WAITER).futex_.futex == static_cast<uint32_t>(NO_WAITER),2,1,3
+activeFiber_->state_ == Fiber::RUNNING,2,1,3
+"std::is_same<const Value&, ConstRefType>::value, ""Only matching types may be interleaved""",2,1,3
+"!(kMaxDeferredReaders & (kMaxDeferredReaders - 1)), ""kMaxDeferredReaders must be a power of 2""",2,1,3
+threadEntry->elementsCapacity > id,2,1,3
+fibersActive_ > 0,2,1,3
+category() == Category::isMedium || category() == Category::isLarge,2,1,3
+"PreBlockAttempts > 0, ""isn't this assert clearer than an uninitialized variable warning?""",2,1,3
+fibersAllocated_ > 0,2,1,3
+capacity() >= size(),2,1,3
+"Random::max() >= std::numeric_limits<int32_t>::max() - 1, ""Random number generator must support big values""",2,1,3
+"!Source::infinite, ""Cannot call 'all', 'any', 'isEmpty', or 'notEmpty' on "" ""infinite source. 'all' and 'isEmpty' will either return "" ""false or hang. 'any' or 'notEmpty' will either return true "" ""or hang.""",2,1,3
+index < n,2,1,3
+(state & ~kWaitingAny) == 0,2,1,3
+Baton(POSTED).futex_.futex == static_cast<uint32_t>(POSTED),2,1,3
+"constexpr_strlen_internal(""123456789"", 0) == 9, ""Someone appears to have broken constexpr_strlen...""",2,1,3
+"std::tuple_size< typename std::remove_reference<Tuple>::type >::value == 2, ""Can only merge tuples of size 2""",2,1,3
+waitMask == kWaitingNotS || waitMask == kWaitingE || waitMask == kWaitingU || waitMask == kWaitingS,2,1,3
+activeFiber_ != nullptr,2,1,3
+f.isReady(),3,0,3
+"(kMaxCpus & (kMaxCpus - 1)) == 0, ""kMaxCpus should be a power of two so modulo is fast""",2,1,3
+write_waiters_.empty(),2,1,3
+"!Source::infinite, ""Cannot sample infinite source!""",2,1,3
+end.tv_sec > start.tv_sec && end.tv_sec - start.tv_sec < std::numeric_limits<uint64_t>::max() / 1000000000UL,1,1,2
+category() == isSmall && small_[maxSmallSize] <= maxSmallSize,1,1,2
+"std::is_same<StorageType, int>::value, ""wtf""",1,1,2
+!isNodeIdx(),2,0,2
+&goner != this,1,1,2
+category() == Category::isSmall && static_cast<size_t>(small_[maxSmallSize]) <= static_cast<size_t>(maxSmallSize),1,1,2
+pos <= size(),1,1,2
+value == (value << cut >> cut),1,1,2
+rv == 0 || errno == EWOULDBLOCK || errno == EINTR || (absTimeout != nullptr && errno == ETIMEDOUT),1,1,2
+i >= begin() && i <= end(),2,0,2
+category() == isLarge && size() == rhs.size(),1,1,2
+n <= remainingGrowth_,1,1,2
+Clock::is_steady,1,1,2
+(sizeof(size_t) & (sizeof(size_t) - 1)) == 0,1,1,2
+rv >= 0,1,1,2
+state_ == INVALID || state_ == NOT_STARTED,1,1,2
+globalCount_.load() == 0,2,0,2
+stripeByCpu[cpu] < numStripes_,1,1,2
+"alignof(MPMCQueue<T,Atom>) >= kFalseSharingRange",1,1,2
+isAligned(mem),1,1,2
+p >= begin() && p <= end(),1,1,2
+state_.load(std::memory_order_relaxed) != WAITING,2,0,2
+"offsetof(MediumLarge, data_) == 0",1,1,2
+(flags_ & (kFlagExt | kFlagMaybeShared)) == (kFlagExt | kFlagMaybeShared),1,1,2
+i < size(),2,0,2
+newByteSize / sizeof(ElementWrapper) >= newCapacity,1,1,2
+b == e,1,1,2
+get_nothrow<ObjectImpl>(),1,1,2
+sizeof(Char*) == sizeof(size_t),1,1,2
+buf[size] == 0,1,1,2
+"std::is_same<Clock,system_clock>::value || std::is_same<Clock,steady_clock>::value, ""Only std::system_clock or std::steady_clock supported""",1,1,2
+threadEntry_.elementsCapacity > id,1,1,2
+"HasMutex::value == 0 || HasMutex::value == 1, ""Multiple copies of small_vector_policy::OneBitMutex "" ""supplied; this is probably a mistake""",1,1,2
+ml_.data_[ml_.size_] == TERMINATOR || ml_.data_[ml_.size_] == '\0',1,1,2
+pobj,1,1,2
+expected == EARLY_DELIVERY,2,0,2
+category() == isSmall && this->size() == rhs.size(),1,1,2
+count == sizeof(T) || (value & ~((one << count) - 1)) == 0,1,1,2
+"static_assert(!std::is_same<Tag, void>::value, ""Must use a unique Tag to use the accessAllThreads feature"")",1,1,2
+bitOffset_ < bitsPerBlock(),2,0,2
+category() == isSmall && size() == 0,1,1,2
+!isHandlerRegistered(),2,0,2
+category() == Category::isSmall,2,0,2
+std::numeric_limits<T>::is_signed,1,1,2
+category() == isSmall && static_cast<size_t>(small_[maxSmallSize]) <= static_cast<size_t>(maxSmallSize),1,1,2
+"le(s + n, data() + size())",1,1,2
+isSane(),2,0,2
+before == INIT || before == WAITING,1,1,2
+"alignof(Unaligned<T>) == 1, ""Invalid alignment""",2,0,2
+up >= reinterpret_cast<unsigned char*>(p) + pagesize(),1,1,2
+isNodeIdx(),2,0,2
+state() != EMPTY,2,0,2
+isAligned(r),2,0,2
+before == INIT,1,1,2
+extra >= 0,1,1,2
+"offsetof(MediumLarge, capacity_) == 2 * sizeof(ml_.data_)",1,1,2
+value > 0,1,1,2
+getFiberManager().currentFiber_ != nullptr,1,1,2
+" kIsLittleEndian || kIsBigEndian, ""unable to identify endianness""",1,1,2
+"sizeof(Unaligned<T>) == sizeof(T), ""Invalid unaligned size""",2,0,2
+idx != 0,1,1,2
+"!std::is_signed<Tgt>::value, ""Unsigned type expected""",1,1,2
+(const void*)&*d != &*b,1,1,2
+lock_ == NULL,1,1,2
+newCapacity > prevCapacity,1,1,2
+rhs.empty(),2,0,2
+category() == isSmall,1,1,2
+capacity() >= sz + 1,1,1,2
+"std::is_integral<T>::value && std::is_unsigned<T>::value, ""Unsigned integral type required""",1,1,2
+"offsetof(MediumLarge, size_) == sizeof(ml_.data_)",1,1,2
+realByteSize / sizeof(ElementWrapper) >= newCapacity,1,1,2
+"!Source::infinite, ""Cannot convert infinite source to object with as.""",2,0,2
+n <= available_,1,1,2
+size() + n <= capacity(),1,1,2
+"sizeof(A) == 0, ""If you want to use a custom allocator, then you must upgrade to gcc 4.7""",1,1,2
+"sizeof...(Args) <= 1, ""Then must take zero/one argument""",2,0,2
+firstSet >= begin.bitOffset(),2,0,2
+nextKeyMode_ == NextKeyMode::NONE,2,0,2
+attached_ == 0,1,1,2
+sz < (std::size_t(1) << kLockBit),1,1,2
+b <= e,1,1,2
+e >= b,2,0,2
+before == EARLY_DELIVERY,1,1,2
+value == 1,1,1,2
+capacity >= size,1,1,2
+!isShared(),1,1,2
+n >= 0,2,0,2
+ml_.size_ >= delta,2,0,2
+buffer == nullptr,2,0,2
+errno == EAGAIN,1,1,2
+end.tv_sec > start.tv_sec && (uint64_t)(end.tv_sec - start.tv_sec) < std::numeric_limits<uint64_t>::max() / 1000000000UL,1,1,2
+capacity > size,1,1,2
+" std::is_same<Value, ValueNext>::value, ""Generators may ony be combined if Values are the exact same type.""",1,1,2
+size < n,1,1,2
+" Traits::SuitableForFunction::value, ""Function<FunctionType>: FunctionType must be of the "" ""form 'R(Args...)' or 'R(Args...) const'""",1,1,2
+"AllConvertible<int>::value, """"",2,0,2
+s == WAITING || s == LATE_DELIVERY,2,0,2
+sp.start() != nullptr,1,1,2
+offset_bytes < sizeof(uint32_t),1,1,2
+isShutdown(),2,0,2
+rv == 0 || (errno == EWOULDBLOCK || errno == EINTR),1,1,2
+j < nsize,2,0,2
+"std::is_same<SizeType,void>::value, ""OneBitMutex only works on x86-64""",1,1,2
+" kStorageSize == sizeof(*this), ""There is something wrong with the size of Function""",1,1,2
+size() == oldSize + n + 1,1,1,2
+category() == isMedium,1,1,2
+"reachable(b_, e_, typename std::iterator_traits<Iter>::iterator_category())",1,1,2
+c == Category::isMedium || c == Category::isLarge,2,0,2
+p,2,0,2
+"kFalseSharingRange == 64, ""FOLLY_ON_NEXT_CACHE_LINE must track kFalseSharingRange""",1,1,2
+id_ != -1,1,1,2
+category() == Category::isSmall && (static_cast<size_t>(small_[maxSmallSize]) >> 2) <= static_cast<size_t>(maxSmallSize),1,1,2
+count == sizeof(UnderlyingType) || (value & ~((one << count) - 1)) == 0,1,1,2
+context_,1,1,2
+sizeof(*this) == sizeof(Char*) + 2 * sizeof(size_t),1,1,2
+small_[smallSize()] == TERMINATOR || smallSize() == maxSmallSize || small_[smallSize()] == '\0',1,1,2
+"(std::is_convertible<KeyT,int32_t>::value || std::is_convertible<KeyT,int64_t>::value), ""You are trying to use AtomicHashArray with disallowed key "" ""types. You must use atomically compare-and-swappable integer "" ""keys, or a different container class.""",1,1,2
+" sizeof(EmptyExecutor) <= value, ""Internal error in Function: EmptyExecutor does not fit "" ""in storage""",1,1,2
+state_.load(std::memory_order_acquire) == EARLY_DELIVERY,2,0,2
+a <= 2,1,0,1
+pipeline_.sizeGuess() == 0,1,0,1
+category() == Category::isMedium,1,0,1
+"sizeof(uint32_t) == 4, ""bad platform""",1,0,1
+" std::is_same<T, pthread_t>::value || std::is_same<T, std::thread::native_handle_type>::value, ""type must be pthread_t or std::thread::native_handle_type""",1,0,1
+oldWord & heldBit(slot),1,0,1
+"sizeof(Handoff) <= sizeof(LifoSemRawNode<Atom>::raw), ""Handoff too big for small-object optimization, use indirection""",1,0,1
+a >= 0,1,0,1
+"std::is_standard_layout<Slot>::value, ""offsetof needs POD""",1,0,1
+"offsetof(MediumLarge, size_) == sizeof(ml_.data_), ""fbstring layout failure""",1,0,1
+eventBase_ == nullptr || eventBase_->isInEventBaseThread(),1,0,1
+dynamic_cast<Entry<T>*>(entryPtr) != nullptr,1,0,1
+" noexcept(std::declval<TCallback>()(std::forward<MessageT>(message))), ""callback must be declared noexcept, e.g.: `[]() noexcept {}`"" ",1,0,1
+(sock->getSSLState() == AsyncSSLSocket::STATE_ACCEPTING) || (sock->getSSLState() == AsyncSSLSocket::STATE_CACHE_LOOKUP),1,0,1
+currentRead != writeIndex_.load(std::memory_order_acquire),1,0,1
+len < valBuf + valBufSize - valBufBegin,1,0,1
+" Clock::is_steady, ""only monotonic clocks should be used to track time intervals""",1,0,1
+newCapacity < std::numeric_limits<InternalSizeType>::max(),1,0,1
+"std::is_nothrow_default_constructible<T>::value, ""Element type must be nothrow default constructible""",1,0,1
+" std::is_same<typename std::remove_cv<T>::type, char>::value || std::is_same<typename std::remove_cv<T>::type, unsigned char>::value, ""Only character ranges are supported""",1,0,1
+guard1_ == 0 && guard2_ == 0,1,0,1
+"kIsLittleEndian, ""EliasFanoCoding.h requires little endianness""",1,0,1
+newCapacity > 0 && newCapacity > currentSize,1,0,1
+"READER > WRITER + UPGRADED, ""wrong bits!""",1,0,1
+diff < std::numeric_limits<uint64_t>::max() / 1000000000UL,1,0,1
+success,1,0,1
+*count_ == 0,1,0,1
+sz <= policyMaxSize(),1,0,1
+0 < idx && idx <= actualCapacity_ && idx <= size_.load(std::memory_order_acquire),1,0,1
+delta > 0 && delta <= value(),1,0,1
+!!result_,1,0,1
+"sizeof...(Args) == 0 || eagerRecycle(), ""emplace-style allocation requires eager recycle, "" ""which is defaulted only for non-trivial types""",1,0,1
+"le(s + n, oldData + oldSize)",1,0,1
+category() == Category::isLarge && size() == rhs.size(),1,0,1
+(mmapLength_ % pagesize) == 0,1,0,1
+*weakCount_ == 0,1,0,1
+state_ == State::GLOBAL,1,0,1
+errno == ENOMEM,1,0,1
+currentSize <= currentCapacity && currentCapacity < newCapacity,1,0,1
+size() == newSz,1,0,1
+"!Source::infinite, ""Calling min or max on an infinite source will cause "" ""an infinite loop.""",1,0,1
+rv == FutexResult::VALUE_CHANGED || rv == FutexResult::AWOKEN || rv == FutexResult::INTERRUPTED,1,0,1
+"false, ""You shouldn't be using GFlags internals.""",1,0,1
+widthAndCpuToStripe[width][cpu] < numStripes,1,0,1
+isAllocated(idx),1,0,1
+effectiveCapacity >= ml_.capacity(),1,0,1
+isValid(first) && isValid(last),1,0,1
+"sizeof...(vs) >= 2, ""Needs at least 2 args""",1,0,1
+end.tv_nsec >= start.tv_nsec,1,0,1
+p.second >= size,1,0,1
+RCURegisterThread() == false,1,0,1
+"sizeof(data[0]) == 1, ""writeFile works with element size equal to 1""",1,0,1
+"alignof(T) <= alignof(Raw), ""target type can't have stricter alignment than matching int""",1,0,1
+"(std::is_same<Clock, system_clock>::value) || Clock::is_steady",1,0,1
+" !forever, ""Cycle limit constructor should not be used when forever == true.""",1,0,1
+size == str.capacity(),1,0,1
+!s.empty() && s.start() != nullptr,1,0,1
+&meta_ == &other.meta_,1,0,1
+"MAX_HEIGHT >= 2 && MAX_HEIGHT < 64, ""MAX_HEIGHT can only be in the range of [2, 64)""",1,0,1
+begin != end,1,0,1
+begin() <= i2 && i2 <= end(),1,0,1
+done_.load(),1,0,1
+data[size] == '\0',1,0,1
+allocatedSize >= size + 1,1,0,1
+"sizeof(*this) == sizeof(Char*) + 2 * sizeof(size_t), ""fbstring has unexpected size""",1,0,1
+" std::ratio_less_equal< typename clock_type::duration::period, typename duration::period>::value, ""clock must be at least as precise as the requested duration""",1,0,1
+s == INIT || s == EARLY_DELIVERY,1,0,1
+i1 <= i2,1,0,1
+elem == &(*this)[rv],1,0,1
+ptr_ <= end_,1,0,1
+"size == 0 || memcmp(this->data(), data, size * sizeof(Char)) == 0",1,0,1
+b && e && b <= e,1,0,1
+"sizeof(PackedSyncPtr<void>) == 8, ""PackedSyncPtr should be only 8 bytes---something is "" ""messed up""",1,0,1
+!detail::pointerFlagGet(newh),1,0,1
+static_cast<size_t>(maxSmallSize) >= smallShifted,1,0,1
+size() == desiredSize,1,0,1
+this != &rhs,1,0,1
+" std::is_pod<MicroSpinLock>::value, ""MicroSpinLock must be kept a POD type.""",1,0,1
+"sizeof(int) == 4, ""bad platform""",1,0,1
+"std::string::npos, exStr.find(sslEx.what())",1,0,1
+std::get<sizeof...(ts2)>(o).hasValue(),1,0,1
+static_cast<uint8_t*>(static_cast<void*>(&popTicket_)) - static_cast<uint8_t*>(static_cast<void*>(&pushTicket_)) >= detail::CacheLocality::kFalseSharingRange,1,0,1
+" std::is_pod<PackedSyncPtr<void>>::value, ""PackedSyncPtr must be kept a POD type.""",1,0,1
+"alignof(MPMCQueue<T,Atom>) >= detail::CacheLocality::kFalseSharingRange",1,0,1
+detail::pointerFlagGet(heap_),1,0,1
+(rv == WaitResult::DECR && n < prev) || (rv != WaitResult::DECR && n == prev),1,0,1
+out.size() >= soFar,1,0,1
+"MaxSpins + MaxYields < (unsigned)-1, ""overflow""",1,0,1
+"sizeof(out[0]) == 1, ""readFile: only containers with byte-sized elements accepted""",1,0,1
+size >= 2,1,0,1
+"memcmp(data(), rhs.data(), size() * sizeof(Char)) == 0",1,0,1
+file_name,1,0,1
+_idx != 0,1,0,1
+"!Source::infinite, ""Cannot reduce infinite source""",1,0,1
+"sizeof(T) <= sizeof(Raw), ""underlying type isn't big enough""",1,0,1
+isNodeIdx() || value() == 0,1,0,1
+state() == before,1,0,1
+lock_ == nullptr,1,0,1
+start.tv_nsec > 0 || start.tv_sec > 0,1,0,1
+frame == 0,1,0,1
+"std::is_integral<typename BaseIter::value_type>::value, ""BitIterator may only be used with integral types""",1,0,1
+"!AllConvertible<std::vector<int>>::value, """"",1,0,1
+before == INIT || before == WAITING || before == TIMED_OUT,1,0,1
+isHandlerRegistered(),1,0,1
+"offsetof(MediumLarge, capacity_) == 2 * sizeof(ml_.data_), ""fbstring layout failure""",1,0,1
+sslSocket != nullptr,1,0,1
+d >= e || d + (e - b) <= b,1,0,1
+"sizeof(T) == sizeof(UnderlyingType), ""Size mismatch""",1,0,1
+rv < numSlots_,1,0,1
+needed <= mmapLength_ && mmapLength_ < needed + pagesize,1,0,1
+" noexcept(std::declval<TCallback>()()), ""callback must be declared noexcept, e.g.: `[]() noexcept {}`"" ",1,0,1
+n1 >= 0,1,0,1
+small_[smallSize()] == '\0',1,0,1
+capacity() >= newSz,1,0,1
+"std::is_nothrow_constructible<T,T&&>::value || folly::IsRelocatable<T>::value, ""T must be relocatable or have a noexcept move constructor""",1,0,1
+&rhs != this,1,0,1
+rv != FutexResult::TIMEDOUT,1,0,1
+size() < LocalListLimit,1,0,1
+size <= mmapLength && mmapLength < size + pagesize,1,0,1
+begin() <= i1 && i1 <= end(),1,0,1
+v.data() == nullptr,1,0,1
+(mmapLength % pagesize) == 0,1,0,1
+"std::is_unsigned<SizeType>::value, ""Size type should be an unsigned integral type""",1,0,1
+queue_ == nullptr,1,0,1
+"sizeof(uint64_t) == 8, ""bad platform""",1,0,1
+repl <= LocalListLimit,1,0,1
+next_ == nullptr,1,0,1
+"AllConvertible<float>::value, """"",1,0,1
+(rv == WaitResult::DECR && n == 0) || (rv != WaitResult::DECR && n == 1),1,0,1
+"AllConvertible<bool>::value, """"",1,0,1
+skipFraction >= 0.0 && skipFraction <= 1.0,1,0,1
+(state & (kHasE | kBegunE | kMayDefer)) != 0 || state < state + kIncrHasS,1,0,1
+delta <= smallSize(),1,0,1
+"sizeof...(ts2) < std::tuple_size<std::tuple<folly::Try<Ts>...>>::value, ""Non-templated unwrap should be used instead""",1,0,1
+before == WAITING || before == TIMED_OUT,1,0,1
+ml_.data_[ml_.size_] == '\0',1,0,1
+"!containerMode || sizeof...(Args) == 1, ""Exactly one argument required in container mode""",1,0,1
+uint32_t(bits) != 0,1,0,1
+"!std::is_void<T>::value, ""void futures are not supported. Use Unit instead.""",1,0,1
+eventBase->isInEventBaseThread(),1,0,1
+dis->refCount_.load(std::memory_order_acquire) == 1,1,0,1
+start.tv_nsec == 0 || start.tv_sec == 0,1,0,1
+category() == Category::isSmall && size() == s,1,0,1
+"offsetof(Header, headerHash) + sizeof(Header::headerHash) == sizeof(Header), ""invalid header layout""",1,0,1
+" FB_STRINGIZE(expr), (msg), __FILE__, __LINE__, __PRETTY_FUNCTION__",1,0,1
+"LocalListLimit_ <= 255, ""LocalListLimit must fit in 8 bits""",1,0,1
+"kBitWidth == 32 || kBitWidth == 64, ""bit width has to be either 32 or 64 """,1,0,1
+"(sizeof(size_t) & (sizeof(size_t) - 1)) == 0, ""fbstring size assumption violation""",1,0,1
+"(std::is_convertible<KeyT,int32_t>::value || std::is_convertible<KeyT,int64_t>::value || std::is_convertible<KeyT,const void*>::value), ""You are trying to use AtomicHashArray with disallowed key "" ""types. You must use atomically compare-and-swappable integer "" ""keys, or a different container class.""",1,0,1
+size() >= idx,1,0,1
+"!Source::infinite, ""Cannot appendTo with infinite source""",1,0,1
+"!std::is_reference<Key>::value && !std::is_reference<Value>::value, ""Key and Value must be decayed types""",1,0,1
+oldcnt > 0,1,0,1
+"kIsLittleEndian, ""BitVectorCoding.h requires little endianness""",1,0,1
+s == EMPTY || s == LINKED,1,0,1
+"!std::is_reference<Value>::value, ""Optional may not be used with reference types""",1,0,1
+s <= maxSmallSize,1,0,1
+size() > 0,1,0,1
+"nullptr, exPtr",1,0,1
+end.tv_sec > start.tv_sec,1,0,1
+"std::numeric_limits<T>::is_signed, """"",1,0,1
+slot < CHAR_BIT / 2,1,0,1
+"alignof(std::max_align_t) > 0 && FOLLY_CACHE_LINE_SIZE % alignof(std::max_align_t) == 0 && sizeof(T) <= alignof(std::max_align_t), ""T can cross cache line boundaries""",1,0,1
+!isShutdown(),1,0,1
+this->size() == n,1,0,1
+this->isExtern(),1,0,1
+"sizeof...(Types) < std::numeric_limits<uint16_t>::max(), ""too many types""",1,0,1
+size == str.size(),1,0,1
+"sizeof(std::atomic<KeyT>) == sizeof(KeyT), ""std::atomic is implemented in an unexpected way for AHM""",1,0,1
+"FOLLY_IS_TRIVIALLY_COPYABLE(T), ""Element type must be trivially copyable""",1,0,1
+size() == srcSize,1,0,1
+category() == Category::isSmall && this->size() == rhs.size(),1,0,1
+"sizeof(in_addr) == sizeof(ByteArray4), ""size of in_addr and ByteArray4 are different""",1,0,1
+"alignof(Handoff) <= alignof(decltype(LifoSemRawNode<Atom>::raw)), ""Handoff alignment constraint not satisfied""",1,0,1
+"!Source::infinite, ""Cannot group infinite source!""",1,0,1
+"sizeof(ObjectImpl) <= sizeof(Data::objectBuffer), ""In your implementation, std::unordered_map<> apparently takes different"" "" amount of space depending on its template parameters. This is "" ""weird. Make objectBuffer bigger if you want to compile dynamic.""",1,0,1
+value >= 0,1,0,1
+delta <= size(),1,0,1
+"IsSameType<T, Types...>::value, ""Not all types in pack are the same""",1,0,1
+"!(sizeof(MediumLarge) % sizeof(Char)), ""Corrupt memory layout for fbstring.""",1,0,1
+" folly::Conjunction<not_ref_wrapper<TList>...>::value, ""TList cannot contain reference_wrappers when D is void""",1,0,1
+heldBit(slot) << 1 == waitBit(slot),1,0,1
+"!std::is_abstract<Value>::value, ""Optional may not be used with abstract types""",1,0,1
+" (std::is_same<Clock, system_clock>::value || std::is_same<Clock, steady_clock>::value), ""futexWaitUntil only knows std::chrono::{system_clock,steady_clock}""",1,0,1
+"std::is_trivial<T>::value || folly::IsTriviallyCopyable<T>::value, ""target type must be trivially copyable""",1,0,1
+"mpl::size<Integrals>::value == 0 || mpl::size<Integrals>::value == 1, ""Multiple size types specified in small_vector<>""",1,0,1
+result->refCount_.load(std::memory_order_acquire) == 1,1,0,1
+" exact || std::is_same<OutputType, StringPiece>::value || IsSomeString<OutputType>::value, ""split<false>() requires that the last argument be a string type""",1,0,1
+"offsetof(MediumLarge, data_) == 0, ""fbstring layout failure""",1,0,1
+"HasNoHeap::value == 0 || HasNoHeap::value == 1, ""Multiple copies of small_vector_policy::NoHeap "" ""supplied; this is probably a mistake""",1,0,1
+size() == rhs.size(),1,0,1
+sp.empty() || sp.start() != nullptr,1,0,1
+"sizeof(Char*) == sizeof(size_t), ""fbstring size assumption violation""",1,0,1

@@ -1,0 +1,286 @@
+x_val,y_added,y_removed,y_combined
+0,71,69,140
+error == OMX_ErrorNone,48,48,96
+pPrepare != 0,21,21,42
+pExt != 0,21,21,42
+pBinder != 0,21,21,42
+!AtEnd(),18,18,36
+vgGetError()==0,18,18,36
+!pBinder.isNull(),29,0,29
+!pPreparator.isNull(),27,0,27
+!pExt.isNull(),27,0,27
+egl_result,12,12,24
+ type == CV_64FC1 ,12,10,22
+ (reader).seq->elem_size == sizeof(elem),12,10,22
+ (unsigned)row < (unsigned)mat->rows && (unsigned)col < (unsigned)mat->cols ,12,10,22
+!getBinder().isNull(),21,0,21
+ sz.width >= 8 ,10,10,20
+ dist != CV_DIST_USER ,10,10,20
+ e->Onext->Sym->Lnext == e ,6,12,18
+ e->Sym->Sym == e ,6,12,18
+ e->Lnext->Onext->Sym == e ,6,12,18
+ e->Sym != e ,6,12,18
+status == VCOS_SUCCESS,8,8,16
+canBind(),16,0,16
+ tab ,8,8,16
+rc==0,8,8,16
+std::numeric_limits<T>::is_specialized,10,5,15
+std::numeric_limits<F>::is_specialized,10,5,15
+result.full(),9,4,13
+dirp != NULL,6,6,12
+result,6,6,12
+c==2,6,6,12
+getBinder() != 0,6,6,12
+ (writer).ptr <= (writer).block_max - sizeof(elem),6,5,11
+ _elem->flags >= 0 ,6,5,11
+ (unsigned)CV_MAT_DEPTH(type) <= CV_64F ,6,5,11
+(edge)->vtx[0] == (vertex) || (edge)->vtx[1] == (vertex),6,5,11
+ *length >= 0 && *length < 5 ,6,5,11
+ ((reader).code & ~7) == 0 ,6,5,11
+ p ,6,5,11
+ (writer).seq->elem_size == sizeof(elem),6,5,11
+ (unsigned)xIndx < 3 && (unsigned)yIndx < 3 ,5,5,10
+" i < N && ""out of range"" ",6,4,10
+ (align & (align-1)) == 0 ,5,5,10
+ (align & (align-1)) == 0 && size < INT_MAX ,5,5,10
+s && !mHeight,4,5,9
+!std::numeric_limits<T>::is_signed,6,3,9
+res->magic == RES_MAGIC,4,4,8
+c==1,4,4,8
+ret == 0,4,4,8
+"statement, regex",4,4,8
+c==3,4,4,8
+ ((size_t)_icv_memcpy_src_&(sizeof(int)-1)) == 0 && \ ((size_t)_icv_memcpy_dst_&(sizeof(int)-1)) == 0 ,4,4,8
+ ((size_t)_icv_memcpy_dst_&(sizeof(int)-1)) == 0 ,4,4,8
+_type == JSON_T_NONE,8,0,8
+ ((size_t)_icv_memcpy_src_&(sizeof(int)-1)) == 0 && ((size_t)_icv_memcpy_dst_&(sizeof(int)-1)) == 0 ,4,4,8
+ divisor >= 1 ,4,4,8
+sizeof((seq)->first[0]) == sizeof(CvSeqBlock) && (seq)->elem_size == sizeof(elem_type),4,3,7
+ sizeof(pt1) == sizeof(CvPoint) && sizeof(pt2) == sizeof(CvPoint) && reader.seq->elem_size == sizeof(CvPoint),4,3,7
+ (unsigned)(row) < (unsigned)(mat).rows && (unsigned)(col) < (unsigned)(mat).cols ,4,3,7
+queries.cols == veclen(),6,0,6
+shape->klass == &polyClass,3,3,6
+indices.rows >= queries.rows,6,0,6
+ e->Org == v ,2,4,6
+ v->prev == vPrev && v->anEdge == NULL ,2,4,6
+strlen (dirname) < MAX_PATH,3,3,6
+!std::numeric_limits<F>::is_signed,4,2,6
+ f->prev == fPrev && f->anEdge == NULL ,2,4,6
+!image || image->depth == Depth(),3,3,6
+int(dists.cols) >= knn,6,0,6
+0 <= i && i < static_cast<int>(_attributes.size()),6,0,6
+ e->Dst != NULL ,2,4,6
+ e->Sym->next == ePrev->Sym && e->Sym == &mesh->eHeadSym && e->Sym->Sym == e && e->Org == NULL && e->Dst == NULL && e->Lface == NULL && e->Rface == NULL ,2,4,6
+ v->prev == vPrev ,2,4,6
+"COMPONENT_SIGNATURE, DEBUG_NO_OPTIONS, QuoteExceptionString(assertion), QuoteExceptionString(exception), nil, __FILE__, __LINE__, 0",4,2,6
+!img || img->depth == Depth(),3,3,6
+ f->prev == fPrev ,2,4,6
+std::numeric_limits<F>::is_signed,4,2,6
+ e->Lface == f ,2,4,6
+ e->Sym->next == ePrev->Sym ,2,4,6
+ e->Org != NULL ,2,4,6
+!image || image->depth == WImage<T>::Depth(),3,3,6
+dists.rows >= queries.rows,6,0,6
+int(indices.cols) >= knn,6,0,6
+std::numeric_limits<T>::is_signed,4,2,6
+"COMPONENT_SIGNATURE, DEBUG_NO_OPTIONS, QuoteExceptionString(error) ""== noErr"", QuoteExceptionString(exception), nil, __FILE__, __LINE__, (void *)localError ",4,2,6
+!img || img->nChannels == Channels(),3,3,6
+dirname != NULL,3,3,6
+pChar,3,2,5
+(_bnum2->top == 0) || (_bnum2->d[_bnum2->top - 1] != 0),3,2,5
+sizeof((seq)->first[0]) == sizeof(CvSeqBlock) && \ (seq)->elem_size == sizeof(elem_type),2,2,4
+"COMPONENT_SIGNATURE, DEBUG_NO_OPTIONS, \ QuoteExceptionString(error) ""== noErr"", \ QuoteExceptionString(exception), \ nil, __FILE__, __LINE__, (void *)localError ",2,2,4
+"::testing::internal::IsHRESULTSuccess, (expr)",2,2,4
+segments_count <= SEGMENTS_COUNT_MAX,2,2,4
+"::testing::internal::DoubleNearPredFormat, val1, val2, abs_error",2,2,4
+"::testing::internal::IsHRESULTFailure, (expr)",2,2,4
+"::testing::internal::CmpHelperSTRCASENE, s1, s2",2,2,4
+tmp,2,2,4
+"::testing::internal::CmpHelperFloatingPointEQ<float>, expected, actual",2,2,4
+index >=0 && index < n,4,0,4
+"::testing::internal:: EqHelper<GTEST_IS_NULL_LITERAL_(expected)>::Compare, expected, actual",2,2,4
+"::testing::internal::CmpHelperNE, val1, val2",2,2,4
+(last_tag & 0x1) || (last_tag & 0x2),2,2,4
+res == NULL || (res->magic == RES_MAGIC),2,2,4
+&ptr != this,2,2,4
+"statement, ::testing::internal::ExitedUnsuccessfully, regex",2,2,4
+ reg->fixUpperEdge ,2,2,4
+screen_number == res->screen_id,2,2,4
+index < _size,2,2,4
+!(last_tag & 0x2),2,2,4
+comp,2,2,4
+"::testing::internal::CmpHelperLE, val1, val2",2,2,4
+"::testing::internal::CmpHelperSTREQ, expected, actual",2,2,4
+bundle != NULL,2,2,4
+i == VCOS_SUCCESS,2,2,4
+*height > 64,2,2,4
+st->client->event_list,2,2,4
+tag & 0x1,2,2,4
+shape->body,2,2,4
+ TOLERANCE_NONZERO ,2,2,4
+ (unsigned)(row) < (unsigned)(mat).rows && \ (unsigned)(col) < (unsigned)(mat).cols ,2,2,4
+a == b,2,2,4
+last_contour == points_count,2,2,4
+"::testing::internal::CmpHelperLT, val1, val2",2,2,4
+"COMPONENT_SIGNATURE, DEBUG_NO_OPTIONS, \ QuoteExceptionString(assertion), \ QuoteExceptionString(exception), \ nil, __FILE__, __LINE__, 0",2,2,4
+shape->klass == &cpSegmentShapeClass,2,2,4
+state->api,2,2,4
+nActiveHandles >= 0,2,2,4
+"::testing::internal::CmpHelperGE, val1, val2",2,2,4
+coords_count <= COORDS_COUNT_MAX,2,2,4
+glyphs_count <= GLYPHS_COUNT_MAX,2,2,4
+" VertLeq( u, v ) && VertLeq( v, w )",2,2,4
+c==0,2,2,4
+resource_handle,2,2,4
+shape->klass == &cpCircleShapeClass,2,2,4
+inited,2,2,4
+"::testing::internal::CmpHelperSTRCASEEQ, expected, actual",2,2,4
+width && height,2,2,4
+res == NULL || !res->context_bound,2,2,4
+" TransLeq( u, v ) && TransLeq( v, w )",2,2,4
+"::testing::internal::CmpHelperGT, val1, val2",2,2,4
+ sizeof(pt1) == sizeof(CvPoint) && \ sizeof(pt2) == sizeof(CvPoint) && \ reader.seq->elem_size == sizeof(CvPoint),2,2,4
+"::testing::internal::CmpHelperSTRNE, s1, s2",2,2,4
+vg_path != VG_INVALID_HANDLE,2,2,4
+_pTarget != 0,2,2,4
+"::testing::internal::CmpHelperFloatingPointEQ<double>, expected, actual",2,2,4
+!IsConst<T>::VALUE,3,0,3
+"COMPONENT_SIGNATURE, DEBUG_NO_OPTIONS, string, QuoteExceptionString(exception), QuoteExceptionString(exception), __FILE__, __LINE__, 0 ",2,1,3
+"COMPONENT_SIGNATURE, DEBUG_NO_OPTIONS, QuoteExceptionString(error) ""== noErr\n"", cstring, nil, __FILE__, __LINE__, (void *)localError",2,1,3
+minor < 10,3,0,3
+std::numeric_limits<T>::is_integer,2,1,3
+"COMPONENT_SIGNATURE, DEBUG_NO_OPTIONS, QuoteExceptionString(assertion), nil, nil, __FILE__, __LINE__, 0",2,1,3
+(words) <= (_bnum2)->dmax && (words) >= (_bnum2)->top,2,1,3
+"COMPONENT_SIGNATURE, DEBUG_NO_OPTIONS, QuoteExceptionString(assertion), cstring, nil, __FILE__, __LINE__, 0",2,1,3
+rnd >=0 && rnd < n,3,0,3
+"COMPONENT_SIGNATURE, DEBUG_NO_OPTIONS, QuoteExceptionString(string), nil, nil, __FILE__, __LINE__, 0",2,1,3
+"COMPONENT_SIGNATURE, DEBUG_NO_OPTIONS, cstring "": "" QuoteExceptionString(assertion), QuoteExceptionString(exception), nil, __FILE__, __LINE__, 0",2,1,3
+e == EV_START_ELEMENT,3,0,3
+"COMPONENT_SIGNATURE, DEBUG_NO_OPTIONS, QuoteExceptionString(error) ""== noErr"", nil, nil, __FILE__, __LINE__, (void *)localError",2,1,3
+rnd >=0 && rnd < i,1,2,3
+"(0 == icompare(session.connector(), 0, 6, ""sqlite""))",3,0,3
+major < 24,3,0,3
+bestIndex!=NULL,1,2,3
+_type != JSON_T_STRING,3,0,3
+!std::numeric_limits<F>::is_integer,2,1,3
+child <= pq->max,1,1,2
+" isect.s <= MAX( orgLo->s, orgUp->s )",1,1,2
+"COMPONENT_SIGNATURE, DEBUG_NO_OPTIONS, \ QuoteExceptionString(assertion), nil, nil, \ __FILE__, __LINE__, 0",1,1,2
+ ! regUp->fixUpperEdge && ! regLo->fixUpperEdge ,1,1,2
+query.cols == veclen(),2,0,2
+(-1 == width) || (size >= size_t(width)),2,0,2
+totalSize == numberOfEntries,2,0,2
+ mesh->vHead.next == &mesh->vHead ,1,1,2
+"COMPONENT_SIGNATURE, DEBUG_NO_OPTIONS, \ QuoteExceptionString(string), nil, nil, \ __FILE__, __LINE__, 0",1,1,2
+curr != INV_HANDLE,1,1,2
+ object != 0 ,1,1,2
+key.size() == keySize(),1,1,2
+"!cpHashSetFind(space->staticShapes->handleSet, shape->hashid, shape)",1,1,2
+s2 < s1 || s2 >= s1 + n,2,0,2
+_parserState == state_next,2,0,2
+ up->Lnext != up && up->Lnext->Lnext != up ,1,1,2
+ orgUp != tess->event && orgLo != tess->event ,1,1,2
+a->klass->type <= b->klass->type,1,1,2
+ xnode && CV_NODE_IS_INT(xnode->tag) && ynode && CV_NODE_IS_INT(ynode->tag),2,0,2
+" ! VertEq( eUp->Dst, eLo->Dst )",1,1,2
+"cpArrayContains(space->bodies, body)",1,1,2
+determinant,1,1,2
+free != INV_HANDLE,1,1,2
+extractions().size(),1,1,2
+ lo->Lnext != up ,1,1,2
+"cpArrayContains(space->constraints, constraint)",1,1,2
+"COMPONENT_SIGNATURE, DEBUG_NO_OPTIONS, \ QuoteExceptionString(assertion), cstring, nil, \ __FILE__, __LINE__, 0",1,1,2
+"(expected), (actual), (delta), __LINE__, __FILE__",1,1,2
+pq != NULL,1,1,2
+ curr < pq->max && pq->keys[curr] != NULL ,1,1,2
+"!cpHashSetFind(space->activeShapes->handleSet, shape->hashid, shape)",1,1,2
+" VertLeq( e->Org, e->Dst )",1,1,2
+"COMPONENT_SIGNATURE, DEBUG_NO_OPTIONS, \ cstring "": "" QuoteExceptionString(assertion), \ QuoteExceptionString(exception), \ nil, __FILE__, __LINE__, 0",1,1,2
+" LEQ( **(i+1), **i )",1,1,2
+a != b,1,1,2
+size <= ptr.span(),2,0,2
+ reg->eUp->winding == 0 ,1,1,2
+ objectsPerPage >= 16 ,1,1,2
+" EdgeSign( dstLo, tess->event, orgLo ) >= 0 ",1,1,2
+_pCounter,2,0,2
+"COMPONENT_SIGNATURE, DEBUG_NO_OPTIONS, \ QuoteExceptionString(error) ""== noErr\n"", cstring, nil, \ __FILE__, __LINE__, (void *)localError",1,1,2
+_curDataSet < _extractors.size(),2,0,2
+capacity <= peakCapacity,2,0,2
+ hCurr >= 1 && hCurr <= pq->max && h[hCurr].key != NULL ,1,1,2
+index < _used,2,0,2
+"!cpArrayContains(space->bodies, body)",1,1,2
+bestIndex_ != NULL,2,0,2
+" EdgeSign( dstUp, tess->event, orgUp ) <= 0 ",1,1,2
+ regPrev->windingNumber - e->winding == reg->windingNumber ,1,1,2
+" MIN( orgUp->t, dstUp->t ) <= isect.t ",1,1,2
+index < mNumProperties,2,0,2
+ eTopLeft != eTopRight ,1,1,2
+_parseBuffer.size() == 0,2,0,2
+"cpPolyValidate(verts, numVerts)",1,1,2
+iv.size() == ivSize(),1,1,2
+ faceVerts <= polySize ,1,1,2
+" MIN( dstLo->s, dstUp->s ) <= isect.s ",1,1,2
+"(expected), (actual), __LINE__, __FILE__",1,1,2
+ len > 0 ,1,1,2
+idx < cpPolyShapeGetNumVerts(shape),1,1,2
+!_fileName.empty(),2,0,2
+"cpHashSetFind(space->activeShapes->handleSet, shape->hashid, shape)",1,1,2
+constraint->klass == klass,1,1,2
+"COMPONENT_SIGNATURE, DEBUG_NO_OPTIONS, \ string, QuoteExceptionString(exception), \ QuoteExceptionString(exception), \ __FILE__, __LINE__, 0 ",1,1,2
+"!cpArrayContains(space->constraints, constraint)",1,1,2
+ ++fixedEdges == 1 ,1,1,2
+" ! VertEq( dstLo, dstUp )",1,1,2
+value,1,1,2
+c == call (b),1,1,2
+ reg->windingNumber == 0 ,1,1,2
+" isect.t <= MAX( orgLo->t, dstLo->t )",1,1,2
+_type == JSON_T_STRING,2,0,2
+c == call (a),1,1,2
+vNew != NULL,1,1,2
+"cpHashSetFind(space->staticShapes->handleSet, shape->hashid, shape)",1,1,2
+ sizeof(AllocatedType) * objectPerAllocation >= sizeof(AllocatedType *) ,1,1,2
+_used >= readLen,2,0,2
+"COMPONENT_SIGNATURE, DEBUG_NO_OPTIONS, \ QuoteExceptionString(error) ""== noErr"", nil, nil, \ __FILE__, __LINE__, (void *)localError",1,1,2
+last,1,1,2
+indices.cols == dists.cols,2,0,2
+fNew != NULL,1,1,2
+ e->Lnext != e ,1,1,2
+ FALSE ,1,1,2
+primes[i],1,1,2
+it->second.first != 0,1,0,1
+from.size() > 0,1,0,1
+"offsetof(Header, id) == 0x04",1,0,1
+"offsetof(Header, checksum) == 0x02",1,0,1
+ sizeof(osc::uint64) == 8 ,1,0,1
+_threads > 0,1,0,1
+err < CAIRO_STATUS_LAST_STATUS,1,0,1
+u.size() == PRF_DIGEST_SIZE,1,0,1
+status <= CAIRO_INT_STATUS_LAST_STATUS,1,0,1
+n>0,1,0,1
+ sizeof(osc::int64) == 8 ,1,0,1
+"!""reached""",1,0,1
+node->state == CAIRO_RTREE_NODE_OCCUPIED,1,0,1
+"std::extent<T>::value == 0, ""make_unique<T[N]>() is forbidden, please use make_unique<T[]>().""",1,0,1
+_used <= _buffer.size(),1,0,1
+length > 0,1,0,1
+_messageLength >= 0,1,0,1
+link->next->prev == link,1,0,1
+link->prev->next == link,1,0,1
+ptr,1,0,1
+ sizeof(osc::uint32) == 4 ,1,0,1
+_entries == 0,1,0,1
+size != 0,1,0,1
+_type != JSON_T_FALSE && _type != JSON_T_TRUE && _type != JSON_T_NULL && _type != JSON_T_STRING,1,0,1
+"(Convertible<T1,T2>::Value)",1,0,1
+head->next == NULL || (cairo_list_is_empty (head) && head->next == head->prev),1,0,1
+ux.size() == PRF_DIGEST_SIZE,1,0,1
+"offsetof(Header, seq) == 0x06",1,0,1
+*from,1,0,1
+"offsetof(Header, code) == 0x01",1,0,1
+ sizeof(osc::int32) == 4 ,1,0,1
+iv.size() == static_cast<ByteVec::size_type>(ivSize()),1,0,1
+_type == JSON_T_NULL || _type == JSON_T_FALSE || _type == JSON_T_TRUE || _type == JSON_T_FLOAT || _type == JSON_T_INTEGER || _type == JSON_T_STRING,1,0,1
+key.size() == static_cast<ByteVec::size_type>(keySize()),1,0,1
+record.ctx == ctx,1,0,1
+record.device == dev,1,0,1
+false,1,0,1

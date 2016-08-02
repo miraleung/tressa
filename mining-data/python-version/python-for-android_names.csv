@@ -1,0 +1,13 @@
+x_val,y_added,y_removed,y_combined
+assert,8641,8641,17282
+aassert,510,408,918
+FT_ASSERT,186,186,372
+SDL_COMPILE_TIME_ASSERT,27,27,54
+expensive_assert,9,9,18
+assertCellInfo,9,9,18
+__ASSERT_ALWAYS,6,6,12
+assertTruncateConstraint,6,6,12
+__ASSERT_DEBUG,3,3,6
+ASSERT,3,3,6
+assert_pager_state,3,3,6
+assertParentIndex,3,3,6

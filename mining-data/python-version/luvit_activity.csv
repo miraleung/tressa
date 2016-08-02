@@ -1,0 +1,463 @@
+x_val,y_added,y_removed,y_combined
+lua_gettop(L) == before,104,104,208
+0,42,42,84
+lua_gettop(L) == before + 1,29,29,58
+lua_gettop(L) == before - nargs,4,4,8
+g->gc.state != GCSfinalize && g->gc.state != GCSpause,3,3,6
+!irt_isnum(ir->t),3,3,6
+tref_isnumber(tr),3,3,6
+irt_isint(ir->t) || irt_isaddr(ir->t),3,3,6
+(fins->op2 & IRCONV_TRUNC),3,3,6
+map + nent == flinks,3,3,6
+uvprev(uvnext(uv)) == uv && uvnext(uvprev(uv)) == uv,3,3,6
+sz != CTSIZE_INVALID,3,3,6
+!ra_used(ir),3,3,6
+lua_pushthread(L) == 1,2,2,4
+ir->o == IR_HIOP,2,2,4
+delta == (int8_t)delta,2,2,4
+bsz > 0 && bsz <= 8*ctype_bitcsz(info),2,2,4
+rc == ARES_SUCCESS,2,2,4
+old >= g->gc.total,2,2,4
+!irt_ispri(ir->t),2,2,4
+ofs % sizeof(Node) == 0,2,2,4
+ir->o == IR_KINT || ir->o == IR_KGC || ir->o == IR_KPTR || ir->o == IR_KKPTR || ir->o == IR_KNULL,2,2,4
+e->k == VNONRELOC,2,2,4
+J->baseslot == 1,2,2,4
+k,2,2,4
+ctype_isbitfield(info),2,2,4
+"0 && ""unexpected family type""",2,2,4
+regsp_used(rs),2,2,4
+!irt_isnil(irkey->t),2,2,4
+irt_isint(ir->t) || irt_isu32(ir->t),2,2,4
+sz == 4 || sz == 8,2,2,4
+lhandle->refCount,2,2,4
+ra_hasreg(r),2,2,4
+"0 && ""Unhandled eio response""",2,2,4
+ra_hasreg(r) && !ra_hasspill(ir->s),2,2,4
+IR(ir->op1)->o == IR_UREFC,2,2,4
+allow != RSET_EMPTY,2,2,4
+k != 0,2,2,4
+id == 0,2,2,4
+r != d,2,2,4
+s->size == CTSIZE_PTR,2,2,4
+"traceref(J, bc_d(*pc)) == T",2,2,4
+irt_isint(ir->t) || irt_isu32(ir->t) || irt_isaddr(ir->t),2,2,4
+irref_isk(ref),2,2,4
+ir->o == IR_STRREF,2,2,4
+ctype_hassize(ct->info),2,2,4
+sz == CTSIZE_PTR,2,2,4
+!ctype_isenum(sinfo),2,2,4
+lua_gettop(L) == before - nargs - 1,2,2,4
+target - p >= -128,2,2,4
+pc >= proto_bc(J->pt) && pc < proto_bc(J->pt) + J->pt->sizebc,2,2,4
+r == ARES_SUCCESS,2,2,4
+tref_isfunc(tr),2,2,4
+!tvisint(key),2,2,4
+J->baseslot > 1,2,2,4
+uv_default_loop()->ev == loop,2,2,4
+pos < 8*ctype_bitcsz(info),2,2,4
+!(ir->op2 & IRSLOAD_PARENT),2,2,4
+"0 && ""Unhandled c-ares error""",2,2,4
+server_handle == &server,2,2,4
+ctype_isinteger(ctt->info) && ctt->size <= 4,2,2,4
+startpc >= proto_bc(pt) && startpc < proto_bc(pt) + pt->sizebc,2,2,4
+len != 0,2,2,4
+cts->L,2,2,4
+e,1,1,2
+nslots < LJ_MAX_JSLOTS,1,1,2
+ref >= J->cur.nk && ref < J->cur.nins,1,1,2
+J->slot[fins->op1] != 0,1,1,2
+id == CTID_COMPLEX_DOUBLE,1,1,2
+ir->o == IR_CARG,1,1,2
+op == BC_ITERL,1,1,2
+nk <= REF_BIAS && nins >= REF_BIAS && nins < 65536,1,1,2
+freenode != &G(L)->nilnode,1,1,2
+fs->bl == NULL,1,1,2
+d->size == CTSIZE_PTR,1,1,2
+(int)BC_MULVV-(int)BC_ADDVV == (int)OPR_MUL-(int)OPR_ADD,1,1,2
+offset != 0,1,1,2
+GG_NUM_ASMFF == FF_NUM_ASMFUNC,1,1,2
+!(LJ_32 && irt_isint64(ir->t)),1,1,2
+st == IRT_NUM || st == IRT_FLOAT,1,1,2
+"(uintptr_t)name < VARNAME__MAX || lj_tab_getstr(fs->kt, name) != NULL",1,1,2
+(ir->o == IR_SLOAD && (ir->op2 & IRSLOAD_PARENT)) || (LJ_SOFTFP && ir->o == IR_HIOP),1,1,2
+ls->fs == NULL,1,1,2
+o->gch.gct == ~LJ_TFUNC || o->gch.gct == ~LJ_TTAB || o->gch.gct == ~LJ_TTHREAD || o->gch.gct == ~LJ_TPROTO,1,1,2
+checkptr32(p),1,1,2
+ra_iskref(ref) || (ref >= as->T->nk && ref < as->T->nins),1,1,2
+expr_isnumk(e),1,1,2
+ir->o <= IR_NE || ir->o == IR_MIN || ir->o == IR_MAX,1,1,2
+var->k == VINDEXED,1,1,2
+op == BC_CAT,1,1,2
+refb->o == IR_AREF,1,1,2
+irt_isnum(fleft->t),1,1,2
+((int)BC_ISEQS^1) == (int)BC_ISNES,1,1,2
+cp->p != NULL,1,1,2
+irt_is64(ir->t) || irt_isint(ir->t) || irt_isu32(ir->t) || irt_isaddr(ir->t),1,1,2
+op == BC_UNM || op == BC_LEN,1,1,2
+delta == (int32_t)delta,1,1,2
+(int)BC_CALLMT + 1 == (int)BC_CALLT,1,1,2
+LJ_DUALNUM || !irt_isint(t) || (ir->op2 & (IRSLOAD_CONVERT|IRSLOAD_FRAME)),1,1,2
+J->baseslot == 1 || (J->slot[J->baseslot-1] & TREF_FRAME),1,1,2
+!isblack(o) && !uv->closed && uvval(uv) != &uv->tv,1,1,2
+(int)BC_FUNCV + 1 == (int)BC_IFUNCV,1,1,2
+tref_iscdata(tr) && cd->typeid == CTID_CTYPEID,1,1,2
+J->base[ra] != 0,1,1,2
+"traceref(J, J->parent) != NULL && J->exitno < traceref(J, J->parent)->nsnap",1,1,2
+i < REF_BIAS,1,1,2
+((delta + 0x00800000) >> 24) == 0,1,1,2
+irt_is64(ir->t) || irt_isint(ir->t) || irt_isaddr(ir->t),1,1,2
+fn->c.gct == ~LJ_TFUNC || fn->c.gct == ~LJ_TTHREAD,1,1,2
+op < BC__MAX,1,1,2
+ra_noreg(ir->r),1,1,2
+tp == BCDUMP_KGC_CHILD,1,1,2
+ctx->objsize < sizeof(GDBJITobj),1,1,2
+((int)IR_LT^3) == (int)IR_GT,1,1,2
+((int)IR_EQ^1) == (int)IR_NE,1,1,2
+ir->o != IR_KSLOT,1,1,2
+J->baseslot >= 1,1,1,2
+ext != NULL,1,1,2
+ir->prev >= nk,1,1,2
+"task && ""When an ares socket is closed we should have a handle for it""",1,1,2
+ctype_isstruct(cinfo) || ctype_isenum(cinfo),1,1,2
+(mode & CRYPTO_LOCK) || (mode & CRYPTO_UNLOCK),1,1,2
+!iswhite(obj2gco(mainthread(g))),1,1,2
+cont == lj_cont_condf || cont == lj_cont_condt,1,1,2
+(int)BC_ITERL + 2 == (int)BC_JITERL,1,1,2
+"rset_test(as->freeset, r)",1,1,2
+(osz == 0) == (p == NULL),1,1,2
+irt_isaddr(ir->t) || (LJ_DUALNUM && irt_isinteger(ir->t)),1,1,2
+ctx->sb.n == 5,1,1,2
+mm == MM_le,1,1,2
+ls->lookahead == TK_eof,1,1,2
+!LJ_64 || t != IRT_LIGHTUD,1,1,2
+"offsetof(GChead, gclist) == offsetof(lua_State, gclist)",1,1,2
+((JIT_F_OPT_FOLD|JIT_F_OPT_FWD|JIT_F_OPT_CSE|JIT_F_OPT_DSE) | JIT_F_OPT_DEFAULT) == JIT_F_OPT_DEFAULT,1,1,2
+(int)BC_ISGE-(int)BC_ISLT == (int)OPR_GE-(int)OPR_LT,1,1,2
+sp >= nc->stack+2,1,1,2
+!tvisint(&n->key),1,1,2
+irt_istab(taba->t) && irt_istab(tabb->t),1,1,2
+!(irt_isfloat(ir->t) && irref_isk(ref)),1,1,2
+ir->o != IR_TNEW || irt_isnil(fins->t),1,1,2
+irt_isint(ir->t) && st == IRT_NUM,1,1,2
+(int)FF_next == FF_next_N,1,1,2
+(nsz == 0) == (p == NULL),1,1,2
+sp >= nc->stack+1,1,1,2
+((intptr_t)target & 15) == 0,1,1,2
+op1 == 0,1,1,2
+dt == IRT_I64 || dt == IRT_U64,1,1,2
+"isblack(o) && !isdead(g, o)",1,1,2
+ofs >= -4095 && ofs <= 4095,1,1,2
+((ir-1)->op2 & IRCONV_SRCMASK) == IRT_I64,1,1,2
+irt_isnil(ir->t),1,1,2
+ir->o == IR_FLOAD || ir->o == IR_FREF,1,1,2
+n == 2 || n == 4,1,1,2
+(int)BC_LOOP + 1 == (int)BC_ILOOP,1,1,2
+frame_isvarg(J->L->base-1),1,1,2
+!(sn & (SNAP_CONT|SNAP_FRAME)),1,1,2
+(int)BC_FUNCF + 2 == (int)BC_JFUNCF,1,1,2
+!tvisgcv(tv) || (~itype(tv) == gcval(tv)->gch.gct),1,1,2
+"isblack(o) && iswhite(v) && !isdead(g, v) && !isdead(g, o)",1,1,2
+irt_isinteger(ir->t) || irt_isnum(ir->t),1,1,2
+!p->closed && uvval(p) != &p->tv,1,1,2
+pc < pt->sizebc,1,1,2
+g->gc.total == sizeof(GG_State),1,1,2
+id > 0 && id < cts->top,1,1,2
+!ctype_isbool(dinfo) || dsize == 1,1,1,2
+ir->op2 == IRFL_CDATA_INT64,1,1,2
+ctype_hassize(info) || ctype_isfunc(info),1,1,2
+irt_isnum(irkey->t) || irt_isgcv(irkey->t),1,1,2
+(int)BC_DIVVV-(int)BC_ADDVV == (int)OPR_DIV-(int)OPR_ADD,1,1,2
+reg == fs->freereg,1,1,2
+J->cur.nsnapmap <= J->sizesnapmap,1,1,2
+lhandle->ref == LUA_NOREF,1,1,2
+bc_op(*pc) == BC_JFORI,1,1,2
+gcref(ct->name) == NULL,1,1,2
+(int)IR_HLOAD + IRDELTA_L2S == (int)IR_HSTORE,1,1,2
+bsz == 1,1,1,2
+ir->o == IR_HREF || ir->o == IR_NEWREF || ir->o == IR_UREFO || ir->o == IR_KKPTR,1,1,2
+tvisnum(tv) && tvisnan(tv),1,1,2
+tvisnumber(&tv[FORL_IDX]) && tvisnumber(&tv[FORL_STOP]) && tvisnumber(&tv[FORL_STEP]),1,1,2
+"isdead(g, o) || ow == LJ_GC_SFIXED",1,1,2
+!irt_ispri(t),1,1,2
+IR(strref)->o == IR_STRREF,1,1,2
+idx < pt->sizeuv,1,1,2
+irt_ispri(ir->t) || irt_isaddr(ir->t) || irt_isinteger(ir->t),1,1,2
+op == BC_FUNCF,1,1,2
+J->pt != NULL,1,1,2
+(int)BC_FUNCV + 2 == (int)BC_JFUNCV,1,1,2
+!irt_isnil(kt),1,1,2
+gcref(g->gc.root) == obj2gco(L),1,1,2
+op1 >= nk,1,1,2
+iswhite(obj2gco(L1)),1,1,2
+ref == DROPFOLD,1,1,2
+!(ir->op2 & IRSLOAD_CONVERT),1,1,2
+((int)BC_ISEQV^1) == (int)BC_ISNEV,1,1,2
+RB_EMPTY(&ares_tasks),1,1,2
+expr_isstrk(key),1,1,2
+ctype_hassize(d->info) && !ctype_isvoid(d->info),1,1,2
+ta != tb,1,1,2
+ctype_bitbsz(info) == 1,1,1,2
+tref_isnumber_str(tr[i]),1,1,2
+(pt->flags & PROTO_CHILD),1,1,2
+sz == 1,1,1,2
+tvispri(o),1,1,2
+ctype_ispointer(s->info) || ctype_isfield(s->info),1,1,2
+irt_isguard(ir->t) || !(ir->op2 & IRSLOAD_TYPECHECK),1,1,2
+dsize == ssize,1,1,2
+IR(ir->prev)->o == ir->o,1,1,2
+ls->fs->framesize >= ls->fs->freereg && ls->fs->freereg >= ls->fs->nactvar,1,1,2
+len > 0,1,1,2
+szins != 0,1,1,2
+e->k == VVOID || e->k == VJMP,1,1,2
+currIsNewline(ls),1,1,2
+next < last,1,1,2
+!ctype_isref(ct->info),1,1,2
+expr_isstrk(e) || e->k == VGLOBAL,1,1,2
+J->state == LJ_TRACE_IDLE,1,1,2
+o->gch.gct == ~LJ_TTAB,1,1,2
+(int)BC_FORL + 2 == (int)BC_JFORL,1,1,2
+checkptr32(o),1,1,2
+"!rset_test(as->freeset, down) && rset_test(as->freeset, up)",1,1,2
+ls->fs != NULL || ls->token == TK_eof,1,1,2
+"offsetof(GChead, env) == offsetof(GCfuncL, env)",1,1,2
+"offsetof(GChead, gclist) == offsetof(GCtrace, gclist)",1,1,2
+(int)BC_ISLE-(int)BC_ISLT == (int)OPR_LE-(int)OPR_LT,1,1,2
+rc == 1,1,1,2
+((int)BC_ISEQP^1) == (int)BC_ISNEP,1,1,2
+fn->l.nupvalues <= funcproto(fn)->sizeuv,1,1,2
+(int)BC_ISGT-(int)BC_ISLT == (int)OPR_GT-(int)OPR_LT,1,1,2
+(down < RID_MAX_GPR) == (up < RID_MAX_GPR),1,1,2
+(sizeof(GCtab) & 7) == 0,1,1,2
+((int)BC_ISLT^3) == (int)BC_ISGT,1,1,2
+iswhite(obj2gco(fn)),1,1,2
+pt->sizeuv == 0,1,1,2
+(int)BC_LOOP + 2 == (int)BC_JLOOP,1,1,2
+"iswhite(o) && !isdead(g, o)",1,1,2
+sz != 0,1,1,2
+argv[i][0] == '-',1,1,2
+lua_gettop(L) == before + 2,1,1,2
+st == IRT_INT || (LJ_32 && LJ_HASFFI && (st == IRT_U32 || st == IRT_FLOAT)),1,1,2
+J->baseslot > cbase+1,1,1,2
+p < pe,1,1,2
+as->snapno != 0,1,1,2
+((int)IR_LT^4) == (int)IR_ULT,1,1,2
+filename != NULL,1,1,2
+sp == nc->stack+1,1,1,2
+fn->c.gct == ~LJ_TFUNC,1,1,2
+(J->slot[s+1] & TREF_FRAME),1,1,2
+!tvisnil(&n->key),1,1,2
+(int)BC_RETM + 1 == (int)BC_RET,1,1,2
+i >= REF_BIAS ? ir->prev < i : ir->prev > i,1,1,2
+!ctype_isinteger(dinfo) || (1u<<lj_fls(dsize)) == dsize,1,1,2
+hasmm,1,1,2
+__COUNTER__,1,1,2
+!(LJ_32 && (irt_isint64(ir->t) || st64)),1,1,2
+op == BC_ISEQP,1,1,2
+"rset_test(as->freeset, r) || r == RID_TMP",1,1,2
+ctype_isfunc(ct->info) || ctype_isextern(ct->info),1,1,2
+J->exitstubgroup[exitno / EXITSTUBS_PER_GROUP] != NULL,1,1,2
+bc_op(*J->pc) == BC_FORL || bc_op(*J->pc) == BC_ITERL || bc_op(*J->pc) == BC_LOOP || bc_op(*J->pc) == BC_FUNCF,1,1,2
+((int)CT_STRUCT & (int)CT_ARRAY) == CT_STRUCT,1,1,2
+((ir-1)->op2 & IRCONV_TRUNC),1,1,2
+e1->t == NO_JMP,1,1,2
+i >= REF_BIAS ? op2 < i : op2 > i,1,1,2
+J->parent != 0 && J->cur.root != 0,1,1,2
+(MSize)fright->i < str->len,1,1,2
+!(nargs > 2 && (ci->flags&CCI_FASTCALL)),1,1,2
+g->strnum == 0,1,1,2
+bc_isret(bc_op(*J->pc)),1,1,2
+(uintptr_t)p < (uintptr_t)0x80000000,1,1,2
+fs->nactvar == nparams,1,1,2
+hbits != 0,1,1,2
+__LINE__,1,1,2
+!ctype_isenum(dinfo) && !ctype_isenum(sinfo),1,1,2
+!hasmm,1,1,2
+L != mainthread(g),1,1,2
+isgray(o),1,1,2
+(J2G(J)->hookmask & HOOK_GC) == 0,1,1,2
+(char *)cd - p < 65536,1,1,2
+checkptr32(tv),1,1,2
+irt_isgcv(ir->t),1,1,2
+hook_active(g),1,1,2
+(void *)(intptr_t)i32ptr(ptr) == ptr,1,1,2
+s == '[' || s == ']',1,1,2
+"!isdead(g, o) || (o->gch.marked & LJ_GC_FIXED)",1,1,2
+s > delta ? (J->slot[s-delta] & TREF_FRAME) : (s == delta),1,1,2
+"!tvisgcv(o) || ((~itype(o) == gcval(o)->gch.gct) && !isdead(G(L), gcval(o)))",1,1,2
+ls->p + ls->n == ls->sb.buf + ls->sb.n,1,1,2
+(int)BC_IST-(int)BC_ISTC == (int)BC_ISF-(int)BC_ISFC,1,1,2
+irb->op2 == IRFL_TAB_ARRAY,1,1,2
+!ctype_isattrib(dinfo) && !ctype_isattrib(sinfo),1,1,2
+(int)BC_FORL + 1 == (int)BC_IFORL,1,1,2
+irt_isguard(t) || !(ir->op2 & IRSLOAD_TYPECHECK),1,1,2
+!ctype_isbool(sinfo) || ssize == 1,1,1,2
+nargs <= 2,1,1,2
+delta >= 0,1,1,2
+(ctype_hassize(ct->info) ? ct->size : CTSIZE_PTR) == sz,1,1,2
+tok < CTOK_FIRSTDECL,1,1,2
+before + 1 == lua_gettop(L),1,1,2
+cp->depth == 0,1,1,2
+ctype_isfield(ct->info),1,1,2
+(pt->flags & PROTO_VARARG),1,1,2
+bc_op(pc[(ptrdiff_t)rc-BCBIAS_J]) == BC_JFORL,1,1,2
+bc_op(*fori) == BC_FORI || bc_op(*fori) == BC_JFORI,1,1,2
+dest != NO_JMP,1,1,2
+lj_char_isdigit(ls->current),1,1,2
+!tvismzero(&n->key),1,1,2
+(int)BC_CALLT-(int)BC_CALL == (int)BC_CALLMT-(int)BC_CALLM,1,1,2
+chunk != NULL,1,1,2
+T->root == 0 && pt != NULL,1,1,2
+!RB_EMPTY(&ares_tasks),1,1,2
+"offsetof(GChead, gclist) == offsetof(GCfuncL, gclist)",1,1,2
+(t->marked & LJ_GC_WEAK),1,1,2
+bc_op(pc[-1]) == BC_JMP,1,1,2
+t <= IRT_NUM,1,1,2
+"offsetof(GChead, gclist) == offsetof(GCtab, gclist)",1,1,2
+((int)BC_ISEQN^1) == (int)BC_ISNEN,1,1,2
+"offsetof(GChead, metatable) == offsetof(GCtab, metatable)",1,1,2
+*namebuf == '\0',1,1,2
+mc != NULL,1,1,2
+ls->current == BCDUMP_HEAD1,1,1,2
+((int)BC_ISLE^1) == (int)BC_ISGT,1,1,2
+lhandle->ref != LUA_NOREF,1,1,2
+!(ctype_isvoid(ct->info) || ctype_isstruct(ct->info) || ctype_isbitfield(ct->info)),1,1,2
+ctype_type(info) <= CT_MAYCONVERT,1,1,2
+ir->o == IR_AREF,1,1,2
+!ctype_isinteger(sinfo) || (1u<<lj_fls(ssize)) == ssize,1,1,2
+fins->o != IR_CONV || (fins->op2&IRCONV_CONVMASK) != IRCONV_TOBIT,1,1,2
+op2 == 0,1,1,2
+((int)BC_ISLT^1) == (int)BC_ISGE,1,1,2
+ctype_hassize(ct->info) || ctype_isfunc(ct->info) || ctype_isextern(ct->info),1,1,2
+tref_isk(key) && slot == (IRRef)(IRRef1)slot,1,1,2
+ct->size == CTSIZE_PTR,1,1,2
+ctype_isvlarray(ct->info),1,1,2
+J->baseslot >= 1 && J->baseslot < LJ_MAX_JSLOTS,1,1,2
+(refa->o==IR_HREF || refa->o==IR_HREFK || refa->o==IR_NEWREF) && (refb->o==IR_HREF || refb->o==IR_HREFK || refb->o==IR_NEWREF),1,1,2
+err == SSL_ERROR_SSL || err == SSL_ERROR_SYSCALL,1,1,2
+ctype_isfield(fct->info),1,1,2
+(int)BC_FUNCF + 1 == (int)BC_IFUNCF,1,1,2
+i >= REF_BIAS ? op1 < i : op1 > i,1,1,2
+irt_isint(J->scev.t),1,1,2
+"i == (ptrdiff_t)J->cur.traceno || traceref(J, i) == NULL",1,1,2
+(int)BC_ITERL + 1 == (int)BC_IITERL,1,1,2
+!bl->isbreakable || !bl->upval,1,1,2
+(int)IR_XLOAD + IRDELTA_L2S == (int)IR_XSTORE,1,1,2
+"rset_test(RSET_GPREVEN, r)",1,1,2
+cmd != NULL,1,1,2
+"!isdead(J2G(J), o)",1,1,2
+irt_ispri(ir->t) || irt_isaddr(ir->t) || (LJ_DUALNUM && irt_isinteger(ir->t)),1,1,2
+irt_isnum(ir->t) || irt_ispri(ir->t) || irt_isaddr(ir->t) || (LJ_DUALNUM && irt_isint(ir->t)),1,1,2
+"offsetof(GChead, env) == offsetof(GCudata, env)",1,1,2
+n <= CCI_NARGS_MAX,1,1,2
+!tvisnil(&key),1,1,2
+(iof->type & IOFILE_TYPE_MASK) == IOFILE_TYPE_STDF,1,1,2
+rv == SSL_ERROR_SSL || rv == SSL_ERROR_SYSCALL,1,1,2
+ix->idxchain != 0,1,1,2
+t->hmask != 0,1,1,2
+!(ir->op2 & IRXLOAD_UNALIGNED),1,1,2
+((int)CT_PTR & (int)CT_ARRAY) == CT_PTR,1,1,2
+!irt_isnil(ir->t),1,1,2
+(int)BC_SUBVV-(int)BC_ADDVV == (int)OPR_SUB-(int)OPR_ADD,1,1,2
+fs.prev == NULL,1,1,2
+require('luvit'),1,1,2
+e1->f == NO_JMP,1,1,2
+d->size == 4,1,1,2
+"ir_kptr(ir) == gcrefp(tv->gcr, void)",1,1,2
+fs->freereg == fs->nactvar,1,1,2
+"rset_test(as->freeset, gpr)",1,1,2
+((int)IR_LE^1) == (int)IR_GT,1,1,2
+bc_a(ilp->ins) == freg && bc_op(ilp->ins) == (narr > 256 ? BC_TSETV : BC_TSETB),1,1,2
+IR(ir->op1)->o != IR_CARG,1,1,2
+itype2irt(tv) == tref_type(tr),1,1,2
+irt_isstr(fins->t),1,1,2
+irt_type(ir->t) != st,1,1,2
+b != 0,1,1,2
+delta >= 0 && delta < 256,1,1,2
+lhandle->refCount >= 0,1,1,2
+(((uintptr_t)a + len) & (LJ_PAGESIZE-1)) <= LJ_PAGESIZE-4,1,1,2
+ctype_isvoid(info),1,1,2
+SNAP_FRAME == TREF_FRAME,1,1,2
+!irt_isint64(ir->t) && !(st == IRT_I64 || st == IRT_U64),1,1,2
+!(rcl[i] & CCALL_RCL_MEM),1,1,2
+tvisnil(&n->val),1,1,2
+frame <= tvref(L->maxstack) && (!nextframe || nextframe <= tvref(L->maxstack)),1,1,2
+T->root != 0,1,1,2
+op2 >= nk,1,1,2
+irt_isaddr(kt),1,1,2
+irt_isnum(t) || irt_isint(t) || irt_isaddr(t),1,1,2
+ir_kptr(fleft) == niltvg(J2G(J)),1,1,2
+lua_gettop(C) == beforeC - nargs - 1,1,1,2
+(int)BC_ISEQV+1 == (int)BC_ISNEV,1,1,2
+delta >= 0 && delta < 65536,1,1,2
+ctype_isfield(ctf->info),1,1,2
+expr_isnumk(e1) || e1->k == VNONRELOC,1,1,2
+J->cur.nk == J->irbotlim,1,1,2
+*psentinel == J->cur.snapmap[J->cur.snap[0].nent],1,1,2
+bc_op(pc[-1]) == BC_ITERC,1,1,2
+ra_noreg(irr->r),1,1,2
+"ctype_child(cts, cct)->size == 4",1,1,2
+tp <= BCDUMP_KTAB_TRUE,1,1,2
+irt_t(ir->t) == tref_t(tr),1,1,2
+!irt_isfp(ir->t) && !(st == IRT_NUM || st == IRT_FLOAT),1,1,2
+tvisnum(o),1,1,2
+cf != NULL,1,1,2
+g->gc.state == GCSfinalize || g->gc.state == GCSpause,1,1,2
+target < fs->pc,1,1,2
+ref != NULL,1,1,2
+tref_iscdata(ix->key),1,1,2
+(MSize)(tvref(L->maxstack)-oldst)==L->stacksize-LJ_STACK_EXTRA-1,1,1,2
+st == IRT_NUM && irt_isint(ir->t),1,1,2
+c,1,1,2
+"offsetof(GChead, gclist) == offsetof(GCproto, gclist)",1,1,2
+(int)IR_FLOAD + IRDELTA_L2S == (int)IR_FSTORE,1,1,2
+SNAP_CONT == TREF_CONT,1,1,2
+"e->k != VNONRELOC || ra < fs->nactvar || rc < ra || (bcreg_free(fs, rc),1)",1,1,2
+mm <= MM_FAST,1,1,2
+(mode & CRYPTO_READ) || (mode & CRYPTO_WRITE),1,1,2
+idx < 8,1,1,2
+traceno != G2J(g)->cur.traceno,1,1,2
+gcref(g->jit_L) == NULL,1,1,2
+"lj_obj_equal(tv, &tvk)",1,1,2
+rv == 1,1,1,2
+ra_hasspill(irp->s),1,1,2
+gcref(L->openupval) == NULL,1,1,2
+cstart != NULL,1,1,2
+!ctype_isnum(sinfo) || ssize > 0,1,1,2
+tvisnumber(expr_numtv(e)),1,1,2
+ir->o <= IR_NE,1,1,2
+f == (MSize)(1 + J->framedepth),1,1,2
+ctype_ispointer(d->info) || ctype_isfield(d->info),1,1,2
+"!rset_test(as->freeset, r)",1,1,2
+ofs >= -255 && ofs <= 255,1,1,2
+o,1,1,2
+!(ctype_isrefarray(ctr->info) || ctype_isstruct(ctr->info)),1,1,2
+ra_hasreg(irp->r),1,1,2
+op == OPR_NE || op == OPR_EQ || op == OPR_LT || op == OPR_GE || op == OPR_LE || op == OPR_GT,1,1,2
+itype2irt(tv) == irt_type(fins->t),1,1,2
+irt_isgcv(irkey->t),1,1,2
+irt_isinteger(t) || irt_isnum(t),1,1,2
+"e1->u.s.info == bc_b(*bcptr(fs, e2))-1",1,1,2
+!ctype_isnum(dinfo) || dsize > 0,1,1,2
+o->gch.gct != ~LJ_TTAB,1,1,2
+J->framedepth == depth,1,1,2
+bl.breaklist == NO_JMP,1,1,2
+(int)IR_ULOAD + IRDELTA_L2S == (int)IR_USTORE,1,1,2
+lua_gettop(L) == beforeL,1,1,2
+tt != LUA_TNIL || tvisnil(o),1,1,2
+bl->nactvar == fs->nactvar,1,1,2
+(int)BC_MODVV-(int)BC_ADDVV == (int)OPR_MOD-(int)OPR_ADD,1,1,2
+kt->asize == t->asize && kt->hmask == t->hmask,1,1,2
+"offsetof(GChead, metatable) == offsetof(GCudata, metatable)",1,1,2
+op == BC_ITERL || op == BC_LOOP || bc_isret(op),1,1,2
+fn == ir_kfunc(ir),1,1,2
+J->needsplit >= split_needsplit(J),1,1,2
+sk_SSL_COMP_num(comp_methods) == 0,1,1,2
+((int)IR_LT^1) == (int)IR_GE,1,1,2
+irt_isint(J->scev.t) && ir->o == IR_SLOAD,1,1,2
+e->k == VLOCAL || e->k == VUPVAL,1,1,2
+(int)IRT_GUARD == (int)IRM_W,1,1,2
+"offsetof(Node, val) == 0",1,1,2
+!frame_isc(frame),1,1,2
+J->base[dst+i] != 0,1,1,2
+freenode >= nodebase && freenode <= nodebase+t->hmask+1,1,1,2

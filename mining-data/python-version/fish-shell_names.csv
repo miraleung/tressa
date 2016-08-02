@@ -1,0 +1,11 @@
+x_val,y_added,y_removed,y_combined
+SLJIT_ASSERT,950,465,1415
+assert,80,73,153
+SLJIT_COMPILE_ASSERT,68,34,102
+compile_assert_matchingpath,8,4,12
+compile_simple_assertion_matchingpath,4,2,6
+find_firstassertedcu,4,2,6
+compile_assert_backtrackingpath,4,2,6
+PARSE_ASSERT,3,2,5
+assertion,2,1,3
+assert_needs_str_ptr_saving,2,1,3

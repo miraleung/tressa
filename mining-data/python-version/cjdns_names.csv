@@ -1,0 +1,14 @@
+x_val,y_added,y_removed,y_combined
+ASSERT,3000,431,3431
+assert,796,377,1173
+assertTrue,123,123,246
+Assert_assertTrue,18,18,36
+assertBits,18,18,36
+TestFramework_assertLastMessageUnaltered,16,14,30
+assertNoLoop,14,14,28
+assertEndian,14,14,28
+Node_ASSERT_MATCHES,4,4,8
+STATIC_ASSERT,5,0,5
+WinFail_assert,2,2,4
+assertEqual,2,1,3
+_assertNoLoop,1,1,2

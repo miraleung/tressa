@@ -1,0 +1,94 @@
+x_val,y_added,y_removed,y_combined
+!AtEnd(),36,18,54
+ CLocalizedStringArg<T>::kIsValid ,21,10,31
+ 0 ,20,10,30
+ CLocalizedStringArg<U>::kIsValid ,17,8,25
+ IsIdxValid(i) ,16,8,24
+ m_Size > 0 ,16,8,24
+ sizeof(func) == 4 ,12,9,21
+ sizeof(func) == 8 ,12,9,21
+ CLocalizedStringArg<V>::kIsValid ,13,6,19
+ VERTEX_MAX_TEXTURE_COORDINATES == 8 ,12,6,18
+ CLocalizedStringArg<W>::kIsValid ,9,4,13
+"statement, regex",8,4,12
+ N >= 3 ,8,4,12
+NodeType()==KDNODE_STATE_LEAF,8,4,12
+ sizeof(int)==4 ,8,4,12
+ i >= 0 && i < N ,8,4,12
+ptr_ != NULL,8,4,12
+ count >= 0 ,8,4,12
+ outputBuffer ,8,4,12
+ CLocalizedStringArg<Y>::kIsValid ,5,2,7
+ CLocalizedStringArg<X>::kIsValid ,5,2,7
+ sizeof( m_flModelScale ) == sizeof( int ) ,4,3,7
+ sizeof( RemoteStorageEnumerateUserSubscribedFilesResult_t ) == (1 + 1 + 1 + 50 + 100) * 4 ,4,2,6
+NodeType()!=KDNODE_STATE_LEAF,4,2,6
+ sizeof(CUtlMemoryPool) == 64 ,4,2,6
+ (I)M::INVALID_INDEX == (I)~0 ,4,2,6
+color,4,2,6
+ ( M::INVALID_INDEX == -1 ) || ( M::INVALID_INDEX == (S)M::INVALID_INDEX ) ,4,2,6
+"sizeof(int64) == sizeof(long long), sizeof_int64_is_not_sizeof_long_long",4,2,6
+ ( ndxBucket >= 0 ) && ( ndxBucket < 65536 ) ,4,2,6
+" !""Tried to invert a non-square matrix"" ",4,2,6
+ sizeof(Node_t) >= sizeof(TSLNodeBase_t) ,4,2,6
+"::testing::internal::IsHRESULTSuccess, (expr)",4,2,6
+ m_Size >= num ,4,2,6
+ !m_bRunning ,4,2,6
+ sizeof(T) == sizeof(long) ,4,2,6
+ sizeof( RemoteStorageEnumerateUserSubscribedFilesResult_t ) == (1 + 1 + 1 + 50 + 100) * 4 + 4 ,4,2,6
+" ALIGN_VALUE( sizeof( FreeBlock_t ), ALIGNMENT ) == sizeof( FreeBlock_t ) ",4,2,6
+"::testing::internal::IsHRESULTFailure, (expr)",4,2,6
+"::testing::internal::CmpHelperSTRNE, s1, s2",4,2,6
+ STUDIO_VERSION == 48 ,4,2,6
+ sizeof( FreeBlock_t ) >= BLOCK_SIZE ,4,2,6
+"::testing::internal::CmpHelperGE, val1, val2",4,2,6
+ sizeof(CNavArea *) == 4 ,4,2,6
+f == NULL || dynamic_cast<To>(f) != NULL,4,2,6
+"::testing::internal::CmpHelperNE, val1, val2",4,2,6
+i >= 0,4,2,6
+ sizeof( LockInfo_t ) == sizeof( int64 ) ,4,2,6
+&ptr != this,4,2,6
+ sizeof(ValvePackingSentinel_t) == 32 ,4,2,6
+ sizeof(IndexType_t) == sizeof(Node_t *) ,4,2,6
+ sizeof( dw ) == sizeof(uint64) ,4,2,6
+ ( ( sizeof(k_HashLengths) / sizeof(size_t) ) == k_EHashMax + 1 ) ,4,2,6
+ M == N ,4,2,6
+ ( ndxKeyData >= 0 ) && ( ndxKeyData < 65536 ) ,4,2,6
+"statement, ::testing::internal::ExitedUnsuccessfully, regex",4,2,6
+"::testing::internal::CmpHelperSTRCASEEQ, expected, actual",4,2,6
+"::testing::internal::CmpHelperLT, val1, val2",4,2,6
+ IsValidHandle( handle ) ,4,2,6
+ sizeof(CUtlMemoryPool) == 48 ,4,2,6
+ sizeof( lhs.m_pRenderTargets[0] ) == sizeof( uint32 ) ,4,2,6
+"sizeof(uint64) == sizeof(unsigned long long), sizeof_uint64_is_not_sizeof_long_long",4,2,6
+"::testing::internal::CmpHelperGT, val1, val2",4,2,6
+ sizeof(T) >= sizeof(int) ,4,2,6
+array_ != NULL,4,2,6
+"::testing::internal::CmpHelperSTRCASENE, s1, s2",4,2,6
+ data ,4,2,6
+ sizeof(ValvePackingSentinel_t) == 24 ,4,2,6
+ sizeof(T) % 4 == 0 ,4,2,6
+"::testing::internal::CmpHelperLE, val1, val2",4,2,6
+last,4,2,6
+ (nAlignment & (nAlignment-1)) == 0 ,4,2,6
+ sizeof( IndexStorage_t ) == sizeof( IndexStorageT ) ,4,2,6
+ sizeof(S) == 4 || ( ( (S)-1 ) > 0 ) ,4,2,6
+ sizeof(SoundFile) == 4 ,4,2,6
+"::testing::internal::CmpHelperSTREQ, expected, actual",4,2,6
+ ( sizeof(S) > 2 ) || ( ( (S)-1 ) > 0 ) ,4,2,6
+value == 1,4,2,6
+ sizeof(I) >= sizeof(S) ,4,2,6
+ ( sizeof(I) > 2 ) || ( ( (I)-1 ) > 0 ) ,4,2,6
+ sizeof(T) == sizeof(void *) ,4,2,6
+"::testing::internal:: \ EqHelper<GTEST_IS_NULL_LITERAL_(expected)>::Compare, \ expected, actual",2,2,4
+"::testing::internal::CmpHelperFloatingPointEQ<float>, \ expected, actual",2,2,4
+"::testing::internal::CmpHelperFloatingPointEQ<double>, \ expected, actual",2,2,4
+"::testing::internal::DoubleNearPredFormat, \ val1, val2, abs_error",2,2,4
+ sizeof(func) == ENTITYFUNCPTR_SIZE ,3,0,3
+"::testing::internal::DoubleNearPredFormat, val1, val2, abs_error",2,0,2
+"::testing::internal::CmpHelperFloatingPointEQ<float>, expected, actual",2,0,2
+"::testing::internal::CmpHelperFloatingPointEQ<double>, expected, actual",2,0,2
+"::testing::internal:: EqHelper<GTEST_IS_NULL_LITERAL_(expected)>::Compare, expected, actual",2,0,2
+s2_limit >= s2,2,0,2
+_p == NULL,1,0,1
+ CLocalizedStringArg<Z>::kIsValid ,1,0,1

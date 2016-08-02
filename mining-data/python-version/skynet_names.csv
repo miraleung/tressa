@@ -1,0 +1,4 @@
+x_val,y_added,y_removed,y_combined
+assert,354,252,606
+lua_assert,240,81,321
+lua_longassert,3,1,4

@@ -66,10 +66,6 @@ class Result():
     def csv(self, save):
         def write_csv(file):
             writer = Csv.writer(file, quoting=Csv.QUOTE_MINIMAL)
-            writer.writerow([self.description])
-            writer.writerow([self.y_label + " vs. " + self.x_label])
-            writer.writerow([])
-
             writer.writerow(DataPoint.keys())
             for dp in self.datapoints:
                 writer.writerow(dp.values())
@@ -137,6 +133,7 @@ class Result():
 
         if save:
             fig.savefig(save)
+            fig.clf()
         else:
             fig.show()
 

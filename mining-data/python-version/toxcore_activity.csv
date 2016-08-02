@@ -1,0 +1,605 @@
+x_val,y_added,y_removed,y_combined
+session,38,36,74
+_retu,29,29,58
+_session,21,21,42
+error == TOX_ERR_NEW_OK,20,12,32
+0,23,6,29
+_msg,11,11,22
+"toxav_call_control(AliceAV, 0, TOXAV_CALL_CONTROL_TOGGLE_MUTE_AUDIO, NULL)",12,8,20
+" 0, ""Failed to encode payload"" ",10,10,20
+dest,9,7,16
+call,10,5,15
+err == paNoError,8,6,14
+BobCC.state == TOXAV_CALL_STATE_END,7,6,13
+BobCC.state ^ TOXAV_CALL_STATE_RECEIVING_A,6,6,12
+_header_field,6,6,12
+ msg ,6,6,12
+BobCC.state & TOXAV_CALL_STATE_RECEIVING_A,6,6,12
+_retu->csrc,6,6,12
+"res > 0, ""Resolver failed: %u, %s (%x, %x)"", errno, strerror(errno)",7,4,11
+"ip.family == AF_INET6, ""Expected family AF_INET6, got %u."", ip.family",5,5,10
+rc == TOXAV_ERR_NEW_OK,6,4,10
+"error == TOX_ERR_GET_PORT_OK, ""wrong error""",10,0,10
+"tox_friend_add_norequest(m, public_key, NULL) != (uint32_t) ~0",6,3,9
+error == TOXAV_ERR_NEW_OK,6,3,9
+"toxav_call_control(AliceAV, 0, TOXAV_CALL_CONTROL_TOGGLE_MUTE_VIDEO, NULL)",4,4,8
+_retu->decrypt_nonce,4,4,8
+_session->_ext_header->_hd_ext,4,4,8
+_retu->nonce_cycle,4,4,8
+"!memcmp(&ip.ip6, &in6addr_loopback, sizeof(IP6)), ""Expected ::1, got %s."", ip_ntoa(&ip)",5,3,8
+" memcmp(video_storage->planes[VPX_PLANE_Y], sample_payload, 10) == 0 || memcmp(video_storage->planes[VPX_PLANE_U], sample_payload, 10) == 0 || memcmp(video_storage->planes[VPX_PLANE_V], sample_payload, 10) == 0 , ""Payload from Bob is invalid""",4,4,8
+"0, ""No answer!""",4,4,8
+header_value,4,4,8
+_retu->encrypt_nonce,4,4,8
+"sizeof(c) == sizeof(m) + ENCRYPTION_PADDING * sizeof(unsigned char), ""cyphertext should be ENCRYPTION_PADDING bytes longer than plaintext""",4,4,8
+"recved == 10 && memcmp(storage, sample_payload, 10) == 0, ""Payload from Alice is invalid""",4,3,7
+"used >= 1, ""Wrong number of added clients""",7,0,7
+BobCC.state ^ TOXAV_CALL_STATE_RECEIVING_V,3,3,6
+"toxav_call_control(AliceAV, 0, TOXAV_CALL_CONTROL_PAUSE, NULL)",4,2,6
+messenger,3,3,6
+"tox_friend_add(Bob, address, (uint8_t *)""gentoo"", 7, NULL) != (uint32_t) ~0",4,2,6
+ _call ,3,3,6
+"len == sizeof(test_packet), ""wrong len %u"", len",6,0,6
+_data,3,3,6
+"mlen == sizeof(m) / sizeof(unsigned char), ""wrong plaintext length""",4,2,6
+"0, ""AV internal error""",3,3,6
+sizeof(MSICSettings) == sizeof(ToxAvCSettings),4,2,6
+"clen == sizeof(c) / sizeof(unsigned char), ""wrong ciphertext length""",4,2,6
+_dest,3,3,6
+"toxav_call_control(AliceAV, 0, TOXAV_CALL_CONTROL_RESUME, NULL)",4,2,6
+ pthread_detach(_tid) == 0 ,3,3,6
+BobCC.state & TOXAV_CALL_STATE_RECEIVING_V,3,3,6
+BobCC.state & (TOXAV_CALL_STATE_SENDING_A | TOXAV_CALL_STATE_SENDING_V),3,3,6
+_retu->_csrc,3,3,6
+av->msi_session,3,3,6
+"memcmp(data, test_packet, sizeof(test_packet)) == 0, ""packet is wrong %u %u %u %u"", data[0], data[1], data[sizeof(test_packet) - 2], data[sizeof(test_packet) - 1]",6,0,6
+_retu->data,3,3,6
+_retu->_data,3,3,6
+"recved == 10 && memcmp(storage, sample_payload, 10) == 0, ""Payload from Bob is invalid""",3,3,6
+"extra.family == AF_INET, ""Expected family AF_INET, got %u."", extra.family",3,3,6
+"!toxav_call_control(AliceAV, 0, TOXAV_CALL_CONTROL_PAUSE, NULL)",3,2,5
+BobCC.state == TOXAV_CALL_STATE_FINISHED,2,3,5
+"!toxav_call_control(AliceAV, 0, TOXAV_CALL_CONTROL_RESUME, NULL)",3,2,5
+"!toxav_call_control(AliceAV, 0, TOXAV_CALL_CONTROL_TOGGLE_MUTE_AUDIO, NULL)",3,2,5
+BobCC.state == TOXAV_CALL_STATE_PAUSED,3,2,5
+BobCC.state == TOXAV_FRIEND_CALL_STATE_FINISHED,5,0,5
+"ipport_equal(&test_ipp, ipv6 ? &list[test].assoc6.ip_port : &list[test].assoc4.ip_port), ""Client IP_Port is incorrect""",3,2,5
+"extra.ip4.uint32 == htonl(0x7F000001), ""Expected 127.0.0.1, got %s."", inet_ntoa(extra.ip4.in_addr)",3,2,5
+"test == 0, ""Failed to add friend error code: %i"", test",3,2,5
+"tox_get_udp_port(toxes[0], &error) == 33445, ""First Tox instance did not bind to udp port 33445.\n""",2,2,4
+ str ,2,2,4
+"count == 1, ""Bad get_close_nodes""",2,2,4
+"!toxav_call_control(AliceAV, 0, TOXAV_CALL_CONTROL_TOGGLE_MUTE_VIDEO, NULL)",2,2,4
+BobCC.state ^ TOXAV_FRIEND_CALL_STATE_RECEIVING_A,2,2,4
+_retu->table,2,2,4
+"callees[i] != NULL, ""Failed to create 3 tox instances""",2,2,4
+ header_field ,2,2,4
+"(rc > 0 && rc <= MAX_STATUSMESSAGE_LENGTH), ""m_get_statusmessage_size is returning out of range values!\n"" ""(this can be caused by the error of m_addfriend_norequest"" "" in the beginning of the suite)\n""",2,2,4
+"tox_self_get_udp_port(toxes[0], &error) == 33445, ""First Tox instance did not bind to udp port 33445.\n""",4,0,4
+"bootstrap_node != NULL, ""Failed to create bootstrap node""",2,2,4
+"memcmp(tc_1->self_public_key, self_public_key, crypto_box_PUBLICKEYBYTES) == 0, ""Wrong public key""",2,2,4
+ session->call ,2,2,4
+" memcmp(video_storage->planes[VPX_PLANE_Y], sample_payload, 10) == 0 || memcmp(video_storage->planes[VPX_PLANE_U], sample_payload, 10) == 0 || memcmp(video_storage->planes[VPX_PLANE_V], sample_payload, 10) == 0 , ""Payload from Alice is invalid""",2,2,4
+"toxes[i] != 0, ""Failed to create tox instances %u"", i",4,0,4
+"memcmp(tcp_s->public_key, self_public_key, crypto_box_PUBLICKEYBYTES) == 0, ""Wrong public key""",2,2,4
+"(!STRINGS_EQUAL(nickname, nick_check)), ""getself_name failed to return the known name!\n"" ""known name: %s\nreturned: %s\n"", nickname, nick_check",2,2,4
+*_event_container,2,2,4
+"client_in_list(list, length, client_id) >= 0, ""Client id is not in the list""",2,2,4
+"sz == 44, ""sz isn't right""",2,2,4
+"toxav_call_control(AliceAV, 0, TOXAV_CALL_CONTROL_MUTE_AUDIO, NULL)",2,2,4
+BobCC.state & TOXAV_FRIEND_CALL_STATE_RECEIVING_A,2,2,4
+"memcmp(tc_2->self_public_key, self_public_key, crypto_box_PUBLICKEYBYTES) == 0, ""Wrong public key""",2,2,4
+"conn->status == TCP_CLIENT_CONFIRMED, ""Wrong status. Expected: %u, is: %u"", TCP_CLIENT_CONFIRMED, conn->status",4,0,4
+BobCC.state == TOXAV_CALL_STATE_SENDING_AV,2,2,4
+"tox_get_udp_port(tox1, &error) == 33445, ""First Tox instance did not bind to udp port 33445.\n""",2,2,4
+ _call->type_peer ,2,2,4
+"IN6_IS_ADDR_V4MAPPED(&ip2.ip6) != 0, ""IN6_IS_ADDR_V4MAPPED(::ffff:127.0.0.1): expected != 0, got 0.""",2,2,4
+"toxav_call_control(AliceAV, 0, TOXAV_CALL_CONTROL_UNMUTE_AUDIO, NULL)",2,2,4
+_session->_ext_header,2,2,4
+" test == i, ""Failed to add friend error code: %i"", test",2,2,4
+ peers ,2,2,4
+"err_s == TOX_ERR_FILE_SEEK_OK, ""tox_file_send_seek wrong error""",2,2,4
+_ext_header->_hd_ext,2,2,4
+"(m_friendstatus(m, -1) == NOFRIEND), ""m_friendstatus did NOT catch an argument of -1.\n""",2,2,4
+ data ,2,2,4
+"(m_friendstatus(m, REALLY_BIG_NUMBER) == NOFRIEND), ""m_friendstatus did NOT catch an argument of %d.\n"", REALLY_BIG_NUMBER",2,2,4
+"!tox_file_get_file_id(tox2, 1, fnum, file_cmp_id, &gfierr), ""tox_file_get_file_id didn't fail""",3,0,3
+"ip.ip4.uint32 == htonl(0x7F000001), ""Expected 127.0.0.1, got %s."", inet_ntoa(ip.ip4.in_addr)",2,1,3
+"(m_get_statusmessage_size(m, REALLY_BIG_NUMBER) == -1), ""m_get_statusmessage_size did NOT catch the following argument: %d\n"", REALLY_BIG_NUMBER",2,1,3
+"id_closest(comp_client_id, test_id3, test_id2) == 1, ""Id has been removed but is closer to than another one""",2,1,3
+"memcmp(c1, c2, c1len) == 0 && memcmp(c1, c3, c1len) == 0 && memcmp(c1, c4, c1len) == 0, ""crypertexts differ""",2,1,3
+"(m_delfriend(m, REALLY_BIG_NUMBER) == -1), ""m_delfriend did NOT catch the following number: %d\n"", REALLY_BIG_NUMBER",2,1,3
+"num_peers == NUM_GROUP_TOX, ""Bad number of group peers. expected: %u got: %i, tox %u"", NUM_GROUP_TOX, num_peers, i",2,1,3
+m,3,0,3
+"tox_file_get_file_id(tox2, 0, fnum, file_cmp_id, &gfierr), ""tox_file_get_file_id failed""",3,0,3
+"res == 0, ""ip_equal( {AF_INET, 127.0.0.1}, {AF_UNSPEC, 0} ): expected result 0, got %u."", res",2,1,3
+"IN6_IS_ADDR_V4MAPPED(&ip2.ip6.in6_addr) != 0, ""IN6_IS_ADDR_V4MAPPED(::ffff:127.0.0.1): expected != 0, got 0.""",2,1,3
+"t_n_error == TOX_ERR_NEW_OK, ""wrong error""",3,0,3
+"gfierr == TOX_ERR_FILE_GET_NOT_FOUND, ""wrong error""",3,0,3
+"res != 0, ""ip_equal( {AF_INET, 127.0.0.1}, {AF_INET, 127.0.0.1} ): expected result != 0, got 0.""",2,1,3
+"(setname(m, (uint8_t *)good_name, bad_length) == -1), ""setname() did NOT error on %d as a length argument!\n"", bad_length",2,1,3
+"c1len == sizeof(m1) + ENCRYPTION_PADDING, ""could not encrypt max size""",2,1,3
+"tox_friend_add(Bobs[1], address, (uint8_t *)""gentoo"", 7, NULL) != (uint32_t) ~0",2,1,3
+"res != 0, ""ip_equal( {AF_INET, 127.0.0.1}, {AF_INET6, ::ffff:127.0.0.1} ): expected result != 0, got 0.""",2,1,3
+"id_closest(comp_client_id, test_id2, test_id1) == 1, ""Id has been removed but is closer to than another one""",2,1,3
+"ipport_equal(&test_ipp, ipv6 ? &list[test1].assoc6.ip_port : &list[test1].assoc4.ip_port), ""Client IP_Port is incorrect""",2,1,3
+"good == 8, ""Entries found were not the closest ones. Only %u/8 were."", good",2,1,3
+"(m_get_statusmessage_size(m, -1) == -1), ""m_get_statusmessage_size did NOT catch an argument of -1""",2,1,3
+"res != 0, ""ip_equal( {AF_INET6, ::1}, {AF_INET6, ::1} ): expected result != 0, got 0.""",2,1,3
+"tcp_s->num_listening_socks == NUM_PORTS, ""Failed to bind to all ports""",3,0,3
+_arg,1,2,3
+"res == 0, ""ip_equal( {AF_INET, 127.0.0.1}, {AF_INET6, ::1} ): expected result 0, got %u."", res",2,1,3
+"memcmp(m1, m2, mlen) == 0 && memcmp(m1, m3, mlen) == 0 && memcmp(m1, m4, mlen) == 0, ""decrypted texts differ""",2,1,3
+"ipport_equal(&test_ipp, ipv6 ? &list[test2].assoc6.ip_port : &list[test2].assoc4.ip_port), ""Client IP_Port is incorrect""",2,1,3
+"res == 0, ""ip_equal(NULL, PTR): expected result 0, got %u."", res",2,1,3
+"(m_set_statusmessage(m, (uint8_t *)status, good_length) == 0), ""m_set_userstatus did NOT return 0 on the following length: %d\n"" ""MAX_STATUSMESSAGE_LENGTH: %d\n"", good_length, MAX_STATUSMESSAGE_LENGTH",2,1,3
+"client_in_list(list, length, test_id) == test, ""Client id is not in the list""",2,1,3
+"tox_friend_add(Bobs[2], address, (uint8_t *)""gentoo"", 7, NULL) != (uint32_t) ~0",2,1,3
+"(m_set_statusmessage(m, (uint8_t *)status, bad_length) == -1), ""m_set_userstatus did NOT catch the following length: %d\n"", REALLY_BIG_NUMBER",2,1,3
+"res == 0, ""ip_equal( {AF_INET, 127.0.0.1}, {AF_INET, 127.0.0.2} ): expected result 0, got %u."", res",2,1,3
+"res == 0, ""ip_equal(NULL, NULL): expected result 0, got %u."", res",2,1,3
+"gfierr == TOX_ERR_FILE_GET_OK, ""wrong error""",3,0,3
+"id_closest(comp_client_id, test_id1, test_id2) == 1, ""Id has been removed but is closer to than another one""",2,1,3
+"tox_friend_add(Bobs[0], address, (uint8_t *)""gentoo"", 7, NULL) != (uint32_t) ~0",2,1,3
+"ip.family == AF_INET, ""Expected family AF_INET, got %u."", ip.family",2,1,3
+"!tox_file_get_file_id(tox2, 0, fnum + 1, file_cmp_id, &gfierr), ""tox_file_get_file_id didn't fail""",3,0,3
+ _phone ,1,2,3
+"res == 0, ""ip_equal(PTR, NULL): expected result 0, got %u."", res",2,1,3
+"res == 0, ""ip_equal( {AF_INET6, ::1}, {AF_INET6, ::2} ): expected result 0, got %res."", res",2,1,3
+"(setname(m, (uint8_t *)good_name, good_length) == 0), ""setname() did NOT return 0 on good arguments!\n""",2,1,3
+"c1len == sizeof(m1) + ENCRYPTION_PADDING, ""Could not encrypt max size""",1,2,3
+"memcmp(out, known_key, crypto_box_BEFORENMBYTES) == 0, ""derived key is wrong""",2,1,3
+"id_closest(comp_client_id, test_id2, test_id3) == 1, ""Id has been removed but is closer to than another one""",2,1,3
+"connection == 0, ""Connection id wrong""",3,0,3
+"id_closest(comp_client_id, test_id3, test_id1) == 1, ""Id has been removed but is closer to than another one""",2,1,3
+"ipport_equal(&test_ipp, ipv6 ? &list[found].assoc6.ip_port : &list[found].assoc4.ip_port), ""Client IP_Port is incorrect""",2,1,3
+"(m_delfriend(m, -1) == -1), ""m_delfriend did NOT catch an argument of -1\n""",2,1,3
+lst->next != lst && lst->prev != lst,2,1,3
+"fnum != UINT32_MAX, ""tox_new_file_sender fail""",3,0,3
+"id_closest(comp_client_id, test_id1, test_id3) == 1, ""Id has been removed but is closer to than another one""",2,1,3
+"num != UINT32_MAX && test == TOX_ERR_FRIEND_ADD_OK, ""Failed to add friend error code: %i"", test",3,0,3
+"ret == 0, ""DHT_addfriend() did not return 0""",2,1,3
+"gfierr == TOX_ERR_FILE_GET_FRIEND_NOT_FOUND, ""wrong error""",3,0,3
+"tcp_s != NULL, ""Failed to create TCP relay server""",3,0,3
+"m_sendmessage(-1, (uint8_t *)message, good_len) == 0",1,1,2
+"res == 0, msg",2,0,2
+"m_sendmessage(m, -1, (uint8_t *)message, good_len) == 0",1,1,2
+"ret == TCP_CLIENT_HANDSHAKE_SIZE - (crypto_box_PUBLICKEYBYTES + crypto_box_NONCEBYTES), ""Encrypt failed.""",2,0,2
+"client_in_list(list, length, client_id) >= 0, ""Good client id is not in the list""",1,1,2
+_rc == 0,1,1,2
+"tox_group_number_peers(toxes[i], 0) == NUM_GROUP_TOX, ""Bad number of group peers.""",1,1,2
+"dht1 && dht2, ""Failed to create DHTs""",1,1,2
+"ret == 1, ""tox_send_lossy_packet fail %i"", ret",1,1,2
+"memcmp(test_c, c, sizeof(c)) == 0, ""cyphertext doesn't match test vector""",2,0,2
+"ret == 0, ""tox_send_lossy_packet bigger fail %i"", ret",1,1,2
+"c1len == mlen + (int)ENCRYPTION_PADDING, ""wrong cyphertext length""",1,1,2
+_retu->_initial_time,1,1,2
+"m_sendmessage(m, friend_id_num, (uint8_t *)message, bad_len) == 0",1,1,2
+BobCC.state & TOXAV_CALL_STATE_SENDING_V,1,1,2
+"messenger_load_encrypted(m_temp, buffer, size, ""Ubuntu"", sizeof(""Ubuntu"")) == -1, ""Bad password didn't make the function fail.""",1,1,2
+"buffer[extra + size + i] == 0xCD, ""Buffer overwritten from Messenger_save() @%u"", i",1,1,2
+"m_sendmessage(m, -1, (uint8_t *)message, good_len, 0) == -1",1,1,2
+"kill_tcp_connection_to(tc_1, 0) == 0, ""could not kill connection to\n""",2,0,2
+"tox_add_friend(tox1, address, message, TOX_MAX_FRIENDREQUEST_LENGTH) == TOX_FAERR_ALREADYSENT, ""Adding friend twice worked.""",1,1,2
+_source,1,1,2
+"sz2 == 44, ""sz2 isn't right""",1,1,2
+_current->_message,1,1,2
+"!(test1 == test2 || test1 == test3 || test2 == test3), ""Wrong test indices are chosen""",2,0,2
+"(rc > 0 && rc <= MAX_USERSTATUS_LENGTH), ""m_get_userstatus_size is returning out of range values!\n"" ""(this can be caused by the error of m_addfriend_norequest"" "" in the beginning of the suite)\n""",1,1,2
+ user_agent ,1,1,2
+_list,1,1,2
+"public_key_cmp(tcp_s->public_key, self_public_key) == 0, ""Wrong public key""",2,0,2
+"sizeof(IP) == 20, ""sizeof(IP): expected result 20, got %u."", sizeof(IP)",1,1,2
+"test == 0, ""failed to encrypted load the second""",1,1,2
+"toxav_audio_bit_rate_set(AliceAV, 0, 0, false, NULL)",1,1,2
+"toxav_set_audio_bit_rate(AliceAV, 0, 64, false, NULL)",1,1,2
+"id_equal(test_id2, list[test2].client_id), ""Wrong bad client removed""",1,1,2
+"0 == memcmp(key, key2, tox_pass_key_length()), ""salt comparison failed""",1,1,2
+_header_value,1,1,2
+_storage,1,1,2
+"(rc > 0 && rc <= MAX_USERSTATUS_LENGTH), ""m_get_userstatus_size is returning out of range values!\n""",1,1,2
+"id_equal(test_id3, list[test3].client_id), ""Wrong bad client removed""",1,1,2
+"c2len == -1, ""incorrectly succeeded encrypting massive size""",1,1,2
+"ret == 0, ""Failed to connect to TCP relay server""",2,0,2
+"buffer[i] == 0xCD, ""Buffer underwritten from Messenger_save() @%u"", i",1,1,2
+"tox_get_self_name_size(tox2) == sizeof name, ""Wrong name size.""",1,1,2
+"(m_delfriend(REALLY_BIG_NUMBER) == -1), ""m_delfriend did NOT catch the following number: %d\n"", REALLY_BIG_NUMBER",1,1,2
+!(BobCC.state & TOXAV_CALL_STATE_SENDING_A),1,1,2
+(*_container) != NULL,1,1,2
+"messenger_load_encrypted(m_temp, buffer, size, ""Gentoo"", sizeof(""Gentoo"")) == 0, ""Good password didn't make the function succeed.""",1,1,2
+"0 == memcmp(key, key2, TOX_PASS_KEY_LENGTH), ""salt comparison failed""",1,1,2
+"count == 2, ""Keys not in second close list, %u, %X %X"", i, cmp_list1[i][0], dht2->self_public_key[0]",1,1,2
+"toxav_video_bit_rate_set(AliceAV, 0, 1000, false, NULL)",1,1,2
+"data[1] == 16, ""connection not refused %u"", data[1]",2,0,2
+name_buf[MAX_NAME_LENGTH] == '\0',1,1,2
+"m_sendmessage(m, 17, (uint8_t *)message, good_len) == 0",1,1,2
+"tox_add_friend(tox1, address, message, TOX_MAX_FRIENDREQUEST_LENGTH) == 0, ""Failed to add friend.""",1,1,2
+"sizeof(c) == sizeof(m) + crypto_box_MACBYTES * sizeof(unsigned char), ""cyphertext should be crypto_box_MACBYTES bytes longer than plaintext""",2,0,2
+"tox_group_number_peers(toxes[i], 0) == (NUM_GROUP_TOX - 1), ""Bad number of group peers.""",1,1,2
+"ret == 0, ""tox_send_lossless_packet fail %i"", ret",1,1,2
+"sizeof(test_c) == sizeof(c), ""sanity check failed""",2,0,2
+"(m_get_userstatus_size(REALLY_BIG_NUMBER) == -1), ""m_get_userstatus_size did NOT catch the following argument: %d\n"", REALLY_BIG_NUMBER",1,1,2
+"count == 1, ""Keys not in first close list, %u, %X %X"", i, cmp_list1[i][0], dht1->self_public_key[0]",1,1,2
+"memcmp(packet_resp_plain + 2, f_public_key, crypto_box_PUBLICKEYBYTES) == 0, ""key in packet wrong""",1,1,2
+"sizeof(IP) == 17, ""sizeof(IP): expected result 17, got %u."", sizeof(IP)",1,1,2
+"add_tcp_relay_connection(tc_1, connection, ip_port_tcp_s, tcp_s->public_key) == 0, ""Could not add tcp relay to connection\n""",2,0,2
+"status_control.Alice.av || status_control.Bob.av, ""Failed to create 2 toxav instances""",1,1,2
+"status_callback_good == 1, ""status callback not called""",2,0,2
+"tox_send_message(tox2, 0, msgs, TOX_MAX_MESSAGE_LENGTH + 1) == 0, ""TOX_MAX_MESSAGE_LENGTH is too small\n""",1,1,2
+"tcp_data_callback_called, ""could not recv packet.""",2,0,2
+av->acb.first || av->vcb.first,1,1,2
+"id_equal(client_id, list[test1].client_id), ""Wrong bad client removed""",1,1,2
+BobCC.state & TOXAV_FRIEND_CALL_STATE_RECEIVING_V,1,1,2
+"memcmp(data, test_packet, sizeof(test_packet)) == 0, ""packet is wrong""",1,1,2
+"get_close_nodes(dht1, cmp_new, n_list, 0, 1, 0) == MAX_SENT_NODES, ""Wrong number of nodes returned""",1,1,2
+"test == 1, ""no friends! the second""",1,1,2
+"memcmp(address, address2, TOX_PUBLIC_KEY_SIZE) == 0, ""addresses don't match! the second""",1,1,2
+"bootstrap_node || Alice || Bob, ""Failed to create 3 tox instances""",1,1,2
+"err_s == TOX_ERR_FILE_SEEK_DENIED, ""tox_file_send_seek wrong error""",1,1,2
+"tox_get_is_typing(tox2, 0) == 1, ""Typing fail""",1,1,2
+"conn->status == TCP_CLIENT_CONNECTING, ""Wrong status. Expected: %u, is: %u"", TCP_CLIENT_CONNECTING, conn->status",2,0,2
+"sizeof(IP_Port) == 24, ""sizeof(IP_Port): expected result 24, got %u."", sizeof(IP_Port)",1,1,2
+"tox_bootstrap(toxes[i], ""::1"", 33445, dpk, 0), ""Bootstrap error""",2,0,2
+BobCC.state == TOXAV_CALL_STATE_SENDING_V,1,1,2
+"memcmp(address, address2, TOX_CLIENT_ID_SIZE) == 0, ""addresses don't match! the second""",1,1,2
+_msgvar,1,1,2
+"used == dht->num_friends + 1, ""Wrong number of added clients with existing client_id""",1,1,2
+"tox_add_friend(tox1, address, (uint8_t *)""m"", 1) == TOX_FAERR_OWNKEY, ""Adding own address worked.""",1,1,2
+"test == 0, ""failed to encrypted load the third""",1,1,2
+"memcmp(response_callback_public_key, f2_public_key, crypto_box_PUBLICKEYBYTES) == 0, ""wrong public key""",1,1,2
+"ret == 0, ""tox_send_lossy_packet fail %i"", ret",1,1,2
+"0 == tox_get_salt(encrypted, salt), ""couldn't get salt""",1,1,2
+"tox_get_is_typing(tox2, 0) == 0, ""Typing fail""",1,1,2
+ length != -1,1,1,2
+"test == 0, ""failed to encrypted save""",1,1,2
+"tox_is_save_encrypted(data2) == 1, ""magic number the second missing""",1,1,2
+"memcmp(address, address2, TOX_CLIENT_ID_SIZE) == 0, ""addresses don't match!""",1,1,2
+_var,1,1,2
+replace >= 0 && replace < length,1,1,2
+"err == TOX_ERR_ENCRYPTED_NEW_OK, ""failed to encrypted new""",1,1,2
+"!toxav_call_control(AliceAV, 0, TOXAV_CALL_CONTROL_MUTE_AUDIO, NULL)",1,1,2
+"errm == TOX_ERR_SEND_MESSAGE_TOO_LONG, ""TOX_MAX_MESSAGE_LENGTH is too small\n""",1,1,2
+"count == 1, ""Count not 1""",1,1,2
+BobCC.state == TOXAV_CALL_STATE_SENDING_A,1,1,2
+retu,1,1,2
+"public_key_cmp(tc_1->self_public_key, self_public_key) == 0, ""Wrong public key""",2,0,2
+"toxav_call_control(AliceAV, 0, TOXAV_CALL_CONTROL_TOGGLE_HIDE_VIDEO, NULL)",2,0,2
+"count == 1, ""Nodes in search don't know ip of friend. %u %u %u"", i, j, count",2,0,2
+"err == TOX_ERR_NEW_OK, ""failed to encrypted new""",1,1,2
+"assoc != NULL, ""failed to create default assoc""",2,0,2
+BobCC.state == TOXAV_CALL_CONTROL_MUTE_AUDIO,1,1,2
+"public_key_cmp(tc_2->self_public_key, self_public_key) == 0, ""Wrong public key""",2,0,2
+"c1len == sizeof(m1) + crypto_box_MACBYTES, ""could not encrypt max size""",1,1,2
+"tox_get_self_name_size(tox1) == sizeof(name), ""Can't set name of TOX_MAX_NAME_LENGTH""",1,1,2
+"test == 1, ""no friends! the third""",1,1,2
+"err == TOX_ERR_NEW_OK, ""failed to encrypted new the third""",1,1,2
+"toxav_call_control(AliceAV, 0, TOXAV_CALL_CONTROL_MUTE_VIDEO, NULL)",1,1,2
+"test == 0, ""no friends! the third""",1,1,2
+"tox_self_get_tcp_port(toxes[0], &error) == TCP_RELAY_PORT, ""First Tox instance did not bind to tcp port %u.\n"", TCP_RELAY_PORT",2,0,2
+"sizeof(IP_Port) == 19, ""sizeof(IP_Port): expected result 19, got %u."", sizeof(IP_Port)",1,1,2
+"(m_delfriend(-1) == -1), ""m_delfriend did NOT catch an argument of -1\n""",1,1,2
+"tox_add_friend(tox1, address, (uint8_t *)""m"", 1) == TOX_FAERR_BADCHECKSUM, ""Adding address with bad checksum worked.""",1,1,2
+"ret, ""generic failure 5: %u"", &decerr",1,1,2
+"test >= 0, ""Failed to add friend error code: %i"", test",1,1,2
+"test == 0, ""failed to encrypted save the second""",1,1,2
+"m_sendmessage(17, (uint8_t *)message, good_len) == 0",1,1,2
+"test == 0, ""failed to encrypted load""",1,1,2
+"memcmp(data + 2, con1->public_key, crypto_box_PUBLICKEYBYTES) == 0, ""key in packet wrong""",1,1,2
+_retu->_hd_ext,1,1,2
+"!toxav_call_control(AliceAV, 0, TOXAV_CALL_CONTROL_UNMUTE_AUDIO, NULL)",1,1,2
+_peers,1,1,2
+"sizeof(IP4) == 4, ""sizeof(IP4): expected result 4, got %u."", sizeof(IP4)",1,1,2
+(*container ) != NULL,1,1,2
+"tox_add_friend(toxes[i], address, (uint8_t *)""Gentoo"", 7) == 0, ""Failed to add friend""",1,1,2
+"(m_get_userstatus_size(-1) == -1), ""m_get_userstatus_size did NOT catch an argument of -1""",1,1,2
+"ret == 0, ""tox_lossy_packet_registerhandler fail %i"", ret",1,1,2
+"memcmp(data + 2, con3->public_key, crypto_box_PUBLICKEYBYTES) == 0, ""key in packet wrong""",1,1,2
+"(m_friendstatus(REALLY_BIG_NUMBER) == NOFRIEND), ""m_friendstatus did NOT catch an argument of %d.\n"", REALLY_BIG_NUMBER",1,1,2
+"count == 1, ""Bad distance formula""",1,1,2
+"data[0] == 2, ""wrong packet id %u"", data[0]",2,0,2
+"tox_is_data_encrypted(data) == 1, ""magic number missing""",1,1,2
+"sz == sz2, ""an encryption failed""",1,1,2
+"len == 1 + 1 + crypto_box_PUBLICKEYBYTES, ""wrong len %u"", len",2,0,2
+"res == 0, ""Failed to load back stored buffer: res == -1""",2,0,2
+_field,1,1,2
+"m_sendmessage(m, REALLY_BIG_NUMBER, (uint8_t *)message, good_len, 0) == -1",1,1,2
+"c1len == mlen + ENCRYPTION_PADDING, ""wrong cyphertext length""",1,1,2
+"ret == 0, ""could not send packet.""",2,0,2
+"tox_group_message_send(toxes[rand() % NUM_GROUP_TOX], 0, ""Install Gentoo"", sizeof(""Install Gentoo"") - 1) == 0, ""Failed to send group message.""",1,1,2
+"sizeof(IP6) == 16, ""sizeof(IP6): expected result 16, got %u."", sizeof(IP6)",1,1,2
+"ret == 1, ""tox_send_lossless_packet fail %i"", ret",1,1,2
+"m_sendmessage(REALLY_BIG_NUMBER, (uint8_t *)message, good_len) == 0",1,1,2
+"client_in_list(list, length, public_key) >= 0, ""Client id is not in the list""",2,0,2
+"memcmp(out, key, crypto_box_BEFORENMBYTES) == 0, ""derived key is wrong""",1,1,2
+"tox_self_get_udp_port(tox1, &error) == 33445, ""First Tox instance did not bind to udp port 33445.\n""",2,0,2
+"send(sock, handshake + (TCP_CLIENT_HANDSHAKE_SIZE - 1), 1, 0) == 1, ""send Failed.""",2,0,2
+"client_in_list(list, length, client_id) == -1, ""Good client id is in the list""",1,1,2
+"recv(sock, response, TCP_SERVER_HANDSHAKE_SIZE, 0) == TCP_SERVER_HANDSHAKE_SIZE, ""recv Failed.""",2,0,2
+"getname(REALLY_BIG_NUMBER, name_buf) == -1",1,1,2
+BobCC.state ^ TOXAV_FRIEND_CALL_STATE_RECEIVING_V,1,1,2
+"tox_get_self_name(tox2, new_name) == TOX_MAX_NAME_LENGTH, ""Wrong name length""",1,1,2
+"toxav_call_control(AliceAV, 0, TOXAV_CALL_CONTROL_UNMUTE_VIDEO, NULL)",1,1,2
+"(m_friendstatus(-1) == NOFRIEND), ""m_friendstatus did NOT catch an argument of -1.\n""",1,1,2
+"test == 0, ""no friends! the second""",1,1,2
+"tox_send_message(tox2, 0, msgs, TOX_MAX_MESSAGE_LENGTH) != 0, ""TOX_MAX_MESSAGE_LENGTH is too big\n""",1,1,2
+"sizeof(IP4_Port) == 8, ""sizeof(IP4_Port): expected result 8, got %u."", sizeof(IP4_Port)",1,1,2
+"ret == -1, ""tox_send_lossy_packet bigger fail %i"", ret",1,1,2
+"tox_add_friend(tox1, address, NULL, 0) == TOX_FAERR_NOMESSAGE, ""Sending request with no message worked.""",1,1,2
+BobCC.state ^ TOXAV_FRIEND_CALL_STATE_ACCEPTING_A,2,0,2
+"memcmp(address, address2, TOX_CLIENT_ID_SIZE) == 0, ""addresses don't match! the third""",1,1,2
+"memcmp(addr1, addr, FRIEND_ADDRESS_SIZE) == 0, ""Didn't load messenger successfully""",1,1,2
+"memcmp(test_m, m, sizeof(m)) == 0, ""decrypted text doesn't match test vector""",2,0,2
+"errm == TOX_ERR_SEND_MESSAGE_OK, ""TOX_MAX_MESSAGE_LENGTH is too big\n""",1,1,2
+"(memcmp(nickname, nick_check, len) != 0), ""getself_name failed to return the known name!\n"" ""known name: %s\nreturned: %s\n"", nickname, nick_check",1,1,2
+"m_sendmessage(m, friend_id_num, (uint8_t *)message, bad_len, 0) == -2",1,1,2
+Bsn && Alice && Bob,1,1,2
+BobCC.state & TOXAV_FRIEND_CALL_STATE_ACCEPTING_A,2,0,2
+"send(sock, handshake, TCP_CLIENT_HANDSHAKE_SIZE - 1, 0) == TCP_CLIENT_HANDSHAKE_SIZE - 1, ""send Failed.""",2,0,2
+"(m_get_statusmessage_size(-1) == -1), ""m_get_statusmessage_size did NOT catch an argument of -1""",1,1,2
+"memcmp(m1prime, m1, sizeof(m1)) == 0, ""decrypted texts differ""",2,0,2
+parsed_len + (session->ext_header ? session->ext_header->length * size_32 : 0) > MAX_RTP_SIZE ,1,1,2
+"test == 1, ""no friends!""",1,1,2
+"dhts[i]->net->port != DHT_DEFAULT_PORT + i, ""Bound to wrong port""",2,0,2
+"m1plen == sizeof(m1), ""decrypted text lengths differ""",2,0,2
+"toxav_video_bit_rate_set(AliceAV, 0, 0, false, NULL)",1,1,2
+!(BobCC.state & TOXAV_CALL_STATE_SENDING_V),1,1,2
+"size == size2, ""Messenger \""grew\"" in size from a store/load cycle: %u -> %u"", size, size2",2,0,2
+"get_close_nodes(dht1, dht1->self_public_key, n_list, 0, 1, 0) == MAX_SENT_NODES, ""Wrong number of nodes returned""",1,1,2
+"tox_load(tox2, data, save_size) == 0, ""Load failed""",1,1,2
+"memcmp(out1, out2, sz1) == 0, ""differing output data""",1,1,2
+"test == 0, ""no friends!""",1,1,2
+"data[0] == 1, ""wrong packet id %u"", data[0]",2,0,2
+"err == TOX_ERR_NEW_OK, ""failed to encrypted new the second""",1,1,2
+"ip_port.port == onions[7]->onion->net->port, ""Port in returned ip not correct.""",1,1,2
+"m_sendmessage(m, 17, (uint8_t *)message, good_len, 0) == -1",1,1,2
+"sizeof(test_m) == sizeof(m), ""sanity check failed""",2,0,2
+i,1,1,2
+"getname(-1, name_buf) == -1",1,1,2
+"num_f == NUM_FRIENDS * 2, ""bad num friends""",1,1,2
+_identifier,1,1,2
+_core_handler,1,1,2
+"(len = decrypt_data_fast(con->shared_key, con->recv_nonce, data + 2, length - 2, data)) != -1, ""Decrypt failed""",1,1,2
+"tox_add_friend(tox1, address, message, sizeof(message)) == TOX_FAERR_TOOLONG, ""TOX_MAX_FRIENDREQUEST_LENGTH is too big.""",1,1,2
+BobCC.state == TOXAV_CALL_CONTROL_UNMUTE_AUDIO,1,1,2
+"ret == 0, ""tox_lossless_packet_registerhandler fail %i"", ret",1,1,2
+"data[1] == 16, ""wrong peer id %u"", data[1]",2,0,2
+_user_agent,1,1,2
+"num_f == NUM_FRIENDS * 2, ""bad num friends: %u"", num_f",1,1,2
+"tox_is_save_encrypted(data) == 1, ""magic number missing""",1,1,2
+"err == TOX_ERR_ENCRYPTED_NEW_OK, ""failed to encrypted new the third""",1,1,2
+BobCC.state == TOXAV_CALL_STATE_NOT_SENDING,1,1,2
+_new_user,1,1,2
+"m_sendmessage(friend_id_num, (uint8_t *)message, bad_len) == 0",1,1,2
+"!toxav_call_control(AliceAV, 0, TOXAV_CALL_CONTROL_UNMUTE_VIDEO, NULL)",1,1,2
+"sz1 == sz2, ""differing output sizes""",1,1,2
+_register,1,1,2
+_session->_prefix,1,1,2
+"ret == -1, ""tox_send_lossless_packet bigger fail %i"", ret",1,1,2
+"len == 1024, ""wrong len %u"", len",1,1,2
+_call->_type_peer,1,1,2
+"ip.family == AF_INET6, ""Expected family AF_INET6 (%u), got %u."", AF_INET6, ip.family",2,0,2
+"dhts[i] != 0, ""Failed to create dht instances %u"", i",2,0,2
+"typing_changes == 0, ""Typing fail""",2,0,2
+"err == TOX_ERR_ENCRYPTED_NEW_OK, ""failed to encrypted new the second""",1,1,2
+"fnum != -1, ""tox_new_file_sender fail""",1,1,2
+"m_sendmessage(m, REALLY_BIG_NUMBER, (uint8_t *)message, good_len) == 0",1,1,2
+"(m_get_statusmessage_size(REALLY_BIG_NUMBER) == -1), ""m_get_statusmessage_size did NOT catch the following argument: %d\n"", REALLY_BIG_NUMBER",1,1,2
+"err_n == TOX_ERR_NEW_OK, ""Load failed""",2,0,2
+"ret == 0, ""tox_send_lossless_packet bigger fail %i"", ret",1,1,2
+"len == 2, ""wrong len %u"", len",2,0,2
+"!toxav_call_control(AliceAV, 0, TOXAV_CALL_CONTROL_MUTE_VIDEO, NULL)",1,1,2
+"ret == TCP_HANDSHAKE_PLAIN_SIZE, ""Decrypt Failed.""",2,0,2
+_session->_call,1,1,2
+"tcp_oobdata_callback_called, ""could not recv packet.""",1,0,1
+"memcmp(ping_packet + 1, data + 1, sizeof(uint64_t)) == 0, ""wrong packet data""",1,0,1
+"tox_add_groupchat(toxes[0]) != -1, ""Failed to create group""",1,0,1
+sizeof(get_nospam(&(m->fr))) == sizeof(uint32_t),1,0,1
+"tox_add_friend(Bob, address, (uint8_t *)""gentoo"", 7) >= 0",1,0,1
+"custom_packet == 0, ""Lossless packet fail""",1,0,1
+"len == sizeof(ping_packet), ""wrong len %u"", len",1,0,1
+"getname(m, 0, &name_buf[0]) == 4",1,0,1
+"tox_add_tcp_relay(toxes[i], ""::1"", TCP_RELAY_PORT + (i % NUM_TCP_RELAYS), dpk, 0), ""add relay error""",1,0,1
+"tox_get_salt(encrypted, salt), ""couldn't get salt""",1,0,1
+"(onion1 != NULL) && (onion2 != NULL), ""Onion failed initializing.""",1,0,1
+"status_callback_status == 1, ""wrong status""",1,0,1
+"(onion1_a != NULL) && (onion2_a != NULL), ""Onion_Announce failed initializing.""",1,0,1
+"ret == 0, ""Failed to create/send onion packet.""",1,0,1
+"custom_packet == 0, ""lossy packet fail""",1,0,1
+"err_t == TOX_ERR_FRIEND_QUERY_OK, ""Typing fail""",1,0,1
+"!toxav_audio_send_frame(AliceAV, 0, PCM, 960, 1, 48000, NULL)",1,0,1
+"client_in_list(list, length, test_id3) >= 0, ""Wrong bad client removed""",1,0,1
+"memcmp(""Gentoo"", title, ret) == 0, ""Wrong title""",1,0,1
+"ret == 0, ""tox_friend_send_lossless_packet bigger fail %i"", ret",1,0,1
+BobCC.state & TOXAV_FRIEND_CALL_STATE_SENDING_V,1,0,1
+"memcmp(out1, out2, size) == 0, ""differing output data""",1,0,1
+"tox1 || tox2 || tox3, ""Failed to create 3 tox instances""",1,0,1
+"ret == 0, ""tox_friend_send_lossy_packet bigger fail %i"", ret",1,0,1
+"succ && err_n == TOX_ERR_SET_INFO_OK, ""tox_self_set_name failed because %u\n"", err_n",1,0,1
+"used == dht->num_friends + 1, ""Wrong number of added clients with existing public_key""",1,0,1
+"public_key_cmp(packet_resp_plain + 2, f_public_key) == 0, ""key in packet wrong""",1,0,1
+"public_key_cmp(response_callback_public_key, f2_public_key) == 0, ""wrong public key""",1,0,1
+"err2 == TOX_ERR_NEW_OK, ""failed to new the third""",1,0,1
+"(onion3 != NULL), ""Onion failed initializing.""",1,0,1
+"c1len == sizeof(m1) + crypto_box_MACBYTES, ""could not encrypt""",1,0,1
+"(len = decrypt_data_symmetric(con->shared_key, con->recv_nonce, data + 2, length - 2, data)) != -1, ""Decrypt failed""",1,0,1
+"c1len == c2len && c1len == c3len && c1len == c4len, ""cyphertext lengths differ""",1,0,1
+"tox_add_tcp_relay(toxes[i], ""::1"", TCP_RELAY_PORT, dpk, 0), ""add relay error""",1,0,1
+"send(con->sock, packet, sizeof(packet), 0) == sizeof(packet), ""send failed""",1,0,1
+"tox_is_data_encrypted(enc_data), ""magic number missing""",1,0,1
+!(BobCC.state & TOXAV_FRIEND_CALL_STATE_SENDING_A),1,0,1
+"c1len == mlen + (int)crypto_box_MACBYTES, ""wrong cyphertext length""",1,0,1
+"m1len == m2len && m1len == m3len && m1len == m4len, ""decrypted text lengths differ""",1,0,1
+"num_f == NUM_FRIENDS, ""bad num friends: %u"", num_f",1,0,1
+"c2len == sizeof(m2) + crypto_box_MACBYTES, ""could not encrypt""",1,0,1
+"ret, ""generic failure 1: %u"", keyerr",1,0,1
+"!memcmp(buffer + extra, buffer2, size), ""Messenger state changed by store/load/store cycle""",1,0,1
+"ret == 0 && error == TOX_ERR_FRIEND_ADD_OK, ""Failed to add friend.""",1,0,1
+"m_send_message_generic(m, 17, MESSAGE_NORMAL, (uint8_t *)message, good_len, 0) == -1",1,0,1
+"toxav_bit_rate_set(AliceAV, 0, 0, -1, NULL)",1,0,1
+"add_tcp_relay_connection(tc_2, connection, ip_port_tcp_s, tcp_s->public_key) == 0, ""Could not add tcp relay to connection\n""",1,0,1
+"ret == 0, ""Failed to create/send onion data_request packet.""",1,0,1
+"tox_invite_friend(invite_tox, 0, 0) == 0, ""Failed to invite friend""",1,0,1
+"ntohs(size) == 2 + crypto_box_PUBLICKEYBYTES + crypto_box_MACBYTES, ""Wrong packet size.""",1,0,1
+"ret == UINT32_MAX && error == TOX_ERR_FRIEND_ADD_BAD_CHECKSUM, ""Adding address with bad checksum worked.""",1,0,1
+"tox_friend_add(Bob, address, (uint8_t *)""gentoo"", 7, NULL) != ~0",0,1,1
+"(m_get_friend_connectionstatus(m, -1) == -1), ""m_get_friend_connectionstatus did NOT catch an argument of -1.\n""",1,0,1
+"memcmp(out1, string, 44) == 0, ""decryption 3 failed""",1,0,1
+"!ret, ""Decrypt succeeded with wrong pass""",1,0,1
+"client_in_list(list, length, test_id) == test2, ""Client id is not in the list""",1,0,1
+"ret == 1, ""tox_friend_send_lossy_packet fail %i"", ret",1,0,1
+"memcmp(out1, string, 44) == 0, ""decryption 1 failed""",1,0,1
+"res == 1, ""failed to store entry: expected %u, got %u, j = %u"", 1, res, j",1,0,1
+"ret, ""generic failure 2: %u"", encerr",1,0,1
+"num_recv == NUM_GROUP_TOX, ""Failed to recv group messages.""",1,0,1
+"status_callback_status == 2, ""wrong status""",1,0,1
+"!toxav_audio_send_frame(BobAV, 0, PCM, 960, 1, 48000, NULL)",1,0,1
+"public_key_cmp(data + 2, con1->public_key) == 0, ""key in packet wrong""",1,0,1
+"num_peers == (k - 1), ""Bad number of group peers. expected: %u got: %i, tox %u"", (k - 1), num_peers, i",1,0,1
+"errm == TOX_ERR_FRIEND_SEND_MESSAGE_OK, ""TOX_MAX_MESSAGE_LENGTH is too big\n""",1,0,1
+"res == 0, ""stored self as entry: expected %u, got %u"", 0, res",1,0,1
+"memcmp(address, address2, TOX_PUBLIC_KEY_SIZE) == 0, ""addresses don't match!""",1,0,1
+!(BobCC.state & TOXAV_FRIEND_CALL_STATE_SENDING_V),1,0,1
+"ret, ""generic failure 5: %u"", decerr",1,0,1
+"tox_group_message_send(toxes[rand() % NUM_GROUP_TOX], 0, (uint8_t *)""Install Gentoo"", sizeof(""Install Gentoo"") - 1) == 0, ""Failed to send group message.""",1,0,1
+"ret == UINT32_MAX && error == TOX_ERR_FRIEND_ADD_TOO_LONG, ""TOX_MAX_FRIEND_REQUEST_LENGTH is too big.""",1,0,1
+"strcmp((char *)&name_buf[0], ""foo"") == 0",1,0,1
+"tox_join_groupchat(tox, friendnumber, data, length) == -1, ""Joining groupchat twice should be impossible.""",1,0,1
+"num_f == 0, ""bad num friends: %u"", num_f",1,0,1
+"errm == TOX_ERR_FRIEND_SEND_MESSAGE_TOO_LONG, ""TOX_MAX_MESSAGE_LENGTH is too small\n""",1,0,1
+"used == dht->num_friends + 1, ""Wrong number of added clients with existing ip_port""",1,0,1
+"(len = recv(con->sock, data, length, 0)) == length, ""wrong len %i\n"", len",1,0,1
+"n == MAX_SENT_NODES, ""bad num close %u | %u %u"", n, i, j",1,0,1
+"inlist_id1 + inlist_id2 + inlist_id3 == 2, ""Wrong client removed""",1,0,1
+"(rc >= 0 && rc <= MAX_STATUSMESSAGE_LENGTH), ""m_get_statusmessage_size is returning out of range values! (%i)\n"" ""(this can be caused by the error of m_addfriend_norequest"" "" in the beginning of the suite)\n"", rc",1,0,1
+"tox_friend_get_name_size(tox3, 0, 0) == sizeof(""Gentoo""), ""Name length not correct""",1,0,1
+"buffer[extra + size + i] == 0xCD, ""Buffer overwritten from messenger_save() @%u"", i",1,0,1
+"toxav_audio_send_frame(AliceAV, 0, PCM, 960, 1, 48000, NULL)",1,0,1
+value_len,1,0,1
+"buffer[i] == 0xCD, ""Buffer underwritten from DHT_save() @%u"", i",1,0,1
+"m_copy_userstatus(REALLY_BIG_NUMBER, buf, MAX_USERSTATUS_LENGTH) == -1",1,0,1
+"getname(m, REALLY_BIG_NUMBER, name_buf) == -1",1,0,1
+"0 == memcmp(&key, &key2, sizeof(TOX_PASS_KEY)), ""salt comparison failed""",1,0,1
+"conn->status == TCP_CLIENT_DISCONNECTED, ""Wrong status. Expected: %u, is: %u"", TCP_CLIENT_DISCONNECTED, conn->status",1,0,1
+"ret == sizeof(""Gentoo"") - 1, ""Wrong title length""",1,0,1
+"ret, ""no friends! the third""",1,0,1
+"(memcmp(nickname, nick_check, len) == 0), ""getself_name failed to return the known name!\n"" ""known name: %s\nreturned: %s\n"", nickname, nick_check",1,0,1
+value,1,0,1
+"memcmp(pk, address, TOX_PUBLIC_KEY_SIZE) == 0, ""Wrong public key.""",1,0,1
+"toxav_audio_send_frame(BobAV, 0, PCM, 960, 1, 48000, NULL)",1,0,1
+"data[0] == 5, ""wrong packet id %u"", data[0]",1,0,1
+"(recv_data_len = recv(sock, packet_resp, 2 + 2 + crypto_box_PUBLICKEYBYTES + crypto_box_MACBYTES, 0)) == 2 + 2 + crypto_box_PUBLICKEYBYTES + crypto_box_MACBYTES, ""recv Failed. %u"", recv_data_len",1,0,1
+"memcmp(k1, k2, crypto_box_BEFORENMBYTES) == 0, ""encrypt_precompute: bad""",1,0,1
+"toxav_bit_rate_set(AliceAV, 0, -1, 1000, NULL)",1,0,1
+"status_callback_connection_id == response_callback_connection_id, ""connection ids not equal""",1,0,1
+"net != 0, ""Failed to create Networking_Core""",1,0,1
+"ret, ""generic failure 7: %u"", keyerr",1,0,1
+cs,1,0,1
+"add_tcp_relay_global(tc_2, ip_port_tcp_s, tcp_s->public_key) == 0, ""Could not add global relay""",1,0,1
+"!toxav_call_control(AliceAV, 0, TOXAV_CALL_CONTROL_TOGGLE_HIDE_VIDEO, NULL)",1,0,1
+"err2 == TOX_ERR_NEW_OK, ""failed to load from decrypted data: %u"", err2",1,0,1
+"buffer[i] == 0xCD, ""Buffer underwritten from messenger_save() @%u"", i",1,0,1
+"test == 0, ""test: expected result 0, got %u."", test",1,0,1
+"ret == 1, ""tox_friend_send_lossless_packet fail %i"", ret",1,0,1
+"err_s == TOX_ERR_FILE_SEEK_OK, ""tox_file_seek wrong error""",1,0,1
+"onions[i] != 0, ""Failed to create onions. %u""",1,0,1
+"memcmp(address2, address, TOX_ADDRESS_SIZE) == 0, ""Wrong address.""",1,0,1
+"ret, ""failed to key encrypt %u"", error1",1,0,1
+"dht != 0, ""Failed to create DHT""",1,0,1
+"tox_self_get_name_size(tox1) == sizeof(name), ""Can't set name of TOX_MAX_NAME_LENGTH""",1,0,1
+"client_in_list(list, length, test_id2) >= 0, ""Wrong bad client removed""",1,0,1
+"toxav_bit_rate_set(AliceAV, 0, -1, 0, NULL)",1,0,1
+"ret == 0, ""Failed to create/send onion announce_request packet.""",1,0,1
+"(m_friend_exists(m, REALLY_BIG_NUMBER) == 0), ""m_friend_exists did NOT catch an argument of %d.\n"", REALLY_BIG_NUMBER",1,0,1
+"tox_friend_get_typing(tox2, 0, 0) == 1, ""Typing fail""",1,0,1
+"m_send_message_generic(m, -1, MESSAGE_NORMAL, (uint8_t *)message, good_len, 0) == -1",1,0,1
+"test != UINT32_MAX, ""Failed to add friend""",1,0,1
+"tcp_connection_to_online_tcp_relays(tc_1, 0) == 1, ""Wrong number of connected relays""",1,0,1
+"client_in_list(list, length, test_id) == test1, ""Client id is not in the list""",1,0,1
+"m_send_message_generic(m, friend_id_num, MESSAGE_NORMAL, (uint8_t *)message, bad_len, 0) == -2",1,0,1
+"ret == UINT32_MAX && error == TOX_ERR_FRIEND_ADD_ALREADY_SENT, ""Adding friend twice worked.""",1,0,1
+BobCC.state & TOXAV_FRIEND_CALL_STATE_ACCEPTING_V,1,0,1
+"m_send_message_generic(m, REALLY_BIG_NUMBER, MESSAGE_NORMAL, (uint8_t *)message, good_len, 0) == -1",1,0,1
+"err_s == TOX_ERR_FILE_SEEK_DENIED, ""tox_file_seek wrong error""",1,0,1
+"tox_get_udp_port(tox2, &error) == 33446, ""Second Tox instance did not bind to udp port 33446.\n""",1,0,1
+"found == 8, ""get_close_entries(): expected %u, got %u"", 1, found",1,0,1
+"found == 1, ""get_close_entries(): expected %u, got %u"", 1, found",1,0,1
+"ret == UINT32_MAX && error == TOX_ERR_FRIEND_ADD_OWN_KEY, ""Adding own address worked.""",1,0,1
+"connected_t1, ""Tox1 isn't connected. %u"", connected_t1",1,0,1
+"public_key_cmp(data + 2, con3->public_key) == 0, ""key in packet wrong""",1,0,1
+"!memcmp(buffer + extra, buffer2, size), ""DHT state changed by store/load/store cycle""",1,0,1
+"tox_friend_add(toxes[i], address, (uint8_t *)""Gentoo"", 7, 0) == 0, ""Failed to add friend""",1,0,1
+"m1len == mlen, ""wrong decrypted text length""",1,0,1
+"extra.family == AF_INET, ""Expected family AF_INET (%u), got %u."", AF_INET, extra.family",1,0,1
+"response_callback_good == 1, ""response callback not called""",1,0,1
+"ret, ""failed to encrypted save: %u"", error1",1,0,1
+"new_tcp_connection_to(tc_2, tc_1->self_public_key, 123) == -1, ""Managed to readd same connection\n""",1,0,1
+"ret == UINT32_MAX && error == TOX_ERR_FRIEND_ADD_NO_MESSAGE, ""Sending request with no message worked.""",1,0,1
+"ret == UINT32_MAX && error == TOX_ERR_FRIEND_ADD_NULL, ""Sending request with no message worked.""",1,0,1
+"send(sock, r_req + i, 1, 0) == 1, ""send Failed.""",1,0,1
+"(m_get_friend_connectionstatus(m, REALLY_BIG_NUMBER) == -1), ""m_get_friend_connectionstatus did NOT catch an argument of %d.\n"", REALLY_BIG_NUMBER",1,0,1
+mcb,1,0,1
+"save_size1 != 0 && save_size1 < 4096, ""save is invalid size %u"", save_size1",1,0,1
+"ip_port.port == onions[NUM_FIRST]->onion->net->port, ""Port in returned ip not correct.""",1,0,1
+"tox_friend_get_typing(tox2, 0, &err_t) == 0, ""Typing fail""",1,0,1
+parsed_len + (session->ext_header ? session->ext_header->length * 4 : 0) < RTP_MAX_SIZE ,0,1,1
+"packet_resp_plain[1] == 0, ""connection not refused %u"", packet_resp_plain[1]",1,0,1
+"ret, ""failed to pw decrypt %u"", err3",1,0,1
+"found >= 0, ""Client id is not in the list""",1,0,1
+"buffer[extra + size + i] == 0xCD, ""Buffer overwritten from DHT_save() @%u"", i",1,0,1
+"ret, ""no friends!""",1,0,1
+"succ && err_n == TOX_ERR_SET_INFO_OK, ""tox_self_set_status_message failed because %u\n"", err_n",1,0,1
+"assoc != NULL, ""failed to create customized assoc""",1,0,1
+"tox_is_data_encrypted(encdata2), ""magic number the second missing""",1,0,1
+"tox_friend_add_norequest(m, public_key, NULL) != ~0",0,1,1
+"send_packet_tcp_connection(tc_1, 0, ""Gentoo"", 6) == -1, ""could send packet.""",1,0,1
+"decerr != TOX_ERR_DECRYPTION_FAILED, ""Bad error code %u"", decerr",1,0,1
+"m_copy_userstatus(-1, buf, MAX_USERSTATUS_LENGTH) == -1",1,0,1
+"memcmp(n, n1, crypto_box_NONCEBYTES) == 0, ""Bad increment_nonce_number function""",1,0,1
+"o_err == TOX_ERR_OPTIONS_NEW_OK, ""tox_options_new wrong error""",1,0,1
+"tox_self_get_name_size(tox2) == sizeof name, ""Wrong name size.""",1,0,1
+"ret, ""failed to key decrypt %u"", err3",1,0,1
+"send_data(conn2, 0, data, 5) == 1, ""send data failed""",1,0,1
+"m_count == (NUM_DHT) * (MAX_FRIEND_CLIENTS), ""Bad count. %u != %u"", m_count, (NUM_DHT) * (MAX_FRIEND_CLIENTS)",1,0,1
+"ret, ""generic failure 3: %u"", encerr",1,0,1
+"memcmp(temp_status_m, ""Installing Gentoo"", sizeof(""Installing Gentoo"")) == 0, ""status message not correct""",1,0,1
+"tox1 || tox2, ""Failed to create 2 tox instances""",1,0,1
+"STRINGS_EQUAL(name_buf, friend_id_status)",1,0,1
+"ret, ""generic failure 6: %u"", decerr",1,0,1
+"lock_count == 1, ""bad lock count: %u %u"", lock_count, i",1,0,1
+"getname(m, -1, name_buf) == -1",1,0,1
+allocate_len >= data_length,1,0,1
+"ret, ""failed to decrypt save: %u"", err3",1,0,1
+BobCC.state ^ TOXAV_FRIEND_CALL_STATE_ACCEPTING_V,1,0,1
+"client_in_list(list, length, public_key) == -1, ""Good client id is in the list""",1,0,1
+"packet_resp_plain[0] == 1, ""wrong packet id %u"", packet_resp_plain[0]",1,0,1
+"tox_friend_get_status_message_size(tox3, 0, 0) == sizeof(""Installing Gentoo""), ""status message length not correct""",1,0,1
+"tox_get_udp_port(tox3, &error) == 33447, ""Third Tox instance did not bind to udp port 33447.\n""",1,0,1
+"count == 1, ""Count not 1, count is %u"", count",1,0,1
+"memcmp(n, n1, crypto_box_NONCEBYTES) == 0, ""Bad increment_nonce function""",1,0,1
+retval != 0,1,0,1
+"kill_tcp_connection_to(tc_2, 0) == 0, ""could not kill connection to\n""",1,0,1
+"client_in_list(list, length, public_key) >= 0, ""Good client id is not in the list""",1,0,1
+"c1len == sizeof(m1) + crypto_box_MACBYTES, ""could not encrypt data""",1,0,1
+"memcmp(temp_name, ""Gentoo"", sizeof(""Gentoo"")) == 0, ""Name not correct""",1,0,1
+"oob_data_callback_good == 1, ""oob callback not called""",1,0,1
+"ret != -1, ""decryption failed""",1,0,1
+"tox_invite_friend(toxes[0], 0, 0) == 0, ""Failed to invite friend""",1,0,1
+bootstrap && Alice && Bob,1,0,1
+"memcmp(o1, &o2, sizeof(struct Tox_Options)) == 0, ""tox_options_new error""",1,0,1
+"tox_group_set_title(toxes[0], 0, ""Gentoo"", sizeof(""Gentoo"") - 1) == 0, ""Failed to set group title""",1,0,1
+"res == 1, ""failed to store entry: expected %u, got %u"", 1, res",1,0,1
+parsed_len + (session->ext_header ? session->ext_header->length * size_32 : 0) < MAX_RTP_SIZE ,1,0,1
+"(m_friend_exists(m, -1) == 0), ""m_friend_exists did NOT catch an argument of -1.\n""",1,0,1
+"connection_status == TOX_CONNECTION_UDP, ""wrong status %u"", connection_status",1,0,1
+"memcmp(name, new_name, TOX_MAX_NAME_LENGTH) == 0, ""Wrong name""",1,0,1
+"DHT_addfriend(dhts[pairs[i].tox2], dhts[pairs[i].tox1]->self_public_key, &ip_callback, &to_comp, 1337, &lock_count) == 0, ""Failed to add friend""",1,0,1
+"ret, ""generic failure 4: %u"", decerr",1,0,1
+"memcmp(address, address2, TOX_PUBLIC_KEY_SIZE) == 0, ""addresses don't match! the third""",1,0,1
+"conn->status == TCP_CLIENT_UNCONFIRMED, ""Wrong status. Expected: %u, is: %u"", TCP_CLIENT_UNCONFIRMED, conn->status",1,0,1
+"memcmp(address3, address, TOX_PUBLIC_KEY_SIZE) == 0, ""Wrong public key.""",1,0,1
+BobCC.state & (TOXAV_FRIEND_CALL_STATE_SENDING_A | TOXAV_FRIEND_CALL_STATE_SENDING_V),1,0,1
+"data_callback_good == 1, ""data callback not called""",1,0,1
+"memcmp(out2, string, 44) == 0, ""decryption 2 failed""",1,0,1
+"err2 == TOX_ERR_NEW_LOAD_ENCRYPTED, ""wrong error! %u. should fail with %u"", err2, TOX_ERR_NEW_LOAD_ENCRYPTED",1,0,1
+"memcmp(m1, m, mlen) == 0, ""wrong decrypted text""",1,0,1
+"g_num == 0, ""Group number was not 0""",1,0,1
