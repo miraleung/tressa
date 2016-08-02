@@ -1,0 +1,368 @@
+x_val,y_added,y_removed,y_combined
+jclazz != nullptr,32,18,50
+iter_,28,20,48
+fid != nullptr,23,22,45
+IsArray(),20,20,40
+!empty(),23,12,35
+Valid(),23,12,35
+IsObject(),14,14,28
+!err,16,9,25
+n >= 0,17,8,25
+false,14,10,24
+mid != nullptr,24,0,24
+n < size(),9,4,13
+finalized_,9,4,13
+as == bs,13,0,13
+codepoint <= 0x10FFFF,6,6,12
+size >= 0,8,4,12
+TickersNameMap.size() == TICKER_ENUM_MAX,6,6,12
+HistogramsNameMap.size() == HISTOGRAM_ENUM_MAX,6,6,12
+pch == fence,8,4,12
+s != NULL,6,6,12
+n <= size(),6,4,10
+internal_key.size() >= 8,6,4,10
+len > 0,6,3,9
+!AtEnd(),9,0,9
+bytes > 0,5,4,9
+"x == head_ || compare_(x->key, key) < 0",5,4,9
+IsString(),4,4,8
+level_stack_.GetSize() >= sizeof(Level),4,4,8
+Base::level_stack_.GetSize() >= sizeof(typename Base::Level),4,4,8
+"0, clock_gettime(detail::DEFAULT_CLOCK_ID, &start_)",4,4,8
+type == kObjectType || type == kArrayType,4,4,8
+type == kStringType,4,4,8
+success_,4,4,8
+s->list_ == this,4,3,7
+!success_,3,3,6
+numRemoved == 1,3,3,6
+iter == iter_fence,4,2,6
+"strcmp(value, ""value"") == 0",3,3,6
+histogramType < HISTOGRAM_ENUM_MAX,3,3,6
+count >= 0,3,3,6
+tickerType < TICKER_ENUM_MAX,3,3,6
+height <= kMaxHeight,3,3,6
+height > 0,4,2,6
+vect_ == other.vect_,6,0,6
+"x == NULL || !Equal(key, x->key)",3,3,6
+new_buf,4,2,6
+"x == head_ || next == nullptr || KeyIsAfterNode(next->key, x)",4,2,6
+!stack_.empty(),4,2,6
+!rep_.empty(),3,2,5
+s >= last_sequence_,3,2,5
+end.tv_sec > start.tv_sec && end.tv_sec - start.tv_sec < std::numeric_limits<uint64_t>::max() / 1000000000UL,2,2,4
+stream.Peek() == 'n',2,2,4
+!(parseFlags & kParseInsituFlag),2,2,4
+dst_ != 0,2,2,4
+count >= 1,2,2,4
+!Base::level_stack_.template Top<typename Base::Level>()->inArray,2,2,4
+stack_.GetSize() == sizeof(ValueType),2,2,4
+fp_ != 0,2,2,4
+n <= 308,2,2,4
+"0, clock_gettime(detail::DEFAULT_CLOCK_ID, &end)",2,2,4
+ref.size() == sizeof(result.data),2,2,4
+Base::level_stack_.template Top<typename Base::Level>()->inArray,2,2,4
+codepoint < 0xD800 || codepoint > 0xDFFF,2,2,4
+start_.tv_nsec == 0 || start_.tv_sec == 0,2,2,4
+name,2,2,4
+stream.Peek() == 't',2,2,4
+end.tv_nsec >= start.tv_nsec,2,2,4
+level_stack_.template Top<Level>()->inArray,2,2,4
+flags_ & kUint64Flag,2,2,4
+((uintptr_t)buffer & 3) == 0,2,2,4
+compaction_input_level < inputs_.size() && compaction_input_level >= 0,2,2,4
+!level_stack_.template Top<Level>()->inArray,2,2,4
+!Empty(),2,2,4
+type <= kNumberType,2,2,4
+((uintptr_t)originalPtr & 3) == 0,2,2,4
+flags_ & kIntFlag,2,2,4
+index < data_.a.size,2,2,4
+newBuffer != 0,2,2,4
+this != &rhs,2,2,4
+b >= 0 && b < numBits_,2,2,4
+state_ == kExpectKey,3,1,4
+start_.tv_nsec > 0 || start_.tv_sec > 0,2,2,4
+n >= 8,3,1,4
+!isHandlerRegistered(),2,2,4
+"page_miss, 0",4,0,4
+stream.Peek() == '{',2,2,4
+length <= 0xFFFFFFFF,2,2,4
+ret >= 1,2,2,4
+target.size() >= 8,3,1,4
+indentChar == ' ' || indentChar == '\t' || indentChar == '\n' || indentChar == '\r',2,2,4
+flags_ & kInt64Flag,2,2,4
+x,2,2,4
+dynamic_cast<THeaderTransport*>(inTrans.get()) == NULL && dynamic_cast<THeaderTransport*>(outTrans.get()) == NULL,2,2,4
+IsNumber(),2,2,4
+operand_list,4,0,4
+(flags_ & kUint64Flag) != 0,2,2,4
+currentConnection_.get() == NULL,2,2,4
+tickerType < MAX_NO_TICKERS,2,2,4
+name.IsString(),2,2,4
+size > sizeof(ChunkHeader),2,2,4
+flags_ & kUintFlag,2,2,4
+GetSize() >= count * sizeof(T),2,2,4
+end.n_ == -1,2,2,4
+"x == head_ || KeyIsAfterNode(key, x)",4,0,4
+value == 1,2,2,4
+DBWithTTL::SanityCheckTimestamp(iter_->value().ToString()).ok(),2,2,4
+GetSize() >= sizeof(T),2,2,4
+dd_->guardCount_ > 0,2,2,4
+"compressed_block_miss, 0",4,0,4
+IsBool(),2,2,4
+stack_capacity_ > 0,2,2,4
+stream.Peek() == '[',2,2,4
+kNumBlocks > 0 || kTotalBits > 0,2,2,4
+"0, r1",2,2,4
+smallest_seqno <= largest_seqno,3,1,4
+buffer != 0,2,2,4
+data_.o.members != 0,2,2,4
+opType < enabled_.size(),2,2,4
+"0, r2",2,2,4
+stream.Peek() == 'f',2,2,4
+data_.o.size > 0,2,2,4
+branching_factor > 0 && kBranching_ == static_cast<uint32_t>(branching_factor),2,1,3
+share_table_files || !share_files_with_checksum,2,1,3
+env,2,1,3
+buffer && capacity_ > 0,2,1,3
+right_child == get_right(index),2,1,3
+merge_op,2,1,3
+"prev_[0]->Next(0) == nullptr || !Equal(key, prev_[0]->Next(0)->key)",2,1,3
+ok_,2,1,3
+prev_[0] != head_ || (prev_height_ == 1 && GetMaxHeight() == 1),2,1,3
+assert_valid_internal_key,2,1,3
+"compressed_block_hit, 0",3,0,3
+"page_hit, 0",3,0,3
+new_value,2,1,3
+t,3,0,3
+0,2,1,3
+(s % page_size_) == 0,2,1,3
+s.ok(),2,1,3
+capacity_ > 0,2,1,3
+"block_miss, 0",3,0,3
+cf_names_.size() == cf_opts_.size(),2,1,3
+numOps > opData_.size(),1,1,2
+"stats_verify_missed_, 0",2,0,2
+refs_ > 0,1,1,2
+value < (1 << count),1,1,2
+GetStatus().ok(),1,1,2
+NumEntries() == 0,2,0,2
+state_ == kExpectValue,2,0,2
+!config_,1,1,2
+old_val.size() >= DBWithTTL::kTSLength,1,1,2
+refs > 0,1,1,2
+spinlock_.IsHeld(),1,1,2
+writeReqHead_ != NULL,1,1,2
+IsInitialized(),2,0,2
+!delayed,1,1,2
+writeReqTail_ == req,1,1,2
+wBufResetSize_ == 0 || wBufSize_ <= wBufResetSize_,1,1,2
+jwrite_type != nullptr,1,1,2
+!is_column_family_drop_,2,0,2
+amount <= tailroom(),1,1,2
+id_ == -1,1,1,2
+made_waitable,2,0,2
+HistogramsNameMap.size() == HISTOGRAM_ENUM_MAX - 1,1,1,2
+writeReqHead_ == NULL,1,1,2
+(next_ == this) == (prev_ == this),1,1,2
+found->onedb != NULL,1,1,2
+timerManager.state() == TimerManager::STARTED,1,1,2
+sizeof(From) == sizeof(To),1,1,2
+total_raw_key_size_ + total_raw_value_size_ > 0,1,1,2
+"x == head_ || next == nullptr || KeyIsAfterNode(next->Key(), x)",2,0,2
+(!head_ && !tail_) || (head_ && tail_),2,0,2
+kBranching_ > 0,1,1,2
+state != SynchStartTask::STARTING,1,1,2
+"ts, 0",1,1,2
+state == SynchStartTask::STOPPED,1,1,2
+queue_ == NULL,1,1,2
+count > 0,1,1,2
+internal_key_size >= 8,1,1,2
+next_ == NULL,1,1,2
+"x == nullptr || !Equal(key, x->key)",1,1,2
+total_file_size_ > 0,1,1,2
+key_size_ >= 8,2,0,2
+compact_ == nullptr,1,1,2
+state_ == kExpectValue || state_ == kInArray,2,0,2
+isHandlerRegistered(),1,1,2
+length <= buffer->available_read(),1,1,2
+max_height > 0 && kMaxHeight_ == static_cast<uint32_t>(max_height),2,0,2
+"(x == head_) || (next == nullptr) || KeyIsAfterNode(next->key, x)",1,1,2
+TickersNameMap.size() == TICKER_ENUM_MAX -1,1,1,2
+handles_opened.size() == column_families_.size(),1,1,2
+!is_column_family_add_,2,0,2
+kScaledInverseBranching_ > 0,2,0,2
+tail != this,1,1,2
+!head_ || !head_->prev_,2,0,2
+bytesRead_ == 0,1,1,2
+!t->refs_,2,0,2
+amount <= headroom(),1,1,2
+id_ != 0,1,1,2
+head != this,1,1,2
+prev = s->next_->number_,1,1,2
+ret > 0,1,1,2
+vect_->size() >= index_,2,0,2
+compress_format_version != 2,2,0,2
+kMaxHeight_ > 0,1,1,2
+callback == nullptr || callback_status.ok(),2,0,2
+!observers_.empty(),1,1,2
+!tail_ || !tail_->next_,2,0,2
+eventBase->isInEventBaseThread(),1,1,2
+it != nullptr,1,1,2
+compaction_input_level < inputs_.size(),2,0,2
+jfid != nullptr,2,0,2
+!orphanTask->_done,1,1,2
+"statement, regex",2,0,2
+errno == EAGAIN,1,1,2
+"iter->key().size_, (unsigned int)rowkeysize",1,1,2
+"*src, 'p'",1,1,2
+DBWithTTL::SanityCheckTimestamp(iter_->value()).ok(),1,1,2
+height <= kMaxHeight_,2,0,2
+!path_.empty() && path_[0] == '/',1,1,2
+column_families_.empty(),1,1,2
+!t->prev_,2,0,2
+height >= 1 && height <= kMaxHeight_,2,0,2
+task->_done,1,1,2
+write_buffer_size,1,1,2
+"ts, startTime",1,1,2
+!joined,1,1,2
+prev <= s->next_->number_,1,1,2
+owner,1,1,2
+compress_format_version != 2 || _stream.avail_out == 0,2,0,2
+start_ > 0,1,1,2
+!t->next_,2,0,2
+memtables_to_free.size() == 0,1,0,1
+result_.empty(),1,0,1
+"::testing::internal::DoubleNearPredFormat, val1, val2, abs_error",1,0,1
+offset < cursize_,1,0,1
+!t,1,0,1
+accumulated_raw_key_size_ + accumulated_raw_value_size_ > 0,1,0,1
+!head_->prev_,1,0,1
+"::testing::internal::CmpHelperFloatingPointEQ<float>, expected, actual",1,0,1
+t->next_ || tail_ == t,1,0,1
+status,1,0,1
+(refs == 1 && in_cache) || (refs == 0 && !in_cache),1,0,1
+pad_size,1,0,1
+"::testing::internal::CmpHelperNE, val1, val2",1,0,1
+!tail_,1,0,1
+&ptr != this,1,0,1
+"prev_[0]->Next(0) == nullptr || !Equal(key, prev_[0]->Next(0)->Key())",1,0,1
+pos == -1,1,0,1
+compensated_file_size > 0,1,0,1
+"::testing::internal:: EqHelper<GTEST_IS_NULL_LITERAL_(expected)>::Compare, expected, actual",1,0,1
+"strcmp(returned_value, ""value"") == 0",1,0,1
+"stats_verify_hits_, 0",1,0,1
+open_files_.empty(),1,0,1
+data_ == nullptr,1,0,1
+"::testing::internal::CmpHelperLT, val1, val2",1,0,1
+actual_output_length == output_len,1,0,1
+"::testing::internal::IsHRESULTSuccess, (expr)",1,0,1
+logs_to_free.size() == 0,1,0,1
+old_val.size() >= DBWithTTLImpl::kTSLength,1,0,1
+head_ && tail_,1,0,1
+sizeof(pthread_t) <= sizeof(uint64_t),1,0,1
+"::testing::internal::CmpHelperSTRCASENE, s1, s2",1,0,1
+"::testing::internal::CmpHelperSTREQ, expected, actual",1,0,1
+callback != nullptr,1,0,1
+alignment_ > 0,1,0,1
+"sizeof(Ticker) == 64, ""Expecting to fit into 64 bytes""",1,0,1
+locks_,1,0,1
+it != recovered_transactions_.end(),1,0,1
+lru_list.IsEmpty(),1,0,1
+load_factor,1,0,1
+level != 0 || file != nullptr,1,0,1
+!tail_->next_,1,0,1
+alignment > 0,1,0,1
+bucketNumber < BucketCount(),1,0,1
+state_ == kInArray && in_array_,1,0,1
+nlocks_,1,0,1
+"::testing::internal::CmpHelperSTRNE, s1, s2",1,0,1
+ptr != SuperVersion::kSVInUse,1,0,1
+compression_type != kSnappyCompression && compression_type != kNoCompression,1,0,1
+prev_[0] != head_ || (prev_height == 1 && GetMaxHeight() == 1),1,0,1
+t->prev_ || head_ == t,1,0,1
+index < num_restarts_,1,0,1
+nbuckets_,1,0,1
+file_offset + len <= file_info_->data_end_offset,1,0,1
+shared_len <= key_size_,1,0,1
+(pad_size + cursize_) <= capacity_,1,0,1
+!refs_,1,0,1
+"stats_verify_hits_ + stats_verify_missed_, max_keys",1,0,1
+compression_type != kSnappyCompression && compression_type != kXpressCompression && compression_type != kNoCompression,1,0,1
+"stats_verify_hits_, max_keys",1,0,1
+height <= kMaxPossibleHeight,1,0,1
+!HasInitializedTableMagicNumber(),1,0,1
+files_[file_name] == content,1,0,1
+"memcmp(edata, block.get(), sizeof(edata)), 0",1,0,1
+max_height <= kMaxPossibleHeight,1,0,1
+"::testing::internal::CmpHelperSTRCASEEQ, expected, actual",1,0,1
+!IsKeyPinned(),1,0,1
+state_ != kExpectKey,1,0,1
+"::testing::internal::CmpHelperGT, val1, val2",1,0,1
+(s % page_size) == 0,1,0,1
+"0 == ""getchildren results don't match""",1,0,1
+capacity,1,0,1
+!as.ok() || amtime - bmtime < 10000 || bmtime - amtime < 10000,1,0,1
+"NumTableFilesAtLevel(0, 1), 0",1,0,1
+t == tmp,1,0,1
+!pinning_enabled,1,0,1
+lhs,1,0,1
+jwe != nullptr,1,0,1
+reader_contents_->size() >= contents_.size(),1,0,1
+num_restarts > 0,1,0,1
+new_superversion == nullptr,1,0,1
+"::testing::internal::IsHRESULTFailure, (expr)",1,0,1
+rounded_up >= bytes && rounded_up < bytes + sizeof(void*) && (rounded_up % sizeof(void*)) == 0,1,0,1
+buckets_,1,0,1
+superversions_to_free.size() == 0,1,0,1
+refs_ >= 0,1,0,1
+ikey_sz >= 8,1,0,1
+Flush(1),1,0,1
+p <= limit,1,0,1
+"statement, ::testing::internal::ExitedUnsuccessfully, regex",1,0,1
+rhs,1,0,1
+(alignment_ & (alignment_ - 1)) == 0,1,0,1
+hFile != NULL,1,0,1
+hFile != INVALID_HANDLE_VALUE,1,0,1
+count <= pad_size,1,0,1
+"::testing::internal::CmpHelperLE, val1, val2",1,0,1
+"Put(1, Key(i), (*values)[i])",1,0,1
+"block_size, sizeof(edata)",1,0,1
+!next_tier_,1,0,1
+sz == write_size,1,0,1
+"expected_file_name_, info.file_path",1,0,1
+"p->next_ != next_ && ""Trying to depart() a linked ring we are not in. "" ""Is GMock thread safety enabled?""",1,0,1
+state_ == kInArray,1,0,1
+f.smallest_seqno <= f.largest_seqno,1,0,1
+"cache_->Lookup(key, &block, &block_size)",1,0,1
+!as.ok() || asize == bsize,1,0,1
+in_array_,1,0,1
+sizeof(int) <= sizeof(next_[0]),1,0,1
+(alignment & (alignment - 1)) == 0,1,0,1
+"before == head_ || next == nullptr || KeyIsAfterNode(next->Key(), before)",1,0,1
+!pinned_iters_mgr_ || (pinned_iters_mgr_ && !pinned_iters_mgr_->PinningEnabled()),1,0,1
+key_n >= 8,1,0,1
+old_refs > 0,1,0,1
+"x == head_ || compare_(x->Key(), key) < 0",1,0,1
+status.ok(),1,0,1
+lru_lists_,1,0,1
+"::testing::internal::CmpHelperGE, val1, val2",1,0,1
+accumulated_file_size_ > 0,1,0,1
+"matched_count_, expected_value",1,0,1
+DBWithTTLImpl::SanityCheckTimestamp(iter_->value()).ok(),1,0,1
+branching_factor > 1 && kBranching_ == static_cast<uint32_t>(branching_factor),1,0,1
+obj,1,0,1
+buckets_[i].list_.empty(),1,0,1
+reader_contents_->size() <= last_flush_,1,0,1
+level < static_cast<int>(level_files_brief_.size()),1,0,1
+exact == arena_.AllocatedAndUnused(),1,0,1
+locked_,1,0,1
+*decompress_size == static_cast<int>(output_len),1,0,1
+!head_,1,0,1
+"Get(1, Key(i)), values[i]",1,0,1
+keys_.size() == values_.size(),1,0,1
+user_comparator_ != nullptr,1,0,1
+"before == head_ || KeyIsAfterNode(key, before)",1,0,1
+tail_ && head_,1,0,1
+"p->next_ != this && ""Trying to join() a linked ring we are already in. "" ""Is GMock thread safety enabled?""",1,0,1
+result->type <= ValueType::kMaxValue,1,0,1
+"::testing::internal::CmpHelperFloatingPointEQ<double>, expected, actual",1,0,1

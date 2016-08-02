@@ -1,0 +1,1276 @@
+x_val,y_added,y_removed,y_combined
+f,24,24,48
+x,23,20,43
+as_double(mirror) is base,20,20,40
+"contains(d0, dk2)",20,20,40
+len(a0) is 3,21,16,37
+len(a0) is 0,21,16,37
+len(a0) is 2,19,15,34
+"at(l0, 1) is li1",16,16,32
+"contains(t0, $(String, ""Hello""))",16,16,32
+"contains(m0, mk2)",16,16,32
+"at(l0, 0) is li0",16,16,32
+len(l0) is 3,18,13,31
+len(l0) is 0,18,13,31
+Exception_Depth() is 0,15,15,30
+"at(args,1)",13,13,26
+"at(args,0)",13,13,26
+as_long(total) is 18,12,12,24
+"at(l0, 0) is li2",12,12,24
+" eq(a0, a1) ",13,11,24
+" eq(at(a0, 0), $(Int, 1)) ",12,12,24
+as_long(total) is 111,12,12,24
+"neq(map1, map2)",12,12,24
+"eq(map1, map2)",12,12,24
+y,12,12,24
+" eq(at(a0, 0), $(Int, 10)) ",12,12,24
+"at(l0, 2) is li2",12,12,24
+as_long(tester) is 20,12,12,24
+len(a0) is 1,12,10,22
+len(t0) is 2,12,9,21
+len(t0) is 0,12,9,21
+"neq(tab1, tab2)",10,10,20
+"contains(d0, dk1)",10,10,20
+"contains(d0, dk0)",10,10,20
+len(l0) is 2,12,8,20
+exception_depth() is 0,10,10,20
+len(m0) is 0,11,8,19
+len(m0) is 2,11,8,19
+"eq(tab1, tab2)",9,9,18
+" eq($(String, ""Hello""), $(String, ""Hello"")) ",9,9,18
+"eq(dict1, dict2)",9,9,18
+" eq(i1, $(Int, 5)) ",9,9,18
+len(l0) is 1,10,8,18
+Exception_Depth() is -1,9,9,18
+"neq(tree1, tree2)",9,9,18
+reached0,10,8,18
+"neq(dict1, dict2)",9,9,18
+"eq(tree1, tree2)",9,9,18
+reached1,10,8,18
+" eq(i0, $(Int, 2)) ",9,9,18
+" eq(get(a0, $I(0)), $I(1)) ",11,6,17
+len(t0) is 1,9,8,17
+t0,9,8,17
+t2,9,8,17
+len(l0) is 4,9,8,17
+t1,9,8,17
+" eq(val, $(Int, 2)) ",8,8,16
+f0,9,7,16
+"contains(m0, mk1)",8,8,16
+"at(l0, 3) is li3",8,8,16
+"contains(t2, $(String, ""Where""))",8,8,16
+" eq(at(a0, 1), $(String, ""Blah"")) ",8,8,16
+"contains(x, $(String, ""Hello""))",8,8,16
+"contains(a0, $(Int, 1))",8,8,16
+"contains(t2, $(String, ""Bonjour""))",8,8,16
+"eq(at(x, 0), $(Int, 0))",8,8,16
+" eq(at(a0, 1), $(Int, 3)) ",8,8,16
+" eq(at(a0, 2), $(Int, 3)) ",8,8,16
+"contains(x, $(Int, 1))",8,8,16
+" eq(at(a0, 0), $(Int, 20)) ",8,8,16
+"contains(l0, li3)",8,8,16
+"contains(t2, $(String, ""There""))",8,8,16
+"neq(l0, l1)",8,8,16
+" eq(at(a0, 2), $(String, ""People"")) ",8,8,16
+"contains(l0, li2)",8,8,16
+Exception_Depth() is 1,8,8,16
+"at(l0, 1) is li3",8,8,16
+as_long(y) is 20,8,8,16
+" eq(key, $(String, ""There"")) ",8,8,16
+" eq(at(a0, 0), $(String, ""Hello"")) ",8,8,16
+"at(l0, 0) is li3",8,8,16
+" eq(at(a0, 1), $(Int, 20)) ",8,8,16
+"at(l0, 0) is li4",8,8,16
+"contains(t0, $(String, ""There""))",8,8,16
+"as_str(ys), ""There""",8,8,16
+"contains(t1, $(String, ""Bonjour""))",8,8,16
+" eq(val, $(Int, 5)) ",8,8,16
+"contains(l0, li1)",8,8,16
+"contains(m0, mk0)",8,8,16
+" eq(key, $(String, ""Hello"")) ",8,8,16
+"at(l0, 2) is li1",8,8,16
+" eq(get(a0, $I(0)), $I(10)) ",9,6,15
+f1,8,7,15
+x != y,7,7,14
+exception_depth() is 1,7,7,14
+m0,7,6,13
+m2,7,6,13
+m1,7,6,13
+len(s0) is 0,7,5,12
+1 == reals,6,6,12
+" eq(get(a0, $(Int, 0)), $(Int, 10)) ",6,6,12
+"eq(tab3, tab4)",6,6,12
+" eq(get(a0, $I(2)), $I(3)) ",8,4,12
+as_str(xs) isnt as_str(ys),6,6,12
+" eq(get(a0, $(Int, 0)), $(Int, 1)) ",6,6,12
+"eq(get(p, y), $(Int, 1))",6,6,12
+"eq(get(p, z), $(Int, 1))",6,6,12
+" neq(a0, a2) ",7,5,12
+"neq(tab3, tab4)",6,6,12
+"eq(s0, s1)",7,5,12
+a1,6,5,11
+len(a0) is 4,6,5,11
+len(x) is 2,6,5,11
+a0,6,5,11
+a2,6,5,11
+"contains(d2, dk3)",5,5,10
+" le($(String, ""keep""), $(String, ""keep"")) ",5,5,10
+"contains(d1, dk5)",5,5,10
+" ge($(String, ""Hello""), $(String, ""Hello"")) ",5,5,10
+"eq(at(y, 1), $(Real, 2.2))",5,5,10
+d0,5,5,10
+len(d0) is 0,5,5,10
+len(d0) is 3,5,5,10
+" eq(get(a1, $I(2)), $S(""People"")) ",6,4,10
+" neq($(String, ""Hello""), $(String, ""There"")) ",5,5,10
+"contains(d2, dk4)",5,5,10
+"get(d0, dk2) is dv9",5,5,10
+"contains(d1, dk4)",5,5,10
+"eq(at(y, 2), $(Real, 5.2))",5,5,10
+"get(d0, dk1) is dv5",5,5,10
+" lt($(String, ""great""), $(String, ""hello"")) ",5,5,10
+"contains(d2, dk0)",5,5,10
+" eq(item, $(String, ""There"")) ",5,5,10
+d2,5,5,10
+" eq(l0, l1) ",5,5,10
+" eq(get(a0, $I(1)), $I(3)) ",6,4,10
+"eq(at(y, 3), $(Real, 7.1))",5,5,10
+" eq(get(a1, $I(0)), $S(""Hello"")) ",6,4,10
+" eq(get(a1, $I(1)), $S(""Blah"")) ",6,4,10
+"get(d0, dk0) is dv0",5,5,10
+" neq(s0, s1) ",5,5,10
+"contains(d2, dk5)",5,5,10
+"c_str(s0), ""Hello""",8,2,10
+" eq(get(a0, $I(1)), $I(20)) ",6,4,10
+c_float(mirror) is base,5,5,10
+"contains(d2, dk1)",5,5,10
+" neq($(String, ""Hello""), $(String, ""hello"")) ",5,5,10
+"contains(d1, dk3)",5,5,10
+" eq(item, $(String, ""Hello"")) ",5,5,10
+" lt($(String, ""Yellow""), $(String, ""Zoo"")) ",5,5,10
+"eq(at(y, 0), $(Real, 1.1))",5,5,10
+"mem(a0, $I(1))",6,4,10
+"contains(d2, dk2)",5,5,10
+len(d0) is 2,5,5,10
+" eq(item, $(String, ""People"")) ",5,5,10
+" eq(get(a0, $I(0)), $I(20)) ",6,4,10
+d1,5,5,10
+" le($(String, ""guard""), $(String, ""guardian"")) ",5,5,10
+"mem(m0, $S(""Hello""))",6,4,10
+l0,5,4,9
+l1,5,4,9
+s1,5,4,9
+TestType,5,4,9
+int0,5,4,9
+ not(int2 is int1) ,5,4,9
+int2,5,4,9
+"neq(test_obj1, test_obj3)",5,4,9
+len(x) is 0,5,4,9
+"testinput, testoutput1",5,4,9
+len(x) is 3,5,4,9
+l2,5,4,9
+s0,5,4,9
+test_obj1,5,4,9
+r2 == 3,5,4,9
+int1,5,4,9
+test_obj2,5,4,9
+test_obj3,5,4,9
+"eq(test_obj1, test_obj2)",5,4,9
+" gt($(String, ""cat""), $(String, ""dog"")) ",4,5,9
+r0 == 2,5,4,9
+r1 == 2,5,4,9
+s2,5,4,9
+" gt($(String, ""Apple""), $(String, ""Ball"")) ",4,5,9
+len(s0) is 8,5,4,9
+ not(s1 is s2) ,5,4,9
+"eq(True, True)",4,4,8
+"as_double($(Real, 5.2)) is 5.2",4,4,8
+" neq($(Int, 324), $(Int, 685)) ",4,4,8
+"as_str(TestType), ""TestType""",4,4,8
+"as_long($(Real, 5.6)) is 5",4,4,8
+" eq(second, $(Int, 22)) ",4,4,8
+3 == total,4,4,8
+" gt($(Char, 'z'), $(Char, 'g')) ",4,4,8
+as_char(char2) is 'a',4,4,8
+" eq(at(a0, 2), $(String, ""Bar"")) ",4,4,8
+"as_long(at(values, 1)) is 4",4,4,8
+"gt(True, False)",4,4,8
+" hash($(Char, 'A')) is 65",4,4,8
+"eq(minval, $(Real, 1.1))",4,4,8
+"as_long(at(values, 0)) is 6",4,4,8
+as_long(tester) is 6,4,4,8
+" ge($(Int, 289), $(Int, 289)) ",4,4,8
+" ge($(Int, 8734), $(Int, 289)) ",4,4,8
+" lt($(Int, 70), $(Int, 81)) ",4,4,8
+" le($(Real, 1.1), $(Real, 88.8)) ",4,4,8
+"as_char($(Char, 'a')) is 'a'",4,4,8
+"eq(at(z, 0), $(Real, 1.1))",4,4,8
+" eq(get(a0, $(Int, 0)), $(Int, 20)) ",4,4,8
+2 == integers,4,4,8
+a0 != a2,4,4,8
+as_long(banana_price) is 6,4,4,8
+as_long(res1) is 1,4,4,8
+type_of(False) is Bool,4,4,8
+as_long(int1) is 24313,4,4,8
+" hash($(Int, 11)) is 11 ",4,4,8
+" neq($(Real, 3.24), $(Real, 6.85)) ",4,4,8
+as_long(tester) is 60,4,4,8
+((FunctionData*)f1)->func == ((FunctionData*)f2)->func,4,4,8
+"at(l0, 2) is li6",4,4,8
+"get(m0, mk2) is dv9",4,4,8
+as_long(res2) is 1,4,4,8
+"as_str(z), ""Hello""",4,4,8
+"at(values,0) is at(new_values,0)",4,4,8
+"at(l1, 0) is li4",4,4,8
+" eq(at(a0, 1), $(String, ""There"")) ",4,4,8
+" eq(at(a0, 2), $(Int, 1)) ",4,4,8
+as_double(fst) is 1.0,4,4,8
+a0 != a1,4,4,8
+"eq(get(x, $(Int, 0)), $(Int, 0))",4,4,8
+" ge($(String, ""tooting""), $(String, ""Red"")) ",4,4,8
+"as_double($(Int, 5)) is 5.0",4,4,8
+" eq(get(a0, $(Int, 1)), $(Int, 3)) ",4,4,8
+" lt($(Char, 'Y'), $(Char, 'Z')) ",4,4,8
+" eq(i2, $(Int, 6)) ",4,4,8
+as_double(real1) is 24.313,4,4,8
+"as_long(at(values, 2)) is 11",4,4,8
+"at(x, 1) is trd",4,4,8
+((FunctionData*)f1)->func is ((FunctionData*)f2)->func,4,4,8
+" as_str(s2), ""There"" ",4,4,8
+" gt($(Char, 'a'), $(Char, 'A')) ",4,4,8
+"eq(at(x, 1), $(Int, 5))",4,4,8
+" gt($(Int, 15), $(Int, 3 )) ",4,4,8
+"eq(at(z, 3), $(Real, 7.1))",4,4,8
+type_of(Int) is Type,4,4,8
+" gt($(Char, 'G'), $(Char, 'F')) ",4,4,8
+as_long(tester) is 10,4,4,8
+type_of(y),4,4,8
+"c_str(s0), """"",6,2,8
+"as_double($(Int, 7)) is 7.0",4,4,8
+" le($(Int, 11), $(Int, 888)) ",4,4,8
+" ge($(Char, 'T'), $(Char, 'T')) ",4,4,8
+" eq(at(a0, 0), $(String, ""Foo"")) ",4,4,8
+"at(l0, 1) is li0",4,4,8
+"contains(x, $(Real, 2.0))",4,4,8
+hash(False) is 0,4,4,8
+"get(m0, mk1) is dv5",4,4,8
+"at(l2, 0) is li4",4,4,8
+char1,4,4,8
+"contains(s0, $(String, ""oon""))",4,4,8
+" hash($(Char, 'b')) is 98",4,4,8
+" eq(get(a0, $(Int, 1)), $(Int, 20)) ",4,4,8
+"as_str(s2), ""Hello""",4,4,8
+"at(l0, 1) is li5",4,4,8
+" eq(get(a0, $(Int, 2)), $(Int, 3)) ",4,4,8
+as_long(fst) is 64,4,4,8
+t0 != t1,4,4,8
+"eq(at(z, 1), $(Real, 2.2))",4,4,8
+" eq($(Real, 1.11), $(Real, 1.11)) ",4,4,8
+"at(l1, 1) is li5",4,4,8
+"contains(a0, $(Int, 5))",4,4,8
+" eq($(Int, 111), $(Int, 111)) ",4,4,8
+"contains(y, $(Real, 1.1))",4,4,8
+" hash($(Real, 11.0)) is r1.as_long ",4,4,8
+hash(True) is 1,4,4,8
+z,4,4,8
+" le($(Int, 21), $(Int, 32)) ",4,4,8
+" hash($(Real, 0.6)) is r2.as_long ",4,4,8
+ not(real2 is real1) ,4,4,8
+" lt($(Int, 34), $(Int, 323)) ",4,4,8
+" neq($(Int, 34), $(Int, 54)) ",4,4,8
+len(y) is 4,4,4,8
+"type_implements(Real, Num)",4,4,8
+"as_double($(Real, 9.8)) is 9.8",4,4,8
+"as_str(xs), ""Hello""",4,4,8
+as_long(second) is 22,4,4,8
+"as_str(s1), ""There""",4,4,8
+"eq(at(z, 2), $(Real, 5.2))",4,4,8
+real2,4,4,8
+"type_implements(String, Eq)",4,4,8
+"eq(total, $I(0))",5,3,8
+len(m0) is 3,4,4,8
+" eq(get(a1, $(Int, 0)), $(String, ""Hello"")) ",4,4,8
+c_int(tester) is 20,4,4,8
+as_long(tester) is 0,4,4,8
+new_values,4,4,8
+" eq(get(a1, $(Int, 1)), $(String, ""Blah"")) ",4,4,8
+as_long(int2) is 24313,4,4,8
+"contains(y, $(Real, 2.2))",4,4,8
+"contains(l0, li0)",4,4,8
+type_of(Real) is Type,4,4,8
+type_of(Type) is Type,4,4,8
+" eq($(String, ""there""), $(String, ""there"")) ",4,4,8
+" hash($(Int, 06)) is 06 ",4,4,8
+l1 != l2,4,4,8
+as_double(True) is 1.0,4,4,8
+type_of(x) is Int,4,4,8
+"at(l0, 2) is li0",4,4,8
+"as_str(str), ""FizzBuzzBoo""",4,4,8
+as_char(char1) is 'b',4,4,8
+as_long(first) is 1,4,4,8
+"type_class(Int, Ord)",4,4,8
+"eq(maxval, $(Real, 7.1))",4,4,8
+"get(args, $I(1))",4,4,8
+as_long(False) is 0,4,4,8
+f0 != f2,4,4,8
+" eq(at(a2, 0), $(Int, 1)) ",4,4,8
+"contains(m2, mk0)",4,4,8
+char0,4,4,8
+"as_long($(Int, 5)) is 5",4,4,8
+as_long(total) is 150,4,4,8
+"as_str(xs), ""There""",4,4,8
+" eq(at(a0, 3), $(Int, 3)) ",4,4,8
+as_long(apple_price) is 12,4,4,8
+" eq(out, $(String, ""Hello Bob!"")) ",4,4,8
+" (eq(key, $S(""Hello"")) and eq(val, $I(2))) or (eq(key, $S(""There"")) and eq(val, $I(5)))",5,3,8
+" eq(at(a0, 1), $(Int, 1)) ",4,4,8
+" hash($(Int, 8213)) is 8213 ",4,4,8
+"type_of($(Real, 1.0)) is Real",4,4,8
+" le($(Char, 'A'), $(Char, 'a')) ",4,4,8
+" eq(at(a2, 0), $(Real, 1.1)) ",4,4,8
+"get(args, $(Int, 0))",4,4,8
+"as_str(s0), ""Hello""",4,4,8
+type_of(True) is Bool,4,4,8
+as_long(int0) is 1,4,4,8
+" gt($(Int, 5133), $(Int, 232)) ",4,4,8
+"contains(s0, $(String, ""Balloons""))",4,4,8
+"at(x, 0) is fst",4,4,8
+" le($(Int, 166), $(Int, 166)) ",4,4,8
+"as_long($(Real, 5.5)) is 5",4,4,8
+"contains(m2, mk2)",4,4,8
+" gt($(Real, 51.33), $(Real, 2.32)) ",4,4,8
+"at(l0, 3) is li0",4,4,8
+" neq($(Char, 'T'), $(Char, 'V')) ",4,4,8
+" ge($(Int, 71), $(Int, 71)) ",4,4,8
+"type_class(Type, AsStr)",4,4,8
+"type_class(List, At)",4,4,8
+" neq($(Int, 2 ), $(Int, 20)) ",4,4,8
+"contains(m2, mk3)",4,4,8
+" lt($(Int, 2332), $(Int, 9992)) ",4,4,8
+"as_str($(String, ""Hello"")), ""Hello""",4,4,8
+as_long(tester) is -20,4,4,8
+as_long(res1) == as_long(res2),4,4,8
+" lt($(Real, 31.0), $(Real, 32.3)) ",4,4,8
+" eq(l1, l3) ",4,4,8
+" ge($(Real, 87.34), $(Real, 2.89)) ",4,4,8
+" lt($(Real, 23.32), $(Real, 99.92)) ",4,4,8
+as_double(real2) is 24.313,4,4,8
+f0 != f1,4,4,8
+"as_double($(Real, 5.1)) is 5.1",4,4,8
+as_long(int2) is 1,4,4,8
+f1 != f2,4,4,8
+"at(l0, 3) is li1",4,4,8
+is_empty(x),4,4,8
+"mem(t0, $(String, ""Hello""))",4,4,8
+"type_implements(Int, New)",4,4,8
+" eq(at(a1, 0), $(Real, 1.1)) ",4,4,8
+" le($(Char, 'a'), $(Char, 'a')) ",4,4,8
+f2,4,4,8
+" gt($(Char, 'b'), $(Char, 'a')) ",4,4,8
+"at(l2, 1) is li1",4,4,8
+"eq(at(x, 2), $(Int, 10))",4,4,8
+"at(l2, 1) is li5",4,4,8
+as_double(snd) is 3.2,4,4,8
+as_double(real0) is 1.0,4,4,8
+" ge($(Real, 2.89), $(Real, 2.89)) ",4,4,8
+"as_str($(String, ""There"")), ""There""",4,4,8
+"eq(at(x, 1), $(Int, 10))",4,4,8
+" eq(l0, l2) ",4,4,8
+l0 != l1,4,4,8
+"type_of($(Int, 1)) is Int",4,4,8
+" le($(Real, 16.6), $(Real, 16.6)) ",4,4,8
+"as_char($(Char, 'b')) is 'b'",4,4,8
+"contains(m2, mk4)",4,4,8
+" hash($(Char, 'z')) is 122",4,4,8
+"contains(l0, li4)",4,4,8
+" neq(l1, l2) ",4,4,8
+" eq($(Int, 23), $(Int, 23)) ",4,4,8
+"type_implements(IntParent, ReturnTrue)",4,4,8
+" ge($(Int, 78), $(Int, 71)) ",4,4,8
+as_str(xs) != as_str(ys),4,4,8
+" hash($(Real, 82.13)) is r3.as_long ",4,4,8
+"contains(m1, mk3)",4,4,8
+as_long(x) is 1,4,4,8
+as_char(char0) is 'a',4,4,8
+"as_str(True), ""True""",4,4,8
+as_long(fst) is 10,4,4,8
+" gt($(Int, 5), $(Int, 0)) ",4,4,8
+"contains(m2, mk1)",4,4,8
+"contains(m2, mk5)",4,4,8
+as_double(False) is 0.0,4,4,8
+" eq($(Real, 23.55), $(Real, 23.55)) ",4,4,8
+" le($(Int, 32), $(Int, 32)) ",4,4,8
+"lt(False, True)",4,4,8
+as_double(y) is 1.0,4,4,8
+as_long(x) is 10,4,4,8
+"contains(s0, $(String, ""Ball""))",4,4,8
+t0 != t2,4,4,8
+"as_str(x), as_str(y)",4,4,8
+"as_str(s0), ""Ball""",4,4,8
+"as_long($(Real, 5.4)) is 5",4,4,8
+"at(x, 2) is trd",4,4,8
+"mem(a0, $(Int, 1))",4,4,8
+"contains(m1, mk5)",4,4,8
+as_long(snd) is 32,4,4,8
+" hash($(Int, 34)) is 34 ",4,4,8
+as_char(char1) is 'a',4,4,8
+"eq(total, $I(5))",5,3,8
+" hash($(Real, 34.0)) is r0.as_long ",4,4,8
+"get(args, $I(0))",4,4,8
+"as_str(s0), """"",4,4,8
+"as_str(False), ""False""",4,4,8
+as_long(pear_price) is 55,4,4,8
+real0,4,4,8
+" neq($(String, ""group""), $(String, ""GROUP"")) ",4,4,8
+real1,4,4,8
+"get(m0, mk0) is dv0",4,4,8
+" gt($(Real, 5.0), $(Real, 0.0)) ",4,4,8
+" eq(i2, $I(6)) ",5,3,8
+" eq($(Char, 'h'), $(Char, 'h')) ",4,4,8
+l0 != l2,4,4,8
+"contains(s0, $(Char, 'l'))",4,4,8
+as_double(real2) is 1.0,4,4,8
+" lt($(Char, 'V'), $(Char, 't')) ",4,4,8
+" eq($(Int, 1 ), $(Int, 1 )) ",4,4,8
+" eq(i1, $I(5)) ",5,3,8
+"contains(y, $(Real, 7.1))",4,4,8
+len(somes) is 2,4,4,8
+as_long(True) is 1,4,4,8
+"eq(False, False)",4,4,8
+" eq(i0, $I(2)) ",5,3,8
+"get(args, $(Int, 1))",4,4,8
+" eq(first, $(Int, 1)) ",4,4,8
+"contains(m1, mk4)",4,4,8
+" eq(get(a1, $(Int, 2)), $(String, ""People"")) ",4,4,8
+"at(x, 1) is snd",4,4,8
+" lt($(Char, 'C'), $(Char, 'x')) ",4,4,8
+"at(l2, 0) is li0",4,4,8
+as_long(x) is 20,4,4,8
+" neq($(Real, 3.4), $(Real, 5.4)) ",4,4,8
+"contains(y, $(Real, 5.2))",4,4,8
+xs != ys,4,4,8
+"neq(x, y)",4,3,7
+icall->call_with,4,3,7
+ivector->dot,3,3,6
+d1 != d2,3,3,6
+ieq->eq,3,3,6
+"eq(z, $(Int, 1))",3,3,6
+"eq(w, $(Int, 0))",3,3,6
+"hash($(String, ""Hello"")) is 511",3,3,6
+iord->lt,3,3,6
+inum->div,3,3,6
+istream->open,3,3,6
+"eq(y, at(rx,0))",3,3,6
+ipush->pop,3,3,6
+ipush->push_front,3,3,6
+"eq(x, at(rx,0))",3,3,6
+self,3,3,6
+iord->gt,3,3,6
+"as_str(out), ""This is an example 10 1""",3,3,6
+"mem(t0, $S(""Hello""))",4,2,6
+" eq(get(a0, $I(1)), $I(1)) ",4,2,6
+"neq(at(r,0), $(String, ""Blah""))",3,3,6
+iat->set,3,3,6
+iretain->retain,3,3,6
+"contains(p, x)",3,3,6
+iaslong->as_long,3,3,6
+" eq(get(a0, $I(3)), $I(3)) ",4,2,6
+iiter->iter_next,3,3,6
+iat->at,3,3,6
+" eq(item, $S(""There"")) ",4,2,6
+"eq(at(r,0), $(String, ""Almost like an Auto Ptr""))",3,3,6
+"eq(at(w, 3), $(Int, 135))",3,3,6
+ivector->length,3,3,6
+ipush->pop_back,3,3,6
+inum->absolute,3,3,6
+" eq(item, $S(""People"")) ",4,2,6
+as_str(x) isnt as_str(y),3,3,6
+d0 != d2,3,3,6
+" eq(item, $S(""Hello"")) ",4,2,6
+"eq(at(liferef2,0), $(String, ""Life is Grand""))",3,3,6
+ihash->hash,3,3,6
+"contains(p, y)",3,3,6
+"eq(at(w, 5), $(Int, 123213))",3,3,6
+"hash($(String, ""There"")) is 515",3,3,6
+inum->sub,3,3,6
+istream->tell,3,3,6
+"eq(at(liferef0,0), $(String, ""Life is Long""))",3,3,6
+ipush->push_back,3,3,6
+" eq(i2, $(Int, 8)) ",3,3,6
+istream->seek,3,3,6
+ipush->pop_at,3,3,6
+idict->put,3,3,6
+"eq(get(p, x), $(Int, 2))",3,3,6
+inum->mul,3,3,6
+ipush->push,3,3,6
+"eq(at(liferef1,0), $(String, ""Life is Beautiful""))",3,3,6
+d0 != d1,3,3,6
+"contains(p, z)",3,3,6
+iiter->iter_start,3,3,6
+istream->flush,3,3,6
+"hash($(String, ""People"")) is 629",3,3,6
+"eq(x, $(Int, 5))",3,3,6
+"eq(at(w, 4), $(Int, 254))",3,3,6
+"eq(at(w, 1), $(Int, 11))",3,3,6
+((FunctionData*)f1)->func isnt ((FunctionData*)f2)->func,3,3,6
+iasdouble->as_double,3,3,6
+iasstr->as_str,3,3,6
+ipush->pop_front,3,3,6
+inum->negate,3,3,6
+as_long(item) == as_long(shadow_item),3,3,6
+istream->eof,3,3,6
+inum->add,3,3,6
+iretain->release,3,3,6
+"eq(y, $(Int, 10))",3,3,6
+istream->close,3,3,6
+"eq(get(p, x), $(Int, 1))",3,3,6
+"eq(at(w, 0), $(Int, 1))",3,3,6
+ipush->push_at,3,3,6
+icopy->copy,3,3,6
+iiter->iter_end,3,3,6
+idict->get,3,3,6
+"eq(at(w, 2), $(Int, 22))",3,3,6
+"mem(m1, $S(""Bonjour""))",3,2,5
+" eq(get(a1, $I(0)), $F(1.1)) ",3,2,5
+" eq(get(a0, $I(2)), $I(1)) ",3,2,5
+"mem(m2, $S(""There""))",3,2,5
+"mem(a0, $I(5))",3,2,5
+"mem(m2, $S(""Where""))",3,2,5
+" eq(get(a1, $I(1)), $S(""There"")) ",3,2,5
+" eq(get(l0, $I(0)), $I(1)) ",5,0,5
+" eq(get(a1, $I(0)), $S(""Foo"")) ",3,2,5
+"mem(m0, $S(""There""))",3,2,5
+len(m0) is 1,3,2,5
+" eq(get(a2, $I(0)), $I(1)) ",3,2,5
+" eq($S(""Hello""), $S(""Hello"")) ",3,2,5
+" eq(get(a1, $I(2)), $S(""Bar"")) ",3,2,5
+len(current(Exception)) is 0,5,0,5
+"mem(m2, $S(""Bonjour""))",3,2,5
+"testinput, testoutput2",2,2,4
+isort->sort,2,2,4
+c_int(tester) is 10,2,2,4
+"eq(hello1, hello2)",2,2,4
+"mem(t2, $(String, ""Bonjour""))",2,2,4
+"type_of(at(numbers, 0)) is Int",2,2,4
+c_int(tester) is 60,2,2,4
+"as_str(fst), ""Hello""",2,2,4
+iprocess->current,2,2,4
+m1 != m2,2,2,4
+char1 != char2,2,2,4
+0 == error,2,2,4
+iserialize->serial_write,2,2,4
+"at(a0, 3) is Undefined",2,2,4
+lo->num_slots >= lo->num_items,2,2,4
+1 == chars,2,2,4
+" eq(get(a0, $(Int, 1)), $(String, ""Blah"")) ",2,2,4
+"mem(t2, $(String, ""There""))",2,2,4
+"eq(get(x, $(Int, 1)), $(Int, 5))",2,2,4
+" eq(get(a1, $(Int, 0)), $(Float, 1.1)) ",2,2,4
+a1 != a2,2,2,4
+return_true(Int),2,2,4
+iformat->format_from,2,2,4
+inew->construct,2,2,4
+iformat->format_to,2,2,4
+"mem(m0, $(String, ""Hello""))",2,2,4
+((FunctionData*)f1)->func != ((FunctionData*)f2)->func,2,2,4
+icollection->clear,2,2,4
+as_str(x) != as_str(y),2,2,4
+"type_of(at(numbers, 1)) is Real",2,2,4
+"gt(m2, m0)",2,2,4
+"mem(a0, $(Int, 5))",2,2,4
+" eq(get(a2, $(Int, 0)), $(Int, 1)) ",2,2,4
+ilen->len,2,2,4
+Py_GetVersion(),2,2,4
+"eq(get(x, $(Int, 2)), $(Int, 10))",2,2,4
+ishow->look,2,2,4
+tell(f0) is 9,2,2,4
+Py_GetPlatform(),2,2,4
+iserialize->serial_read,2,2,4
+iempty->clear,2,2,4
+icollection->len,2,2,4
+"c_str(ys), ""There""",2,2,4
+"mem(x, $(Int, 3))",2,2,4
+ilockable->unlock,2,2,4
+" eq(get(a1, $(Int, 2)), $(String, ""Bar"")) ",2,2,4
+return_true(IntParent),2,2,4
+"mem(x, $(Int, 1))",2,2,4
+istream->write,2,2,4
+inew->destruct,2,2,4
+Py_GetCopyright(),2,2,4
+" eq(get(a0, $(Int, 0)), $(String, ""Hello"")) ",2,2,4
+"mem(x, $I(1))",2,2,4
+"c_int(get(x, $I(0))) is 100",4,0,4
+a2 != a1,2,2,4
+"55 == as_long(get(prices, $(String, ""Pear"")))",2,2,4
+"at(x, 3) is Undefined",2,2,4
+"at(a0, -1) is Undefined",2,2,4
+"eq(get(x, $(Int, 1)), $(Int, 10))",2,2,4
+i,2,2,4
+"12 == as_long(get(prices, $(String, ""Apple"")))",2,2,4
+" eq(get(l0, $I(2)), $I(3)) ",4,0,4
+5 == len(hello1),2,2,4
+"mem(t1, $(String, ""Bonjour""))",2,2,4
+"as_str(snd), ""There""",2,2,4
+Exception_Depth() is 2,2,2,4
+m0 != m2,2,2,4
+"""NoneType"", as_str(type_of(_none))",2,2,4
+"lt(m0, m2)",2,2,4
+" eq(get(a0, $(Int, 3)), $(Int, 3)) ",2,2,4
+iempty->is_empty,2,2,4
+iappend->append,2,2,4
+"eq(e, $(Int, 4))",2,2,4
+"mem(t0, $(String, ""There""))",2,2,4
+c_str(xs) isnt c_str(ys),2,2,4
+"eq(total, $(Int, 0))",2,2,4
+"10.12 == as_double(at(numbers, 1))",2,2,4
+" eq(get(a0, $(Int, 2)), $(String, ""People"")) ",2,2,4
+icontains->contains,2,2,4
+"neq(e, $(Int, 1))",2,2,4
+"eq(total, $(Int, 5))",2,2,4
+icollection->discard,2,2,4
+2 == not_contains,2,2,4
+m0 != m1,2,2,4
+"""None"", as_str(_none)",2,2,4
+" eq(get(a0, $(Int, 2)), $(Int, 1)) ",2,2,4
+"""Hello"", as_str(hello1)",2,2,4
+"get(x, $I(1)) is Float",2,2,4
+c_int(y) is 20,2,2,4
+istream->read,2,2,4
+"eq(get(x, $I(0)), $I(0))",2,2,4
+" eq(get(a0, $(Int, 1)), $(Int, 1)) ",2,2,4
+"mem(t2, $(String, ""Where""))",2,2,4
+" eq(get(a1, $(Int, 1)), $(String, ""There"")) ",2,2,4
+"type_of(at(numbers, 2)) is Int",2,2,4
+"at(x, -1) is Undefined",2,2,4
+1 == integers,2,2,4
+"1 == as_long(at(numbers, 0))",2,2,4
+iprocess->terminate,2,2,4
+"as_str(string), ""Hello""",2,2,4
+"1.34 == as_double(get(prices, $(String, ""Banana"")))",2,2,4
+iassign->assign,2,2,4
+iaschar->as_char,2,2,4
+icollection->contains,2,2,4
+"at(in_func, 0)",2,2,4
+" eq(get(a1, $(Int, 0)), $(String, ""Foo"")) ",2,2,4
+(var)eof(f0) is False,2,2,4
+"mem(x, $I(3))",2,2,4
+ireverse->reverse,2,2,4
+iprocess->join,2,2,4
+" eq(get(a2, $(Int, 0)), $(Float, 1.1)) ",2,2,4
+exception_depth() is 2,2,2,4
+"type_implements(Int, ReturnTrue)",2,2,4
+"at(l0, -1) is Undefined",2,2,4
+ilockable->lock,2,2,4
+3 == len(numbers),2,2,4
+" eq(string, $(String, ""Hello"")) ",2,2,4
+"6 == as_long(at(numbers, 2))",2,2,4
+c_int(tester) is 6,2,2,4
+"at(l0, 4) is Undefined",2,2,4
+c_float(float1) is 24.313,2,1,3
+ hash($F(82.13)) is r3.c_int ,2,1,3
+" le($S(""guard""), $S(""guardian"")) ",2,1,3
+" gt($S(""dog""), $S(""cat"")) ",2,1,3
+c_float(float0) is 1.0,2,1,3
+" neq($I(34), $I(54)) ",2,1,3
+"c_str(s2), ""Hello""",2,1,3
+c_int(int0) is 1,2,1,3
+empty(a0),2,1,3
+c_int(int2) is 24313,2,1,3
+"mem(t1, $S(""Bonjour""))",2,1,3
+" ge($S(""tooting""), $S(""red"")) ",2,1,3
+" ge($F(2.89), $F(2.89)) ",2,1,3
+"eq(get(m0, $S(""jads"")), $I(7))",2,1,3
+"len($S(""Hello"")) is 5",2,1,3
+"neq(m0, m2)",2,1,3
+c_int(i) is j,3,0,3
+" eq($F(1.11), $F(1.11)) ",2,1,3
+" gt($S(""Ball""), $S(""Apple"")) ",2,1,3
+"hash($S(""People"")) is v2",2,1,3
+" lt($S(""Yellow""), $S(""Zoo"")) ",2,1,3
+len(current(Exception)) is 1,3,0,3
+"neq($S(""Hello""), $S(""hello"")) ",2,1,3
+ hash($I(8213)) is 8213 ,2,1,3
+"mem(s0, $S(""Ball""))",2,1,3
+ not(float2 is float1) ,2,1,3
+" gt($I(5), $I(0)) ",2,1,3
+"c_int(get(x, $I(1))) is 200",3,0,3
+"c_str(s1), ""There""",2,1,3
+" lt($I(34), $I(323)) ",2,1,3
+c_int(int1) is 24313,2,1,3
+" eq($F(23.55), $F(23.55)) ",2,1,3
+" gt($F(51.33), $F(2.32)) ",2,1,3
+" ge($F(87.34), $F(2.89)) ",2,1,3
+"hash($S(""Hello"")) is v0",2,1,3
+c_float(float2) is 24.313,2,1,3
+" neq($I(324), $I(685)) ",2,1,3
+"mem(t2, $S(""There""))",2,1,3
+" le($S(""keep""), $S(""keep"")) ",2,1,3
+ hash($I(11)) is 11 ,2,1,3
+" lt($S(""great""), $S(""hello"")) ",2,1,3
+" le($I(11), $I(888)) ",2,1,3
+empty(m0),2,1,3
+empty(l0),2,1,3
+c_int(int2) is 1,2,1,3
+float0,2,1,3
+"c_str(TestType), ""TestType""",2,1,3
+" c_str(s2), ""There"" ",2,1,3
+"eq(get(m0, $S(""kyad"")), $I(2))",2,1,3
+ hash($I(06)) is 06 ,2,1,3
+"mem(t0, $S(""There""))",2,1,3
+"hash($S(""There"")) is v1",2,1,3
+"c_str($S(""Hello"")), ""Hello""",2,1,3
+"mem(s0, $S(""Balloons""))",2,1,3
+" eq($I(111), $I(111)) ",2,1,3
+ hash($I(34)) is 34 ,2,1,3
+" ge($S(""Hello""), $S(""Hello"")) ",2,1,3
+" eq($S(""there""), $S(""there"")) ",2,1,3
+"eq(x, y)",3,0,3
+empty(s0),2,1,3
+" le($F(1.1), $F(88.8)) ",2,1,3
+"eq(get(m0, $S(""lkil"")), $I(2))",2,1,3
+" lt($F(31.0), $F(32.3)) ",2,1,3
+" lt($F(23.32), $F(99.92)) ",2,1,3
+" neq($F(3.4), $F(5.4)) ",2,1,3
+" neq($F(3.24), $F(6.85)) ",2,1,3
+" ge($I(289), $I(289)) ",2,1,3
+c_float(float2) is 1.0,2,1,3
+empty(t0),2,1,3
+" eq($I(23), $I(23)) ",2,1,3
+ hash($F(0.6)) is r2.c_int ,2,1,3
+"eq(m0, m1)",2,1,3
+"mem(s0, $S(""oon""))",2,1,3
+" gt($I(5133), $I(232)) ",2,1,3
+"mem(t2, $S(""Bonjour""))",2,1,3
+"c_int(get(x, $I(2))) is 300",3,0,3
+float1,2,1,3
+"hash(m0) is ( hash($S(""Hello"")) ^ hash($I(2)) ^ hash($S(""There"")) ^ hash($I(5)))",2,1,3
+"eq(get(x, $I(0)), $S(""Hello""))",3,0,3
+" ge($I(8734), $I(289)) ",2,1,3
+"mem(t2, $S(""Where""))",2,1,3
+" le($I(166), $I(166)) ",2,1,3
+len(m0) is 12,2,1,3
+"c_str(s0), ""Ball""",2,1,3
+" gt($F(5.0), $F(0.0)) ",2,1,3
+ hash($F(34.0)) is r0.c_int ,2,1,3
+ hash($F(11.0)) is r1.c_int ,2,1,3
+" lt($I(2332), $I(9992)) ",2,1,3
+"eq(get(m0, $S(""asfa"")), $I(0))",2,1,3
+"neq($S(""group""), $S(""GROUP"")) ",2,1,3
+float2,2,1,3
+" eq(get(l0, $I(0)), $I(10)) ",3,0,3
+" le($F(16.6), $F(16.6)) ",2,1,3
+"eq(a4, a2)",2,0,2
+" gt($(Float, 5.0), $(Float, 0.0)) ",1,1,2
+"eq(get(x, $I(2)), $I(10))",1,1,2
+"eq(deref(liferef0), $(String, ""Life is Long""))",1,1,2
+c_char(char1) is 'b',1,1,2
+" ge($(Float, 2.89), $(Float, 2.89)) ",1,1,2
+"eq(minval, $(Float, 1.1))",1,1,2
+"mem(x, $(Int, 2))",1,1,2
+"mem(f, $I(5))",2,0,2
+c_float(y) is 1.0,1,1,2
+icollection->is_empty,1,1,2
+rx != x,1,1,2
+c_int(tester) is 0,1,1,2
+"eq(y, deref(rx))",1,1,2
+" eq(get(l1, $I(2)), $S(""People"")) ",2,0,2
+" gt($C('a'), $C('A')) ",1,1,2
+c_float($F(5.1)) is 5.1,1,1,2
+"eq(get(z, $I(0)), tuple($I(100), $I( 10)))",2,0,2
+"eq(z, $(Real, 0.21))",1,1,2
+" eq(get(a0, $(Int, 2)), $(String, ""Bar"")) ",1,1,2
+istream->read_from,1,1,2
+c_float($F(9.8)) is 9.8,1,1,2
+"mem(y, $F(7.1))",1,1,2
+iwith->exit,1,1,2
+"eq(get(x, $I(1)), $S(""World""))",2,0,2
+" eq(get(l0, $I(1)), $I(1)) ",2,0,2
+"deref(get(arr, $I(1))) is trd",1,1,2
+len(d0) is (max),2,0,2
+"le($I(21), $I(32))",1,1,2
+c_str(x) isnt c_str(y),1,1,2
+c_int(x) is 10,1,1,2
+"mem(s0, $(Char, 'l'))",1,1,2
+istream->stream_read,1,1,2
+"eq(get(z, $I(2)), $F(5.2))",1,1,2
+"eq(get(z, $I(1)), tuple($I( 10), $I(213)))",2,0,2
+ as_long(s0) is 1234 ,1,1,2
+iparse->parse_read,1,1,2
+"deref(get(arr, $I(0))) is fst",1,1,2
+"get(x, $I(2)) is Type",1,1,2
+"eq(z, $I(1))",1,1,2
+"get(d0, test_key) is value",1,1,2
+"lt($I(70), $I(81))",1,1,2
+"mem(m0, $(String, ""There""))",1,1,2
+"eq(get(l0, $I(1)), $I(2))",2,0,2
+"eq(get(d0, test_key), value)",1,1,2
+"c_int(get(values, $I(2))) is 11",1,1,2
+"mem(l0, $I(1))",2,0,2
+"eq(get(w, $I(1)), $I(11))",1,1,2
+"eq(deref(liferef1), $(String, ""Life is Beautiful""))",1,1,2
+"eq(get(w, $(Int, 2)), $(Int, 22))",1,1,2
+"eq(get(y, $I(2)), $F(5.2))",1,1,2
+istream->write_to,1,1,2
+val_subtype(t0) is Float,1,1,2
+c_int(x) is 1,1,1,2
+c_char($C('b')) is 'b',1,1,2
+type_of(y) is Ref,1,1,2
+key_subtype(m0) is Int,1,1,2
+"mem(s0, $(String, ""oon""))",1,1,2
+c_int($I(5)) is 5,1,1,2
+" hash($(Float, 11.0)) is r1.c_int ",1,1,2
+" hash($(Float, 34.0)) is r0.c_int ",1,1,2
+"eq(get(y, $(Int, 0)), $(Float, 1.1))",1,1,2
+"eq(get(z, $I(1)), $F(2.2))",1,1,2
+"c_str(False), ""False""",1,1,2
+"eq(i2, $I(3))",2,0,2
+len(d0) is max,0,2,2
+"eq(get(z, $I(3)), $F(7.1))",1,1,2
+"type_instance(Type, C_Str)",1,1,2
+c_char($C('a')) is 'a',1,1,2
+"eq(a3, a1)",2,0,2
+"""Bool"", as_str(type_of(_true))",1,1,2
+subtype(l0) is Int,1,1,2
+"mem(s0, $(String, ""Ball""))",1,1,2
+"c_str($(String, ""There"")), ""There""",1,1,2
+"eq(get(w, $(Int, 1)), $(Int, 11))",1,1,2
+"c_char($(Char, 'b')) is 'b'",1,1,2
+"eq(unbox(liferef1), $(String, ""Life is Beautiful""))",1,1,2
+ilockable->lock_try,1,1,2
+"eq(deref(r), $(String, ""Almost like an Auto Ptr""))",1,1,2
+"c_char($(Char, 'a')) is 'a'",1,1,2
+" le($(Float, 1.1), $(Float, 88.8)) ",1,1,2
+val_subtype(m0) is Float,1,1,2
+"eq(hello1, hello2) is True",1,1,2
+"mem(f, $I(9))",2,0,2
+ilockable->lock_status,1,1,2
+c_char(char0) is 'a',1,1,2
+" gt($C('b'), $C('a')) ",1,1,2
+"at(x, -1) is None",1,1,2
+c_float($F(5.2)) is 5.2,1,1,2
+"eq(get(y, $I(1)), $F(2.2))",1,1,2
+"get(x, $I(0)) is Int",1,1,2
+"c_int(get(values, $(Int, 2))) is 11",1,1,2
+"""True"", as_str(_true)",1,1,2
+"mem(y, $(Float, 2.2))",1,1,2
+istream->stream_tell,1,1,2
+"deref(get(arr, $I(1))) is snd",1,1,2
+c_int(True) is 1,1,1,2
+"name(Int), ""Int""",1,1,2
+c_int(x) is 20,1,1,2
+"type_of($(Float, 1.0)) is Float",1,1,2
+"eq(get(y, $(Int, 2)), $(Float, 5.2))",1,1,2
+"mem(x, $I(2))",1,1,2
+ hash($C('b')) is 98,1,1,2
+"c_int($(Int, 5)) is 5",1,1,2
+"eq(get(a0, $I(1)), $I(2))",2,0,2
+c_char(char1) is 'a',1,1,2
+subtype(z) is Ref,1,1,2
+"len($T($I(1), $I(2), $I(3))) is 3",1,1,2
+"type_instance(Int, Cmp)",1,1,2
+"mem(y, $F(2.2))",1,1,2
+((struct Function*)f1)->func is ((struct Function*)f2)->func,1,1,2
+"c_float($(Int, 7)) is 7.0",1,1,2
+" eq(get(l1, $I(1)), $S(""Blah"")) ",2,0,2
+((struct Function*)f1)->func isnt ((struct Function*)f2)->func,1,1,2
+"c_int($(Float, 5.4)) is 5",1,1,2
+"eq(get(w, $(Int, 3)), $(Int, 135))",1,1,2
+"at(x, 3) is None",1,1,2
+((struct Function*)f1)->func == ((struct Function*)f2)->func,1,1,2
+ as_long(s1) is 456 ,1,1,2
+"deref(get(arr, $(Int, 2))) is trd",1,1,2
+"c_float($(Float, 5.2)) is 5.2",1,1,2
+" eq($I(1 ), $I(1 )) ",1,1,2
+" eq(get(l1, $I(0)), $S(""Hello"")) ",2,0,2
+"mem(m2, $(String, ""Where""))",1,1,2
+"mem(m1, $(String, ""Bonjour""))",1,1,2
+c_int(fst) is 1,1,1,2
+"eq(x, deref(rx))",1,1,2
+" lt($C('C'), $C('x')) ",1,1,2
+ as_long(s2) is 0 ,1,1,2
+istream->stream_seek,1,1,2
+" ge($C('T'), $C('T')) ",1,1,2
+"eq(get(y, $(Int, 1)), $(Float, 2.2))",1,1,2
+"""Bool"", as_str(type_of(_false))",1,1,2
+"c_float($(Float, 5.1)) is 5.1",1,1,2
+"mem(m2, $(String, ""There""))",1,1,2
+"eq(i1, $I(2))",2,0,2
+"gt(a2, a1)",2,0,2
+"eq(i0, $I(1))",2,0,2
+"eq(get(x, $I(1)), $I(5))",1,1,2
+"c_str($(String, ""Hello"")), ""Hello""",1,1,2
+"lt(a1, a2)",2,0,2
+istream->stream_close,1,1,2
+"deref(get(arr, $I(2))) is trd",1,1,2
+"type_implements(Int, Assign)",1,1,2
+"mem(s0, $C('l'))",1,1,2
+"type_implements(String, Cmp)",1,1,2
+"eq(get(w, $I(5)), $I(123213))",1,1,2
+"ge($I(71), $I(71))",1,1,2
+" le($C('A'), $C('a')) ",1,1,2
+deref(b0) is s0,2,0,2
+ as_long(s2) is 987 ,1,1,2
+key_subtype(t0) is Int,1,1,2
+"type_instance(Int, Ord)",1,1,2
+"c_str(z), ""Hello""",1,1,2
+"eq(get(z, $(Int, 1)), $(Float, 2.2))",1,1,2
+"mem(m2, $(String, ""Bonjour""))",1,1,2
+val_subtype(t1) is Int,1,1,2
+inew->size,1,1,2
+"eq(unbox(liferef0), $(String, ""Life is Long""))",1,1,2
+iwith->enter,1,1,2
+deref(r0) is s0,2,0,2
+"deref(get(arr, $(Int, 1))) is snd",1,1,2
+"mem(y, $(Float, 5.2))",1,1,2
+"eq(get(w, $I(4)), $I(254))",1,1,2
+val_subtype(m1) is Int,1,1,2
+key_subtype(t1) is String,1,1,2
+c_float(False) is 0.0,1,1,2
+"eq(y, $I(10))",1,1,2
+"eq(unbox(r), $(String, ""Almost like an Auto Ptr""))",1,1,2
+len(y) is 3,2,0,2
+c_int(snd) is 22,1,1,2
+" hash($(Float, 0.6)) is r2.c_int ",1,1,2
+"deref(get(arr, $(Int, 0))) is fst",1,1,2
+"neq(deref(r), $(String, ""Blah""))",1,1,2
+"eq(x, $I(5))",1,1,2
+c_int(False) is 0,1,1,2
+"ge($I(78), $I(71))",1,1,2
+" lt($(Float, 31.0), $(Float, 32.3)) ",1,1,2
+" eq(get(l0, $I(1)), $I(20)) ",2,0,2
+" eq(get(l0, $I(0)), $I(20)) ",2,0,2
+"eq(get(w, $I(3)), $I(135))",1,1,2
+"type_instance(Array, Get)",1,1,2
+"c_float($(Int, 5)) is 5.0",1,1,2
+"c_int($(Float, 5.6)) is 5",1,1,2
+" neq($I(2 ), $I(20)) ",1,1,2
+" lt($C('V'), $C('t')) ",1,1,2
+"eq(get(z, $(Int, 3)), $(Float, 7.1))",1,1,2
+"c_str(out), ""This is an example 10 1""",1,1,2
+"eq(x, unbox(rx))",1,1,2
+"""False"", as_str(_false)",1,1,2
+"eq(get(z, $(Int, 0)), $(Float, 1.1))",1,1,2
+"mem(s0, $(String, ""Balloons""))",1,1,2
+deref(in_func),1,1,2
+"get(x, $I(0)) is Type",1,1,2
+c_int($I(6)) is 6,1,1,2
+subtype(a1) is Float,1,1,2
+"eq(unbox(liferef2), $(String, ""Life is Grand""))",1,1,2
+subtype(a0) is Int,1,1,2
+subtype(range($I(10))) is Int,1,1,2
+c_int(in_func),1,1,2
+icontains->erase,1,1,2
+istream->stream_eof,1,1,2
+"c_str(True), ""True""",1,1,2
+"eq(get(w, $I(2)), $I(22))",1,1,2
+" neq($C('T'), $C('V')) ",1,1,2
+subtype(l1) is Float,1,1,2
+ as_long(s3) is -67890 ,1,1,2
+" eq(get(l0, $I(3)), $I(3)) ",2,0,2
+deref(i),1,1,2
+"eq(get(z, $I(2)), tuple($I( 30), $I( 12)))",2,0,2
+"eq(maxval, $(Float, 7.1))",1,1,2
+"c_str(x), c_str(y)",1,1,2
+istream->done,1,1,2
+"c_int(get(values, $(Int, 0))) is 6",1,1,2
+" neq($(Float, 3.4), $(Float, 5.4)) ",1,1,2
+c_int(i),1,1,2
+"eq(deref(liferef2), $(String, ""Life is Grand""))",1,1,2
+key_subtype(m1) is String,1,1,2
+ reached5 ,1,1,2
+" le($(Float, 16.6), $(Float, 16.6)) ",1,1,2
+"eq(get(y, $(Int, 3)), $(Float, 7.1))",1,1,2
+"type_implements(Float, C_Float)",1,1,2
+in_func,1,1,2
+" hash($(Float, 82.13)) is r3.c_int ",1,1,2
+" neq($(Float, 3.24), $(Float, 6.85)) ",1,1,2
+" neq($S(""Hello""), $S(""There"")) ",1,1,2
+"eq(w, $(Real, 0.11))",1,1,2
+"as_str(out), ""This is an example lala 0.1 0 1 10.000000 999\n""",1,1,2
+type_of(Float) is Type,1,1,2
+ as_long(s3) is 0 ,1,1,2
+ as_long(s4) is 987 ,1,1,2
+"c_int($(Float, 5.5)) is 5",1,1,2
+"lt(t0, t2)",1,1,2
+"eq(get(w, $(Int, 0)), $(Int, 1))",1,1,2
+" lt($C('Y'), $C('Z')) ",1,1,2
+" eq($(Float, 1.11), $(Float, 1.11)) ",1,1,2
+ishow->show,1,1,2
+c_char(char2) is 'a',1,1,2
+"gt($I(15), $I( 3))",1,1,2
+"le($I(32), $I(32))",1,1,2
+ as_long(s5) is -67890 ,1,1,2
+c_int(banana_price) is 6,1,1,2
+"eq(w, $I(0))",1,1,2
+"eq(get(z, $(Int, 2)), $(Float, 5.2))",1,1,2
+c_int(tester) is -20,1,1,2
+"mem(y, $F(5.2))",1,1,2
+" gt($C('G'), $C('F')) ",1,1,2
+c_int(apple_price) is 12,1,1,2
+"c_float($(Float, 9.8)) is 9.8",1,1,2
+"eq(get(w, $(Int, 4)), $(Int, 254))",1,1,2
+subtype(y) is subtype(x),1,1,2
+" eq($C('h'), $C('h')) ",1,1,2
+istream->stream_flush,1,1,2
+"c_int(get(values, $(Int, 1))) is 4",1,1,2
+"gt(t2, t0)",1,1,2
+iparse->parse_write,1,1,2
+"type_implements(Float, Math)",1,1,2
+" eq($(Float, 23.55), $(Float, 23.55)) ",1,1,2
+empty(x),1,1,2
+"deref(get(x, $(Int, 1))) is trd",1,1,2
+" gt($C('z'), $C('g')) ",1,1,2
+"mem(y, $F(1.1))",1,1,2
+"deref(get(x, $(Int, 1))) is snd",1,1,2
+"deref(get(x, $(Int, 2))) is trd",1,1,2
+" eq(get(a0, $(Int, 1)), $(String, ""There"")) ",1,1,2
+"eq(get(w, $(Int, 5)), $(Int, 123213))",1,1,2
+"neq(unbox(r), $(String, ""Blah""))",1,1,2
+ishow->show_size,1,1,2
+c_int(pear_price) is 55,1,1,2
+" lt($(Float, 23.32), $(Float, 99.92)) ",1,1,2
+"c_str($S(""There"")), ""There""",1,1,2
+"mem(y, $(Float, 7.1))",1,1,2
+"c_int(get(values, $I(0))) is 6",1,1,2
+"mem(y, $(Float, 1.1))",1,1,2
+ reached4 ,1,1,2
+"eq(get(y, $I(3)), $F(7.1))",1,1,2
+"c_int(get(values, $I(1))) is 4",1,1,2
+"eq(get(z, $I(0)), $F(1.1))",1,1,2
+type_of($F(1.0)) is Float,1,1,2
+ hash($C('z')) is 122,1,1,2
+"eq(get(y, $I(0)), $F(1.1))",1,1,2
+"len(tuple($I(1), $I(2), $I(3))) is 3",1,1,2
+" le($C('a'), $C('a')) ",1,1,2
+ hash($C('A')) is 65,1,1,2
+"eq(y, unbox(rx))",1,1,2
+" gt($(Float, 51.33), $(Float, 2.32)) ",1,1,2
+" eq(get(a0, $(Int, 0)), $(String, ""Foo"")) ",1,1,2
+"c_str(xs), ""Hello""",1,1,2
+c_int($I(1)) is 1,1,1,2
+" eq(get(l0, $I(1)), $I(3)) ",2,0,2
+"c_str(xs), ""There""",1,1,2
+"eq(get(x, $I(1)), $I(10))",1,1,2
+"deref(get(arr, $(Int, 1))) is trd",1,1,2
+" ge($(Float, 87.34), $(Float, 2.89)) ",1,1,2
+istream->stream_write,1,1,2
+istream->stream_open,1,1,2
+type_of($I(1)) is Int,1,1,2
+c_float(True) is 1.0,1,1,2
+"eq(get(w, $I(0)), $I(1))",1,1,2
+"deref(get(x, $(Int, 0))) is fst",1,1,2
+"get(x, $I(2)) is Int",1,1,2
+len(y) is 2,1,0,1
+iter_type(y) is iter_type(x),1,0,1
+"gt(m0, m2)",1,0,1
+"c_str(s), ""Int""",1,0,1
+"c_str(s0), ""3532.110000""",1,0,1
+iter_type(a1) is Float,1,0,1
+"eq(y, z)",1,0,1
+" eq(get(l1, $I(-1)), $S(""People"")) ",1,0,1
+ c_int($I(34)) is 34 ,1,0,1
+"eq(get(l0, $I(0)), $I(0))",1,0,1
+"c_int(get(s1, $I(1))) is 10",1,0,1
+"c_int(get(s2, $I(1))) is 30",1,0,1
+val_type(m0) is Float,1,0,1
+"eq(get(a0, $I(0)), $I(0))",1,0,1
+"c_str(s0), ""8213""",1,0,1
+r0,1,0,1
+"c_int(get(s0, $I(-1))) is 50",1,0,1
+c_float($F( 676.342)) is 676.342,1,0,1
+"c_str(s0), ""34""",1,0,1
+"eq(get(l0, $I(5)), $I(6))",1,0,1
+" gt($(String, ""dog""), $(String, ""cat"")) ",1,0,1
+"eq(get(a0, $I(2)), $I(2))",1,0,1
+"c_int(get(x, $I(1))) is 10",1,0,1
+"c_int(get(y, $I(5))) is 6",1,0,1
+"c_int(get(x, $I(100))) is 100",1,0,1
+"gt(t3, t1)",1,0,1
+c_float($F( 10.0)) is 10.0,1,0,1
+"c_int(get(s3, $I(1))) is 30",1,0,1
+len(current(Exception)) is 2,1,0,1
+"eq(s0, s3)",1,0,1
+"eq(current(Thread), current(Thread))",1,0,1
+" gt($(String, ""Ball""), $(String, ""Apple"")) ",1,0,1
+"len(zip(x, y)) is 5",1,0,1
+"c_str(s0), ""1023.100000""",1,0,1
+"eq(t0, t1)",1,0,1
+"hash(a0) is (hash($S(""Hello"")) ^ hash($S(""World"")))",1,0,1
+"gt(Type, Int)",1,0,1
+"c_str(Array), ""Array""",1,0,1
+"c_int(get(s6, $I(0))) is 1",1,0,1
+key_type(m1) is String,1,0,1
+"c_int(get(y, $I(15))) is 16",1,0,1
+deref(r1) is NULL,1,0,1
+"c_int(get(s3, $I(0))) is 100",1,0,1
+len(m) is len(x),1,0,1
+"c_int(deref(get(z, $I(0)))) is 100",1,0,1
+"c_int(get(z, $I(3))) is 9",1,0,1
+"len(zip(x, y, z)) is 2",1,0,1
+key_type(t0) is Int,1,0,1
+"c_int(get(s1, $I(0))) is 100",1,0,1
+key_type(m0) is Int,1,0,1
+"c_str(s0), ""\""Hello\\n\""""",1,0,1
+c_float($F( 1352.21)) is 1352.21,1,0,1
+"c_int(get(s5, $I(0))) is 50",1,0,1
+"eq(x, $I(10))",1,0,1
+len(zip(z)) is 2,1,0,1
+"c_int(get(x, $I(-1))) is 300",1,0,1
+"eq(get(z, $I(4)), tuple($I( 6), $I( 99)))",1,0,1
+"c_int(get(s7, $I(0))) is 30",1,0,1
+"eq(get(a0, $I(6)), $I(10))",1,0,1
+iter_type(a0) is Int,1,0,1
+"c_int(get(x, $I(-2))) is 200",1,0,1
+"c_int(get(z, $I(0))) is 3",1,0,1
+"c_int(get(x, $I(4))) is 20",1,0,1
+"c_int(get(s1, $I(-1))) is 50",1,0,1
+ c_int($I(11)) is 11 ,1,0,1
+"lt(m2, m0)",1,0,1
+"c_int(get(s6, $I(2))) is 50",1,0,1
+b0,1,0,1
+val_type(t0) is Float,1,0,1
+len(s2) is 2,1,0,1
+" eq(get(l0, $I(2)), $I(1)) ",1,0,1
+" eq(get(a1, $I(-3)), $S(""Hello"")) ",1,0,1
+"c_str(s0), ""6""",1,0,1
+"eq(get(t0, $S(""asfa"")), $I(0))",1,0,1
+"c_str($S(""Yellow"")), ""Yellow""",1,0,1
+"gt(m3, m1)",1,0,1
+ c_int($I(8213)) is 8213 ,1,0,1
+"eq(call($(Function, return_snd), $I(100), $I(200)), $I(200))",1,0,1
+"eq(get(a0, $I(3)), $I(4))",1,0,1
+"eq(get(a0, $I(1)), $I(5))",1,0,1
+"eq(x, a)",1,0,1
+iter_type(l1) is Float,1,0,1
+"c_str($S(""Ball"")), ""Ball""",1,0,1
+len(t0) is 12,1,0,1
+"c_int(get(y, $I(1))) is 3",1,0,1
+"eq(get(x, $I(0)), $S(""World""))",1,0,1
+"iter_type(zip(x, y, z)) is Tuple",1,0,1
+"len($S(""guard"")) is 5",1,0,1
+"eq(get(a0, $I(4)), $I(5))",1,0,1
+" eq(get(l1, $I(1)), $S(""There"")) ",1,0,1
+"hash(Int) is hash($S(""Int""))",1,0,1
+" eq(get(l1, $I(-2)), $S(""There"")) ",1,0,1
+"c_int(get(s6, $I(-1))) is 100",1,0,1
+"len($S(""tooting"")) is 7",1,0,1
+key_type(t1) is String,1,0,1
+"mem(l0, $I(5))",1,0,1
+len(s1) is 3,1,0,1
+"eq(get(t0, $S(""lkil"")), $I(2))",1,0,1
+"eq(get(l0, $I(3)), $I(7))",1,0,1
+ c_int($I(06)) is 06 ,1,0,1
+"c_str(Float), ""Float""",1,0,1
+"eq(get(l0, $I(6)), $I(10))",1,0,1
+"eq(get(t0, $S(""jads"")), $I(7))",1,0,1
+"c_int(get(x, $I(3))) is 10",1,0,1
+" eq(get(l1, $I(0)), $F(1.1)) ",1,0,1
+"c_str($S(""dog"")), ""dog""",1,0,1
+"mem(x, $I(10))",1,0,1
+"c_int(get(s6, $I(3))) is 30",1,0,1
+"c_str(s0), ""\""Hello\""""",1,0,1
+len(y) is 19,1,0,1
+"eq(get(l0, $I(4)), $I(5))",1,0,1
+"c_int(deref(get(z, $I(2)))) is 300",1,0,1
+len(zip(x)) is 6,1,0,1
+"eq(get(a0, $I(2)), $I(6))",1,0,1
+"c_int(get(x, $I(-3))) is 997",1,0,1
+" eq(get(l2, $I(0)), $I(1)) ",1,0,1
+"c_str(s0), ""Hello World!""",1,0,1
+"hash(Type) is hash($S(""Type""))",1,0,1
+len(n) is len(y),1,0,1
+"eq(get(t0, test_key), value)",1,0,1
+"c_str(s), ""Type""",1,0,1
+"c_str(Type), ""Type""",1,0,1
+"eq(get(l0, $I(4)), $I(4))",1,0,1
+iter_type(range($I(10))) is Int,1,0,1
+len(z) is 4,1,0,1
+"c_int(get(y, $I(0))) is 1",1,0,1
+"eq(get(l0, $I(2)), $I(2))",1,0,1
+iter_type(l0) is Int,1,0,1
+"c_int(get(y, $I(10))) is 11",1,0,1
+"eq(x, $I(20))",1,0,1
+"c_str(s), ""Array""",1,0,1
+file->file is NULL,1,0,1
+" eq(get(l1, $I(0)), $S(""Foo"")) ",1,0,1
+"eq(get(y, $I(0)), $S(""Hello World""))",1,0,1
+"c_int(get(s6, $I(4))) is 10",1,0,1
+len(z) is 9,1,0,1
+"eq(get(l0, $I(0)), $I(4))",1,0,1
+"c_int(get(x, $I(5))) is 5",1,0,1
+val_type(t1) is Int,1,0,1
+"c_int(get(x, $I(-1))) is 999",1,0,1
+"neq(a5, a6)",1,0,1
+"c_int(get(current(Thread), $S(""Hello""))) is 1",1,0,1
+"c_int(get(x, $I(-3))) is 100",1,0,1
+"hash(Array) is hash($S(""Array""))",1,0,1
+"eq(z, a)",1,0,1
+"eq(get(a0, $I(4)), $I(4))",1,0,1
+"c_int(get(s6, $I(5))) is 100",1,0,1
+len(t0) is max,1,0,1
+deref(b1) is s1,1,0,1
+"c_str(s0), ""Hello World""",1,0,1
+"eq(get(y, $I(1)), $S(""Hello Dan""))",1,0,1
+"c_str($S(""great"")), ""great""",1,0,1
+"hash(l0) is (hash($S(""Hello"")) ^ hash($S(""World"")))",1,0,1
+"mem(current(Thread), $S(""Hello""))",1,0,1
+"eq(get(l0, $I(1)), $I(5))",1,0,1
+"c_int(get(s7, $I(1))) is 50",1,0,1
+c_int(i) is 1,1,0,1
+"eq(x, z)",1,0,1
+"eq(get(a0, $I(0)), $I(4))",1,0,1
+"eq(get(a0, $I(5)), $I(6))",1,0,1
+"c_int(get(z, $I(1))) is 5",1,0,1
+val_type(m1) is Int,1,0,1
+"c_int(get(s4, $I(-1))) is 50",1,0,1
+"c_str(s0), ""There""",1,0,1
+"c_int(get(s2, $I(0))) is 100",1,0,1
+"c_int(get(x, $I(10))) is 10",1,0,1
+"c_int(get(s7, $I(2))) is 6",1,0,1
+b1,1,0,1
+c_float($F(21312.4535)) is 21312.4535,1,0,1
+deref(b1) is s0,1,0,1
+"eq(s0, s2)",1,0,1
+"gt(m3, m0)",1,0,1
+"lt(t2, t0)",1,0,1
+"c_int(get(s1, $I(1))) is 30",1,0,1
+"eq(call($(Function, return_fst), $I(100), $I(200)), $I(100))",1,0,1
+"c_int(get(s1, $I(2))) is 30",1,0,1
+"hash(x) is ( hash($S(""Hello"")) ^ hash($S(""World"")) ^ hash($S(""!"")))",1,0,1
+"neq(t0, t2)",1,0,1
+"c_int(get(x, $I(-2))) is 998",1,0,1
+"eq(a5, a6)",1,0,1
+"len($S(""group"")) is 5",1,0,1
+" eq(get(l1, $I(-3)), $S(""Hello"")) ",1,0,1
+"c_int(get(s1, $I(0))) is 10",1,0,1
+"eq(x, $I(30))",1,0,1
+len(z) is 3,1,0,1
+"eq(get(z, $I(3)), tuple($I( 50), $I( 88)))",1,0,1
+"eq(get(a0, $I(3)), $I(7))",1,0,1
+"c_int(get(x, $I(1))) is 300",1,0,1
+c_float($F( 531.1231)) is 531.1231,1,0,1
+" eq(get(a1, $I(-2)), $S(""There"")) ",1,0,1
+"c_int(get(s0, $I(1))) is 10",1,0,1
+len(x) is 1000,1,0,1
+"lt(Array, Float)",1,0,1
+" eq(get(a1, $I(-1)), $S(""People"")) ",1,0,1
+"c_int(get(s6, $I(1))) is 6",1,0,1
+"len($S(""keep"")) is 4",1,0,1
+"c_str(Int), ""Int""",1,0,1
+"mem(x, $I(100))",1,0,1
+"c_int(deref(get(z, $I(1)))) is 200",1,0,1
+"eq(get(l0, $I(2)), $I(6))",1,0,1
+" eq(get(l1, $I(2)), $S(""Bar"")) ",1,0,1
+"hash(t0) is ( hash($S(""Hello"")) ^ hash($I(2)) ^ hash($S(""There"")) ^ hash($I(5)))",1,0,1
+"c_int(get(s4, $I(-2))) is 30",1,0,1
+"eq(y, a)",1,0,1
+"gt(t0, t2)",1,0,1
+"gt(t3, t0)",1,0,1
+"len(zip(z, y)) is 2",1,0,1
+"c_int(get(s0, $I(0))) is 100",1,0,1
+"c_str(s0), ""213.120000""",1,0,1
+"eq(get(t0, $S(""kyad"")), $I(2))",1,0,1
+"mem(x, $I(300))",1,0,1
+"eq(get(l0, $I(3)), $I(4))",1,0,1
+len(s3) is 3,1,0,1
+len(s0) is 4,1,0,1

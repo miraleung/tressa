@@ -1,0 +1,51 @@
+x_val,y_added,y_removed,y_combined
+j < width(),108,108,216
+i < height(),96,96,192
+rhs.height() == Height,33,33,66
+rhs.width() == Width,33,33,66
+lhs.height() == rhs.height(),30,30,60
+lhs.width() == rhs.width(),24,24,48
+i >= 0,21,21,42
+width == Width,18,18,36
+rhs.height() == height(),18,18,36
+rhs.width() == width(),18,18,36
+__pyx_arg_verbosity,17,17,34
+i < matrix.width(),15,15,30
+other.width() == Width,15,15,30
+width() == mat.width(),15,15,30
+other.height() == Height,15,15,30
+i < matrix.height(),15,15,30
+lhs.width() == rhs.height(),15,15,30
+height == Height,15,15,30
+height() == mat.height(),15,15,30
+false,13,13,26
+width() == rhs.width(),12,12,24
+matrix1.width() == matrix2.width(),12,12,24
+matrix1.height() == matrix2.height(),12,12,24
+height() == rhs.height(),12,12,24
+"__pyx_v_self->view.suboffsets, __pyx_v_self->view.ndim",7,7,14
+newPoint.height() == points.height(),6,6,12
+newPoint.width() == 1U,6,6,12
+Width == 0U || OtherMatrixType::staticWidth == 0 || Width == OtherMatrixType::staticWidth,6,6,12
+i < matrix.height() - 1,6,6,12
+matrix.width() == matrix.height(),6,6,12
+i < matrix.width() - 1,6,6,12
+columnSize <= mat.height(),6,6,12
+Height == 0U || OtherMatrixType::staticHeight == 0 || Height == OtherMatrixType::staticHeight,6,6,12
+height == this->height(),6,6,12
+lineSize <= mat.width(),6,6,12
+width == this->width(),6,6,12
+ord_pivot < matrix.height(),6,6,12
+abs_pivot < matrix.width(),6,6,12
+"Py_ssize_t *, int",4,4,8
+"Py_ssize_t *__pyx_v_suboffsets, int __pyx_v_ndim",4,4,8
+Width == 0U || MatrixType::staticWidth == 0 || Width == MatrixType::staticWidth,3,3,6
+(i + columnOffset()) < realHeight(),3,3,6
+i==j,3,3,6
+"(boost::is_same<bool, DataType>::value)",3,3,6
+matrix1.width() == matrix2.height(),3,3,6
+Height == 0U || MatrixType::staticHeight == 0 || Height == MatrixType::staticHeight,3,3,6
+MatrixType::staticHeight == MatrixType::staticWidth,3,3,6
+j == 0,3,3,6
+(j + lineOffset()) < realWidth(),3,3,6
+__pyx_arg_X,1,1,2

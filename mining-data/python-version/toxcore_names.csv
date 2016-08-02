@@ -1,0 +1,4 @@
+x_val,y_added,y_removed,y_combined
+ck_assert_msg,638,250,888
+assert,371,341,712
+ck_assert,111,33,144

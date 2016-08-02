@@ -172,6 +172,9 @@ class Assertion():
         self.parent_file = parent_file
         self.ast = None # predast.AST
         self.function_name = ""               # C function-name where embedded
+                                            # the accuracy of this is minimal
+                                            # only works when small change
+                                            #   within preexisting function
 
     def __str__(self):
         return "{name}({pred})".format(name=self.name, pred=self.predicate)

@@ -1,0 +1,5 @@
+x_val,y_added,y_removed,y_combined
+MZ_ASSERT,23,23,46
+STBI_ASSERT,17,0,17
+assert,7,0,7
+ai_assert,2,0,2

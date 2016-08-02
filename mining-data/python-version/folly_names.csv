@@ -1,0 +1,8 @@
+x_val,y_added,y_removed,y_combined
+assert,615,286,901
+static_assert,234,102,336
+BOOST_STATIC_ASSERT,3,3,6
+FOLLY_ASSERT,1,1,2
+ASSERT_NE,2,0,2
+ASSERT_TRUE,1,0,1
+assertionFailure,1,0,1

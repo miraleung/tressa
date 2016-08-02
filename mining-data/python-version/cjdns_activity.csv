@@ -1,0 +1,1675 @@
+x_val,y_added,y_removed,y_combined
+r == 0,622,8,630
+r != -1,78,75,153
+status == 0,101,0,101
+r == -1,33,32,65
+0,51,10,61
+r >= 0,54,2,56
+close_cb_called == 1,42,2,44
+outMessage != NULL,20,20,40
+"0 == uv_ip4_addr(""127.0.0.1"", TEST_PORT, &addr)",35,0,35
+handle != NULL,35,0,35
+req.result != -1,17,17,34
+outMessage->replyTo != NULL,16,16,32
+req != NULL,26,0,26
+status == -1,13,13,26
+req->result != -1,12,12,24
+"0 == uv_run(loop, UV_RUN_DEFAULT)",24,0,24
+open_req1.result != -1,12,12,24
+exit_cb_called == 1,21,2,23
+req->result == 0,23,0,23
+close_req.result != -1,11,11,22
+uv_last_error(uv_default_loop()).code == UV_EINVAL,11,11,22
+close_cb_called == 2,20,1,21
+ArchInfo_Endian_BIG,10,10,20
+!r,18,0,18
+"0 == memcmp(parserInput->tid_return, ""aa"", 1), ""transactionId is not 'aa'\n""",9,9,18
+"(parserInput->nodes6_len == 0), ""nodes6 length was not 0\n""",9,9,18
+"(parserInput->want_return == -1), ""want was not -1\n""",9,9,18
+"(parserInput->tid_len == 2), ""transactionId is wrong length\n""",9,9,18
+"(parserInput->values6_len == 0), ""values6 length was not 0\n""",9,9,18
+req.result >= 0,17,0,17
+req.result == 0,17,0,17
+"(parserInput->values_len == 0), ""values length was not 0\n""",8,8,16
+"0 == uv_run(uv_default_loop(), UV_RUN_DEFAULT)",16,0,16
+close_cb_called == 0,16,0,16
+UV_OK == err.code,8,8,16
+"(parserInput->port_return == 0), ""port was not set to 0\n""",8,8,16
+connect_cb_called == 1,16,0,16
+r == UV_EINVAL,15,0,15
+close_req.result == 0,13,1,14
+nread == UV_EOF,13,0,13
+0 == uv_thread_join(&thread),12,0,12
+req.result == -1,6,6,12
+!(handle->flags & UV_HANDLE_CLOSED),12,0,12
+"(parserInput->token_len == 0), ""token length was not 0\n""",6,6,12
+token != NULL,6,6,12
+uv__stream_fd(stream) >= 0,9,3,12
+open_req1.result >= 0,12,0,12
+"(parserInput->nodes_len == 0), ""nodes length was not 0\n""",6,6,12
+"0 == memcmp(parserInput->id_return, ""abcdefghij0123456789"", 20), ""peer's id is incorrect\n""",6,6,12
+err == 0,11,0,11
+tn->nodeB,6,5,11
+tn->nodeA,6,5,11
+buf.len > 0,5,5,10
+ArchInfo_Bits_64,5,5,10
+suggested_size <= sizeof slab,5,5,10
+"0 == uv_thread_create(&thread, worker, &wc)",10,0,10
+uv_last_error(uv_default_loop()).code == UV_EOF,5,5,10
+ArchInfo_Bits_32,5,5,10
+write_req.result != -1,5,5,10
+ArchInfo_Arch_32,5,5,10
+err.code == UV_OK,5,5,10
+"0 == uv_ip4_addr(""0.0.0.0"", TEST_PORT, &addr)",10,0,10
+false,5,5,10
+args != NULL,5,5,10
+req->result == -1,5,5,10
+shutdown_cb_called == 1,10,0,10
+r == 1,6,4,10
+buff = evbuffer_new(),5,5,10
+"!isZero(header->handshake.encryptedTempKey, 32)",5,5,10
+"!memcmp(map->canary, ""\0\0\0"", 3)",3,6,9
+req == &connect_req,9,0,9
+newMembersList[memberCount] == NULL,4,4,8
+tokenPtr != NULL,4,4,8
+"strcmp(buf, test_buf) == 0",8,0,8
+MallocAllocator_bytesAllocated(alloc) == bytesUsed,4,4,8
+!uv_is_closing((uv_handle_t*) &timer),4,4,8
+ArchInfo_Endian_LITTLE,4,4,8
+"node, store",4,4,8
+uv_last_error(loop).code == UV_ENOENT,4,4,8
+"!Bits_isZero(header->handshake.encryptedTempKey, 32)",4,4,8
+write_req.result >= 0,7,1,8
+ngx_queue_empty(&loop->watcher_queue),4,4,8
+read_req.result != -1,4,4,8
+message->length + message->padding == 400,4,4,8
+tn->nodeC,4,4,8
+r == 2,5,2,7
+0 == status,7,0,7
+close_cb_called == 3,7,0,7
+0 == uv_mutex_init(&wc.mutex),7,0,7
+loop != NULL,7,0,7
+handle->type == UV_NAMED_PIPE,7,0,7
+result.code == UV_OK,3,3,6
+!uv_is_active((uv_handle_t*) &timer),3,3,6
+uv_last_error(uv_default_loop()).code == UV_EADDRINUSE,3,3,6
+loop->watchers != NULL,6,0,6
+!uv_is_active((uv_handle_t*)handle),3,3,6
+sizeof(struct UDPHeader) == 8,3,3,6
+uv_last_error(uv_default_loop()).code == UV_EADDRNOTAVAIL,3,3,6
+uv_is_active((uv_handle_t*)handle),3,3,6
+timer_cb_called == 1,5,1,6
+uv_last_error(loop).code == UV_EOF,3,3,6
+buf.base != NULL,6,0,6
+argc > 0,3,3,6
+"parserInput->parser_return == REPLY, ""query type not reply for find_node""",3,3,6
+(buf = gcry_malloc_secure(len)),3,3,6
+module != NULL,3,3,6
+rc <= MAX_MESSAGE_SIZE,3,3,6
+req->fs_type == UV_FS_OPEN,6,0,6
+ArchInfo_Arch_64,3,3,6
+"memcmp(hello, finalOut->bytes, 13) == 0",3,3,6
+"child, store",3,3,6
+"(parserInput->token_len == 8), ""token length was not 8\n""",3,3,6
+addrLength <= sizeof(struct sockaddr_storage),3,3,6
+term_signal == 0,4,1,5
+handle->flags & UV_HANDLE_READING,5,0,5
+nread == 4,5,0,5
+req->path,5,0,5
+r > 0,5,0,5
+incoming->wrstate == c_stop,5,0,5
+suggested_size <= sizeof(slab),5,0,5
+outgoing->wrstate == c_stop,5,0,5
+write_cb_called == 1,5,0,5
+outgoing->rdstate == c_stop,5,0,5
+"0 == uv_ip4_addr(""127.0.0.1"", TEST_PORT, &server_addr)",5,0,5
+open_cb_count == 1,5,0,5
+1 == timer_cb_called,5,0,5
+incoming->rdstate == c_stop,5,0,5
+!(handle->flags & UV_HANDLE_READ_PENDING),5,0,5
+handle->type == UV_TCP,5,0,5
+req,5,0,5
+!(handle->flags & (UV_CLOSING | UV_CLOSED)),5,0,5
+req == &shutdown_req,5,0,5
+0 == uv_cond_init(&wc.cond),5,0,5
+"!context->contentSmInside->sendMessage(message, context->contentSmInside)",2,2,4
+timer_cb_called == 0,4,0,4
+"memcmp(""PING"", buf.base, nread) == 0",2,2,4
+"grandChild, store",2,2,4
+uv_is_writable((uv_stream_t*)&channel),2,2,4
+message,2,2,4
+create_cb_count == 1,4,0,4
+finalOut,2,2,4
+sock >= 0,4,0,4
+finalOut->length == 13,2,2,4
+req.result == UV_ENOENT,4,0,4
+options.file != NULL,2,2,4
+"0 == memcmp(parserInput->info_hash_return, ""mnopqrstuvwxyz123456"", 20), ""infoHash was set for a find_node!\n""",2,2,4
+"memcmp(""hello\n"", buf.base, nread) == 0",2,2,4
+toShift->length < 60000,2,2,4
+"!context->contentSmInside->sendMessage(&message, context->contentSmInside)",2,2,4
+"0 == uv_tcp_connect(&connect_req, &tcp_handle, addr, connect_cb)",2,2,4
+message->length == 51+120+40,2,2,4
+1 == check_cb_called,4,0,4
+err.code == 0,2,2,4
+"memcmp(outMessage->bytes, expectedResponse, strlen(expectedResponse)) == 0",2,2,4
+send_cb_called == 1,4,0,4
+stream->write_queue_size == 0,2,2,4
+read_req.result >= 0,4,0,4
+uv_last_error(uv_default_loop()).code == UV_ECONNREFUSED,2,2,4
+sizeof(union Headers_CryptoAuth) == Headers_CryptoAuth_SIZE,2,2,4
+"link->child, store",2,2,4
+uv_last_error(uv_default_loop()).code == UV_ENOTSUP,2,2,4
+buf.base,2,2,4
+"message->padding >= sizeof(union Headers_CryptoAuth) || !""not enough padding""",2,2,4
+finalOut->length == 12,2,2,4
+addr != NULL,4,0,4
+!(options.flags & ~(UV_PROCESS_DETACHED | UV_PROCESS_SETGID | UV_PROCESS_SETUID | UV_PROCESS_WINDOWS_HIDE | UV_PROCESS_WINDOWS_VERBATIM_ARGUMENTS)),2,2,4
+"memcmp(hello, finalOut->bytes, 12) == 0",2,2,4
+"memcmp(bytes, bytes2, 32) == 0",2,2,4
+0 == uv_is_closing((uv_handle_t*) &timer),4,0,4
+uv_last_error(loop).code == UV_EINVAL,2,2,4
+"(parserInput->nodes_len == 9), ""nodes length was not correct.\n""",2,2,4
+"0 && ""unexpected error""",4,0,4
+fs_event_cb_called == 1,3,1,4
+req.errorno == UV_ENOENT,2,2,4
+timeout != -1,4,0,4
+buf.base[i] == PING[pinger->state],2,2,4
+message.replyTo != NULL,2,2,4
+uv_is_readable((uv_stream_t*)&channel),2,2,4
+status == UV_ECANCELED,4,0,4
+flags == 0,4,0,4
+uv_last_error(uv_default_loop()).code == UV_EAGAIN,2,2,4
+"message->padding >= 36 || !""not enough padding""",2,2,4
+!uv_is_closing((uv_handle_t*) req->handle),2,2,4
+sizeof(struct Headers_Error) == Headers_Error_SIZE,2,2,4
+completed_pingers == 1,4,0,4
+fd >= 0,4,0,4
+"0 == uv_run(uv_default_loop(), UV_RUN_ONCE)",4,0,4
+open_cb_count == 0,4,0,4
+eventType == EV_READ,2,2,4
+!timed_out,4,0,4
+QUEUE_EMPTY(&loop->watcher_queue),4,0,4
+node1->reach == 1601894175,2,2,4
+handle->flags & UV__HANDLE_CLOSING,4,0,4
+err.code == UV_EOF,2,2,4
+-1 == uv_sem_trywait(&sem),2,2,4
+"strcmp(""000022"", outMessage->peerAddress) == 0",2,2,4
+a == Endian_bigEndianToHost32(a_be),2,2,4
+nread > 0,4,0,4
+callbackMessage != NULL,2,2,4
+rename_req.result != -1,2,2,4
+! gcry_err_code(err),2,2,4
+"0 == uv_udp_send(&s->send_req, &s->udp_handle, bufs, ARRAY_SIZE(bufs), s->addr, send_cb)",2,2,4
+!uv_is_closing((uv_handle_t*)&channel),2,2,4
+uv_is_active((uv_handle_t*) &timer),2,2,4
+nread == -1,2,2,4
+uv_last_error(uv_default_loop()).code == UV_ENOENT,2,2,4
+c == Endian_bigEndianToHost16(c_be),2,2,4
+handle == &timer,4,0,4
+handle->type == UV_UDP,4,0,4
+b == Endian_bigEndianToHost64(b_be),2,2,4
+r == sizeof(test_buf),4,0,4
+!wrapper->authenticatePackets,2,2,4
+checksum == calcatedSum,2,2,4
+write_cb_count == 1,4,0,4
+"0 == uv_timer_init(loop, &timer_handle)",4,0,4
+fs_event_cb_called == 0,4,0,4
+"memeq(dst, ""A"", 2)",2,2,4
+TXID_LEN == 4,2,2,4
+handle == &timer_handle,4,0,4
+sizeof(struct Headers_SwitchHeader) == Headers_SwitchHeader_SIZE,2,2,4
+handle == &fs_event,4,0,4
+nread > 0 && buf.base && pending != UV_UNKNOWN_HANDLE,2,2,4
+req.ptr == NULL,4,0,4
+"received->padding >= 12 || ""need at least 12 bytes of padding in incoming message""",2,2,4
+"strcmp((char*) &outMessage->address->networkAddress_be, "" 00011 "") == 0",2,2,4
+req.result == sizeof(test_buf),4,0,4
+message->length + message->padding <= BUFFER_SIZE,2,2,4
+outMessage->length == strlen(expectedResponse),2,2,4
+context != NULL,3,1,4
+wrapper->nextNonce == 0,2,2,4
+"!memcmp(""PING"", buf.base, nread)",2,2,4
+sizeof(union Headers_AuthChallenge) == Headers_AuthChallenge_SIZE,2,2,4
+"memcmp(outMessage->bytes, EXPECTED_OUTPUT(""8\x00""), outMessage->length) == 0",2,2,4
+loop->cf_loop != NULL,2,2,4
+sizeof(struct Headers_IP6Header) == Headers_IP6Header_SIZE,2,2,4
+"outMessage->length == strlen(EXPECTED_OUTPUT(""xx""))",2,2,4
+bufcnt > 0,2,2,4
+addr == NULL,4,0,4
+nread >= 0,4,0,4
+sock != INVALID_SOCKET,4,0,4
+w->fd >= 0,4,0,4
+"0 == uv_spawn(uv_default_loop(), &process, options)",2,2,4
+knp->data_type == KSTAT_DATA_UINT64,4,0,4
+"strcmp(uv_strerror(e), ""Unknown error"") == 0",2,2,4
+uv_last_error(req->handle->loop).code == UV_ECANCELED,2,2,4
+0 == uv_is_active((uv_handle_t*) &timer),3,0,3
+send_bytes > 0,3,0,3
+NULL == uv_key_get(&tls_key),3,0,3
+timeout >= -1,3,0,3
+sc.ncalls == NSIGNALS,3,0,3
+!readdir_req.ptr,3,0,3
+handle->read_line_buffer.len > 0,2,1,3
+GetLastError() == ERROR_IO_PENDING,2,1,3
+sv_send_cb_called == 0,3,0,3
+r == UV_EADDRINUSE,3,0,3
+"strcmp(""hello world\n"", output) == 0",3,0,3
+y < 0,2,1,3
+stream != NULL,3,0,3
+result == 0,3,0,3
+status < 0,3,0,3
+handle->type == UV_TTY,3,0,3
+pipe->flags & UV_HANDLE_CONNECTION,3,0,3
+got_eagain(),3,0,3
+sv_send_cb_called == 1,3,0,3
+req->result >= 0,3,0,3
+pw != NULL,3,0,3
+y > 0,2,1,3
+rename_cb_count == 1,3,0,3
+!uv_loop_alive(uv_default_loop()),3,0,3
+0 == (events & ~(UV__POLLIN | UV__POLLOUT)),3,0,3
+req->fs_type == UV_FS_READDIR,3,0,3
+0 == timer_cb_called,3,0,3
+pipe->type == UV_NAMED_PIPE,2,1,3
+exit_status == 0,3,0,3
+pinger_on_connect_count == 0,3,0,3
+(uv_stream_t*)&tcp_server == server,3,0,3
+status == UV_ENOENT,3,0,3
+req == &readdir_req,3,0,3
+"0 == uv_timer_init(loop, &ci.timer_handle)",3,0,3
+"0 != memcmp(prev, &zero_statbuf, sizeof(zero_statbuf))",3,0,3
+handle->type == UV_POLL,3,0,3
+check_cb_called == 0,3,0,3
+exit_cb_called == 0,3,0,3
+pipe_fname != NULL,2,1,3
+"0 == uv_check_start(&check_handle, check_cb)",3,0,3
+readdir_req.result == 2,3,0,3
+"memcmp(req->path, ""test_dir\0"", 9) == 0",3,0,3
+called_connect_cb == 1,3,0,3
+r == UV_ENOENT,3,0,3
+read2_cb_called == 1,3,0,3
+"0 != memcmp(curr, &zero_statbuf, sizeof(zero_statbuf))",3,0,3
+tc.ncalls == NSIGNALS,3,0,3
+1 == uv_is_active((uv_handle_t*) handle),3,0,3
+"0 == uv_barrier_init(&wc.barrier, 2)",3,0,3
+0 == uv_fs_event_stop(handle),3,0,3
+timeout > 0,3,0,3
+0 == uv_is_active((uv_handle_t*) handle),3,0,3
+readdir_cb_count == 1,3,0,3
+"0 == uv_async_init(uv_default_loop(), &ctx->main_async, main_async_cb)",2,1,3
+iocp_cb_count == 1,2,1,3
+!(handle->flags & UV__HANDLE_CLOSING),3,0,3
+handle->flags & UV_HANDLE_TTY_READABLE,3,0,3
+y > x,2,1,3
+handle,3,0,3
+0 != events,3,0,3
+x > y,2,1,3
+"0 == uv_timer_start(&timer_handle, timer_cb, 50, 0)",3,0,3
+"0 == uv_timer_init(uv_default_loop(), &timer_handle)",3,0,3
+"memcmp(readdir_req.ptr, ""file1\0file2\0"", 12) == 0 || memcmp(readdir_req.ptr, ""file2\0file1\0"", 12) == 0",3,0,3
+"control, test",2,1,3
+wc.posted == 1,3,0,3
+"0 && ""fail_cb called""",3,0,3
+tcp != NULL,3,0,3
+readdir_req.ptr,3,0,3
+handle->type == UV_TIMER,3,0,3
+x < y,2,1,3
+(uv_udp_t*)(handle) == &server || (uv_udp_t*)(handle) == &client,3,0,3
+"0 && ""implement me""",2,1,3
+close_cb_calls == 0,3,0,3
+"0 == uv_timer_start(&ci.timer_handle, timer_cb, 10, 0)",3,0,3
+r != 0,3,0,3
+conn,3,0,3
+w->pevents != 0,3,0,3
+open_req.result >= 0,2,1,3
+"0 == memcmp(parserInput->target_return, twenty_os, 20), ""target ID is set for a announce_peer.\n""",1,1,2
+"!memcmp(header->handshake.encryptedTempKey, myTempPubKey, 32)",1,1,2
+ep->switchIf.senderContext == ep,1,1,2
+"lastLink->child, store",1,1,2
+"0 == memcmp(parserInput->target_return, twenty_os, 20), ""target ID was set for a get_peers alternate reply.\n""",1,1,2
+"0 == uv_check_init(uv_default_loop(), &check_handle)",2,0,2
+target != NULL,1,1,2
+req == &write_req,2,0,2
+Bits_bitReverse64(1) == ((uint64_t)1)<<63,1,1,2
+stream->read2_cb,2,0,2
+"strcmp(outMessage->peerAddress, ""000016"") == 0",1,1,2
+count == AddressMapper_MAX_ENTRIES,1,1,2
+c == Endian_bigEndianToHost16(sc),1,1,2
+"memeq(dst, ""B"", 2)",1,1,2
+handle->read_line_buffer.base != NULL,2,0,2
+buf.base[0] == 'Q',1,1,2
+"0 == uv_tcp_connect(&ctx->connect_req, handle, listen_addr, cl_connect_cb)",1,1,2
+0 == uv_async_send(&ctx->main_async),2,0,2
+message->length == 51+120+40+120,1,1,2
+server == (uv_stream_t*) &tcp_server,2,0,2
+"!memcmp(message->bytes, ""\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00"" ""hello world"", 24)",1,1,2
+"!""1 hop message, this should have been handled elsewhere.\n""",1,1,2
+"0 == memcmp(parserInput->info_hash_return, twenty_os, 20), ""infoHash was set for a pong!\n""",1,1,2
+"point_on_curve(p, dp)",1,1,2
+uv_last_error(handle->loop).code == UV_ECANCELED,1,1,2
+b == Endian_byteSwap64_bswap_64(b_be),1,1,2
+"addr.ss_family == AF_INET || NULL == ""Scanning to map interface to address doesn't "" ""support ip6, feel free to provide a patch""",1,1,2
+"!(ret = benc_getStandardBencSerializer()->serializeDictionary(writer, &dict))",1,1,2
+"0 == uv_pipe_init(loop, &ctx.ipc_pipe, 1)",2,0,2
+ftruncate_req.result != -1,1,1,2
+err.code == UV_EAGAIN,1,1,2
+handle == &check_handle,2,0,2
+req->pipeHandle == INVALID_HANDLE_VALUE,2,0,2
+r == UV_ENOTSUP,2,0,2
+"0 == memcmp(parserInput->target_return, twenty_os, 20), ""target ID was set for a get_peers reply.\n""",1,1,2
+req->fs_type == UV_FS_CHOWN,2,0,2
+"! gcry_mpi_scan(x, GCRYMPI_FMT_HEX, s, 0, NULL)",1,1,2
+handle->write_queue_size >= req->queued_bytes,2,0,2
+r == sizeof msg || (r == -1 && errno != EAGAIN && errno != EWOULDBLOCK),1,1,2
+index != -1,1,1,2
+"memcmp(ca->publicKey, publicKey, 32) == 0",1,1,2
+len <= outlen,1,1,2
+addr->sa_family == AF_INET,2,0,2
+a == Endian_bigEndianToHost32(sa),1,1,2
+"0 == memcmp(parserInput->token_return, ""aoeusnth"", 8), ""target ID was set for a get_peers alternate reply.\n""",1,1,2
+"0 == uv_timer_init(loop, &timer)",2,0,2
+"0 == uv_tcp_init(loop, &client_handle)",2,0,2
+!LabelSplicer_isOneHop(4),1,1,2
+"parserInput->parser_return == ANNOUNCE_PEER, ""query type not announce_peer\n""",1,1,2
+!ngx_queue_empty(&handle->write_queue) || !ngx_queue_empty(&handle->write_completed_queue),1,1,2
+s->st_mtimespec.tv_sec == mtime,1,1,2
+"ep->external || !""Entry was not removed from the map but was null.""",1,1,2
+i == 0,1,1,2
+uv_last_error(stream->loop).code == UV_ECONNRESET || uv_last_error(stream->loop).code == UV_EOF,1,1,2
+!(stream->flags & UV_CLOSING),2,0,2
+"0 == memcmp(parserInput->target_return, ""mnopqrstuvwxyz123456"", 20), ""target ID is incorrect.\n""",1,1,2
+"strcmp((char*) outMessage->address->networkAddress, "" 00011 "") == 0",1,1,2
+"0 == uv_ip4_addr(""0.0.0.0"", server_port, &addr)",2,0,2
+close_cb_count == 1,2,0,2
+removed_handle == handle,2,0,2
+"0 == uv_tcp_connect(&connect_req, &tcp_handle, (const struct sockaddr*) &addr, connect_cb)",2,0,2
+actualLength == length - xLength,1,1,2
+s->st_mtime == mtime,1,1,2
+last_slash,2,0,2
+"memeq(dst, ""CD"", 3)",1,1,2
+incoming->wrstate == c_done,2,0,2
+version,1,1,2
+"deserialize_mpi(&h, DF_BIN, keybuf + 32, cp->dh_len_bin)",1,1,2
+(req) == &req_,2,0,2
+uv_is_readable(req->handle),1,1,2
+s->st_gen == t.st_gen,2,0,2
+s->st_flags == t.st_flags,2,0,2
+msg->padding >= 16 && msg->length >= 16,1,1,2
+"""Tried to close an interface which wasn't found."" == NULL",1,1,2
+ep->internal.sendMessage,1,1,2
+"0 == uv_tcp_bind(&server_handle, (const struct sockaddr*) &addr, 0)",2,0,2
+req->pipeHandle != INVALID_HANDLE_VALUE,2,0,2
+((struct stat*)req.ptr)->st_mode & S_IFDIR,1,1,2
+!uv_is_active(handle),1,1,2
+req->errorno == UV_ECANCELED,1,1,2
+err.code == UV_ESRCH,1,1,2
+message->length == 24,1,1,2
+size == nbytes,1,1,2
+"m.length == 12 && !memcmp(m.bytes, ""hello world"", m.length)",1,1,2
+"!Bits_isZero(wrapper->secret, 32)",1,1,2
+name_len > 0,2,0,2
+"parserInput->parser_return == FIND_NODE, ""query type not find_node\n""",1,1,2
+"parserInput->parser_return == REPLY, ""query type not reply for "" ""announce_peer reply""",1,1,2
+"0 == uv_udp_bind(&s->udp_handle, addr, 0)",1,1,2
+"Hex_encode(hex, 65, bytes, 32) == 64",1,1,2
+0 == uv_is_closing((uv_handle_t*) req->handle),2,0,2
+"0 == memcmp(parserInput->info_hash_return, twenty_os, 20), ""infoHash was set for a get_peers alternate reply.\n""",1,1,2
+"0 == uv_udp_send(&s->send_req, &s->udp_handle, bufs, ARRAY_SIZE(bufs), (const struct sockaddr*) &s->addr, send_cb)",2,0,2
+"strstr(msg, dlerror_desc) != NULL",2,0,2
+"memcmp(""hello again\n"", buf.base, nread) == 0",1,1,2
+"memcmp(outMessage->bytes, EXPECTED_OUTPUT(""\x00\x06""), outMessage->length) == 0",1,1,2
+"wcscmp(verbatim_output, L""cmd.exe /c c:\\path\\to\\node.exe --eval \""require('c:\\\\path\\\\to\\\\test.js')\"""") == 0",1,1,2
+localModule.handleOutgoing == NULL,1,1,2
+"addr.ss_family == AS_INET || NULL == ""Scanning to map interface to address doesn't "" ""support ip6, feel free to provide a patch""",1,1,2
+"memcmp(""hello world\n"", buf.base, nread) == 0",1,1,2
+!uv_is_active((uv_handle_t*) timer),1,1,2
+loop,2,0,2
+ctx.called,1,1,2
+"0 == memcmp(parserInput->nodes_return, ""def456..."", 9), ""nodes was incorrect for a get_peers alternate reply.\n""",1,1,2
+c->posted == 0,2,0,2
+1 == uv_is_readable((uv_stream_t*) &channel),2,0,2
+err.code == UV_EPIPE,1,1,2
+uv_last_error(loop).code == UV_ENOTCONN,1,1,2
+700 <= uv_now(uv_default_loop()) - start_time,1,1,2
+open_req2.result != -1,1,1,2
+a == Endian_littleEndianToHost32(sa),1,1,2
+!req->ptr,2,0,2
+"point_on_curve(&r, dp)",1,1,2
+chown_cb_count == 1,2,0,2
+state != NULL,2,0,2
+(buf = gcry_malloc_secure(3 * elemlen)),1,1,2
+Headers_getPriority(destinationSwitchHeader) == 0,1,1,2
+"memeq(dst, ""ABCD"", 5)",1,1,2
+"0 == memcmp(parserInput->values_return, ""axje.uidhtnm"", 12), ""values was incorrect for find_node.\n""",1,1,2
+cp->dh_len_bin <= 32,1,1,2
+sizeof(struct Headers_UDPHeader) == Headers_UDPHeader_SIZE,1,1,2
+"!benc_getStandardBencSerializer()->parseDictionary(reader, allocator, &dict)",1,1,2
+0 == uv_is_closing((uv_handle_t*) &channel),2,0,2
+__builtin_constant_p(c) == 1,1,1,2
+"0 == uv_udp_init(loop, &s->udp_handle)",2,0,2
+write_cb_called == WRITES,2,0,2
+uv_is_readable((uv_stream_t*)&ctx.channel),1,1,2
+uv_last_error(loop).code == UV_ENOTDIR,1,1,2
+n <= MAX_WRITE_HANDLES,2,0,2
+after_write_called == 7,2,0,2
+order_cb_called++ == *(int*)handle->data,2,0,2
+"0 == memcmp(parserInput->info_hash_return, twenty_os, 20), ""infoHash was set for a find_node!\n""",1,1,2
+!res->err,1,1,2
+Bits_bitReverse64(0) == 0,1,1,2
+uv_is_closing(handle),1,1,2
+uv_is_writable((uv_stream_t*)&ctx.channel),1,1,2
+"deserialize_mpi(&sig, DF_BIN, sigbuf, cp_sig->sig_len_bin)",1,1,2
+0 != uv_is_closing((uv_handle_t*) &process),1,1,2
+toShift->padding >= amount,1,1,2
+(bytesUsed = MallocAllocator_bytesAllocated(alloc)) == 0,1,1,2
+msg->padding >= 32,1,1,2
+arg == (void *) 42,2,0,2
+req->errorno == 0,1,1,2
+context->ip6Header == ip6,1,1,2
+"if2->allocator->notOnFree(si2->onFree, if2->allocator)",1,1,2
+"0 == uv_ip4_addr(""0.0.0.0"", 0, &addr)",2,0,2
+req == &work_req,2,0,2
+chmod_cb_count == 1,2,0,2
+! (df != DF_BIN && strlen(buf) != inlen),1,1,2
+"0 == uv_ip4_addr(""0.0.0.0"", port, &addr)",2,0,2
+events == UV_CHANGE,2,0,2
+Headers_getMessageType(switchHeader) == Headers_SwitchHeader_TYPE_CONTROL,1,1,2
+ngx_queue_empty(&stream->write_queue),1,1,2
+uv_last_error(uv_default_loop()).code == UV_EMSGSIZE,1,1,2
+handle->handle && handle->handle != INVALID_HANDLE_VALUE,2,0,2
+ctx->parent_handle != NULL,2,0,2
+actualLength == xLength,1,1,2
+"strcmp(outMessage->peerAddress, ""000014"") == 0",1,1,2
+uv_last_error(loop).code == UV_ENAMETOOLONG,1,1,2
+"parserInput->parser_return == PING, ""query type not ping""",1,1,2
+"0 == uv_fs_event_init(loop, watchers + 1, path, fail_cb, 0)",1,1,2
+node >= store->nodes && node < store->nodes + store->size,1,1,2
+"0 == uv_tcp_bind((uv_tcp_t*) &ctx.server_handle, listen_addr)",1,1,2
+!uv_is_active((uv_handle_t*)&handle),1,1,2
+(buf = gcry_malloc_secure(2 * elemlen)),1,1,2
+0 == uv_timer_stop(&timer_handle),2,0,2
+"!memcmp(msg.bytes, ""\0\0\0\0"", 4)",1,1,2
+"!""Couldn't find the interface in the list""",1,1,2
+store->labelSum > 0,1,1,2
+handle->flags & UV_CLOSING,2,0,2
+"0 == uv_read_start((uv_stream_t *) &pipe_handle, alloc_cb, read_cb)",2,0,2
+c->rdstate == c_busy,2,0,2
+called_tcp_close_cb == 0,2,0,2
+b == Endian_byteSwap64(sb),1,1,2
+"Base32_decode(bytes2, 32, base32, 52) == 32",1,1,2
+seen_timer_handle == 0,2,0,2
+registry->memberCount,1,1,2
+rename_req.result == 0,2,0,2
+"0 == memcmp(curr, &zero_statbuf, sizeof(zero_statbuf))",2,0,2
+a == Endian_bigEndianToHost32(a),1,1,2
+idle_cb_called == 1,2,0,2
+status == UV_ECONNREFUSED,2,0,2
+"!memcmp(expected, output, 56)",1,1,2
+"0 == memcmp(parserInput->target_return, twenty_os, 20), ""target ID was set for a announce_peer reply.\n""",1,1,2
+"!""udpBindTo() can only be used once "" ""and must be used before any other udp functions.""",1,1,2
+sizeof(struct ErrorPacket) == Headers_SwitchHeader_SIZE + sizeof(struct Control),1,1,2
+"-1 == uv_fs_readlink(loop, &req, ""no_such_file"", NULL)",1,1,2
+stream->type == UV_TCP || stream->type == UV_NAMED_PIPE || stream->type == UV_TTY,2,0,2
+"0 == memcmp(parserInput->id_return, ""mnopqrstuvwxyz123456e1"", 20), ""peer's id is incorrect\n""",1,1,2
+((struct stat*)req.ptr)->st_size == strlen(test_dir + 4),1,1,2
+exit_status == -1,1,1,2
+"strcmp(output, ""TEST"") == 0",2,0,2
+"!memcmp(actual, expectedOutput, 264)",1,1,2
+msg->padding >= 16,1,1,2
+"!memcmp(msg2.bytes, ""\0\0\0\1"", 4)",1,1,2
+handle != INVALID_HANDLE_VALUE,2,0,2
+"0 == memcmp(parserInput->info_hash_return, twenty_os, 20), ""infoHash was set for a find_node reply.\n""",1,1,2
+UV_ECANCELED == status,1,1,2
+"!memcmp(buf.base, EXPECTED, nread)",1,1,2
+"0 == memcmp(parserInput->target_return, twenty_os, 20), ""target was set for a pong!\n""",1,1,2
+"! gcry_mpi_cmp_ui(Q, 0)",1,1,2
+if2Msg,1,1,2
+r->bytesRead(r) == 128+128+128+512+256+300+128,1,1,2
+sizeof(struct Address) == Address_SIZE,1,1,2
+"0 == uv_timer_start(&handle_a, order_cb_a, 0, 0)",2,0,2
+b == Endian_bigEndianToHost64(b),1,1,2
+"!Exports_decryptRndNonce(nonce, &m, secret)",1,1,2
+r == 4,1,1,2
+events != 0,2,0,2
+uv_is_closing((uv_handle_t*) req->handle),1,1,2
+req->ptr,2,0,2
+"hmacsha256_init(&mh, buf, len)",1,1,2
+req->ptr == NULL,2,0,2
+"0 == memcmp(parserInput->info_hash_return, twenty_os, 20), ""infoHash was set for a announce_peer reply.\n""",1,1,2
+"0 == uv_tcp_init(loop, &server_handle)",2,0,2
+expected == out,1,1,2
+1 == uv_is_active((uv_handle_t*) &timer),2,0,2
+"memeq(dst, ""A"", 1)",1,1,2
+!uv_is_closing((uv_handle_t*)&ctx.channel),1,1,2
+uv_last_error(loop).code == UV_ELOOP,1,1,2
+txid,1,1,2
+"strcmp(buf, ""test-bu"") == 0",2,0,2
+"0 == memcmp(prev, &zero_statbuf, sizeof(zero_statbuf))",2,0,2
+message->padding >= Headers_SwitchHeader_SIZE,1,1,2
+r == UV_EPERM,2,0,2
+registry->members,1,1,2
+message->padding >= sizeof(Headers_SwitchHeader),1,1,2
+((struct stat*)req.ptr)->st_mode & S_IFLNK,1,1,2
+signal1_cb_counter == 4 * NUM_SIGNAL_HANDLING_THREADS,1,1,2
+0 < start_time,2,0,2
+"gcry_check_version(""1.4.1"")",1,1,2
+"memcmp(""hello\n"", buf->base, nread) == 0",2,0,2
+u,1,1,2
+((struct stat*)req.ptr)->st_size == strlen(test_dir),1,1,2
+"0 == uv_timer_init(uv_default_loop(), &tiny_timer)",2,0,2
+req->errorno == UV_EPERM,1,1,2
+(events & ~(UV_READABLE | UV_WRITABLE)) == 0,2,0,2
+"0 == uv_ip4_addr(""0.0.0.0"", 0, &client_addr)",2,0,2
+sizeof(struct Control) == Control_HEADER_SIZE + Control_Error_MIN_SIZE,1,1,2
+__builtin_constant_p(c),1,1,2
+"!((uintptr_t)received->bytes % 4) || !""alignment fault""",1,1,2
+i == 0 || thisEp == ep,1,1,2
+"Hex_decode(message, 132, messageHex, strlen((char*)messageHex)) > 0",1,1,2
+req->errorno == UV_ENOENT,1,1,2
+"0 == uv_tcp_connect(&connect_req, &client_handle, addr, connect_cb)",1,1,2
+"parserInput->parser_return == GET_PEERS, ""query type not get_peers\n""",1,1,2
+incoming->rdstate == c_done,2,0,2
+"0 == memcmp(parserInput->info_hash_return, twenty_os, 20), ""infoHash was set for a get_peers reply.\n""",1,1,2
+ngx_queue_empty(&stream->write_completed_queue),1,1,2
+uv_is_closing((uv_handle_t*) &timer),1,1,2
+req->handle == (uv_stream_t*)&tcp_client,2,0,2
+req == &open_req1,2,0,2
+if1Msg,1,1,2
+uv_is_writable(req->handle),1,1,2
+tid != NULL,1,1,2
+cl_recv_cb_called == 1,2,0,2
+"parent->child, store",1,1,2
+a == Endian_byteSwap32(sa),1,1,2
+registry,1,1,2
+handle->recv_buffer.len > 0,1,1,2
+UV_EAGAIN == uv_sem_trywait(&sem),2,0,2
+res == NULL,2,0,2
+"eh, (tc->pipe.ol.hEvent = CreateEvent(NULL, TRUE, FALSE, NULL)) != NULL",1,1,2
+!uv__is_active(handle),1,1,2
+"0 == memcmp(parserInput->target_return, twenty_os, 20), ""target ID is set for a get_peers.\n""",1,1,2
+timer_handle != NULL,2,0,2
+"0 == uv_tcp_connect(&ctx->connect_req, (uv_tcp_t*) &ctx->client_handle, listen_addr, cl_connect_cb)",1,1,2
+tid == NULL,1,1,2
+message.length == 43,1,1,2
+(unsigned) fd < loop->nwatchers,2,0,2
+(amount >= 0) ? (UINT16_MAX - toShift->length >= amount) : (toShift->length >= -amount),1,1,2
+message->length == 51+120,1,1,2
+uv_last_error(req->loop).code == UV_ENOTDIR,1,1,2
+"0 == memcmp(parserInput->info_hash_return, twenty_os, 20), ""infoHash was set for a ping!\n""",1,1,2
+1 == read_cb_called,2,0,2
+hex && hex->len == 64,1,1,2
+!got_eof,2,0,2
+uv_loop_alive(uv_default_loop()),2,0,2
+r == UV_EADDRNOTAVAIL,2,0,2
+events == UV_RENAME,2,0,2
+"!""Tried to close an interface which wasn't found.""",1,1,2
+connect_req != NULL,2,0,2
+r == 0 || uv_last_error(loop).code == UV_EEXIST,1,1,2
+"!memcmp(realAddr, addr->ip6.bytes, 16)",1,1,2
+0 == prepare_cb_called,2,0,2
+idle_cb_called == 0,2,0,2
+b == Endian_byteSwap64_OSSwapInt64(b_be),1,1,2
+order_cb_called == 2,2,0,2
+"strstr(uv_strerror(e), ""Success"") == NULL",1,1,2
+"0 == uv_sem_init(&wc.sem, 0)",2,0,2
+connect_cb_called == 0,2,0,2
+0 == uv_sem_trywait(&sem),2,0,2
+connect_cb_calls == 1,2,0,2
+exit_status == 1,2,0,2
+unlink_req.result != -1,1,1,2
+sizeof(uv_buf_t) == sizeof(struct iovec),2,0,2
+"context->defaultInterface != iface || !""Error: can't send traffic to the default interface""",1,1,2
+unlink_cb_count == 1,2,0,2
+"!strcmp((char*)hexBuffer, ""00000000000000000000000068656c6c6f20776f726c6400"")",1,1,2
+prepare_called == 3,1,1,2
+context == context->module.context,1,1,2
+called_timer_cb == 1,2,0,2
+sizeof(struct Control_Ping) == Control_Ping_MIN_SIZE,1,1,2
+"0 == uv_timer_start(&handle_b, order_cb_b, 0, 0)",2,0,2
+req->data == &data,2,0,2
+"encryptKey(header, sharedSecret, myTempPubKey) == 0",1,1,2
+UV_ECANCELED == uv_last_error(req->loop).code,1,1,2
+uv_last_error(handle->loop).code == UV_EOF,1,1,2
+0 != uv_is_active((uv_handle_t*)&process),1,1,2
+"memcmp(""hello world\n"", output, 12) == 0",2,0,2
+!(handle->flags & UV_HANDLE_IPV6),2,0,2
+!n,1,1,2
+"0 == uv_fs_event_init(loop, watchers + 0, path, fail_cb, 0)",1,1,2
+"ngx_queue_empty(&loop->wq) && ""thread pool work queue not empty!""",1,1,2
+"eh, (tc->tap.ol.hEvent = CreateEvent(NULL, TRUE, FALSE, NULL)) != NULL",1,1,2
+bytes2 && bytes2->len == 32,1,1,2
+send_cb_called == 0,2,0,2
+index >= 0,1,1,2
+conn != NULL,2,0,2
+nread > 0 && buf->base && pending != UV_UNKNOWN_HANDLE,2,0,2
+"String_equals(password, retPassword)",1,1,2
+msg != NULL,2,0,2
+id != NULL,1,1,2
+"!""Somebody connected to us and we don't know their key!\n""",1,1,2
+"if1->allocator->notOnFree(si1->onFree, if1->allocator)",1,1,2
+uv_last_error(uv_default_loop()).code == UV_EBADF,1,1,2
+"!memcmp(""PONG"", buf.base, nread)",1,1,2
+"memcmp(""world\n"", buf.base, nread) == 0",1,1,2
+data->len < (BUFFER_SZ / 2),1,1,2
+"memcmp(tid->bytes, transactionId->bytes, transactionId->len) == 0",1,1,2
+uv_last_error(stream->loop).code == UV_EOF,1,1,2
+"parserInput->parser_return == REPLY, ""message type not reply for pong""",1,1,2
+"0 == uv_tcp_bind(&server_handle, addr)",1,1,2
+req->errorno == UV_ELOOP,1,1,2
+req->write_index < req->bufcnt,1,1,2
+1 == uv_is_writable((uv_stream_t*) &channel),2,0,2
+"Hex_encode(actual, 265, outMessage->bytes, outMessage->length) > 0",1,1,2
+stream->accepted_fd == -1,2,0,2
+got_q,2,0,2
+reach,1,1,2
+"memcmp(outMessage->bytes, EXPECTED_OUTPUT(""\x00\x07""), outMessage->length) == 0",1,1,2
+uv_last_error(uv_default_loop()).code == UV_ENOTSOCK || uv_last_error(uv_default_loop()).code == UV_ECONNREFUSED,1,1,2
+"memcmp(bytes, bytes2->bytes, 32) == 0",1,1,2
+"!isZero(wrapper->secret, 32)",1,1,2
+index > 0,1,1,2
+"sscanf(buf, ""cpu%u "", &n) == 1 && n == num",1,1,2
+handle == &ctx.channel,2,0,2
+"Message_shift(message, 48 - (int32_t) sizeof(union Headers_CryptoAuth))",1,1,2
+vcontext != NULL,1,1,2
+"52 == Base32_encode(base32PubKey, 53, pubKey, 32)",1,1,2
+"Hex_decode(bytes2, 32, hex, 64) == 32",1,1,2
+node1->reach == 23808,1,1,2
+ftruncate_cb_count == 1,2,0,2
+udp6Checksum == calcatedSum,1,1,2
+message->length == 51+120+40+120+12,1,1,2
+"0 == memcmp(parserInput->target_return, twenty_os, 20), ""target ID was set for a find_node reply.\n""",1,1,2
+nread == 1,2,0,2
+transactionId->len < MAX_TRANSACTION_ID_SIZE,1,1,2
+"0 == memcmp(parserInput->nodes_return, ""def456..."", 9), ""find_node reply nodes incorrect.\n""",1,1,2
+"(parserInput->nodes_len == 0), ""nodes length was not correct.\n""",1,1,2
+cl_recv_cb_called == 0,2,0,2
+ep->external,1,1,2
+nbufs > 0,2,0,2
+!(options->flags & ~(UV_PROCESS_DETACHED | UV_PROCESS_SETGID | UV_PROCESS_SETUID | UV_PROCESS_WINDOWS_HIDE | UV_PROCESS_WINDOWS_VERBATIM_ARGUMENTS)),2,0,2
+status == 0 || (status == -1 && err == UV_ECANCELED),1,1,2
+handle->socket == INVALID_SOCKET,2,0,2
+"parent->child, store, file, line",1,1,2
+c == Endian_bigEndianToHost16(c),1,1,2
+s->st_atimespec.tv_sec == atime,1,1,2
+"Base32_encode(base32, 64, bytes, 32) == 52",1,1,2
+"!memcmp(key, ep->key, InterfaceController_KEY_SIZE)",1,1,2
+handle->handle != INVALID_HANDLE_VALUE,2,0,2
+a == Endian_littleEndianToHost32(a),1,1,2
+w->fd < (int) loop->nwatchers,2,0,2
+s->st_atime == atime,1,1,2
+handle == &tiny_timer,2,0,2
+local_conn_accepted == 1,2,0,2
+"ofNode, store",1,1,2
+timer_cb_called == 2,2,0,2
+udpDefault,1,1,2
+sizeof(struct Control_Error) == Control_Error_MIN_SIZE,1,1,2
+got_eof,2,0,2
+uv__stream_fd(handle) >= 0,1,1,2
+((h)->flags & UV__HANDLE_CLOSING) == 0,2,0,2
+"point_on_curve(&R, dp)",1,1,2
+"ACCESS_ONCE(CFRunLoopRef, loop->cf_loop) != NULL",1,1,2
+"wcscmp(non_verbatim_output, L""cmd.exe /c \""c:\\path\\to\\node.exe --eval \\\""require('c:\\\\path\\\\to\\\\test.js')\\\""\"""") == 0",1,1,2
+"memcmp(""PING"", buf->base, nread) == 0",2,0,2
+pipe_open == 1,2,0,2
+"originalNonce == CryptoAuth_deobfuscateNonce(nonceAndData, ourKey, theirKey)",1,1,2
+"0 == memcmp(parserInput->token_return, ""aoeusnth"", 8), ""incorrect token for announce_peer.\n""",1,1,2
+&context->interface == iface,1,1,2
+(cprng = aes256cprng_init(hash)),1,1,2
+"!((uintptr_t)message->bytes % 4) || !""alignment fault""",1,1,2
+0 == setgid(pw->pw_gid),2,0,2
+uv_last_error(req->loop).code == UV_ECANCELED,1,1,2
+"0 == memcmp(parserInput->target_return, twenty_os, 20), ""target was set for a ping!\n""",1,1,2
+handle->flags & UV_HANDLE_LISTENING,2,0,2
+"0 == memcmp(parserInput->id_return, ""0123456789abcdefghij"", 20), ""peer's id is incorrect\n""",1,1,2
+address,1,1,2
+"!uv__io_active(&handle->io_watcher, UV__POLLIN | UV__POLLOUT)",2,0,2
+LabelSplicer_isOneHop(4),1,1,2
+1 == prepare_cb_called,2,0,2
+"0 == uv_ip4_addr(""127.0.0.1"", server_port, &server_addr)",2,0,2
+stream->alloc_cb,1,1,2
+0 == setuid(pw->pw_uid),2,0,2
+&ep->internal == ic->imap->interfaces[index],1,1,2
+client,1,1,2
+"deserialize_mpi(&h, DF_BIN, keybuf, cp->dh_len_bin)",1,1,2
+timeOfNextPing,1,1,2
+node1->reach == 505306882,1,1,2
+"0 == uv_timer_init(uv_default_loop(), &huge_timer1)",2,0,2
+!(handle->flags & UV_CLOSED),2,0,2
+strlen((char*)expectedOutput) == 264,1,1,2
+"Message_shift(&content, 48 + 4 - (int32_t)sizeof(union Headers_CryptoAuth))",1,1,2
+options->file != NULL,2,0,2
+n == sizeof(val),2,0,2
+entry->val->type == Object_DICT,1,1,2
+parserInput != NULL,1,1,2
+digit < digit_count,1,1,2
+s->st_size == sizeof(test_buf),2,0,2
+write_cb_called == NUM_WRITE_REQS,2,0,2
+"0 == uv_tcp_connect(&connect_req, &client_handle, (const struct sockaddr*) &addr, connect_cb)",2,0,2
+"Dict_getInt(res->responseDict, String_CONST(""called!""))",1,1,2
+"memeq(dst, """", 1)",1,1,2
+buf->base[i] == PING[pinger->state],2,0,2
+sizeof(struct NodeHeader) == 12,1,1,2
+Bits_bitReverse64(Bits_bitReverse64(x)) == x,1,1,2
+"(parserInput->port_return == 6881), ""port was not set to 6881\n""",1,1,2
+handle->read_buffer.len > 0,1,1,2
+"deserialize_mpi(&s, DF_BIN, sigbuf.bin, cp->sig_len_bin)",1,1,2
+"!(ret = benc_getJsonBencSerializer()->parseDictionary(reader, allocator, &dict))",1,1,2
+uv_timer_get_repeat(&repeat_2) == 100,2,0,2
+req->errorno == UV_ENAMETOOLONG,1,1,2
+message.length == 51,1,1,2
+"0 == uv_fs_mkdir(loop, reqs + n++, ""/"", 0, fs_cb)",2,0,2
+"0 == memcmp(parserInput->token_return, ""aoeusnth"", 8), ""target ID was set for a get_peers reply.\n""",1,1,2
+remote_conn_accepted == 1,2,0,2
+"!benc_getJsonBencSerializer()->serializeDictionary(writer, &dict)",1,1,2
+!(stream->flags & UV_STREAM_BLOCKING),2,0,2
+"(parserInput->values_len == 12), ""values length was not 12\n""",1,1,2
+b == Endian_bigEndianToHost64(sb),1,1,2
+handle->signum == 0,2,0,2
+handle == &idle_handle,2,0,2
+"memeq(dst, ""AB"", 3)",1,1,2
+pending == UV_TCP,2,0,2
+readdir_cb_count == 0,2,0,2
+"!memcmp(ptr1, ptr2, x)",1,1,2
+connection_cb_called == 1,2,0,2
+ngx_queue_empty(&loop->pending_queue),1,1,2
+uv_last_error(uv_default_loop()).code == UV_EACCES,1,1,2
+"0 == memcmp(parserInput->id_return, ""mnopqrstuvwxyz123456"", 20), ""peer's id is incorrect\n""",1,1,2
+recv_cb_called == 0,2,0,2
+out[i] != out[j],1,1,2
+data,2,0,2
+modulePtr != NULL,1,1,2
+nread > 0 || uv_last_error(uv_default_loop()).code == UV_EOF,1,1,2
+signal2_cb_counter == 2 * NUM_SIGNAL_HANDLING_THREADS,1,1,2
+b == Endian_byteSwap64_manual(b_be),1,1,2
+"0 == uv_write2(&pc->write_req, (uv_stream_t*) &pc->peer_handle, &buf, 1, (uv_stream_t*) &sc->server_handle, ipc_write_cb)",1,0,1
+w->pevents == UV__POLLIN,1,0,1
+"filename == NULL || strcmp(filename, ""file1"") == 0",1,0,1
+req.data != NULL,1,0,1
+prepare_cb_called > 0,1,0,1
+"0 == uv_tcp_bind((uv_tcp_t*) &ctx.server_handle, (const struct sockaddr*) &listen_addr, 0)",1,0,1
+"0 == uv_pipe_open(&pipe_handle, fd[0])",1,0,1
+idle_2_is_active,1,0,1
+uv_has_ref((uv_handle_t*)&h) == 1,1,0,1
+0 == uv_is_active((uv_handle_t*) timer),1,0,1
+handle == (uv_handle_t*)&conn || handle == (uv_handle_t*)&timer,1,0,1
+handle == (uv_handle_t*) &timer,1,0,1
+s->st_atim.tv_sec == atime,1,0,1
+req.result == UV_ELOOP,1,0,1
+s->st_birthtim.tv_nsec == t.st_birthtim.tv_nsec,1,0,1
+"0 == uv_ip4_addr(""4.4.4.4"", TEST_PORT, &addr)",1,0,1
+handle == (uv_handle_t*)&prepare_1_handle,1,0,1
+"0 == uv_queue_work(loop, &req, nop_work_cb, nop_done_cb)",1,0,1
+n == fs_cb_called,1,0,1
+"0 == uv_async_init(loop, &ctx->async_handle, sv_async_cb)",1,0,1
+"0 == uv_fs_readlink(loop, &req, ""no_such_file"", dummy_cb)",1,0,1
+getsocknamecount == 2,1,0,1
+total_mem > free_mem,1,0,1
+cur_ptr <= alloc_ptr + addrinfo_len,1,0,1
+"0 && ""Blackhole server dropped out of event loop.""",1,0,1
+storage != NULL,1,0,1
+"strcmp(req.ptr, ""test_file_symlink"") == 0",1,0,1
+connect_cb_called == 2,1,0,1
+avail >= sizeof(ipc_frame.header),1,0,1
+"strcmp(buffer, title) == 0",1,0,1
+"!uv__io_active(&stream->io_watcher, UV__POLLIN) && ""stream->read_cb(status=-1) did not call uv_close()""",1,0,1
+clock_ticks != (unsigned long) -1,1,0,1
+unlink_req.result == 0,1,0,1
+UV_NAMED_PIPE == uv_guess_handle(0),1,0,1
+c->wrstate != c_dead,1,0,1
+timer1_cb_called == 1,1,0,1
+req->handle->write_queue_size == 0,1,0,1
+req->result == UV_ELOOP,1,0,1
+stream == (uv_stream_t*) &tcp_incoming[0],1,0,1
+do_accept_called == 2,1,0,1
+"0 && ""timer_cb should not have been called""",1,0,1
+"0 == uv_ip4_addr(""0.0.0.0"", TEST_PORT_2, &addr2)",1,0,1
+pipe->ipc_pid != -1,1,0,1
+"0 == uv_timer_start(&timer, timer_cb_watch_twice, 10, 0)",1,0,1
+0 == uv_thread_join(threads + 1),1,0,1
+s->st_ctim.tv_nsec == 0,1,0,1
+"nested == 0 && ""read_cb must be called from a fresh stack""",1,0,1
+((uv_stat_t*)req.ptr)->st_size == strlen(test_dir + 4),1,0,1
+"0 && ""should not have been called""",1,0,1
+ARRAY_SIZE(sockets) == close_cb_called,1,0,1
+uptime > 0,1,0,1
+process_open == 1,1,0,1
+pinger_shutdown_cb_called == 1,1,0,1
+clients != NULL,1,0,1
+"0 == uv_ip6_addr(""::1"", TEST_PORT, &addr)",1,0,1
+"0 == uv_timer_start(&ctx->handle, timer_cb, 5, 5)",1,0,1
+pipe_open == 0,1,0,1
+1 == uv_is_closing((uv_handle_t*) &process),1,0,1
+1 == uv_is_closing(handle),1,0,1
+on_pipe_read_called == 1,1,0,1
+servers != NULL,1,0,1
+"0 == uv_timer_start(&timer2_handle, timer2_cb, 86400 * 1000, 0)",1,0,1
+cur_ptr + addrinfo_ptr->ai_addrlen <= alloc_ptr + addrinfo_len,1,0,1
+"0 == uv_idle_init(loop, &ctx->idle_handle)",1,0,1
+work_cb_called == num_threads,1,0,1
+s->st_mtim.tv_sec == t.st_mtim.tv_sec,1,0,1
+embed_timer_called == 1,1,0,1
+s->st_ctim.tv_sec == t.st_ctim.tv_sec,1,0,1
+connection_accepted == 1,1,0,1
+r == sizeof msg || (r == -1 && (errno == EAGAIN || errno == EWOULDBLOCK)),1,0,1
+req == &unlink_req,1,0,1
+cb != NULL,1,0,1
+n == 0 || n == -1,1,0,1
+clock_ticks != 0,1,0,1
+"0 == uv_timer_start(&tiny_timer, tiny_timer_cb, 1, 0)",1,0,1
+req->fs_type == UV_FS_FSYNC,1,0,1
+uv__has_active_reqs(loop),1,0,1
+"strcmp(req->ptr, ""test_file_symlink2"") == 0",1,0,1
+"0 == uv_fs_close(loop, reqs + n++, 0, fs_cb)",1,0,1
+prev != NULL,1,0,1
+fd >= -1,1,0,1
+"0 == uv_tcp_bind(&server, (struct sockaddr*) &addr, 0)",1,0,1
+events != NULL || err != 0,1,0,1
+"0 == uv_udp_send(req, handle, &sndbuf, 1, addr, on_send)",1,0,1
+"0 == uv_prepare_init(uv_default_loop(), &prepare_handle)",1,0,1
+n_senders <= ARRAY_SIZE(senders),1,0,1
+err == UV_ESRCH,1,0,1
+threads[i].thread_called,1,0,1
+n == ARRAY_SIZE(reqs),1,0,1
+(uv_udp_t*)(handle) == &handle_,1,0,1
+tcp->write_queue_size == 0,1,0,1
+"0 == uv_timer_start(&timer_handle, timer_run_once_timer_cb, 0, 0)",1,0,1
+handle->pending_signum == 0,1,0,1
+"0 && ""Unexpected flags""",1,0,1
+bytes == sizeof(ipc_frame) - sizeof(ipc_frame.header),1,0,1
+no_term_signal || term_signal == 15,1,0,1
+c->t.addr.sa_family == AF_INET || c->t.addr.sa_family == AF_INET6,1,0,1
+0 == close(fd[1]),1,0,1
+handle == &repeat_2,1,0,1
+nread == 0,1,0,1
+process,1,0,1
+1 == uv_is_closing((uv_handle_t*) &timer),1,0,1
+didTimeout == FALSE,1,0,1
+"!memcmp(buf->base, EXPECTED, nread)",1,0,1
+called_shutdown_cb == 0,1,0,1
+req->fs_type == UV_FS_FUTIME,1,0,1
+req.data == NULL,1,0,1
+bytes == sizeof(ipc_frame.header),1,0,1
+"0 == uv_timer_start(&timer1_handle, timer1_cb, 50, 0)",1,0,1
+"filename == NULL || strcmp(filename, ""file2"") == 0",1,0,1
+"nested == 0 && ""connect_cb must be called from a fresh stack""",1,0,1
+(uv_udp_t*)(handle) == &server || (uv_udp_t*)(handle) == &client || (uv_timer_t*)(handle) == &timeout,1,0,1
+avg[2] >= 0,1,0,1
+timer_called == 0,1,0,1
+s->st_birthtim.tv_sec == t.st_birthtimespec.tv_sec,1,0,1
+tcp == (uv_stream_t*)&tcp_connection,1,0,1
+"strstr(uv_strerror(UV_EINVAL), ""Success"") == NULL",1,0,1
+"0 == uv_ip6_addr(""::1"", port, &addr6)",1,0,1
+s->st_atim.tv_sec == t.st_atime,1,0,1
+"0 == uv_write(&write_req, (uv_stream_t*) &tcp_handle, &buf, 1, write_cb)",1,0,1
+"0 == uv_pipe_bind(&ctx.ipc_pipe, IPC_PIPE_NAME)",1,0,1
+req == &rename_req,1,0,1
+"0 == uv_fs_event_init(loop, watchers + 0)",1,0,1
+total_mem > 0,1,0,1
+signal1_cb_counter == 8 * (NUM_SIGNAL_HANDLING_THREADS / 3),1,0,1
+(handle)->activecnt >= 0,1,0,1
+prepare_1_cb_called == ITERATIONS,1,0,1
+check_close_cb_called == 1,1,0,1
+"0 == uv_run(ctx->loop, UV_RUN_DEFAULT)",1,0,1
+s->st_atim.tv_sec == t.st_atimespec.tv_sec,1,0,1
+"wcscmp(verbatim_output, L""cmd.exe /c c:\\path\\to\\node.exe --eval "" L""\""require('c:\\\\path\\\\to\\\\test.js')\"""") == 0",1,0,1
+UV_NAMED_PIPE == uv_guess_handle(1),1,0,1
+nread == UV_ECONNRESET || nread == UV_EOF,1,0,1
+sockfd >= 0,1,0,1
+((uv_shutdown_t*) req)->handle->type == UV_NAMED_PIPE,1,0,1
+close_cb_calls == 1,1,0,1
+handle == (uv_handle_t*)&tcp_client,1,0,1
+fail_cb_called == 1,1,0,1
+req->fs_type == UV_FS_FCHOWN,1,0,1
+timer_close_cb_called == 1,1,0,1
+"close_cb_called == 2 && ""close_cb must be called exactly twice""",1,0,1
+"UV_EAFNOSUPPORT == uv_inet_pton(42, ""127.0.0.1"", &addr.sin_addr.s_addr)",1,0,1
+close_cb_count == 2,1,0,1
+"0 == uv_ip6_addr(""::"", TEST_PORT, &addr1)",1,0,1
+c->wrstate == c_busy,1,0,1
+"!memcmp(""PONG"", buf->base, nread)",1,0,1
+pipe->flags && UV_HANDLE_CONNECTION,1,0,1
+socket != 0 && socket != INVALID_SOCKET,1,0,1
+0 == check_cb_called,1,0,1
+0 == uv_fs_event_stop(event),1,0,1
+called_timer_close_cb == 1,1,0,1
+uv_has_ref((uv_handle_t*)&h) == 0,1,0,1
+symlink_cb_count == 1,1,0,1
+req == &sendfile_req,1,0,1
+op == UV__EPOLL_CTL_ADD,1,0,1
+"0 == uv_timer_start(&timer_handle, timer_cb, 20, 0)",1,0,1
+"0 == uv_thread_create(&thread, thread_cb, NULL)",1,0,1
+0 < recv_cb_called && recv_cb_called <= ARRAY_SIZE(sockets),1,0,1
+(s->events == 0) || (stream->flags & UV_CLOSING),1,0,1
+handle == &prepare_2_handle,1,0,1
+status == UV_EPIPE,1,0,1
+timer_cb_touch_called == 0,1,0,1
+"UV_EINVAL == uv_ip4_addr(""255"", TEST_PORT, &addr)",1,0,1
+domain == AF_INET || domain == AF_INET6,1,0,1
+getsocknamecount == 3,1,0,1
+"0 == uv_udp_send(&reqs[i], &sockets[i], &buf, 1, (const struct sockaddr*) &addr, send_cb)",1,0,1
+events & context->events,1,0,1
+handle->recv_cb != NULL,1,0,1
+r == 0 || r == UV_EADDRNOTAVAIL,1,0,1
+bytes_sent_done == TOTAL_BYTES,1,0,1
+req->handle->write_queue_size >= size,1,0,1
+"0 == uv_timer_start(&huge_timer1, tiny_timer_cb, 0xffffffffffffLL, 0)",1,0,1
+signum == SIGUSR1,1,0,1
+nested == 0,1,0,1
+numcpus != 0,1,0,1
+"0 == uv_fs_event_init(loop, watchers + 1)",1,0,1
+i < CONCURRENT_COUNT,1,0,1
+work_cb_count == 1,1,0,1
+"0 == uv_listen((uv_stream_t*) &ctx.ipc_pipe, 128, ipc_connection_cb)",1,0,1
+timer_called == 1,1,0,1
+base_socket != 0 && base_socket != INVALID_SOCKET,1,0,1
+req->fs_type == UV_FS_FSTAT,1,0,1
+rsplen + wr->buf.len < WRITE_BUF_LEN,1,0,1
+c->rdstate == c_stop,1,0,1
+n_receivers <= ARRAY_SIZE(receivers),1,0,1
+handle->read_buffer.base != NULL,1,0,1
+handle->dir_handle != INVALID_HANDLE_VALUE,1,0,1
+bytes_read == bytes_written,1,0,1
+"0 == uv_tcp_init(loop, &tcp_check)",1,0,1
+num_recv_handles == 1,1,0,1
+"0 == uv_fs_ftruncate(loop, reqs + n++, 0, 0, fs_cb)",1,0,1
+handle == &poll_handle,1,0,1
+external != NULL,1,0,1
+on_read_cb_called > 1,1,0,1
+"0 == uv_sem_init(&sem, 3)",1,0,1
+cx->state >= s_almost_dead_0,1,0,1
+"0 == uv_ip4_addr(""239.255.0.1"", TEST_PORT, &addr)",1,0,1
+req->fs_type == UV_FS_LINK,1,0,1
+"0 == uv_fs_event_start(watchers + 1, fail_cb, path, 0)",1,0,1
+timer_close_cb_calls == 1,1,0,1
+close_cb_called == 5,1,0,1
+repeat_2_cb_allowed,1,0,1
+repeat_close_cb_called == 1,1,0,1
+req == &ftruncate_req,1,0,1
+req == &fsync_req,1,0,1
+process_open == 0,1,0,1
+on_pipe_read_called == 0,1,0,1
+req == &utime_req,1,0,1
+mode == (PIPE_READMODE_BYTE | PIPE_WAIT),1,0,1
+req->fs_type == UV_FS_SYMLINK,1,0,1
+"0 == uv_inet_ntop(AF_INET6, &address->address.address6.sin6_addr, string_address, sizeof(string_address))",1,0,1
+"0 == uv_ip4_addr(""0.0.0.0"", TEST_PORT, &listen_addr)",1,0,1
+req_cb_called == 1,1,0,1
+handle->remaining_ipc_rawdata_bytes >= bytes,1,0,1
+req->type == UV_WORK,1,0,1
+backlog > 0,1,0,1
+req->type == UV_WRITE,1,0,1
+(s->st_mode & 0777) == mode,1,0,1
+"wcscmp(test_str[i], cracked[i]) == 0",1,0,1
+diff < (uint64_t) 80 * NANOSEC / MILLISEC,1,0,1
+65546 == s2.st_size && s1.st_size == s2.st_size,1,0,1
+num_threads == NUM_THREADS,1,0,1
+(size_t)n >= len,1,0,1
+"0 && ""connection_cb should not be called.""",1,0,1
+"0 == uv_async_init(ctx->loop, &ctx->worker_async, worker_async_cb)",1,0,1
+"0 && ""unsupported address family""",1,0,1
+"(r == 0) && ""unexpected port_get() error""",1,0,1
+"0 == uv_tcp_init(server->loop, incoming)",1,0,1
+"0 == uv_fs_lstat(loop, reqs + n++, ""/"", fs_cb)",1,0,1
+r != ERROR_SUCCESS,1,0,1
+handle == (uv_handle_t*)&idle_2_handle,1,0,1
+exp,1,0,1
+req->type == UV_WAKEUP,1,0,1
+futime_cb_count == 1,1,0,1
+0 == uv_is_active((uv_handle_t*) &process),1,0,1
+sc[i].ncalls == NSIGNALS,1,0,1
+0 == uv_read_stop(stream),1,0,1
+0 != uv_is_closing((const uv_handle_t *) &pipe_handle),1,0,1
+1 == uv_is_closing((uv_handle_t*) req->handle),1,0,1
+arg == uv_key_get(&tls_key),1,0,1
+req->fs_type == UV_FS_MKDIR,1,0,1
+result,1,0,1
+"0 == uv_tcp_init(uv_default_loop(), &server)",1,0,1
+"0 == uv_udp_recv_start(&s->udp_handle, alloc_cb, recv_cb)",1,0,1
+close_cb_called == NUM_SOCKETS,1,0,1
+c->t.buf == buf->base,1,0,1
+context->read == 0,1,0,1
+avail - sizeof(ipc_frame.header) >= sizeof(ipc_frame.socket_info),1,0,1
+"0 == uv_thread_create(&ctx->thread, worker, ctx)",1,0,1
+"0 == uv_pipe_init(server_handle->loop, (uv_pipe_t*) storage, 0)",1,0,1
+handle->type == UV_TCP || handle->type == UV_TTY || handle->type == UV_NAMED_PIPE,1,0,1
+sizeof(&((uv_buf_t*) 0)->len) == sizeof(((struct iovec*) 0)->iov_len),1,0,1
+pipe_client_connect_cb_called == 1,1,0,1
+r == 0 || r == UV_EEXIST,1,0,1
+size == strlen(buffer),1,0,1
+width > 10,1,0,1
+context->delayed_events != 0,1,0,1
+"0 == uv_tcp_init(tcp->loop, &incoming)",1,0,1
+s->st_mode == (uint64_t) t.st_mode,1,0,1
+handle->req_pending,1,0,1
+handle->type == UV_ASYNC,1,0,1
+once_cb_called == 1,1,0,1
+ctx->worker_seen == NUM_PINGS,1,0,1
+0 == uv_is_active((uv_handle_t*) &handle),1,0,1
+"UV_EINVAL == uv_ip4_addr(""255.255.255*000"", TEST_PORT, &addr)",1,0,1
+0 == uv_thread_join(&thread_id),1,0,1
+container->data.stream != NULL,1,0,1
+events == (events & (UV__POLLIN | UV__POLLOUT)),1,0,1
+"memcmp(req->ptr, ""file1\0file2\0"", 12) == 0 || memcmp(req->ptr, ""file2\0file1\0"", 12) == 0",1,0,1
+efds.fd_count == 1,1,0,1
+"0 == uv_fs_event_init(loop, event)",1,0,1
+stream->shutdown_req,1,0,1
+handle->exit_cb_pending,1,0,1
+getpeernamecount == 3,1,0,1
+"offsetof(uv_buf_t, len) == offsetof(struct iovec, iov_len)",1,0,1
+r == 0 || got_eagain(),1,0,1
+start_time == 0,1,0,1
+req->fs_type == UV_FS_UNLINK,1,0,1
+0 == uv_is_closing((uv_handle_t*) &process),1,0,1
+prepare_1_close_cb_called == 1,1,0,1
+handle == (uv_handle_t*)&check_handle,1,0,1
+tcp_read_cb_called == 1,1,0,1
+"0 == uv_timer_start(&timer_handle, timeout_cb, timeout, 0)",1,0,1
+link_cb_count == 1,1,0,1
+"connect_cb_called == 1 && ""connect_cb must be called exactly once""",1,0,1
+1 == uv_is_readable((uv_stream_t*)&ctx.channel),1,0,1
+"0 == uv_fs_readdir(loop, reqs + n++, ""/"", 0, fs_cb)",1,0,1
+spurious_writable_wakeups == 0 || (valid_writable_wakeups + spurious_writable_wakeups) / spurious_writable_wakeups > 20,1,0,1
+"0 == uv_tcp_init(uv_default_loop(), &client)",1,0,1
+flags >= 0,1,0,1
+tids != NULL,1,0,1
+s->st_mtim.tv_nsec == t.st_mtimespec.tv_nsec,1,0,1
+0 == uv_timer_stop(&handle_b),1,0,1
+UV_TTY == uv_guess_handle(ttyin_fd),1,0,1
+req->fs_type == UV_FS_WRITE,1,0,1
+0 == uv_thread_join(&ctx->thread_id),1,0,1
+0 == uv_mutex_init(&signal_mutex),1,0,1
+req->fs_type == UV_FS_CLOSE,1,0,1
+idles_1_active > 0,1,0,1
+QUEUE_EMPTY(&stream->write_completed_queue),1,0,1
+open_req2.result >= 0,1,0,1
+numcpus != (unsigned int) -1,1,0,1
+handle == &async,1,0,1
+w->events == UV__POLLIN,1,0,1
+0 == uv_thread_join(tids + i),1,0,1
+r == UV_EACCES,1,0,1
+QUEUE_EMPTY(&loop->pending_queue),1,0,1
+recv_cb_called == 1,1,0,1
+"0 == uv_tcp_init(server_handle->loop, (uv_tcp_t*) storage)",1,0,1
+0 == pipe(fd),1,0,1
+!handle->exit_cb_pending,1,0,1
+conn_close_cb_called == 1,1,0,1
+compare_addr.sin_family == AF_INET,1,0,1
+cl_send_cb_called == 0,1,0,1
+server->loop == client->loop,1,0,1
+"0 == uv_pipe_init(loop, (uv_pipe_t*) ctx->server_handle, 0)",1,0,1
+addrlen <= sizeof(req->addr),1,0,1
+"0 == uv_ip6_addr(""4:4:4:4:4:4:4:4"", TEST_PORT, &addr)",1,0,1
+r == ws_len,1,0,1
+"0 == uv_ip6_addr(""::0"", TEST_PORT, &addr6)",1,0,1
+handle->io_watcher.fd == -1,1,0,1
+read_cb_count == 2,1,0,1
+"0 == uv_async_init(loop, handle, async_cb)",1,0,1
+req->handle == stream,1,0,1
+1 == connect_cb_called,1,0,1
+"0 == uv_tcp_connect(&ctx->connect_req, handle, (const struct sockaddr*) &listen_addr, cl_connect_cb)",1,0,1
+!err,1,0,1
+"0 == uv_run(uv_default_loop(), UV_RUN_NOWAIT)",1,0,1
+"0 == uv_udp_init(loop, &sockets[i])",1,0,1
+handle == &prepare,1,0,1
+"0 == uv_fs_futime(loop, reqs + n++, 0, 0, 0, fs_cb)",1,0,1
+"0 == uv_ip4_addr(""255.255.255.255"", TEST_PORT, &addr)",1,0,1
+1 == timer_run_once_timer_cb_called,1,0,1
+"memcmp(&check_addr.sin_addr, &compare_addr.sin_addr, sizeof compare_addr.sin_addr) == 0",1,0,1
+"0 == uv_read_start((uv_stream_t*) &incoming, alloc_cb, read_cb)",1,0,1
+r == 12,1,0,1
+"events != 0 || FD_ISSET(s->int_fd, &sread)",1,0,1
+"0 == uv_ip4_addr(""127.0.0.1"", TEST_PORT, &listen_addr)",1,0,1
+1 == uv_is_writable(req->handle),1,0,1
+req->event_handle,1,0,1
+knp->data_type == KSTAT_DATA_STRING,1,0,1
+ticks == NUM_TICKS,1,0,1
+tc[i].ncalls == NSIGNALS,1,0,1
+"timer_cb_called == 1 && ""timer_cb must be called exactly once""",1,0,1
+q != &state->fsevent_handles,1,0,1
+fs_event_error_reported == UV_EMFILE,1,0,1
+"0 == uv_tcp_init(uv_default_loop(), &tcp_handle)",1,0,1
+req->type == UV_POLL_REQ,1,0,1
+avg != NULL,1,0,1
+"strcmp(buffer, output) == 0",1,0,1
+"0 == uv_ip4_addr(""0.0.0.0"", BASE_PORT + i, &addr)",1,0,1
+loop_iteration % 2 != 0,1,0,1
+"0 == uv_tcp_init(loop, (uv_tcp_t*) &ctx.server_handle)",1,0,1
+0 == uv_key_create(&tls_key),1,0,1
+"0 == uv_signal_start(&ctx->handle, signal_cb, signum)",1,0,1
+req->handle == (uv_stream_t*) &client_handle,1,0,1
+async_cb_called == 3,1,0,1
+"0 == uv_timer_start(&timer, timer_cb_nop, 2, 0)",1,0,1
+req == &futime_req,1,0,1
+pending == ctx.expected_type,1,0,1
+"!uv__io_active(&stream->io_watcher, UV__POLLOUT) || !QUEUE_EMPTY(&stream->write_completed_queue) || !QUEUE_EMPTY(&stream->write_queue) || stream->shutdown_req != NULL || stream->connect_req != NULL",1,0,1
+tcp_conn_read_cb_called == 1,1,0,1
+"strcmp(uv_strerror(1337), ""Unknown error"") == 0",1,0,1
+fchmod_cb_count == 1,1,0,1
+"0 == uv_fs_event_start(watchers + 0, fail_cb, path, 0)",1,0,1
+result == WAIT_OBJECT_0,1,0,1
+req->fs_type == UV_FS_CHMOD,1,0,1
+name == uv_key_get(&tls_key),1,0,1
+"wcscmp(expected, env) == 0",1,0,1
+client != NULL,1,0,1
+"strcmp(""testval"", output) == 0",1,0,1
+"0 == uv_fs_fstat(loop, reqs + n++, 0, fs_cb)",1,0,1
+wfds.fd_array[0] == handle->socket,1,0,1
+"UV_ENOENT == uv_fs_readlink(loop, &req, ""no_such_file"", NULL)",1,0,1
+!(fdopt.data.stream->flags & UV_HANDLE_PIPESERVER),1,0,1
+timer_cb_called == NUM_TIMERS,1,0,1
+"0 == uv_thread_create(tids + i, pummel, &handle)",1,0,1
+"0 == uv_tcp_init(loop, (uv_tcp_t*) &pc->peer_handle)",1,0,1
+"0 && ""alloc_cb should not have been called""",1,0,1
+free_mem > 0,1,0,1
+buf->base != NULL,1,0,1
+fs_event_cb_called == 2 * fs_event_file_count,1,0,1
+"0 == uv_timer_start(&timer_handle, timer_cb, 200, 0)",1,0,1
+rfds.fd_count == 1,1,0,1
+0 == uv_cond_init(&signal_cond),1,0,1
+revents & UV__POLLIN,1,0,1
+!(events & ~context->events),1,0,1
+"0 == uv_accept(server_handle, (uv_stream_t*) storage)",1,0,1
+cl_send_cb_called == 1,1,0,1
+"0 == uv_accept(tcp, (uv_stream_t*) &incoming)",1,0,1
+after_work_cb_count == 0,1,0,1
+"0 == uv_fs_open(loop, reqs + n++, ""/"", 0, 0, fs_cb)",1,0,1
+"0 == uv_fs_poll_init(loop, &poll_handle)",1,0,1
+!QUEUE_EMPTY(&handle->write_queue) || !QUEUE_EMPTY(&handle->write_completed_queue),1,0,1
+1 == uv_is_readable(req->handle),1,0,1
+"filename == NULL || strncmp(filename, file_prefix, sizeof(file_prefix) - 1) == 0",1,0,1
+"0 == uv_fs_fchown(loop, reqs + n++, 0, 0, 0, fs_cb)",1,0,1
+"0 == uv_tcp_init(loop, handle)",1,0,1
+"0 == uv_timer_init(uv_default_loop(), &handle_b)",1,0,1
+send_buffer != NULL,1,0,1
+0 == uv_is_closing((uv_handle_t*)&ctx.channel),1,0,1
+errno == EMFILE,1,0,1
+pipeHandle != INVALID_HANDLE_VALUE,1,0,1
+"0 == uv_listen((uv_stream_t*) &server_handle, 8, connection_cb)",1,0,1
+fchown_cb_count == 1,1,0,1
+"0 == uv_fs_rename(loop, reqs + n++, ""/"", ""/"", fs_cb)",1,0,1
+(s->st_mode & 0777) & mode,1,0,1
+pipe->flags & UV_HANDLE_READ_PENDING,1,0,1
+!long_filenamew,1,0,1
+req == &fdatasync_req,1,0,1
+seen_timer_handle == 1,1,0,1
+thread_called == 1,1,0,1
+pending == UV_UNKNOWN_HANDLE,1,0,1
+prefix_len + vt100_len < sizeof handle->last_key,1,0,1
+ARRAY_SIZE(tcp_outgoing) == write_cb_called,1,0,1
+"0 == uv_listen((uv_stream_t*) &ctx->server_handle, 128, sv_connection_cb)",1,0,1
+cx->state != s_dead,1,0,1
+buffer_len > 0,1,0,1
+check_addr.sin_family == AF_INET,1,0,1
+read_count == 3,1,0,1
+handle == &repeat_1,1,0,1
+"0 == uv_getaddrinfo(uv_default_loop(), &req, getaddrinfo_fail_cb, ""xyzzy.xyzzy.xyzzy"", NULL, NULL)",1,0,1
+sendfile_cb_count == 1,1,0,1
+repeat_2_cb_called == 2,1,0,1
+"memcmp(""hello again\n"", buf->base, nread) == 0",1,0,1
+handle == &prepare_handle,1,0,1
+NUM_PINGS == pinger->pongs,1,0,1
+"strcmp(""hello world\nhello errworld\n"", output) == 0",1,0,1
+"(stream->type == UV_TCP || stream->type == UV_NAMED_PIPE || stream->type == UV_TTY) && ""uv_write (unix) does not yet support other types of streams""",1,0,1
+num == numcpus,1,0,1
+uv_timer_get_repeat(&repeat_1) == 0,1,0,1
+"0 == uv_tcp_connect(&connect_req, &client, (struct sockaddr*) &addr, connect_cb)",1,0,1
+path_len == buf_sz - (pos - buf),1,0,1
+r == 6,1,0,1
+stat_cb_count == 4,1,0,1
+"0 == uv_fs_fchmod(loop, reqs + n++, 0, 0, fs_cb)",1,0,1
+"0 == uv_fs_readlink(loop, reqs + n++, ""/"", fs_cb)",1,0,1
+status == UV_EMSGSIZE,1,0,1
+"0 == uv_fs_fdatasync(loop, reqs + n++, 0, fs_cb)",1,0,1
+!((handle)->flags & UV__HANDLE_CLOSING),1,0,1
+loop_iteration == ITERATIONS,1,0,1
+cur_ptr + name_len <= alloc_ptr + addrinfo_len,1,0,1
+"0 == uv_write(&write_reqs[i], outgoing, &buf, 1, write_cb)",1,0,1
+calls_completed == TOTAL_CALLS,1,0,1
+dummy_cb_count == 1,1,0,1
+"0 == uv_udp_recv_start(&sockets[i], alloc_cb, recv_cb)",1,0,1
+arg == (void*)magic_cookie,1,0,1
+"memcmp(req->path, ""test_file2\0"", 11) == 0",1,0,1
+f != -1,1,0,1
+req == &close_req,1,0,1
+completed_pingers == 0,1,0,1
+once_close_cb_called == 10,1,0,1
+server.reqs_pending == 1,1,0,1
+"0 && ""fail_cb2 should not have been called""",1,0,1
+req->work_cb,1,0,1
+loop->nfds == 0,1,0,1
+500 <= uv_now(uv_default_loop()) - start_time,1,0,1
+avg[1] >= 0,1,0,1
+"0 == uv_ip6_addr(""::"", TEST_PORT, &addr)",1,0,1
+timer_cb_calls == 0,1,0,1
+"0 == uv_udp_bind(&s->udp_handle, (const struct sockaddr*) &addr, 0)",1,0,1
+2 == read_cb_called,1,0,1
+"nested == 0 && ""shutdown_cb must be called from a fresh stack""",1,0,1
+"QUEUE_EMPTY(&loop->wq) && ""thread pool work queue not empty!""",1,0,1
+getaddrinfo_cbs == 1,1,0,1
+!(fdopt.data.stream->flags & UV_HANDLE_CONNECTION),1,0,1
+called_tcp_close_cb == 1,1,0,1
+"buffer == fgets(buffer, sizeof(buffer) - 1, stdin)",1,0,1
+sizeof(&((uv_buf_t*) 0)->base) == sizeof(((struct iovec*) 0)->iov_base),1,0,1
+fail_cb_called == 0,1,0,1
+handle == &prepare_1_handle,1,0,1
+i == *data,1,0,1
+"nested == 0 && ""write_cb must be called from a fresh stack""",1,0,1
+req->handle == (uv_stream_t*)&tcp_handle,1,0,1
+0 == uv_thread_join(threads + 0),1,0,1
+UV_TTY == uv_guess_handle(ttyout_fd),1,0,1
+poll_cb_called == 5,1,0,1
+r,1,0,1
+read_cb_count == 1,1,0,1
+check_cb_called == 1,1,0,1
+accepted_handle != NULL,1,0,1
+len > 0,1,0,1
+stream->write_queue_size >= len,1,0,1
+req->fs_type == UV_FS_UTIME,1,0,1
+req == &mkdir_req,1,0,1
+0 == uv_thread_join(&threads[i].thread),1,0,1
+bytes_sent == TOTAL_BYTES,1,0,1
+req->fs_type == UV_FS_STAT || req->fs_type == UV_FS_LSTAT,1,0,1
+"write_cb_called == 1 && ""write_cb must be called exactly once""",1,0,1
+"0 == uv_tcp_connect(&tcp_check_req, &tcp_check, (const struct sockaddr*) &addr, connect_cb)",1,0,1
+"0 == uv_accept(ipc_pipe, (uv_stream_t*) &pc->peer_handle)",1,0,1
+s->st_blksize == (uint64_t) t.st_blksize,1,0,1
+"0 == uv_fs_chmod(loop, reqs + n++, ""/"", 0, fs_cb)",1,0,1
+stream->type == UV_TCP || stream->type == UV_NAMED_PIPE,1,0,1
+"0 == uv_tcp_bind(&tcp, (const struct sockaddr*) &client_addr, 0)",1,0,1
+handle->accept_reqs,1,0,1
+errno == EAGAIN || errno == EWOULDBLOCK,1,0,1
+req->result == UV_ENOTDIR,1,0,1
+"0 == uv_timer_start(&tiny_timer, huge_repeat_cb, 2, 2)",1,0,1
+req->type == UV_SIGNAL_REQ,1,0,1
+req->fs_type == UV_FS_FCHMOD,1,0,1
+"0 == uv_read_start((uv_stream_t*) incoming, alloc_cb, read_cb)",1,0,1
+!(pipe->flags & UV_HANDLE_NON_OVERLAPPED_PIPE),1,0,1
+bytes_received_done == TOTAL_BYTES,1,0,1
+check_cb_called == ITERATIONS,1,0,1
+sv_recv_cb_called == 1,1,0,1
+req->fs_type == UV_FS_RENAME,1,0,1
+"0 == uv_tcp_connect(&ctx->connect_req, (uv_tcp_t*) &ctx->client_handle, (const struct sockaddr*) &listen_addr, cl_connect_cb)",1,0,1
+s->st_birthtim.tv_sec == t.st_birthtim.tv_sec,1,0,1
+ctx != NULL,1,0,1
+0 == uv_check_stop(&check_handle),1,0,1
+sockname.sa_family == AF_INET,1,0,1
+"strcmp(uv_strerror(-1337), ""Unknown error"") == 0",1,0,1
+err == KERN_SUCCESS,1,0,1
+pipe_close_cb_called == 2,1,0,1
+curr->realpath != NULL,1,0,1
+channel->ipc,1,0,1
+fstat_cb_count == 1,1,0,1
+(uv_handle_t*)&conn.conn == (uv_handle_t*)req->handle,1,0,1
+handle->type == UV_SIGNAL,1,0,1
+"memcmp(buf, ""test-buffer\n\0test-buffer\n\0"", sizeof(""test-buffer\n\0test-buffer\n\0"") - 1) == 0",1,0,1
+test != NULL,1,0,1
+handle == &huge_timer1,1,0,1
+ipc_frame.header.flags <= (UV_IPC_TCP_SERVER | UV_IPC_RAW_DATA | UV_IPC_TCP_CONNECTION),1,0,1
+req->bufs != NULL,1,0,1
+"0 == uv_timer_init(uv_default_loop(), &handle)",1,0,1
+tcp_conn_write_cb_called == 1,1,0,1
+"0 == uv_thread_create(threads + 1, tls_thread, threads + 1)",1,0,1
+revents & UV__POLLOUT,1,0,1
+"0 == uv_thread_create(&thread_id, thread_cb, NULL)",1,0,1
+1 == nread,1,0,1
+req->handle == (uv_stream_t*) &peer_handle,1,0,1
+s->st_atim.tv_sec == t.st_atim.tv_sec,1,0,1
+height > 10,1,0,1
+"!memcmp(""PING"", rcvbuf->base, nread)",1,0,1
+"!memcmp(""PING"", buf->base, nread)",1,0,1
+s->st_size == (uint64_t) t.st_size,1,0,1
+unlink_cb_count == 2,1,0,1
+old == NULL,1,0,1
+prepare_2_cb_called == floor(ITERATIONS / 2.0),1,0,1
+read_req.result == 0,1,0,1
+loop_creation_counter >= NUM_LOOP_CREATING_THREADS,1,0,1
+"0 == uv_read_start((uv_stream_t*) storage, sv_alloc_cb, sv_read_cb)",1,0,1
+"0 == uv_timer_start(&timer, fs_event_unlink_files, 50, 0)",1,0,1
+0 == uv_cancel(req),1,0,1
+alloc_cb,1,0,1
+s->st_ino == (uint64_t) t.st_ino,1,0,1
+threads != NULL,1,0,1
+curr != NULL,1,0,1
+(uv_tcp_t*)t == &tcp,1,0,1
+connection_cb_called == 2,1,0,1
+"match && !strcmp(match, path)",1,0,1
+"0 == uv_prepare_start(&prepare_handle, prepare_cb)",1,0,1
+timer_cb_calls == 1,1,0,1
+"!""bad uv_fs_type""",1,0,1
+"0 == uv_timer_init(uv_default_loop(), &handle_a)",1,0,1
+"0 == fcntl(fd[0], F_SETFL, O_NONBLOCK)",1,0,1
+pipe->eof_timer == NULL,1,0,1
+ARRAY_SIZE(sockets) == send_cb_called,1,0,1
+!handle->pending_ipc_info.socket_info,1,0,1
+"0 == uv_fs_write(loop, reqs + n++, 0, NULL, 0, 0, fs_cb)",1,0,1
+once_cb_called == 10,1,0,1
+s->st_ctim.tv_nsec == t.st_ctimespec.tv_nsec,1,0,1
+req->result == 2,1,0,1
+container != NULL,1,0,1
+(ARRAY_SIZE(tcp_outgoing) + 2) == close_cb_called,1,0,1
+"!""unknown EAI_* error code""",1,0,1
+((uv_stat_t*)req.ptr)->st_mode & S_IFDIR,1,0,1
+req->fs_type == UV_FS_SENDFILE,1,0,1
+efds.fd_array[0] == handle->socket,1,0,1
+"0 && ""this function should not have been called""",1,0,1
+"0 == uv_ip4_addr(""127.0.0.1"", TEST_PORT, &connect_addr)",1,0,1
+"0 && ""unreachable code""",1,0,1
+"0 == uv_tcp_init(loop, client)",1,0,1
+"0 == uv_timer_start(&timer, fs_event_create_files, 50, 0)",1,0,1
+"0 == uv_timer_start(&timer_handle, timer_cb, 1000, 0)",1,0,1
+c->wrstate == c_stop || c->wrstate == c_done,1,0,1
+r == target_len,1,0,1
+first_fd > 0,1,0,1
+timer != NULL,1,0,1
+"0 == uv_fs_event_start(event, fs_event_error_report_cb, ""watch_dir"", 0)",1,0,1
+uv_timer_get_repeat((uv_timer_t*)handle) == 50,1,0,1
+"0 == uv_listen((uv_stream_t*) &tcp_server, ARRAY_SIZE(tcp_outgoing), connection_cb)",1,0,1
+ctx->main_seen == (unsigned int) NUM_PINGS,1,0,1
+r == UV_ETIMEDOUT,1,0,1
+signum == ctx->signum,1,0,1
+r == UV_ELOOP,1,0,1
+"nested == 0 && ""timer_cb must be called from a fresh stack""",1,0,1
+signum == SIGUSR2,1,0,1
+(handle)->activecnt > 0,1,0,1
+"0 == uv_timer_start(&huge_timer1, huge_repeat_cb, 1, (uint64_t) -1)",1,0,1
+s->st_ctim.tv_sec == t.st_ctimespec.tv_sec,1,0,1
+!process->exit_cb_pending,1,0,1
+bytes_written > 0,1,0,1
+ctx->parent_handle->poll_ctx == ctx,1,0,1
+idle_2_is_active == 0,1,0,1
+exit_status == 42,1,0,1
+s->st_mtim.tv_nsec == 0,1,0,1
+((uv_stat_t*)req.ptr)->st_mode & S_IFLNK,1,0,1
+req->type == UV_FS_EVENT_REQ,1,0,1
+readlink_cb_count == 1,1,0,1
+connect_port > 0,1,0,1
+req == &rmdir_req,1,0,1
+"0 == uv_fs_link(loop, reqs + n++, ""/"", ""/"", fs_cb)",1,0,1
+"0 == uv_listen((uv_stream_t*) &server, 128, connection_cb)",1,0,1
+called_shutdown_cb == 1,1,0,1
+idle_2_close_cb_called == idle_2_cb_started,1,0,1
+"0 == uv_timer_init(loop, &timer2_handle)",1,0,1
+"0 == uv_timer_start(&timer_handle, timer_run_once_timer_cb, 1, 0)",1,0,1
+!handle->req_pending,1,0,1
+timers != NULL,1,0,1
+stream == (uv_stream_t*)&tcp_server,1,0,1
+r == 26,1,0,1
+((uv_stat_t*)req.ptr)->st_size == strlen(test_dir),1,0,1
+"0 ==uv_ip6_addr(""::1"", TEST_PORT, &server_addr)",1,0,1
+r == 27,1,0,1
+handle == (uv_handle_t*)&prepare_2_handle,1,0,1
+compare_port == 0 || check_addr.sin_port == compare_addr.sin_port,1,0,1
+"0 && ""signal_unexpected_cb should never be called""",1,0,1
+new_path == NULL || path != NULL,1,0,1
+pc != NULL,1,0,1
+w != NULL,1,0,1
+1 == close_cb_called,1,0,1
+write_cb_called > 0,1,0,1
+0 == uv_is_active(handle),1,0,1
+sv_recv_cb_called == 0,1,0,1
+"0 == uv_async_init(uv_default_loop(), &handle, async_cb)",1,0,1
+s->st_atim.tv_nsec == 0,1,0,1
+mkdir_cb_count == 1,1,0,1
+"strcmp(""fourth stdio!\n"", output) == 0",1,0,1
+!didTimeout,1,0,1
+idle_cb_called > 0,1,0,1
+diff > (uint64_t) 25 * NANOSEC / MILLISEC,1,0,1
+"1 == write(fd[1], """", 1)",1,0,1
+signal2_cb_counter == 4 * (NUM_SIGNAL_HANDLING_THREADS / 3),1,0,1
+"0 == uv_udp_bind(&sockets[i], (const struct sockaddr*) &addr, 0)",1,0,1
+req->type == UV_READ,1,0,1
+prepare_called == 10,1,0,1
+stream->flags & UV_CLOSED,1,0,1
+fs_event_created == fs_event_file_count,1,0,1
+s->st_uid == (uint64_t) t.st_uid,1,0,1
+pipe_handle != INVALID_HANDLE_VALUE,1,0,1
+handle->alloc_cb != NULL,1,0,1
+"0 == uv_timer_start(&timer_handle, timer_cb, timeout, 0)",1,0,1
+"0 == uv_queue_work(uv_default_loop(), req, work_cb, done_cb)",1,0,1
+"0 && ""Invalid signum""",1,0,1
+"0 == uv_tcp_bind(&pinger->tcp, (const struct sockaddr*) &client_addr, 0)",1,0,1
+ticks <= 20,1,0,1
+dispatched_signum != 0,1,0,1
+handle->submitted_events_1 == 0,1,0,1
+"0 == uv_signal_init(loop, &ctx->handle)",1,0,1
+handle == server,1,0,1
+"0 && ""work2_cb called""",1,0,1
+ref != NULL,1,0,1
+req->result == 65546,1,0,1
+closed_connections == NUM_CLIENTS * 2,1,0,1
+n == 0,1,0,1
+prepare_2_close_cb_called == 1,1,0,1
+"(stream->type == UV_TCP || stream->type == UV_NAMED_PIPE) && ""uv_shutdown (unix) only supports uv_handle_t right now""",1,0,1
+calls_initiated == TOTAL_CALLS,1,0,1
+"!""read_cb_called > 2""",1,0,1
+process_title.len + 1 == size,1,0,1
+UV_UNKNOWN_HANDLE == uv_guess_handle(-1),1,0,1
+"0 == uv_listen((uv_stream_t*) &server_handle, 1, connection_cb)",1,0,1
+"0 == uv_pipe_init(loop, (uv_pipe_t*) &pc->peer_handle, 1)",1,0,1
+server.reqs_pending == 32,1,0,1
+"0 == uv_spawn(uv_default_loop(), &process, &options)",1,0,1
+fd > STDERR_FILENO,1,0,1
+"0 == uv_async_init(uv_default_loop(), &async_handle, NULL)",1,0,1
+!filename,1,0,1
+!(handle->flags & UV_HANDLE_TTY_READABLE) || handle->read_line_handle == NULL,1,0,1
+req->fs_type == UV_FS_READLINK,1,0,1
+req->result == UV_ENAMETOOLONG,1,0,1
+r == UV_ENOTCONN,1,0,1
+!(handle->flags & UV_HANDLE_TTY_READABLE) || handle->read_raw_wait == NULL,1,0,1
+close_cb_count == 3,1,0,1
+size > 0,1,0,1
+(pevents & ~(UV_READABLE | UV_WRITABLE)) == 0,1,0,1
+"0 == uv_accept((uv_stream_t*) &ctx->ipc_pipe, ctx->server_handle)",1,0,1
+called_timer_close_cb == 0,1,0,1
+r == UV_ENOTDIR,1,0,1
+write_cb_called == 0,1,0,1
+"0 == uv_accept(server, (uv_stream_t*) incoming)",1,0,1
+avg[0] >= 0,1,0,1
+done_cb_called == num_threads + 1,1,0,1
+req->retcode == 0,1,0,1
+timer_close_cb_calls == 0,1,0,1
+req <= connect_reqs + ARRAY_SIZE(connect_reqs),1,0,1
+"0 == uv_thread_create(threads + 0, tls_thread, threads + 0)",1,0,1
+fd > -1,1,0,1
+"0 == uv_tcp_init(handle->loop, (uv_tcp_t*) &ctx->client_handle)",1,0,1
+"0 == uv_fs_read(loop, reqs + n++, 0, NULL, 0, 0, fs_cb)",1,0,1
+handle->recv_buffer.base != NULL,1,0,1
+r == 65542,1,0,1
+"0 == uv_fs_sendfile(loop, reqs + n++, 0, 0, 0, 0, fs_cb)",1,0,1
+"offsetof(uv_buf_t, base) == offsetof(struct iovec, iov_base)",1,0,1
+"0 == uv_interface_addresses(&addresses, &count)",1,0,1
+signum == SIGCHLD,1,0,1
+"!uv__io_active(&stream->io_watcher, UV__POLLIN | UV__POLLOUT)",1,0,1
+loop->watchers[w->fd] == w,1,0,1
+c->rdstate != c_dead,1,0,1
+h != NULL,1,0,1
+s->st_ctim.tv_nsec == t.st_ctim.tv_nsec,1,0,1
+close_cb_called == 4,1,0,1
+"0 == uv_timer_init(loop, timers + i)",1,0,1
+handle == getaddrinfo_handle,1,0,1
+req->write_buffer.base,1,0,1
+"0 == uv_ip4_addr(""1.2.3.4"", TEST_PORT, &addr)",1,0,1
+"memcmp(""world\n"", buf->base, nread) == 0",1,0,1
+ARRAY_SIZE(tcp_outgoing) == got_connections,1,0,1
+"strcmp(buffer_orig, buffer_new) == 0",1,0,1
+"0 == uv_tcp_bind(&tcp_server, (const struct sockaddr*) &addr, 0)",1,0,1
+s->st_dev == (uint64_t) t.st_dev,1,0,1
+parser->cmd == s5_cmd_tcp_connect,1,0,1
+"0 == uv_timer_init(uv_default_loop(), &huge_timer2)",1,0,1
+handle == (uv_handle_t*) &pipe_client || handle == (uv_handle_t*) &pipe_server,1,0,1
+status == 0 || status == UV_ECANCELED,1,0,1
+s->st_blocks == (uint64_t) t.st_blocks,1,0,1
+fsync_cb_count == 1,1,0,1
+"0 == uv_read2_start((uv_stream_t*) &ctx->ipc_pipe, ipc_alloc_cb, ipc_read2_cb)",1,0,1
+0 == uv_read_stop((uv_stream_t*) &tcp_handle),1,0,1
+"filename == NULL || strcmp(filename, ""watch_file"") == 0",1,0,1
+ctx->worker_sent == NUM_PINGS,1,0,1
+req->cb,1,0,1
+fs_event_cb_called < 3,1,0,1
+req->result == UV_EPERM,1,0,1
+"0 == uv_ip4_addr(compare_ip, compare_port, &compare_addr)",1,0,1
+"UV_EINVAL == uv_ip4_addr(""2555.0.0.0"", TEST_PORT, &addr)",1,0,1
+status != 0,1,0,1
+"0 == uv_tcp_init(loop, (uv_tcp_t*) ctx->server_handle)",1,0,1
+"0 == uv_check_init(loop, &check_handle)",1,0,1
+uv_timer_get_repeat(&repeat_1) == 50,1,0,1
+"0 == uv_read_start((uv_stream_t*) &tcp_handle, (uv_alloc_cb) fail_cb, (uv_read_cb) fail_cb)",1,0,1
+QUEUE_EMPTY(&stream->write_queue),1,0,1
+req->handle == &s->udp_handle,1,0,1
+connect_reqs <= req,1,0,1
+len > 0 && len < ARRAY_SIZE(key_name),1,0,1
+req->write_index < req->nbufs,1,0,1
+0 == uv_timer_get_repeat(&handle),1,0,1
+"0 == uv_fs_stat(loop, reqs + n++, ""/"", fs_cb)",1,0,1
+buf->base[0] == 'Q',1,0,1
+req->fs_type == UV_FS_RMDIR,1,0,1
+s->st_atim.tv_nsec == t.st_atim.tv_nsec,1,0,1
+!(handle->flags & UV_CLOSING),1,0,1
+ctx->main_sent == (unsigned int) NUM_PINGS,1,0,1
+0 == uv_async_send(&ctx->worker_async),1,0,1
+req->handle == (uv_stream_t*)&tcp_connection,1,0,1
+w->fd < INT_MAX,1,0,1
+bytes_received == sizeof MESSAGE,1,0,1
+handle->accept_reqs[0].pipeHandle != INVALID_HANDLE_VALUE,1,0,1
+tcp_write_cb_called == 1,1,0,1
+fdopt.data.stream->type == UV_NAMED_PIPE,1,0,1
+context->sent == 0,1,0,1
+s->st_ctim.tv_sec == t.st_ctime,1,0,1
+ttyin_fd >= 0,1,0,1
+repeat_cb_called == 5,1,0,1
+req->result == UV_ENOENT,1,0,1
+ftruncate_req.result == 0,1,0,1
+ctx->loop != NULL,1,0,1
+uv__signal_control_handler_refs == 1,1,0,1
+"0 == uv_read_start((uv_stream_t*) &tcp_check, alloc_cb, read_cb)",1,0,1
+iface_index == addr.sin6_scope_id,1,0,1
+req->type == UV_FS,1,0,1
+req->fs_type == UV_FS_FDATASYNC,1,0,1
+s->st_mtim.tv_sec == mtime,1,0,1
+"UV_EINVAL == uv_ip4_addr(""255.255.255.256"", TEST_PORT, &addr)",1,0,1
+req->fs_type == UV_FS_FTRUNCATE,1,0,1
+"memcmp(""hello world\n"", buf->base, nread) == 0",1,0,1
+ARRAY_SIZE(reqs) == done2_cb_called,1,0,1
+rmdir_cb_count == 1,1,0,1
+server != NULL,1,0,1
+"0 == uv_timer_start(&huge_timer2, tiny_timer_cb, (uint64_t) -1, 0)",1,0,1
+(uv_stream_t*) &tcp == req->handle,1,0,1
+req.result == UV_ENAMETOOLONG,1,0,1
+"0 == uv_pipe_init(uv_default_loop(), &pipe_handle, 0)",1,0,1
+"0 == uv_thread_create(&ctx->thread_id, server_cb, ctx)",1,0,1
+0 == uv_cancel((uv_req_t*) req),1,0,1
+!uv__has_active_reqs(loop),1,0,1
+"0 == uv_ip4_addr(""0.0.0.0"", TEST_PORT, &addr1)",1,0,1
+process_title,1,0,1
+"0 == uv_ip4_addr(""127.0.0.1"", BASE_PORT + (i % n_receivers), &s->addr)",1,0,1
+"0 && ""unexpected handle""",1,0,1
+"0 == uv_fs_utime(loop, reqs + n++, ""/"", 0, 0, fs_cb)",1,0,1
+repeat_1_cb_called == 10,1,0,1
+n <= MAXIMUM_WAIT_OBJECTS,1,0,1
+s->st_birthtim.tv_nsec == t.st_birthtimespec.tv_nsec,1,0,1
+status == UV_EAI_CANCELED,1,0,1
+1 == uv_is_writable((uv_stream_t*)&ctx.channel),1,0,1
+r == TRUE,1,0,1
+0 == uv_timer_stop(&handle_a),1,0,1
+q != NULL,1,0,1
+s->st_rdev == (uint64_t) t.st_rdev,1,0,1
+read_cb_called > 0,1,0,1
+"shutdown_cb_called == 1 && ""shutdown_cb must be called exactly once""",1,0,1
+pid > 0,1,0,1
+"0 == uv_timer_start(timers + i, timer_cb, timeout, 0)",1,0,1
+0 == uv_mutex_init(&wait_mutex),1,0,1
+r > 0 || got_eagain(),1,0,1
+work_cb_count == 0,1,0,1
+"0 == uv_tcp_init(loop, &tcp_handle)",1,0,1
+0 == uv_is_active((const uv_handle_t *) &pipe_handle),1,0,1
+s->st_gid == (uint64_t) t.st_gid,1,0,1
+s->st_mtim.tv_sec == t.st_mtimespec.tv_sec,1,0,1
+nread == UV_ECANCELED,1,0,1
+"(fp = fopen(FIXTURE, ""w+""))",1,0,1
+called_timer_cb == 0,1,0,1
+"0 == uv_fs_chown(loop, reqs + n++, ""/"", 0, 0, fs_cb)",1,0,1
+"0 == uv_ip4_addr(""127.255.255.255"", TEST_PORT, &addr)",1,0,1
+"0 == uv_tcp_init(loop, &peer_handle)",1,0,1
+nread > 0 || nread == UV_EOF,1,0,1
+handle == (uv_handle_t*)&tcp_handle,1,0,1
+"0 == uv_write(&write_req, (uv_stream_t*) &peer_handle, &buf, 1, write_cb)",1,0,1
+server->flags & UV_HANDLE_TCP_SINGLE_ACCEPT,1,0,1
+knp->data_type == KSTAT_DATA_INT32 || knp->data_type == KSTAT_DATA_INT64,1,0,1
+!process_title,1,0,1
+"0 == uv_ip6_addr(""::"", TEST_PORT_2, &addr2)",1,0,1
+r == pathw_len,1,0,1
+write_reqs != NULL,1,0,1
+"0 == uv_fs_poll_start(&poll_handle, poll_cb, FIXTURE, 100)",1,0,1
+utime_cb_count == 1,1,0,1
+"strcmp(req.ptr, test_dir + 4) == 0",1,0,1
+fd_to_send >= 0,1,0,1
+0 == uv_prepare_stop(&prepare_handle),1,0,1
+after_work_cb_count == 1,1,0,1
+req->result == UV_ECANCELED,1,0,1
+result_size == sppi_size,1,0,1
+r == new_pathw_len,1,0,1
+"nested == 0 && ""close_cb must be called from a fresh stack""",1,0,1
+"0 && ""should never be called""",1,0,1
+events == UV__POLLIN,1,0,1
+r == UV_EBADF,1,0,1
+"0 == uv_read_start((uv_stream_t*) &peer_handle, alloc_cb, read_cb)",1,0,1
+handle->write_reqs_pending > 0,1,0,1
+ttyout_fd >= 0,1,0,1
+s->st_nlink == (uint64_t) t.st_nlink,1,0,1
+req == &stat_req,1,0,1
+close_cb_called == NUM_TIMERS,1,0,1
+stream->alloc_cb != NULL,1,0,1
+loop->nfds > 0,1,0,1
+fdatasync_cb_count == 1,1,0,1
+"0 == uv_fs_fsync(loop, reqs + n++, 0, fs_cb)",1,0,1
+wfds.fd_count == 1,1,0,1
+s->st_atim.tv_nsec == t.st_atimespec.tv_nsec,1,0,1
+handle->reqs_pending > 0,1,0,1
+timer_cb_touch_called == 1,1,0,1
+"0 == uv_accept(handle, (uv_stream_t*) &peer_handle)",1,0,1
+read_req.result == 26,1,0,1
+idle_1_close_cb_called == IDLE_COUNT,1,0,1
+"0 == uv_timer_init(loop, &timer1_handle)",1,0,1
+"strcmp(req.ptr, test_dir) == 0",1,0,1
+timer_called == 10,1,0,1
+after_write_cb_called == 1,1,0,1
+"0 == uv_ip4_addr(""8.8.8.8"", 9999, &addr)",1,0,1
+callback_counts[i] == 1,1,0,1
+req->fs_type == UV_FS_READ,1,0,1
+"0 == uv_fs_unlink(loop, reqs + n++, ""/"", fs_cb)",1,0,1
+"0 == uv_queue_work(loop, reqs + i, work2_cb, done2_cb)",1,0,1
+"0 && ""Bad serverType""",1,0,1
+cur_ptr + addrinfo_struct_len <= alloc_ptr + addrinfo_len,1,0,1
+2 == timer_run_once_timer_cb_called,1,0,1
+s->st_mtim.tv_sec == t.st_mtime,1,0,1
+idle_counter == NUM_TICKS,1,0,1
+"0 == uv_ip6_addr(scoped_addr, TEST_PORT, &addr)",1,0,1
+s->st_mtim.tv_nsec == t.st_mtim.tv_nsec,1,0,1
+server == s,1,0,1
+open_cb_count == 2,1,0,1
+"0 && ""read_cb should not have been called""",1,0,1
+"0 && ""should not be called""",1,0,1
+!(handle->flags & UV_HANDLE_NON_OVERLAPPED_PIPE),1,0,1
+r == UV_ENOENT || r == UV_EACCES,1,0,1
+"0 == uv_tcp_connect(&connect_reqs[i], client, (const struct sockaddr*) &addr, connect_cb)",1,0,1
+fs_event_cb_called == 3,1,0,1
+rfds.fd_array[0] == handle->socket,1,0,1
+context->read == TRANSFER_BYTES,1,0,1
+pending == UV_NAMED_PIPE || pending == UV_TCP,1,0,1
+handle == &idle_2_handle,1,0,1
+"0 == uv_sem_init(&ctx->semaphore, 0)",1,0,1
+"0 && ""bad handle in close_cb""",1,0,1
+handle == (uv_handle_t*) &tcp,1,0,1
+close_cb_called == 7,1,0,1
+r == UV_ENAMETOOLONG,1,0,1
+"0 == uv_fs_symlink(loop, reqs + n++, ""/"", ""/"", 0, fs_cb)",1,0,1
+req->accept_socket == INVALID_SOCKET,1,0,1
+req == &read_req,1,0,1
+handle->submitted_events_2 == 0,1,0,1
+prepare_called > 1,1,0,1
+"0 == uv_tcp_init(loop, &tcp_server)",1,0,1
+output_used == 12,1,0,1
+"0 == uv_timer_init(loop, &ctx->handle)",1,0,1
+status == UV_ENOTSOCK || status == UV_ECONNREFUSED,1,0,1
+context->sent == TRANSFER_BYTES,1,0,1

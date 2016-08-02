@@ -1,0 +1,1096 @@
+x_val,y_added,y_removed,y_combined
+config_prof,95,3,98
+ptr != NULL,58,20,78
+run->magic == ARENA_RUN_MAGIC,20,20,40
+false,19,19,38
+size != 0,29,6,35
+NULL,19,9,28
+binind < nbins,14,14,28
+CHUNK_ADDR2BASE(ptr) != ptr,18,8,26
+ckh != NULL,18,6,24
+malloc_initialized || malloc_initializer == pthread_self(),12,12,24
+ckh->magic == CKH_MAGIC,12,12,24
+(size & PAGE_MASK) == 0,18,4,22
+SMALL_SIZE2BIN(i) == binind,10,10,20
+"bitmap_full(bitmap, &binfo)",10,10,20
+malloc_initialized || IS_INITIALIZER,16,2,18
+"mallctl(""thread.tcache.enabled"", &e0, &sz, &e1, sz) == 0",9,9,18
+((uintptr_t)ptr & PAGE_MASK) == 0,11,7,18
+ln != NULL,9,8,17
+de != NULL,8,8,16
+(mapbits & CHUNK_MAP_ALLOCATED) != 0,9,7,16
+tnode != &rbtree->rbt_nil,12,4,16
+node != NULL,12,4,16
+0,13,2,15
+bit < binfo->nbits,9,6,15
+vlen >= 0,9,6,15
+size <= arena_maxclass,11,3,14
+minbits <= 32 || (SIZEOF_PTR == 8 && minbits <= 64),6,6,12
+0 != 0,6,6,12
+hash1 != NULL,6,6,12
+binind < NBINS,12,0,12
+lg_range > 0,8,4,12
+usize == isalloc(ret),6,6,12
+size == isalloc(ptr),6,6,12
+((uintptr_t)ptr - ((uintptr_t)run + (uintptr_t)bin_info->reg0_offset)) % bin_info->reg_size == 0,6,6,12
+hash2 != NULL,6,6,12
+"bitmap_sfu(bitmap, &binfo) == j",6,6,12
+swap_enabled,6,6,12
+"p, ""Unexpected mallocx() error""",11,0,11
+(g & (1LU << (bit & BITMAP_GROUP_NBITS_MASK))) == 0,6,4,10
+ret != 0,6,4,10
+(size & chunksize_mask) == 0,8,2,10
+"bitmap_get(bitmap, binfo, bit) == false",6,4,10
+"bitmap_get(bitmap, binfo, bit)",6,4,10
+retval == DICT_OK,5,5,10
+g & (1LU << (bit & BITMAP_GROUP_NBITS_MASK)),6,4,10
+"p, ""Unexpected mallocx() failure""",10,0,10
+e0,5,5,10
+1 != 1,5,5,10
+"mallctl(""thread.tcache.enabled"", &e0, &sz, &e1, sz), 0, ""Unexpected mallctl() error""",9,0,9
+ret != NULL,8,1,9
+(uintptr_t)ptr >= (uintptr_t)run + (uintptr_t)bin_info->reg0_offset,6,2,8
+pageind + npages <= chunk_npages,6,2,8
+(chunk->map[pageind+head_npages+tail_npages-1-map_bias].bits & ~PAGE_MASK) == 0,4,4,8
+(chunk->map[pageind-map_bias].bits & CHUNK_MAP_ALLOCATED) != 0,4,4,8
+q[i] == 'a',4,4,8
+chunk->arena->magic == ARENA_MAGIC,4,4,8
+rem <= tbin->ncached,6,2,8
+oldsize > newsize,6,2,8
+ivsalloc(ptr) == size,4,4,8
+o->type == REDIS_STRING,4,4,8
+p[i] == 0,6,2,8
+(chunk->map[pageind-map_bias].bits & CHUNK_MAP_LARGE) != 0,4,4,8
+binind < nhbins,6,2,8
+(chunk->map[pageind+head_npages+tail_npages-1-map_bias].bits & CHUNK_MAP_ALLOCATED) != 0,4,4,8
+result != -1,4,4,8
+max <= (1U << opt_lg_prof_bt_max),4,4,8
+bin->runcur->nfree > 0,6,2,8
+"arena_mapbits_allocated_get(chunk, pageind) != 0",8,0,8
+trailsize < alloc_size,4,4,8
+reply != NULL,6,2,8
+is->encoding == INTSET_ENC_INT32,4,4,8
+arena->magic == ARENA_MAGIC,4,4,8
+e0 == false,4,4,8
+offset < alloc_size,4,4,8
+(uintptr_t)pathp > (uintptr_t)path,6,2,8
+bin->runcur->magic == ARENA_RUN_MAGIC,4,4,8
+tbin->ncached < tbin_info->ncached_max,6,2,8
+(chunk->map[pageind+head_npages+tail_npages-1-map_bias].bits & CHUNK_MAP_LARGE) != 0,4,4,8
+need_pages > 0,6,2,8
+is->encoding == INTSET_ENC_INT64,4,4,8
+node->size > size,4,4,8
+is->encoding == INTSET_ENC_INT16,4,4,8
+"string2ll(buf,strlen(buf),&v) == 1",7,0,7
+"string2l(buf,strlen(buf),&v) == 1",7,0,7
+usize != 0,7,0,7
+"dallocm(p, 0), ALLOCM_SUCCESS, ""Unexpected dallocm() error""",7,0,7
+chunk != NULL,6,1,7
+sizeof(uint64_t) == sizeof(unsigned long),4,2,6
+chunk->dirtied,3,3,6
+lg_range <= 64,4,2,6
+lg_range <= 32,4,2,6
+ctx->cnt_merged.curbytes == 0,4,2,6
+"(void *)s, ""Unexpected mallocx() failure""",6,0,6
+ctx->cnt_merged.accumbytes == 0,4,2,6
+"ziplistGet(p,NULL,NULL,&value)",4,2,6
+"size == isalloc(ptr, true)",4,2,6
+"arena_mapbits_dirty_get(chunk, map_bias) == arena_mapbits_dirty_get(chunk, chunk_npages-1)",5,1,6
+"arena_mapbits_allocated_get(chunk, chunk_npages-1) == 0",5,1,6
+a != NULL,5,1,6
+config_fill,6,0,6
+config_dss,6,0,6
+run_ind >= map_bias,4,2,6
+SIZE_T_MAX - size >= extra,5,1,6
+CHUNK_ADDR2BASE(chunk) == chunk,5,1,6
+config_tcache,6,0,6
+binind != BININD_INVALID,6,0,6
+"mallctl(""epoch"", NULL, NULL, &epoch, sizeof(epoch)), 0, ""Unexpected mallctl() failure""",6,0,6
+malloc_initialized,6,0,6
+size == s2u(size),4,2,6
+"string2ll(buf,strlen(buf),&v) == 0",6,0,6
+ctx->cnt_merged.accumobjs == 0,4,2,6
+rsize != NULL,4,2,6
+run_ind < chunk_npages,4,2,6
+"usize == isalloc(ret, config_prof)",6,0,6
+"arena_mapbits_unallocated_size_get(chunk, chunk_npages-1) == arena_maxclass",5,1,6
+"arena_mapbits_dirty_get(chunk, run_ind) == arena_mapbits_dirty_get(chunk, run_ind+run_pages-1)",5,1,6
+usize_promoted != 0,4,2,6
+"arena_mapbits_allocated_get(chunk, map_bias) == 0",5,1,6
+b != NULL,5,1,6
+"tsz, sz, ""Unexpected size change: %zu --> %zu"", sz, tsz",6,0,6
+"arena_mapbits_unallocated_size_get(chunk, map_bias) == arena_maxclass",5,1,6
+*ptr != NULL,4,2,6
+ndirty == arena->ndirty,4,2,6
+"bitmap_full(bitmap, &binfo), ""All bits should be set""",5,0,5
+"c->err == REDIS_ERR_EOF && strcmp(c->errstr,""Server closed the connection"") == 0",3,2,5
+"e0, ""tcache should be enabled""",5,0,5
+"nmalloc, ndalloc, ""nmalloc should be at least as large as ndalloc""",5,0,5
+"bitmap_full(bitmap, binfo) == false",3,2,5
+"mallctl(""thread.arena"", NULL, NULL, &arena, sizeof(arena)), 0, ""Unexpected mallctl() failure""",5,0,5
+opt_lg_prof_sample != 0,3,1,4
+pathp[-1].cmp < 0,3,1,4
+(flags & CHUNK_MAP_DIRTY) == flags,4,0,4
+(chunk->map[run_ind-map_bias].bits & ~PAGE_MASK) == (chunk->map[run_ind+run_pages-1-map_bias].bits & ~PAGE_MASK),2,2,4
+size >= prev_size,2,2,4
+chunk->arena == arena,3,1,4
+keycomp != NULL,3,1,4
+sh->free >= 0,2,2,4
+alignment != 0,4,0,4
+sh->free >= incr,2,2,4
+QUANTUM_CEILING(size) <= arena_maxclass,2,2,4
+alloc_size >= leadsize + size,4,0,4
+err != ENOENT,2,2,4
+"ckh_search(ckh, key, NULL, NULL)",3,1,4
+(mapelm->bits >> PAGE_SHIFT) == 0,2,2,4
+CHUNK_CEILING(oldsize) == oldsize,3,1,4
+"arena_mapbits_large_size_get(chunk, pageind+head_npages+tail_npages-1) == 0",4,0,4
+"npages == (arena_mapbits_unallocated_size_get(chunk, pageind) >> LG_PAGE)",4,0,4
+LG_QUANTUM >= LG_TINY_MIN,2,2,4
+ret.v != NULL,3,1,4
+((result - 1) & result) == 0,2,2,4
+len == idx+1,2,2,4
+(chunk->map[run_ind+(size>>PAGE_SHIFT)-1-map_bias].bits & CHUNK_MAP_LARGE) != 0,2,2,4
+"bitmap_full(bitmap, &bin_info->bitmap_info) == false",3,1,4
+tcache->ev_cnt <= tcache_gc_incr,2,2,4
+(chunk->map[run_ind-map_bias].bits & CHUNK_MAP_DIRTY) == (chunk->map[run_ind+run_pages-1-map_bias].bits & CHUNK_MAP_DIRTY),2,2,4
+node->addr == ptr,3,1,4
+(offset & chunksize_mask) == 0,2,2,4
+arena != NULL,3,1,4
+chunksize >= PAGE_SIZE,2,2,4
+regind < run->nextind,3,1,4
+(chunk->map[0].bits & ~PAGE_MASK) == arena_maxclass,2,2,4
+parent->type == REDIS_REPLY_ARRAY,4,0,4
+arena_salloc(ptr) <= tcache_maxclass,2,2,4
+opt_lg_prof_tcmax < 0 || ckh_count(&prof_tdata->bt2cnt) < (ZU(1) << opt_lg_prof_tcmax),2,2,4
+run->nfree < bin_info->nregs,3,1,4
+arenas[0] != NULL,3,1,4
+"bitmap_sfu(bitmap, &binfo) == i - 1",2,2,4
+(offset & PAGE_MASK) == 0,2,2,4
+len != 'l',4,0,4
+"string2l(buf,strlen(buf),&v) == 0",4,0,4
+"sa2u(small_maxclass+1, alignment, NULL) != 0",2,2,4
+bt->vec != NULL,3,1,4
+(chunk->map[run_ind+run_pages+nrun_pages-1-map_bias].bits & CHUNK_MAP_ALLOCATED) == 0,2,2,4
+SIZEOF_PTR == 8,2,2,4
+d0 + usize <= d1,2,2,4
+(chunk->map[pageind+head_npages+tail_npages-1-map_bias] .bits & CHUNK_MAP_DIRTY) == flag_dirty,2,2,4
+ntbins <= LG_QUANTUM,2,2,4
+ap0 == ap1,2,2,4
+merged_stats == false,3,1,4
+"size == PAGE || arena_mapbits_large_size_get(chunk, run_ind+(size>>LG_PAGE)-1) == 0",3,1,4
+minsize != 0,3,1,4
+*dp1 == d1,2,2,4
+cmp != 0,3,1,4
+newline-(p+6) == 12,2,2,4
+"arena_run_tree_search(&bin->runs, &chunk->map[ (((uintptr_t)run-(uintptr_t)chunk)>>PAGE_SHIFT)-map_bias]) == NULL",2,2,4
+"sz, sizeof(old_epoch), ""Unexpected output size""",4,0,4
+"bitmap_get(bitmap, &binfo, 0) == false",2,2,4
+nodep->node == node,3,1,4
+arena_salloc(ptr) <= small_maxclass,2,2,4
+node->named,2,2,4
+*dp0 == d0,2,2,4
+minitems > 0,3,1,4
+*ap0 == a0,2,2,4
+need_pages <= total_pages,3,1,4
+node,4,0,4
+good_hdr_size <= good_reg0_offset,2,2,4
+arena < narenas,2,2,4
+(arena->nactive >> opt_lg_dirty_mult) < (arena->ndirty - arena->npurgatory) || all,3,1,4
+tcache != (void *)(uintptr_t)1,2,2,4
+size <= tcache_maxclass,3,1,4
+"usize == isalloc(p, config_prof)",3,1,4
+size == PAGE_SIZE || (chunk->map[run_ind+(size>>PAGE_SHIFT)-1-map_bias].bits & ~PAGE_MASK) == 0,2,2,4
+ctx->cnt_summed.curbytes == 0,3,1,4
+(alignment & chunksize_mask) == 0,4,0,4
+"arena_mapbits_large_size_get(chunk, pageind) == oldsize",4,0,4
+intrev32ifbe(is->encoding) == INTSET_ENC_INT32,4,0,4
+"size == szone.size(zone, ptr)",2,2,4
+ctx->initialized,4,0,4
+ndirty == 0,2,2,4
+"arena_mapbits_dirty_get(chunk, map_bias) != 0",3,1,4
+dp0 == dp1,2,2,4
+"obj->usize == isalloc(obj->ptr, config_prof)",3,1,4
+intrev32ifbe(is->encoding) == INTSET_ENC_INT64,4,0,4
+arena_salloc(ret) == arena_bin_info[binind].reg_size,2,2,4
+"isalloc(ptr, false) == PAGE",4,0,4
+(a->bits & CHUNK_MAP_KEY) == CHUNK_MAP_KEY || (a->bits & CHUNK_MAP_DIRTY) == (b->bits & CHUNK_MAP_DIRTY),2,2,4
+i < BITMAP_MAX_LEVELS,3,1,4
+"arena_mapbits_dirty_get(chunk, pageind+head_npages+tail_npages-1) == flag_dirty",4,0,4
+(uintptr_t)prof_tdata > (uintptr_t)PROF_TDATA_STATE_MAX,3,1,4
+(mapelm->bits & CHUNK_MAP_ALLOCATED) != 0,2,2,4
+min_run_size <= arena_maxclass,3,1,4
+nbits > 0,3,1,4
+(chunk->map[chunk_npages-1-map_bias].bits & ~PAGE_MASK) == arena_maxclass,2,2,4
+min_run_size >= PAGE_SIZE,2,2,4
+isalloc(ptr) == PAGE_SIZE,2,2,4
+"allocated, 0, ""allocated should be greater than zero""",4,0,4
+oldsize == (chunk->map[pageind-map_bias].bits & ~PAGE_MASK),2,2,4
+(chunk->map[run_ind+(size>>PAGE_SHIFT)-1-map_bias].bits & CHUNK_MAP_ALLOCATED) != 0,2,2,4
+*ap1 == a1,2,2,4
+key->refcount == 1,2,2,4
+ckh_count(&prof_tdata->bt2cnt) > 0,3,1,4
+node->u.named.nchildren > 0,2,2,4
+run != bin->runcur,3,1,4
+nbits <= (ZU(1) << LG_BITMAP_MAXBITS),3,1,4
+ptr != NULL || (uintptr_t)cnt <= (uintptr_t)1U,3,1,4
+"arena_run_tree_search(&bin->runs, run_mapelm) == NULL",2,2,4
+k1 != NULL,3,1,4
+arena->ndirty > arena->npurgatory || all,3,1,4
+arena_salloc(ptr) > small_maxclass,2,2,4
+CHUNK_ADDR2BASE(ret) == ret,3,1,4
+(chunk->map[run_ind+total_pages-1-map_bias].bits & CHUNK_MAP_DIRTY) == flag_dirty,2,2,4
+"rbtn_red_get(a_type, a_field, left)",3,1,4
+diff == regind * size,2,2,4
+(mapbits & (CHUNK_MAP_LARGE|CHUNK_MAP_ALLOCATED)) == 0,4,0,4
+prof_tdata != NULL,2,2,4
+(chunk->map[run_ind-map_bias].bits & CHUNK_MAP_DIRTY) == flag_dirty,2,2,4
+"e0, ""tcache should be disabled""",4,0,4
+"bitmap_get(bitmap, &binfo, j) == false",2,2,4
+a0 + usize <= a1,2,2,4
+bt->len == 0,3,1,4
+node->nchildren > 0,4,0,4
+height * bits_per_level >= bits,2,2,4
+(chunk->map[run_ind-map_bias].bits & ~PAGE_MASK) == prun_size,2,2,4
+pageind == chunk_npages,3,1,4
+"rbtn_red_get(a_type, a_field, pathp[1].node) == false",3,1,4
+"arena_mapbits_large_get(chunk, pageind) == 0",4,0,4
+addr == (void *)((uintptr_t)vaddr + voff),2,2,4
+len == '?' || len == 'l',4,0,4
+chunk->map[i-map_bias].bits == unzeroed,2,2,4
+(chunk->map[0].bits & CHUNK_MAP_DIRTY) != 0,2,2,4
+opt_quarantine,4,0,4
+k2 != NULL,3,1,4
+"usize == isalloc(ptr, true)",4,0,4
+sspace_min < PAGE_SIZE,2,2,4
+deleted != 0,2,2,4
+regind < bin_info->nregs,3,1,4
+"usize == ((alignment == 0) ? s2u(usize) : sa2u(usize, alignment))",3,1,4
+"usize == ((alignment == 0) ? s2u(usize) : sa2u(usize, alignment, NULL))",2,2,4
+usize == isalloc(p),2,2,4
+cell->key != NULL,3,1,4
+run->nfree > 0,3,1,4
+(chunk->map[run_ind-map_bias].bits & CHUNK_MAP_ALLOCATED) == 0,2,2,4
+usize == isalloc(result),2,2,4
+arena->ndirty - arena->npurgatory > chunk_npages || all,2,2,4
+pathp->cmp != 0,3,1,4
+ctx->cnt_summed.accumobjs == 0,3,1,4
+"intsetFind(is,32)",4,0,4
+nignore <= 3,3,1,4
+ndirty >= npages,2,2,4
+listLength(server.io_processed) != 0,2,2,4
+size < oldsize,3,1,4
+alignment > chunksize,2,2,4
+LG_CKH_BUCKET_CELLS > 0,3,1,4
+sop->type == REDIS_SORT_GET,2,2,4
+opt_lg_qspace_max != LG_QSPACE_MAX_DEFAULT || opt_lg_cspace_max != LG_CSPACE_MAX_DEFAULT || (sizeof(const_small_size2bin) != ((small_maxclass-1) >> LG_TINY_MIN) + 1),2,2,4
+chunk->ndirty != 0,3,1,4
+"rbtn_red_get(a_type, a_field, rbtree->rbt_root) == false",3,1,4
+hash != NULL,3,1,4
+"bitmap_get(bitmap, &bin_info->bitmap_info, regind)",3,1,4
+size + extra > oldsize,3,1,4
+(chunk->map[0].bits & CHUNK_MAP_DIRTY) == (chunk->map[chunk_npages-1-map_bias].bits & CHUNK_MAP_DIRTY),2,2,4
+leftright != &rbtree->rbt_nil,3,1,4
+npurgatory >= arena->nactive >> opt_lg_dirty_mult,2,2,4
+"detected_redzone_corruption, ""Did not detect redzone corruption""",4,0,4
+(uintptr_t)ctx == (uintptr_t)1U,2,2,4
+(uintptr_t)cnt == (uintptr_t)1U,3,1,4
+"nrequests, 0, ""nrequests should be greater than zero""",4,0,4
+key->storage == REDIS_VM_MEMORY,2,2,4
+(TCACHE_NSLOTS_SMALL_MAX & 1U) == 0,3,1,4
+size <= small_maxclass,2,2,4
+intrev32ifbe(is->encoding) == INTSET_ENC_INT16,4,0,4
+ret == NULL || (addr == NULL && ret != addr) || (addr != NULL && ret == addr),3,1,4
+arena_bin_info[SMALL_SIZE2BIN(oldsize)].reg_size == oldsize,3,1,4
+(large && binind == BININD_INVALID) || (large == false && binind != BININD_INVALID),2,2,4
+((uintptr_t)ptr - ((uintptr_t)run + (uintptr_t)bin_info->reg0_offset)) % (uintptr_t)bin_info->reg_size == 0,2,2,4
+arena_ind == main_arena_ind,2,2,4
+"rtree_get_locked(rtree, key) == ret",3,1,4
+reply2 && reply2->type == REDIS_REPLY_STATUS,2,2,4
+map_bias > 0,3,1,4
+tbin->ncached == 0,3,1,4
+sizeof(u.v) == sizeof(u.i),3,1,4
+((uintptr_t)key & 0x7) == 0,2,2,4
+ctx->cnt_summed.accumbytes == 0,3,1,4
+"rbtn_red_get(a_type, a_field, node) == false",3,1,4
+zero == false,2,2,4
+"arena_mapbits_dirty_get(chunk, chunk_npages-1) != 0",3,1,4
+(chunk->map[run_ind+run_pages+nrun_pages-1-map_bias].bits & ~PAGE_MASK) == nrun_size,2,2,4
+(chunk->map[run_ind+run_pages+nrun_pages-1-map_bias].bits & CHUNK_MAP_DIRTY) == flag_dirty,2,2,4
+"sa2u(SMALL_MAXCLASS+1, alignment) != 0",3,1,4
+g->gcstate != GCSfinalize && g->gcstate != GCSpause,3,0,3
+success,3,0,3
+"ok_address(m, p)",3,0,3
+999-i == value,2,1,3
+(bytes & 4095) == 0,3,0,3
+ht->used == 0,2,1,3
+"allocm(&p, &sz, 42, 0), ALLOCM_SUCCESS, ""Unexpected allocm() error""",3,0,3
+highResTimeInterval != 0,2,1,3
+ret == REDIS_ERR,2,1,3
+"posix_memalign(&p, alignment, size), 0, ""Expected error for posix_memalign(&p, %zu, %zu)"", alignment, size",3,0,3
+cur->idx < prv->elements,2,1,3
+"intsetFind(is,65535)",3,0,3
+"q, p, ""Unexpected object move""",3,0,3
+"fd, -1, ""Unexpected open() failure""",3,0,3
+"mallctl(""prof.active"", NULL, NULL, &active, sizeof(active)), 0, ""Unexpected mallctl failure while activating profiling""",3,0,3
+uv->u.l.next->u.l.prev == uv && uv->u.l.prev->u.l.next == uv,3,0,3
+"c->err == REDIS_ERR_IO && strcmp(c->errstr,""Broken pipe"") == 0",1,2,3
+i == value,2,1,3
+prv->type == REDIS_REPLY_ARRAY,2,1,3
+fnGetSystemTimePreciseAsFileTime != NULL,2,1,3
+(is_aligned(chunk2mem(p))) || (p->head == FENCEPOST_HEAD),3,0,3
+"nmalloc, 0, ""nmalloc should be greater than zero""",3,0,3
+"mallctl(""arenas.narenas"", &narenas, &sz, NULL, 0), 0, ""Unexpected mallctl() failure""",3,0,3
+"did_prof_dump_open, ""Expected a profile dump""",3,0,3
+task->type == REDIS_REPLY_ERROR || task->type == REDIS_REPLY_STATUS || task->type == REDIS_REPLY_STRING,2,1,3
+ret == REDIS_OK && reply == NULL,2,1,3
+pos == totlen,2,0,2
+bits > 0 && bits <= (sizeof(uintptr_t) << 3),2,0,2
+"isalloc(ptr, true) == size",2,0,2
+plus_space == false,2,0,2
+o->encoding == REDIS_ENCODING_RAW,1,1,2
+"ckh_count(&ckh), 0, ""ckh_count() should return %zu, but it returned %zu"", ZU(0), ckh_count(&ckh)",2,0,2
+INTSET_VALUE_ENCODING(-2147483649) == INTSET_ENC_INT64,1,1,2
+INTSET_VALUE_ENCODING(-2147483648) == INTSET_ENC_INT32,1,1,2
+pinuse(p),2,0,2
+ci->top <= L->stack_last,2,0,2
+"nsz, 0, ""Unexpected nallocx() error""",2,0,2
+"oldsize == arena_mapbits_large_size_get(chunk, pageind)",2,0,2
+chunk->ndirty == 0 || all == false,2,0,2
+npages > 0,2,0,2
+(*mapbitsp & (CHUNK_MAP_LARGE|CHUNK_MAP_ALLOCATED)) == 0,1,1,2
+INTSET_VALUE_ENCODING(+9223372036854775807ull) == INTSET_ENC_INT64,1,1,2
+config_stats,2,0,2
+len <= UINT_MAX,2,0,2
+chunk->nruns_avail > chunk->nruns_adjac || (chunk->nruns_avail == 0 && chunk->nruns_adjac == 0),2,0,2
+"arena_run_tree_search(&bin->runs, mapelm) == NULL",2,0,2
+run_ind == map_bias,2,0,2
+"rtree_get(rtree, keys[j]), 0, ""rtree_get() should return previously set value""",2,0,2
+tcache_salloc(ptr) > SMALL_MAXCLASS,2,0,2
+"szs[j], szs[j-1]+1, ""Expected size to at least: %zu"", szs[j-1]+1",2,0,2
+"mallctl(""thread.tcache.flush"", NULL, NULL, NULL, 0), config_tcache ? 0 : ENOENT, ""Unexpected mallctl() result""",2,0,2
+prof_tdata->enq,2,0,2
+!is_mmapped(p),2,0,2
+npurgeable != 0,2,0,2
+"curruns, 0, ""At least one run should be currently allocated""",2,0,2
+(arena->nactive >> opt_lg_dirty_mult) < (arena->ndirty - npurgatory) || all,1,1,2
+v == -1,2,0,2
+"arena_run_tree_search(&bin->runs, arena_mapp_get(chunk, ((uintptr_t)run-(uintptr_t)chunk)>>LG_PAGE)) == NULL",2,0,2
+arena == arenas[newind],2,0,2
+cmd != NULL,1,1,2
+quarantine->curobjs < (ZU(1) << quarantine->lg_maxobjs),2,0,2
+"arena_mapbits_large_size_get(chunk, pageind) == PAGE",2,0,2
+INTSET_VALUE_ENCODING(+32767) == INTSET_ENC_INT16,1,1,2
+"rtree_get(rtree, keys[j]), 1, ""rtree_get() should return previously set value""",2,0,2
+INTSET_VALUE_ENCODING(-9223372036854775808ull) == INTSET_ENC_INT64,1,1,2
+"intsetFind(is,-4294967295)",2,0,2
+((uintptr_t)ptr - ((uintptr_t)run + (uintptr_t)bin_info->reg0_offset)) % (uintptr_t)bin_info->reg_interval == 0,2,0,2
+fp != NULL,1,1,2
+opt_junk,2,0,2
+(height-1) * bits_per_level + bits_in_leaf >= bits,2,0,2
+o->type == REDIS_HASH && o->encoding != REDIS_ENCODING_HT,1,1,2
+malloc_usable_size(p) >= 256,2,0,2
+uprec != UINTMAX_MAX || get_errno() != ERANGE,2,0,2
+min_run_size >= PAGE,2,0,2
+"mallctl(""epoch"", &epoch, &sz, NULL, 0), EINVAL, ""mallctl() should return EINVAL for output size mismatch""",2,0,2
+"s[0], 'a', ""Previously allocated byte %zu/%zu is corrupted"", ZU(0), sz_prev",2,0,2
+L->stack_last - L->stack == L->stacksize - EXTRA_STACK - 1,2,0,2
+narenas_auto == narenas_total_get(),2,0,2
+reply->element[0]->type == REDIS_REPLY_STRING,2,0,2
+"node->magic, NODE_MAGIC, ""Bad magic""",2,0,2
+d->ht[0].size > (unsigned)d->rehashidx,1,1,2
+pageind < chunk_npages,2,0,2
+"__redisShiftCallback(&ac->replies,&cb) == REDIS_OK",1,1,2
+b->nruns_adjac == 0,2,0,2
+"r32, array32_2[i], ""Mismatch at array32_2[%d]=%x, gen=%x"", i, array32_2[i], r32",2,0,2
+"ret == PAGE || arena_mapbits_large_size_get(chunk, pageind+(ret>>LG_PAGE)-1) == 0",2,0,2
+plus_plus == false,2,0,2
+chunksize(v) == rsize + nb,2,0,2
+"binind == arena_mapbits_binind_get(chunk, pageind+(ret>>LG_PAGE)-1)",2,0,2
+"(void *)ks, (void *)k.s, ""Key mismatch, i=%zu"", i",2,0,2
+"p[j], q, ""Key pointer mismatch""",2,0,2
+reply1->element[0]->type == REDIS_REPLY_STRING,1,1,2
+"sz, sizeof(oldval), ""Unexpected output size""",2,0,2
+"(void *)s, ""Unexpected rallocx() failure""",2,0,2
+tcache->ev_cnt <= TCACHE_GC_INCR,2,0,2
+P != F,2,0,2
+"arena_mapbits_dirty_get(chunk, run_ind+total_pages-1) == flag_dirty",2,0,2
+INTSET_VALUE_ENCODING(-32768) == INTSET_ENC_INT16,1,1,2
+c->randlen < (signed)(sizeof(c->randptr)/sizeof(char*)),1,1,2
+"arena_mapbits_unzeroed_get(chunk, i) == unzeroed",2,0,2
+"rsz, sz, ""Real size smaller than expected""",2,0,2
+"ckh_new(&ckh, 2, ckh_string_hash, ckh_string_keycomp), ""Unexpected ckh_new() error""",2,0,2
+"i, 0, ""Unexpected element for empty list""",2,0,2
+"arena_mapbits_large_get(chunk, pageind) != 0 || arena_ptr_small_binind_get(ptr, arena_mapbits_get(chunk, pageind)) == binind",2,0,2
+diff == regind * interval,2,0,2
+"mallctlbymib(mib, miblen, &epoch, &sz, NULL, 0), EINVAL, ""mallctlbymib() should return EINVAL for output size mismatch""",2,0,2
+arena->spare == NULL,2,0,2
+"redisGetReply(c, (void*)&replies[i]) == REDIS_OK",2,0,2
+arena->ndirty > chunk_npages || all,1,1,2
+v == LONG_MAX,1,1,2
+prof_dump_fd != -1,2,0,2
+" (void *)((uintptr_t)ps[i] & (alignment-1)), ""%p inadequately aligned for"" "" alignment=%zu, size=%zu"", ps[i], alignment, sz",2,0,2
+left_justify == false,2,0,2
+usize <= SMALL_MAXCLASS,2,0,2
+"t->id, entries[(i+1) % NENTRIES].id, ""Element id mismatch""",2,0,2
+chunk->nruns_avail > chunk->nruns_adjac,2,0,2
+"ivsalloc(ptr, config_prof) == size",2,0,2
+!server.vm_enabled || o->storage == REDIS_VM_MEMORY,1,1,2
+"get_min_array_size64(), BLOCK_SIZE64, ""Array size too small""",2,0,2
+"write(server.io_ready_pipe_write,""x"",1) == 1",1,1,2
+replies[i] != NULL && replies[i]->type == REDIS_REPLY_STATUS,2,0,2
+pageind >= map_bias,2,0,2
+"search_node->key, node->key, ""Key ordering error""",2,0,2
+"nnodes, 0, ""Removal terminated early""",2,0,2
+"arena_mapbits_dirty_get(chunk, run_ind) == flag_dirty",2,0,2
+"mallctl(""arena.0.purge"", NULL, NULL, NULL, 0), 0, ""Unexpected mallctl() failure""",2,0,2
+"q[i], 'a', ""realloc() should preserve existing bytes across copies""",2,0,2
+j == vectorlen,1,1,2
+socketAddrStorage->ss_family == AF_INET || socketAddrStorage->ss_family == AF_INET6,2,0,2
+v == LONG_MIN,1,1,2
+result == NULL,2,0,2
+base >= 2 && base <= 36,2,0,2
+mapbits == actual_mapbits,2,0,2
+v == 99,2,0,2
+node->size >= leadsize + size,2,0,2
+"mq_init(&mq), ""Unexpected mq_init() failure""",2,0,2
+"imbalances, 0, ""Tree is unbalanced""",2,0,2
+(flags & (CHUNK_MAP_DIRTY|CHUNK_MAP_UNZEROED)) == flags,2,0,2
+"nsz, rsz, ""nallocm()/allocm() rsize mismatch""",2,0,2
+c->flags & REDIS_SUBSCRIBED,1,1,2
+alignment > 0 && (alignment & chunksize_mask) == 0,2,0,2
+"validate_fill(p, FILL_BYTE, 0, psz), ""Expected filled memory""",2,0,2
+((uintptr_t)ptr - ((uintptr_t)run + (uintptr_t)bin_info->reg0_offset)) % bin_info->reg_interval == 0,2,0,2
+bin_info->reg0_offset - bin_info->redzone_size + (bin_info->nregs * bin_info->reg_interval) + pad_size == bin_info->run_size,2,0,2
+dictIsRehashing(d) != 0,1,1,2
+is->length == inserts,1,1,2
+"arena_run_tree_search(&bin->runs, mapelm) != NULL",2,0,2
+arena_ind < ctl_stats.narenas,2,0,2
+replies[i] != NULL && replies[i]->type == REDIS_REPLY_ARRAY,2,0,2
+v == -99,2,0,2
+e[0].prevrawlensize == 1,2,0,2
+reqfreelen != 0,1,1,2
+good_hdr_size <= good_redzone0_offset,2,0,2
+chunksize >= PAGE,2,0,2
+tcache_salloc(ptr) <= tcache_maxclass,2,0,2
+"mallctl(""thread.arena"", &arena_old, &sz, &arena_new, sizeof(unsigned)), 0, ""Unexpected mallctl() failure""",2,0,2
+d->ht[0].size > (unsigned long)d->rehashidx,1,1,2
+"ret == false || arena_mapbits_dirty_get(chunk, pageind) != arena_mapbits_dirty_get(chunk, pageind+npages)",2,0,2
+prof_interval != 0,2,0,2
+"p[j], r, ""Value pointer mismatch""",2,0,2
+"rdbSaveObject(fp,o) != 1",1,1,2
+replies[i] != NULL && replies[i]->elements == 500,2,0,2
+a->type == REDIS_STRING && b->type == REDIS_STRING,1,1,2
+v == 0,2,0,2
+INTSET_VALUE_ENCODING(+2147483647) == INTSET_ENC_INT32,1,1,2
+keys->element[i]->type == REDIS_REPLY_STRING,1,1,2
+stats_chunks.curchunks >= (size / chunksize),2,0,2
+"arena_mapbits_small_runind_get(chunk, pageind) == 0",2,0,2
+zero_pad == false,1,1,2
+old >= g->totalbytes,2,0,2
+key->storage == REDIS_VM_SWAPPED,1,1,2
+run_pages == (arena_maxclass >> LG_PAGE),2,0,2
+val == NULL,1,1,2
+"usize == isalloc(result, config_prof)",2,0,2
+chunksize(p) == small_index2size(i),2,0,2
+config_fill && opt_quarantine,2,0,2
+"s[sz_prev-1], 'a', ""Previously allocated byte %zu/%zu is corrupted"", sz_prev-1, sz_prev",2,0,2
+"strcmp(buf,listNodeValue(refnode)) == 0",1,1,2
+"t->id, entries[(NENTRIES+i-1) % NENTRIES].id, ""Element id mismatch""",2,0,2
+"arena_mapbits_unallocated_size_get(chunk, run_ind+run_pages+nrun_pages-1) == nrun_size",2,0,2
+"j, 1, ""Iteration over single-element ring should visit precisely "" ""one element""",2,0,2
+clients != NULL,1,1,2
+is_aligned(chunk2mem(p)),2,0,2
+g->totalbytes >= g->estimate,1,1,2
+INTSET_VALUE_ENCODING(+32768) == INTSET_ENC_INT32,1,1,2
+entry.prevrawlen > 0,1,1,2
+(mapbits & (CHUNK_MAP_LARGE|CHUNK_MAP_ALLOCATED)) == CHUNK_MAP_ALLOCATED,2,0,2
+binind <= BININD_INVALID,2,0,2
+ctx->idx == N32,2,0,2
+chunksize(P) == small_index2size(I),2,0,2
+"ziplistGet(p,&entry,&elen,&value)",2,0,2
+"redisReplyReaderSetReplyObjectFunctions(c->reader,c->fn) == REDIS_OK",1,1,2
+(flags & ~CHUNK_MAP_FLAGS_MASK) == 0,2,0,2
+size <= SMALL_MAXCLASS,2,0,2
+c->blocking_keys != NULL,1,1,2
+(mapbits & (CHUNK_MAP_LARGE|CHUNK_MAP_ALLOCATED)) == (CHUNK_MAP_LARGE|CHUNK_MAP_ALLOCATED),2,0,2
+"isalloc(ptr, true) == PAGE",2,0,2
+c->blockingkey != NULL,1,1,2
+"arena_mapbits_dirty_get(chunk, pageind) == arena_mapbits_dirty_get(chunk, pageind+npages-1)",2,0,2
+binind < NBINS || binind == BININD_INVALID,2,0,2
+INTSET_VALUE_ENCODING(+2147483648) == INTSET_ENC_INT64,1,1,2
+tcache != TCACHE_STATE_PURGATORY,2,0,2
+uwidth != UINTMAX_MAX || get_errno() != ERANGE,2,0,2
+tcache_salloc(ptr) <= SMALL_MAXCLASS,2,0,2
+alt_form == false,2,0,2
+val->refcount == 1,1,1,2
+chunk->nruns_adjac == 0,2,0,2
+P != B,2,0,2
+c->blockingkeys != NULL,1,1,2
+ckh_count(&prof_tdata->bt2cnt) < PROF_TCMAX,2,0,2
+r->ridx >= 0,1,1,2
+v == 1,2,0,2
+"rsz, sz, ""Real size smaller than expected for "" ""alignment=%zu, size=%zu"", alignment, sz",2,0,2
+"ret == false || arena_mapbits_dirty_get(chunk, pageind-1) != arena_mapbits_dirty_get(chunk, pageind)",2,0,2
+"strncmp(v2,entry,elen) == 0",1,1,2
+"tsz, szs[j-1], ""Expected size=%zu, got size=%zu"", szs[j-1], tsz",2,0,2
+"(void *)vs, (void *)v.s, ""Value mismatch, i=%zu"", i",2,0,2
+(sz & CHUNK_ALIGN_MASK) == 0,2,0,2
+binind == actual_binind,2,0,2
+INTSET_VALUE_ENCODING(-32769) == INTSET_ENC_INT32,1,1,2
+"arena_mapbits_unallocated_size_get(chunk, run_ind) == arena_mapbits_unallocated_size_get(chunk, run_ind+run_pages-1)",2,0,2
+pageind+npages < chunk_npages,2,0,2
+"arena_mapbits_unallocated_size_get(chunk, run_ind) == prun_size",2,0,2
+empty,2,0,2
+prof_tdata->enq == false,2,0,2
+"intsetFind(is,4294967295)",2,0,2
+pageind - runind >= map_bias,2,0,2
+chunksize(p) == small_index2size(idx),2,0,2
+ctx->cnt_summed.curobjs == 0,2,0,2
+ncleanups < MALLOC_TSD_CLEANUPS_MAX,2,0,2
+arena->spare != NULL,2,0,2
+"get_min_array_size32(), BLOCK_SIZE, ""Array size too small""",2,0,2
+o->storage == REDIS_VM_LOADING || o->storage == REDIS_VM_SWAPPING,1,1,2
+"arena_mapbits_dirty_get(chunk, run_ind) == arena_mapbits_dirty_get(chunk, run_ind+npages-1)",2,0,2
+e[1].prevrawlensize == 5,2,0,2
+o->refcount == 1,1,1,2
+pageind + (ret>>LG_PAGE) <= chunk_npages,2,0,2
+opt_zero == false,2,0,2
+"arena_mapbits_dirty_get(chunk, pageind) == arena_mapbits_dirty_get(chunk, pageind+(ret>>LG_PAGE)-1)",2,0,2
+"p, ""Error in malloc()""",2,0,2
+min_alignment != 0,2,0,2
+"p != NULL || get_errno() != ENOMEM, ""Expected error for aligned_alloc(%zu, %zu)"", alignment, size",2,0,2
+sh->free >= (unsigned int)incr,2,0,2
+isLua(L->ci),2,0,2
+"arena_mapbits_large_get(chunk, pageind) != 0",2,0,2
+tcache_salloc(ret) == arena_bin_info[binind].reg_size,2,0,2
+val->storage == REDIS_VM_MEMORY,1,1,2
+o->encoding != REDIS_ENCODING_RAW,1,1,2
+"strncmp(v1,entry,elen) == 0",1,1,2
+sh->len >= (unsigned int)(-incr),2,0,2
+size > 0 && (size & chunksize_mask) == 0,2,0,2
+"r32, array32[i], ""Mismatch at array32[%d]=%x, gen=%x"", i, array32[i], r32",2,0,2
+binind < BININD_INVALID,2,0,2
+"arena_mapbits_dirty_get(chunk, run_ind+run_pages+nrun_pages-1) == flag_dirty",2,0,2
+"arena_ptr_small_binind_get(ptr, arena_mapbits_get(chunk, pageind)) != BININD_INVALID",2,0,2
+reply1->element[1]->type == REDIS_REPLY_ARRAY,1,1,2
+quarantine->curbytes == 0,2,0,2
+e,1,0,1
+sizeof(float) == 4,1,0,1
+head != 0,1,0,1
+_intsetValueEncoding(+2147483648) == INTSET_ENC_INT64,1,0,1
+pc != -1,1,0,1
+1 <= precision && precision <= 14,1,0,1
+x > 0.0,1,0,1
+"mallctl(""stats.arenas.0.lruns.0.nmalloc"", &nmalloc, &sz, NULL, 0), expected, ""Unexpected mallctl() result""",1,0,1
+"p != NULL || get_errno() != EINVAL, ""Expected error for invalid alignment %zu"", alignment + 1",1,0,1
+"err, 0, ""Unexpected failure""",1,0,1
+u->bk->fd == u,1,0,1
+fs->bl == NULL,1,0,1
+"*data_tsd_get(), DATA_INIT, ""Initial tsd get should return initialization value""",1,0,1
+sp != 0,1,0,1
+ttisnil(gval(mp)),1,0,1
+"q, ""Unexpected rallocx() error for lg_align=%zu"", lg_align",1,0,1
+"t->id, entries[(NENTRIES+i-j-1) % NENTRIES].id, ""Element id mismatch""",1,0,1
+"narenas, opt_narenas, ""Number of arenas incorrect""",1,0,1
+"config_tcache, ""ENOENT should only be returned if tcache is "" ""disabled""",1,0,1
+ttype(t1) == ttype(t2),1,0,1
+"mallctl(""version"", NULL, NULL, ""0.0.0"", strlen(""0.0.0"")), EPERM, ""mallctl() should return EPERM on attempt to write "" ""read-only value""",1,0,1
+gco2th(o) != L && gco2th(o) != G(L)->mainthread,1,0,1
+p > 0.0 && p < 1.0,1,0,1
+"validate_fill(q, FILL_BYTE, 0, psz), ""Expected filled memory""",1,0,1
+"t->id, entries[i-1].id, ""Element id mismatch""",1,0,1
+tsize >= MIN_LARGE_SIZE,1,0,1
+"t->id, entries[(i+j-SPLIT_INDEX) % (NENTRIES-SPLIT_INDEX) + SPLIT_INDEX].id, ""Element id mismatch""",1,0,1
+(nsize == 0) == (block == NULL),1,0,1
+isdigit(ls->current),1,0,1
+df > 0.0,1,0,1
+GET_OPCODE(*((L->ci)->savedpc - 1)) == OP_CALL,1,0,1
+"ckh_search(&ckh, p[i], NULL, NULL), ""Unexpected ckh_search() failure""",1,0,1
+"mallctl(""prof.dump"", NULL, NULL, NULL, 0), 0, ""Unexpected error while dumping heap profile""",1,0,1
+"allocated, active, ""allocated should be no larger than active""",1,0,1
+p != NULL,1,0,1
+GET_OPCODE(*pc) == OP_MOVE,1,0,1
+"mq_tryget(&mq), ""mq_tryget() should fail when the queue is empty""",1,0,1
+"t->id, entries[(i+j+1) % NENTRIES].id, ""Element id mismatch""",1,0,1
+sz > 0,1,0,1
+"p1, p2, ""Unexpected move during shrink""",1,0,1
+"q, ""realloc(%p, %zu) --> %p"", p, chunksize, q",1,0,1
+"strncmp(v2,(char*)entry,elen) == 0",1,0,1
+"e1->u.s.info == GETARG_B(getcode(fs, e2))-1",1,0,1
+"mallctl(""stats.chunks.total"", &total, &sz, NULL, 0), expected, ""Unexpected mallctl() result""",1,0,1
+"mallctl(""stats.arenas.0.small.ndalloc"", &ndalloc, &sz, NULL, 0), expected, ""Unexpected mallctl() result""",1,0,1
+v == LLONG_MIN,1,0,1
+x >= 0.0,1,0,1
+sz == SIZE_T_SIZE,1,0,1
+e[2].prevrawlensize == 1,1,0,1
+getCMode(o) != OpArgN || c == 0,1,0,1
+"mallctl(""stats.huge.ndalloc"", &ndalloc, &sz, NULL, 0), expected, ""Unexpected mallctl() result""",1,0,1
+"dp0, dp1, ""Pointer returned by \""thread.deallocatedp\"" should not change""",1,0,1
+u->child[0] == 0,1,0,1
+!iswhite(obj2gco(g->mainthread)),1,0,1
+p->is_vararg & VARARG_HASARG,1,0,1
+sizeof(double) == 8,1,0,1
+"a->magic, NODE_MAGIC, ""Bad magic""",1,0,1
+!isblack(o) && uv->v != &uv->u.value,1,0,1
+"buf, expected_str, ""Unexpected output""",1,0,1
+"bin_find(m, m->top) == 0",1,0,1
+(char*)oldfirst > (char*)q,1,0,1
+remainder_size == request2size(sizes[i]),1,0,1
+"rallocm(&q, &tsz, szs[j-1], 0, 0), ALLOCM_SUCCESS, ""Unexpected rallocm() error for size=%zu-->%zu"", szs[j], szs[j-1]",1,0,1
+"double_eq_rel(ln_gamma(x), ln_gamma_misc_expected[i], MAX_REL_ERR, MAX_ABS_ERR), ""Incorrect ln_gamma result for i=%u"", i",1,0,1
+"t->id, entries[nentries-i-1].id, ""Element id mismatch""",1,0,1
+"r, ALLOCM_SUCCESS, ""nallocm() error for alignment=%zu, "" ""size=%zu (%#zx): %d"", alignment, sz, sz, r",1,0,1
+"q, ""Unexpected rallocx() error for size=%zu-->%zu"", szs[j-1], szs[j-1]+1",1,0,1
+"intsetFind(is,-65535)",1,0,1
+"cast_int(h%newsize) == lmod(h, newsize)",1,0,1
+"t->id, entries[(i+j) % SPLIT_INDEX].id, ""Element id mismatch""",1,0,1
+"mallctlnametomib(""epoch"", mib, &miblen), 0, ""Unexpected mallctlnametomib() failure""",1,0,1
+(c->flags & REDIS_SUBSCRIBED || c->flags & REDIS_MONITORING),1,0,1
+"p, ""Unexpected allocm() failure""",1,0,1
+"double_eq_rel(pt_norm(p), pt_norm_expected[i], MAX_REL_ERR, MAX_ABS_ERR), ""Incorrect pt_norm result for i=%u"", i",1,0,1
+"mq_tryget(&mq), &msg, ""mq_tryget() should return msg""",1,0,1
+"ckh_count(&ckh), sizeof(strs)/sizeof(const char *) - i - 1, ""ckh_count() should return %zu, but it returned %zu"", sizeof(strs)/sizeof(const char *) - i - 1, ckh_count(&ckh)",1,0,1
+"mallctl(""stats.arenas.0.bins.0.nflushes"", &nflushes, &sz, NULL, 0), config_tcache ? expected : ENOENT, ""Unexpected mallctl() result""",1,0,1
+"mallctl(""arenas.purge"", NULL, NULL, NULL, 0), 0, ""Unexpected mallctl() failure""",1,0,1
+"r, array64[i], ""Mismatch at array64[%d]=%""PRIx64"", gen=%""PRIx64, i, array64[i], r",1,0,1
+"s[i], 0x0, ""Newly allocated byte %zu/%zu isn't zero-filled"", i, sz",1,0,1
+"posix_memalign(&p, alignment + 1, 1), 0, ""Expected error for invalid alignment %zu"", alignment + 1",1,0,1
+!next_pinuse(p),1,0,1
+G(L)->tmudata == NULL,1,0,1
+"mallctlbymib(mib, miblen, NULL, NULL, &epoch, sizeof(epoch)-1), EINVAL, ""mallctlbymib() should return EINVAL for input size mismatch""",1,0,1
+alignment != 0 && ((alignment - 1) & alignment) == 0,1,0,1
+u->parent != u,1,0,1
+"segment_holds(sp, (char*)sp)",1,0,1
+base == L->base && L->base == L->ci->base,1,0,1
+"mib[3], 42, ""mallctlnametomib() wrote past the end of the input mib""",1,0,1
+reply->element[1]->type == REDIS_REPLY_ARRAY,1,0,1
+"mallctl(""stats.arenas.0.npurge"", &npurge, &sz, NULL, 0), expected, ""Unexepected mallctl() result""",1,0,1
+ls->fs->f->maxstacksize >= ls->fs->freereg && ls->fs->freereg >= ls->fs->nactvar,1,0,1
+chunksize(u) == tsize,1,0,1
+"mallctlbymib(mib, miblen, NULL, NULL, ""0.0.0"", strlen(""0.0.0"")), EPERM, ""mallctl() should return EPERM on "" ""attempt to write read-only value""",1,0,1
+ttisstring(KBx(i)),1,0,1
+"mallctl(""stats.arenas.0.large.nrequests"", &nrequests, &sz, NULL, 0), expected, ""Unexpected mallctl() result""",1,0,1
+_intsetValueEncoding(-9223372036854775808ull) == INTSET_ENC_INT64,1,0,1
+"*dp0, d0, ""\""thread.deallocatedp\"" should provide a pointer to internal "" ""storage""",1,0,1
+"mallctl(""stats.active"", &active, &sz, NULL, 0), expected, ""Unexpected mallctl() result""",1,0,1
+strlen(luaX_tokens[i])+1 <= TOKEN_LEN,1,0,1
+m->dvsize == chunksize(m->dv),1,0,1
+"mallctlbymib(mib, miblen, &bin_size, &len, NULL, 0), 0, ""Unexpected mallctlbymib() failure""",1,0,1
+"nflushes, 0, ""At least one flush should have occurred""",1,0,1
+_intsetValueEncoding(-2147483648) == INTSET_ENC_INT32,1,0,1
+"most_recently_junked, junked, ""Expected region of size %zu to be "" ""junk-filled"", sz",1,0,1
+(len & (mparams.page_size-SIZE_T_ONE)) == 0,1,0,1
+"tree_iterate(tree), nnodes-1, ""Unexpected node iteration count""",1,0,1
+ctx != NULL,1,0,1
+ttisfunction(ci->func),1,0,1
+"tree_iterate(&tree), k+1, ""Unexpected node iteration count""",1,0,1
+"strncmp(v1,(char*)entry,elen) == 0",1,0,1
+L1->openupval == NULL,1,0,1
+next == m->top || is_inuse(next),1,0,1
+"nmadvise, purged, ""nmadvise should be no greater than purged""",1,0,1
+"mtx_init(&arg.mtx), ""Unexpected mtx_init() failure""",1,0,1
+p->bk->fd == p,1,0,1
+"ckh_search(&ckh, p[j], NULL, NULL), ""Unexpected ckh_search() success""",1,0,1
+"mallctl(""arenas.narenas"", &narenas_before, &sz, NULL, 0), 0, ""Unexpected mallctl() failure""",1,0,1
+e->k == VVOID || e->k == VJMP,1,0,1
+"rtree_get(rtree, 0), 0, ""rtree_get() should return NULL for empty tree""",1,0,1
+v == PORT_LONG_MAX,1,0,1
+"nallocx(SZ, 0), SZ, ""SZ=%zu does not precisely equal a size class"", SZ",1,0,1
+"mallctl(""arenas.extend"", &arena_ind, &sz, NULL, 0), 0, ""Error in arenas.extend""",1,0,1
+iswhite(obj2gco(htab)),1,0,1
+_intsetValueEncoding(-2147483649) == INTSET_ENC_INT64,1,0,1
+"mallctlnametomib(""no_such_name"", mib, &miblen), ENOENT, ""mallctlnametomib() should return ENOENT for non-existent names""",1,0,1
+"mallctl(""stats.arenas.0.lruns.0.nrequests"", &nrequests, &sz, NULL, 0), expected, ""Unexpected mallctl() result""",1,0,1
+"luaO_rawequalObj(&fs->f->k[cast_int(nvalue(idx))], v)",1,0,1
+g->strt.nuse == 0,1,0,1
+"iswhite(o) && !isdead(g, o)",1,0,1
+"bitmap_get(bitmap, &binfo, j), ""Bit should be unset""",1,0,1
+"ql_last(head, link), ""Unexpected element for empty list""",1,0,1
+argv[i][0] == '-',1,0,1
+"npurge, 0, ""At least one purge should have occurred""",1,0,1
+_intsetValueEncoding(+32767) == INTSET_ENC_INT16,1,0,1
+"dss_prec_old, ""primary"", ""Unexpected default for dss precedence""",1,0,1
+r->buf != NULL,1,0,1
+ttisstring(&p->k[g]),1,0,1
+"a0 + usize, a1, ""Allocated memory counter should increase by at least the amount "" ""explicitly allocated""",1,0,1
+"!intsetFind(is,v2)",1,0,1
+"double_eq_rel(pt_chi2(p, df, ln_gamma_df), pt_chi2_expected[e], MAX_REL_ERR, MAX_ABS_ERR), ""Incorrect pt_chi2 result for i=%u, j=%u"", i, j",1,0,1
+ttisstring(rb),1,0,1
+type == REDIS_ERR_IO,1,0,1
+g->gcstate == GCSsweepstring || g->gcstate == GCSsweep,1,0,1
+"posix_memalign(&p, alignment, 1), EINVAL, ""Expected error for invalid alignment %zu"", alignment",1,0,1
+"pow2_ceil(ZU(1) << i), ZU(1) << i, ""Unexpected result""",1,0,1
+is_aligned(ss),1,0,1
+"p, quarantined[j], ""Quarantined region recycled too early; "" ""i=%zu, j=%zu"", i, j",1,0,1
+"mallctl(""stats.chunks.high"", &high, &sz, NULL, 0), expected, ""Unexpected mallctl() result""",1,0,1
+"!isdead(g, curr) || testbit(curr->gch.marked, FIXEDBIT)",1,0,1
+"search_node, node, ""tree_nsearch() returned unexpected node""",1,0,1
+p->bk == b || chunksize(p->bk) == chunksize(p),1,0,1
+"p[i], r, ""Value pointer mismatch""",1,0,1
+"mallctl(""arenas.nbins"", &nbins, &len, NULL, 0), 0, ""Unexpected mallctl() failure""",1,0,1
+funcstate.f->nups == 0,1,0,1
+"remainder, test->expected_remainder, ""Unexpected remainder for \""%s\"", base %d"", test->input, test->base",1,0,1
+isgray(o),1,0,1
+iscollectable(t1),1,0,1
+"mallctl(""arenas.purge"", NULL, NULL, &arena, sizeof(arena)), 0, ""Unexpected mallctl() failure""",1,0,1
+p > 0.0,1,0,1
+"most_recently_trimmed, p1, ""Expected trimmed portion of region to be junk-filled""",1,0,1
+"mallctlnametomib(""arenas.bin.0.nregs"", mib, &miblen), 0, ""Unexpected mallctlnametomib() failure""",1,0,1
+qsize >= MIN_CHUNK_SIZE,1,0,1
+use_mmap(m),1,0,1
+"mallctl(""stats.arenas.0.large.allocated"", &allocated, &sz, NULL, 0), expected, ""Unexpected mallctl() result""",1,0,1
+s == '[' || s == ']',1,0,1
+"array32[i], init_by_array_32_expected[i], ""Output mismatch for i=%d"", i",1,0,1
+"p != NULL || get_errno() != ENOMEM, ""Expected error for aligned_alloc(&p, %zu, %zu)"", alignment, size",1,0,1
+_intsetValueEncoding(+9223372036854775807ull) == INTSET_ENC_INT64,1,0,1
+i64[i] < i64[i+1],1,0,1
+"mallctl(""stats.arenas.0.small.allocated"", &allocated, &sz, NULL, 0), expected, ""Unexpected mallctl() result""",1,0,1
+f->upvalues[i] == name,1,0,1
+u->child[0] != u,1,0,1
+sizeof((prevlensize)) == 4,1,0,1
+sizeof(f) == 4 && sizeof(d) == 8,1,0,1
+"r, array64_2[i], ""Mismatch at array64_2[%d]=%""PRIx64"" gen=%""PRIx64"""", i, array64_2[i], r",1,0,1
+is_small(DVS),1,0,1
+total <= m->footprint,1,0,1
+"old_usize, arena_maxclass, ""Unexpected old_usize""",1,0,1
+"rtree_get(rtree, (((uintptr_t)1) << (sizeof(uintptr_t)*8-i))), 0, ""Only leftmost rtree leaf should be set; "" ""i=%u, j=%u"", i, j",1,0,1
+p >= 0.0 && p < 1.0,1,0,1
+GET_OPCODE(*((ci-1)->savedpc - 1)) == OP_CALL || GET_OPCODE(*((ci-1)->savedpc - 1)) == OP_TAILCALL,1,0,1
+"mallctlbymib(mib, miblen, NULL, NULL, &epoch, sizeof(epoch)+1), EINVAL, ""mallctlbymib() should return EINVAL for input size mismatch""",1,0,1
+"ap0, ap1, ""Pointer returned by \""thread.allocatedp\"" should not change""",1,0,1
+"ckh_remove(&ckh, p[j], &q, &r), ""Unexpected ckh_remove() success""",1,0,1
+e1->f == NO_JUMP,1,0,1
+lk->sl != 0,1,0,1
+L->top == L->ci->top || luaG_checkopenop(i),1,0,1
+!currIsNewline(ls),1,0,1
+"bitmap_get(bitmap, &binfo, 0), ""Bit should be unset""",1,0,1
+L->status == LUA_YIELD,1,0,1
+"bitmap_sfu(bitmap, &binfo), j, ""First unset bit should the bit previously "" ""unset""",1,0,1
+"ql_next(head, &entries[nentries-1], link), ""Unexpected element""",1,0,1
+sz == m->topsize,1,0,1
+getOpMode(o) == iABC,1,0,1
+"ql_first(head)->id, entries[0].id, ""Element id mismatch""",1,0,1
+"mallctlnametomib(""version"", mib, &miblen), 0, ""Unexpected mallctlnametomib() failure""",1,0,1
+!c->err,1,0,1
+"*data, THREAD_DATA, ""Argument passed into cleanup function should match tsd value""",1,0,1
+bl->nactvar == fs->nactvar,1,0,1
+"allocm(&p, &rsz, sz, ALLOCM_ZERO), ALLOCM_SUCCESS, ""Unexpected allocm() error""",1,0,1
+"mallctl(""stats.huge.allocated"", &allocated, &sz, NULL, 0), expected, ""Unexpected mallctl() result""",1,0,1
+g->rootgc == obj2gco(L),1,0,1
+"ql_first(head), ""Unexpected element for empty list""",1,0,1
+_intsetValueEncoding(+2147483647) == INTSET_ENC_INT32,1,0,1
+v == PORT_LONG_MIN,1,0,1
+"r, array64_2[i], ""Mismatch at array64_2[%d]=%""PRIx64"" gen=%""PRIx64, i, array64_2[i], r",1,0,1
+config_prof || demote == false,1,0,1
+"mallctl(""stats.arenas.0.bins.0.ndalloc"", &ndalloc, &sz, NULL, 0), expected, ""Unexpected mallctl() result""",1,0,1
+chunksize(u->child[0]) < chunksize(u->child[1]),1,0,1
+"bt_count_prev+(i-i_prev), bt_count, ""Expected larger backtrace count increase""",1,0,1
+"pow2_ceil((ZU(1) << i) + 1), ZU(1) << (i+1), ""Unexpected result""",1,0,1
+i16[i] < i16[i+1],1,0,1
+"array32[i], init_gen_rand_32_expected[i], ""Output mismatch for i=%d"", i",1,0,1
+"rallocm(&q, &szs[j], szs[j-1]+1, 0, 0), ALLOCM_SUCCESS, ""Unexpected rallocm() error for size=%zu-->%zu"", szs[j-1], szs[j-1]+1",1,0,1
+"tree_nsearch(&tree, &key), ""Unexpected node""",1,0,1
+"t->id, entries[NENTRIES - 1 - j].id, ""Element id mismatch""",1,0,1
+"result, strlen(expected_str), ""Unexpected result""",1,0,1
+"p != NULL || get_errno() != EINVAL, ""Expected error for invalid alignment %zu"", alignment",1,0,1
+"mallctl(""stats.arenas.0.bins.0.nrequests"", &nrequests, &sz, NULL, 0), expected, ""Unexpected mallctl() result""",1,0,1
+"q == m->dv || bin_find(m, q)",1,0,1
+"b->magic, NODE_MAGIC, ""Bad magic""",1,0,1
+"q, ""Unexpected mallocx() failure""",1,0,1
+"bitmap_sfu(bitmap, &binfo), i - 1, ""First unset bit should be the last bit""",1,0,1
+size >= N64,1,0,1
+"token == cast(unsigned char, token)",1,0,1
+"tree_iterate_reverse(tree), nnodes-1, ""Unexpected node iteration count""",1,0,1
+"rbtn_red_get(node_t, link, right_node), ""Node should be black""",1,0,1
+"q, ""Unexpected rallocx() error for align=%zu"", align",1,0,1
+chunksize(p) >= nb,1,0,1
+"memcmp(buf,listNodeValue(refnode),buflen) == 0",1,0,1
+"mq_get(&mq), &msg, ""mq_get() should return msg""",1,0,1
+"mallctlbymib(mib, miblen, NULL, NULL, (void *)&dss, sizeof(const char *)), 0, ""Error in mallctlbymib()""",1,0,1
+"mallctl(""arena.0.dss"", &dss_prec_old, &sz, &dss_prec_new, sizeof(dss_prec_new)), 0, ""Unexpected mallctl() failure""",1,0,1
+getBMode(o) != OpArgN || b == 0,1,0,1
+"arena_ind, main_arena_ind, ""Arena index should be same as for main thread""",1,0,1
+!ttisnil(gkey(n)),1,0,1
+reply->element[2]->type == REDIS_REPLY_INTEGER,1,0,1
+d->ht[0].size > (PORT_ULONG)d->rehashidx,1,0,1
+"double_eq_rel(exp(ln_gamma(x)), (double)factorial(x-1), MAX_REL_ERR, MAX_ABS_ERR), ""Incorrect factorial result for x=%u"", x",1,0,1
+g_SuspensionRequested && SuspensionCompleted(),1,0,1
+"validate_fill(p, 0, 0, psz), ""Expected zeroed memory""",1,0,1
+(idx == NTREEBINS-1) || (tsize < minsize_for_tree_index((idx+1))),1,0,1
+"mallctl(""epoch"", &old_epoch, &sz, NULL, 0), 0, ""Unexpected mallctl() failure""",1,0,1
+"redisGetReply(c, (void*)&reply) == REDIS_OK",1,0,1
+"mallctl(""stats.arenas.0.bins.0.curruns"", &curruns, &sz, NULL, 0), expected, ""Unexpected mallctl() result""",1,0,1
+"mallctlbymib(mib, miblen, NULL, NULL, NULL, 0), 0, ""Unexpected mallctlbymib() failure""",1,0,1
+"ziplistGet(p,&sstr,&slen,&sval)",1,0,1
+"mq_count(&mq), 0, ""mq should be empty""",1,0,1
+"mallctl(""epoch"", NULL, NULL, &new_epoch, sizeof(new_epoch)), 0, ""Unexpected mallctl() failure""",1,0,1
+"mallctl(""stats.arenas.0.bins.0.nreruns"", &nreruns, &sz, NULL, 0), expected, ""Unexpected mallctl() result""",1,0,1
+small_index(size) == i,1,0,1
+argc > 0,1,0,1
+p,1,0,1
+"current, high, ""current should be no larger than high""",1,0,1
+"validate_fill(q, 0, 0, MAX_VALIDATE), ""Expected zeroed memory""",1,0,1
+sz == ((sp->base + sp->size) - (char*)p) - TOP_FOOT_SIZE,1,0,1
+o,1,0,1
+"ckh_new(&ckh, 3, ckh_pointer_hash, ckh_pointer_keycomp), ""Unexpected ckh_new() error""",1,0,1
+ttype(&o->gch) != LUA_TTABLE,1,0,1
+"pow2_ceil(x), ZU(1) << pow2, ""Unexpected result, x=%zu"", x",1,0,1
+"mallctl(""epoch"", NULL, NULL, &epoch, sizeof(epoch)+1), EINVAL, ""mallctl() should return EINVAL for input size mismatch""",1,0,1
+"mallctl(""stats.arenas.0.small.nrequests"", &nrequests, &sz, NULL, 0), expected, ""Unexpected mallctl() result""",1,0,1
+"nmalloc, 0, ""nmalloc should be no greater than zero""",1,0,1
+"((char *)ptr)[i], 0x5a, ""Missing junk fill for byte %zu/%zu of deallocated region"", i, bin_info->reg_size",1,0,1
+"ql_prev(head, &entries[0], link), ""Unexpected element""",1,0,1
+"nallocm(&nsz, sz, ALLOCM_ZERO), ALLOCM_SUCCESS, ""Unexpected nallocm() error""",1,0,1
+"isblack(o) && iswhite(v) && !isdead(g, v) && !isdead(g, o)",1,0,1
+"q, ""Unexpected rallocx() error for size=%zu-->%zu"", szs[j], szs[j-1]",1,0,1
+"join_ret, 0, ""Unexpected thread join error""",1,0,1
+g->gcstate != GCSpause && g->gcstate != GCSpropagate,1,0,1
+"validate_fill(q+sz-MAX_VALIDATE, 0, 0, MAX_VALIDATE), ""Expected zeroed memory""",1,0,1
+u->child[0]->parent == u,1,0,1
+"search_node, node, ""tree_search() returned unexpected node""",1,0,1
+_intsetValueEncoding(-32769) == INTSET_ENC_INT32,1,0,1
+"r, ALLOCM_SUCCESS, ""allocm() error for alignment=%zu, "" ""size=%zu (%#zx): %d"", alignment, sz, sz, r",1,0,1
+"ALIGNMENT_ADDR2BASE(ret, alignment) == ret",1,0,1
+"usize == sa2u(usize, alignment)",1,0,1
+ttype(gkey(n)) != LUA_TDEADKEY || ttisnil(gval(n)),1,0,1
+"seen[j], ""Item %zu seen"", j",1,0,1
+pinuse(q),1,0,1
+next_pinuse(p),1,0,1
+"ckh_search(&ckh, p[j], &q, &r), ""Unexpected ckh_search() failure""",1,0,1
+"err, test->expected_errno, ""Expected errno %s for \""%s\"", base %d"", test->expected_errno_name, test->input, test->base",1,0,1
+"p, ""Unexpected malloc() error""",1,0,1
+"ckh_search(&ckh, missing, NULL, NULL), ""Unexpected ckh_search() success""",1,0,1
+"ckh_search(&ckh, p[i], NULL, NULL), ""Unexpected ckh_search() success""",1,0,1
+p->fd->bk == p,1,0,1
+S >= MIN_CHUNK_SIZE,1,0,1
+" (void *)((uintptr_t)q & ((ZU(1) << lg_align)-1)), ""%p inadequately aligned for lg_align=%zu"", q, lg_align",1,0,1
+"search_node, node, ""tree_psearch() returned unexpected node""",1,0,1
+"p[i], ""Unexpected mallocx() failure""",1,0,1
+"tree_search(&tree, &key), ""Unexpected node""",1,0,1
+"mtx_init(&mtx), ""Unexpected mtx_init() failure""",1,0,1
+"tree_iterate_reverse(&tree), k+1, ""Unexpected node iteration count""",1,0,1
+head == 0,1,0,1
+L->nCcalls == L->baseCcalls,1,0,1
+"t->id, entries[i+j].id, ""Element id mismatch""",1,0,1
+"mallctl(""stats.arenas.0.bins.0.nfills"", &nfills, &sz, NULL, 0), config_tcache ? expected : ENOENT, ""Unexpected mallctl() result""",1,0,1
+!L->allowhook,1,0,1
+"mallctl(""no_such_name"", NULL, NULL, NULL, 0), ENOENT, ""mallctl() should return ENOENT for non-existent names""",1,0,1
+"arena, narenas_after-1, ""Unexpected arena index""",1,0,1
+"((char *)ptr)[i], 0x5a, ""Missing junk fill for byte %zu/%zu of deallocated region"", i, usize",1,0,1
+"testbit(h->marked, VALUEWEAKBIT) || testbit(h->marked, KEYWEAKBIT)",1,0,1
+pinuse(oldfirst),1,0,1
+remainder_size == element_size,1,0,1
+u->child[1] != u,1,0,1
+"!pinuse(chunk_plus_offset(p, sz))",1,0,1
+"rallocm(&q, &tsz, sz + 5, 0, ALLOCM_NO_MOVE), ALLOCM_ERR_NOT_MOVED, ""Unexpected rallocm() result""",1,0,1
+"computed, expected, ""Hash mismatch for %s(): expected %#x but got %#x"", hash_variant_string(variant), expected, computed",1,0,1
+"pow2_ceil(0), 0, ""Unexpected result""",1,0,1
+lexstate.fs == NULL,1,0,1
+"mallctl(""stats.arenas.0.bins.0.allocated"", &allocated, &sz, NULL, 0), expected, ""Unexpected mallctl() result""",1,0,1
+"mallctl(""arena.0.dss"", &dss_prec_new, &sz, &dss_prec_old, sizeof(dss_prec_old)), 0, ""Unexpected mallctl() failure""",1,0,1
+"*ap1, a1, ""Dereferenced \""thread.allocatedp\"" value should equal "" ""\""thread.allocated\"" value""",1,0,1
+"bitmap_sfu(bitmap, &binfo), j, ""First unset bit should be just after "" ""previous first unset bit""",1,0,1
+"arg.x, NTHREADS * NINCRS, ""Race-related counter corruption""",1,0,1
+"q, ""realloc(%p, %zu) --> %p"", p, chunksize * 2, q",1,0,1
+"rallocm(&q, &tsz, sz, sz-42, ALLOCM_NO_MOVE), ALLOCM_SUCCESS, ""Unexpected rallocm() error""",1,0,1
+"isblack(o) && !isdead(g, o)",1,0,1
+"!bin_find(m, q)",1,0,1
+sz >= MIN_CHUNK_SIZE,1,0,1
+base <= L->top && L->top <= L->stack + L->stacksize,1,0,1
+"malloc_strtoumax(""0"", NULL, 0), 0, ""Unexpected result""",1,0,1
+"isdead(g, curr) || deadmask == bitmask(SFIXEDBIT)",1,0,1
+"small, ""Unexpected mallocx() failure""",1,0,1
+"allocm(&p, NULL, sz, 0), ALLOCM_SUCCESS, ""Unexpected allocm() error""",1,0,1
+"rtree_get(rtree, keys[k]), 1, ""rtree_get() should return previously set "" ""value and ignore insignificant key bits; "" ""i=%u, j=%u, k=%u, set key=%#""PRIxPTR"", "" ""get key=%#""PRIxPTR, i, j, k, keys[j], keys[k]",1,0,1
+"intsetFind(is,v1)",1,0,1
+reply->elements >= 2,1,0,1
+is_inuse(p),1,0,1
+" (void *)((uintptr_t)q & (align-1)), ""%p inadequately aligned for align=%zu"", q, align",1,0,1
+m->dvsize >= MIN_CHUNK_SIZE,1,0,1
+next->prev_foot == sz,1,0,1
+L->ci->top <= L->stack_last,1,0,1
+"t->id, entries[i].id, ""Element id mismatch""",1,0,1
+"*dp1, d1, ""Dereferenced \""thread.deallocatedp\"" value should equal "" ""\""thread.deallocated\"" value""",1,0,1
+size % 4 == 0,1,0,1
+reg == fs->freereg,1,0,1
+event <= TM_EQ,1,0,1
+"array64[i], init_gen_rand_64_expected[i], ""Output mismatch for i=%d"", i",1,0,1
+_intsetValueEncoding(-32768) == INTSET_ENC_INT16,1,0,1
+"(uint64_t)high, total, ""high should be no larger than total""",1,0,1
+"lua_getinfo(L, ""lS"", ar)",1,0,1
+"p, ""malloc(%zu) --> %p"", chunksize, p",1,0,1
+"mallctl(""epoch"", NULL, NULL, NULL, 0), 0, ""Unexpected mallctl() failure""",1,0,1
+!next_pinuse(u),1,0,1
+iswhite(obj2gco(L1)),1,0,1
+listLength(ref) == ziplistLen(zl),1,0,1
+"mallctl(""epoch"", &old_epoch, &sz, &new_epoch, sizeof(new_epoch)), 0, ""Unexpected mallctl() failure""",1,0,1
+u->fd->bk == u,1,0,1
+"nsz, rsz, ""nallocm()/allocm() rsize mismatch for "" ""alignment=%zu, size=%zu"", alignment, sz",1,0,1
+bl.breaklist == NO_JUMP,1,0,1
+"rallocm(&q, &tsz, sz, 0, ALLOCM_NO_MOVE), ALLOCM_SUCCESS, ""Unexpected rallocm() error""",1,0,1
+ls->lookahead.token == TK_EOS,1,0,1
+"t, &entries[i], ""Next element in single-element ring should be same as "" ""current element""",1,0,1
+!success,1,0,1
+"nallocm(&nsz, sz, 0), ALLOCM_SUCCESS, ""Unexpected nallocm() error""",1,0,1
+v == LLONG_MAX,1,0,1
+nret == fs->freereg - first,1,0,1
+L->top == L->base + clvalue(func)->l.p->maxstacksize,1,0,1
+dest != NO_JUMP,1,0,1
+currIsNewline(ls),1,0,1
+iswhite(obj2gco(cl)),1,0,1
+"chunk_plus_offset(p, sz)->head == FENCEPOST_HEAD",1,0,1
+"seen[j], ""Item %zu not seen"", j",1,0,1
+is_mmapped(p) || pinuse(p) || next_chunk(prev_chunk(p)) == p,1,0,1
+"p[i], q, ""Key pointer mismatch""",1,0,1
+"nsz, rsz, ""nallocx()/sallocx() size mismatch for "" ""alignment=%zu, size=%zu"", alignment, sz",1,0,1
+*narray/2 <= na && na <= *narray,1,0,1
+"ps[i], ""mallocx() error for alignment=%zu, "" ""size=%zu (%#zx)"", alignment, sz, sz",1,0,1
+vencoding,1,0,1
+L->errfunc == 0,1,0,1
+tostore != 0,1,0,1
+"strncmp(buf, expected_str_untruncated, len-1), 0, ""Unexpected string inequality (\""%s\"" vs \""%s\"")"", buf, expected_str_untruncated",1,0,1
+"*data_tsd_get(), d, ""After tsd set, tsd get should return value that was set""",1,0,1
+"!iscollectable(obj) || ((ttype(obj) == (obj)->value.gc->gch.tt) && !isdead(g, (obj)->value.gc))",1,0,1
+filename != NULL,1,0,1
+"ckh_remove(&ckh, strs[i], kp, vp), ""Unexpected ckh_remove() error""",1,0,1
+"mallctl(""stats.arenas.0.bins.0.nruns"", &nruns, &sz, NULL, 0), expected, ""Unexpected mallctl() result""",1,0,1
+"mallctl(""stats.huge.nmalloc"", &nmalloc, &sz, NULL, 0), expected, ""Unexpected mallctl() result""",1,0,1
+"ckh_remove(&ckh, p[i], &q, &r), ""Unexpected ckh_remove() failure""",1,0,1
+lastq == 0 || is_inuse(lastq),1,0,1
+"err, 0, ""Error in mallctl(): %s"", strerror(err)",1,0,1
+"double_eq_rel( pt_gamma(0.5, shape, 1.0, ln_gamma_shape) * 10.0, pt_gamma(0.5, shape, 10.0, ln_gamma_shape), MAX_REL_ERR, MAX_ABS_ERR), ""Scale should be trivially equivalent to external multiplication""",1,0,1
+is_mmapped(p) || sz < (s + MIN_CHUNK_SIZE),1,0,1
+"bin_find(m, m->dv) == 0",1,0,1
+"rtree_get(rtree, 0), 1, ""rtree_get() should return previously set value""",1,0,1
+m->topsize > 0,1,0,1
+funcstate.prev == NULL,1,0,1
+"t->id, entries[(NENTRIES+i-j) % NENTRIES].id, ""Element id mismatch""",1,0,1
+n != dummynode,1,0,1
+"array64[i], init_by_array_64_expected[i], ""Output mismatch for i=%d"", i",1,0,1
+"miblen, 3, ""Unexpected mib output length""",1,0,1
+"mallctl(""epoch"", NULL, NULL, &epoch, sizeof(epoch)-1), EINVAL, ""mallctl() should return EINVAL for input size mismatch""",1,0,1
+"redisSetTimeout(c,tv) == REDIS_OK",1,0,1
+"most_recently_junked, (void *)s, ""Expected region of size %zu to be junk-filled"", sz",1,0,1
+!ttisstring(p1) && !ttisnumber(p1),1,0,1
+"rtree_get(rtree, ~((uintptr_t)0)), 1, ""rtree_get() should return previously set value""",1,0,1
+"tree_psearch(&tree, &key), ""Unexpected node""",1,0,1
+"large, ""Unexpected mallocx() failure""",1,0,1
+"mq_count(&mq), 1, ""mq should contain one message""",1,0,1
+g->totalbytes == sizeof(LG),1,0,1
+i32[i] < i32[i+1],1,0,1
+tsize >= minsize_for_tree_index(idx),1,0,1
+!is_inuse(u),1,0,1
+"rbtn_red_get(node_t, link, left_node), ""Node should be black""",1,0,1
+(osize == 0) == (block == NULL),1,0,1
+ci == L->base_ci && firstArg > L->base,1,0,1
+u->index == tindex,1,0,1
+sz >= s,1,0,1
+"GETARG_A(getcode(fs,&e)) == fs->nactvar",1,0,1
+"mallctl(""stats.arenas.0.large.ndalloc"", &ndalloc, &sz, NULL, 0), expected, ""Unexpected mallctl() result""",1,0,1
+"ckh_insert(&ckh, p[j], p[j]), ""Unexpected ckh_insert() failure""",1,0,1
+"tree_first(&tree), ""Unexpected node""",1,0,1
+"validate_fill(q, 0, 0, sz), ""Expected zeroed memory""",1,0,1
+"mallctl(""stats.arenas.0.lruns.0.curruns"", &curruns, &sz, NULL, 0), expected, ""Unexpected mallctl() result""",1,0,1
+cl->l.nupvalues == cl->l.p->nups,1,0,1
+"allocm(&p, &rsz, sz, 0), ALLOCM_SUCCESS, ""Unexpected allocm() error""",1,0,1
+"tree_last(&tree), ""Tree should not be empty""",1,0,1
+"r, array64[i], ""Mismatch at array64[%d]=%""PRIx64"" gen=%""PRIx64, i, array64[i], r",1,0,1
+"mallctl(""stats.arenas.0.nmadvise"", &nmadvise, &sz, NULL, 0), expected, ""Unexepected mallctl() result""",1,0,1
+is_mmapped(p),1,0,1
+"mallctl(""stats.arenas.0.lruns.0.ndalloc"", &ndalloc, &sz, NULL, 0), expected, ""Unexpected mallctl() result""",1,0,1
+"mallctl(""arenas.initialized"", initialized, &sz, NULL, 0), 0, ""Unexpected mallctl() failure""",1,0,1
+"seen[k], ""Item %zu already seen"", k",1,0,1
+"mallctl(""arenas.narenas"", &narenas_after, &sz, NULL, 0), 0, ""Unexpected mallctl() failure""",1,0,1
+"ckh_count(&ckh), NITEMS, ""ckh_count() should return %zu, but it returned %zu"", NITEMS, ckh_count(&ckh)",1,0,1
+"double_eq_rel(pt_gamma(p, shape, 1.0, ln_gamma_shape), pt_gamma_expected[e], MAX_REL_ERR, MAX_ABS_ERR), ""Incorrect pt_gamma result for i=%u, j=%u"", i, j",1,0,1
+"ckh_search(&ckh, strs[i], kp, vp), ""Unexpected ckh_search() error""",1,0,1
+!bl->isbreakable || !bl->upval,1,0,1
+u->child[1]->parent == u,1,0,1
+"size >= prev_size, ""Bitmap size is smaller than expected""",1,0,1
+"result, test->expected_x, ""Unexpected result for \""%s\"", base %d"", test->input, test->base",1,0,1
+!is_inuse(p),1,0,1
+*sl != 0,1,0,1
+intrev32ifbe(is->length) == inserts,1,0,1
+"nfills, 0, ""At least one fill should have occurred""",1,0,1
+!is_small(sz),1,0,1
+"*ap0, a0, ""\""thread.allocatedp\"" should provide a pointer to internal "" ""storage""",1,0,1
+tindex == idx,1,0,1
+"ckh_count(&ckh), i+1, ""ckh_count() should return %zu, but it returned %zu"", i+1, ckh_count(&ckh)",1,0,1
+"mallctl(""stats.arenas.0.bins.0.nmalloc"", &nmalloc, &sz, NULL, 0), expected, ""Unexpected mallctl() result""",1,0,1
+u->child[1] == 0,1,0,1
+"ckh_new(&ckh, 2, ckh_pointer_hash, ckh_pointer_keycomp), ""Unexpected ckh_new() error""",1,0,1
+"nsz, 0, ""nallocx() error for alignment=%zu, "" ""size=%zu (%#zx)"", alignment, sz, sz",1,0,1
+getOpMode(o) == iABx || getOpMode(o) == iAsBx,1,0,1
+"mallctl(""arenas.extend"", &arena, &sz, NULL, 0), 0, ""Unexpected mallctl() failure""",1,0,1
+"memcmp(&e[i], &_e, sizeof(zlentry)) == 0",1,0,1
+e1->t == NO_JUMP,1,0,1
+reply->element[1]->type == REDIS_REPLY_STRING,1,0,1
+p->v != &p->u.value,1,0,1
+"mallctl(""stats.arenas.0.mapped"", &mapped, &sz, NULL, 0), expected, ""Unexepected mallctl() result""",1,0,1
+iter->fingerprint == dictFingerprint(iter->d),1,0,1
+fs->freereg == fs->nactvar,1,0,1
+ci->top <= l->stack_last,1,0,1
+"mallctl(""stats.arenas.0.large.nmalloc"", &nmalloc, &sz, NULL, 0), expected, ""Unexpected mallctl() result""",1,0,1
+f->k == VNONRELOC,1,0,1
+"mallctl(""stats.allocated"", &allocated, &sz, NULL, 0), expected, ""Unexpected mallctl() result""",1,0,1
+"config_stats, ""ENOENT should only be returned if stats are disabled""",1,0,1
+"active, *cactive, ""active should be no larger than cactive""",1,0,1
+"__redisShiftCallback(&ac->replies,NULL) == REDIS_ERR",1,0,1
+"nruns, 0, ""At least one run should have been allocated""",1,0,1
+cc.v.k == VVOID || cc.tostore > 0,1,0,1
+"validate_fill(q, 0, psz, qsz-psz), ""Expected zeroed memory""",1,0,1
+u->parent->child[0] == u || u->parent->child[1] == u || *((tbinptr*)(u->parent)) == u,1,0,1
+prevlen > 0,1,0,1
+"mallctlnametomib(""arenas.bin.0.size"", mib, &miblen), 0, ""Unexpected mallctlnametomib() failure""",1,0,1
+"q, r, ""Key and val not equal""",1,0,1
+"active, mapped, ""active should be no larger than mapped""",1,0,1
+nfences >= 2,1,0,1
+"chunk_plus_offset(p, sz+SIZE_T_SIZE)->head == 0",1,0,1
+v->k == VLOCAL || v->k == VUPVAL,1,0,1
+!iscollectable(obj) || (ttype(obj) == (obj)->value.gc->gch.tt),1,0,1
+_intsetValueEncoding(+32768) == INTSET_ENC_INT32,1,0,1
+r > 0.0,1,0,1
+"s[i], 0xa5, ""Newly allocated byte %zu/%zu isn't junk-filled"", i, sz",1,0,1
+target < fs->pc,1,0,1
+"ckh_search(&ckh, p[j], NULL, NULL), ""Unexpected ckh_search() failure""",1,0,1
+"tree_first(&tree), ""Tree should not be empty""",1,0,1
+"allocm(&p, &szs[0], 1, 0), ALLOCM_SUCCESS, ""Unexpected allocm() error""",1,0,1
+((size_t)mem & (alignment - 1)) == 0,1,0,1
+"bitmap_sfu(bitmap, &binfo), j, ""First unset bit should be just after the "" ""bit previously set""",1,0,1
+"narenas_before+1, narenas_after, ""Unexpected number of arenas before versus after extension""",1,0,1
+"mallctlnametomib(""arena.0.dss"", mib, &miblen), 0, ""Error in mallctlnametomib()""",1,0,1
+"pow2_ceil((ZU(1) << i) - 1), ZU(1) << i, ""Unexpected result""",1,0,1
+c,1,0,1
+"ckh_remove(&ckh, p[j], &q, &r), ""Unexpected ckh_remove() failure""",1,0,1
+size >= N32,1,0,1
+"nsz, rsz, ""nallocx()/sallocx() rsize mismatch""",1,0,1
+"t, &entries[i], ""Previous element in single-element ring should be same as "" ""current element""",1,0,1
+getCMode(o) == OpArgN,1,0,1
+"p1, ""Unexpected mallocx() failure""",1,0,1
+"ckh_remove(&ckh, p[i], &q, &r), ""Unexpected ckh_remove() success""",1,0,1
+"q, ""Unexpected rallocx() error""",1,0,1
+"mallctl(""stats.mapped"", &mapped, &sz, NULL, 0), expected, ""Unexpected mallctl() result""",1,0,1
+"data_cleanup_executed, ""Cleanup function should have executed""",1,0,1
+"result, strlen(expected_str_untruncated), ""Unexpected result""",1,0,1
+"msg, ""mq_get() should never return NULL""",1,0,1
+size % 2 == 0,1,0,1
+"nsz, rsz, ""nallocx()/sallocx() size mismatch""",1,0,1
+"mallctl(""stats.arenas.0.small.nmalloc"", &nmalloc, &sz, NULL, 0), expected, ""Unexpected mallctl() result""",1,0,1
+"ql_last(head, link)->id, entries[nentries-1].id, ""Element id mismatch""",1,0,1
+"*data_tsd_get(), (data_t)(uintptr_t)arg, ""Resetting local data should have no effect on tsd""",1,0,1
+"mallctlnametomib(""arena.0.purge"", mib, &miblen), 0, ""Unexpected mallctlnametomib() failure""",1,0,1
+"mallctl(""stats.cactive"", &cactive, &sz, NULL, 0), expected, ""Unexpected mallctl() result""",1,0,1
+m->footprint <= m->max_footprint,1,0,1
+"tree_last(&tree), ""Unexpected node""",1,0,1
+"mallctl(""stats.arenas.0.purged"", &purged, &sz, NULL, 0), expected, ""Unexepected mallctl() result""",1,0,1
+ctx->idx % 2 == 0,1,0,1
+luaG_checkcode(f),1,0,1
+testTMode(GET_OPCODE(*pc)) && GET_OPCODE(*pc) != OP_TESTSET && GET_OPCODE(*pc) != OP_TEST,1,0,1
+GETARG_C(i) - 1 == LUA_MULTRET,1,0,1
+"t->id, entries[i+1].id, ""Element id mismatch""",1,0,1
+"mallctl(""stats.chunks.current"", &current, &sz, NULL, 0), expected, ""Unexpected mallctl() result""",1,0,1
+ttisnil(gval(n)),1,0,1
+"d0 + usize, d1, ""Deallocated memory counter should increase by at least the amount "" ""explicitly deallocated""",1,0,1
+"t->id, entries[(i+j) % NENTRIES].id, ""Element id mismatch""",1,0,1
+"usize, arena_maxclass-PAGE, ""Unexpected usize""",1,0,1

@@ -1,0 +1,189 @@
+x_val,y_added,y_removed,y_combined
+left != NULL && right != NULL,1650,1650,3300
+"this_ptr, ""Phalcon_Model_Base"" TSRMLS_CC",1260,1260,2520
+Z_TYPE_P(mode) == IS_STRING,484,524,1008
+it->funcs->rewind != NULL,385,391,776
+it != NULL,385,391,776
+Z_TYPE_P(text) == IS_STRING,363,396,759
+Z_TYPE_P(block_size) == IS_LONG,242,262,504
+Z_TYPE_P(padding_type) == IS_LONG,242,262,504
+it->funcs->get_current_key != NULL,235,239,474
+"this_ptr, ""Phalcon_Internal_Test"" TSRMLS_CC",232,232,464
+"this_ptr, ""Phalcon_Controller_Front"" TSRMLS_CC",220,220,440
+phalcon_has_constructor(iterator TSRMLS_CC),214,218,432
+"this_ptr, ""Phalcon_Model_MetaData"" TSRMLS_CC",208,208,416
+"this_ptr, ""Phalcon_Model_Resultset"" TSRMLS_CC",202,202,404
+left != NULL,198,198,396
+"this_ptr, ""Phalcon_Db"" TSRMLS_CC",188,188,376
+"this_ptr, ""Phalcon_Request"" TSRMLS_CC",184,184,368
+"this_ptr, ""Phalcon_Db_Mysql"" TSRMLS_CC",178,178,356
+Z_TYPE_P(arr) == IS_ARRAY,166,179,345
+Z_TYPE_P(&result) == IS_LONG,157,166,323
+"this_ptr, ""Phalcon_Model_Manager"" TSRMLS_CC",156,156,312
+"this_ptr, ""Phalcon_Tag"" TSRMLS_CC",144,144,288
+Z_REFCOUNT_P(error) > 1,130,143,273
+right != NULL,133,133,266
+"instanceof_function_ex(ce0, zend_ce_iterator, 1 TSRMLS_CC)",129,131,260
+Z_TYPE_P(padded) == IS_STRING,121,134,255
+padding_size <= text_len,121,134,255
+padding_size <= block_size,121,134,255
+Z_TYPE_P(decrypted) == IS_STRING,121,128,249
+Z_TYPE_P(distinct) == IS_LONG,116,116,232
+"instanceof_function_ex(apciterator_ce, zend_ce_iterator, 1 TSRMLS_CC)",110,112,222
+"instanceof_function_ex(spl_ce_DirectoryIterator, zend_ce_iterator, 1 TSRMLS_CC)",107,109,216
+Z_TYPE_P(access_list) == IS_ARRAY,101,106,207
+Z_TYPE_P(access) == IS_STRING,101,106,207
+Z_TYPE_P(resource) == IS_STRING,101,106,207
+Z_TYPE_P(role) == IS_STRING,101,106,207
+0,95,95,190
+"this_ptr, ""Phalcon_Transaction_Manager"" TSRMLS_CC",88,88,176
+return_value_ptr != NULL,87,87,174
+key != NULL,86,86,172
+Z_TYPE_P(cache_file) == IS_STRING,86,84,170
+Z_TYPE_P(limit_clause) == IS_ARRAY,78,82,160
+"this_ptr, ""Phalcon_Dispatcher"" TSRMLS_CC",76,76,152
+"this_ptr, ""Phalcon_Transaction"" TSRMLS_CC",72,72,144
+Z_TYPE_P(handler) == IS_OBJECT,74,68,142
+phalcon_has_constructor(regex TSRMLS_CC),64,67,131
+phalcon_has_constructor(mongo TSRMLS_CC),64,67,131
+"this_ptr, ""Phalcon_Db_MySQL"" TSRMLS_CC",56,56,112
+!IS_INTERNED(c),55,55,110
+attribute != NULL,55,55,110
+Z_TYPE_P(realpath) == IS_STRING,52,52,104
+Z_TYPE_P(type) == IS_LONG,52,52,104
+Z_TYPE_P(index) == IS_LONG,52,52,104
+Z_TYPE_P(mime) == IS_STRING,52,52,104
+num_args == 1,49,49,98
+ce != NULL,50,48,98
+Z_REFCOUNT_P(engines) > 1,46,46,92
+ currentend!=0 ,45,45,90
+"Z_TYPE_P(zobj) == IS_OBJECT && instanceof_function(Z_OBJCE_P(zobj), phalcon_config_ce TSRMLS_CC)",41,47,88
+it->funcs->get_current_data != NULL,43,43,86
+it->funcs->move_forward != NULL,43,43,86
+it->funcs->valid != NULL,43,43,86
+Z_TYPE_P(t) == IS_STRING,43,43,86
+result == PHALCON_ACL_DUNNO,40,46,86
+Z_TYPE_P(level) == IS_STRING,41,41,82
+"this_ptr, ""Phalcon_Controller"" TSRMLS_CC",40,40,80
+!ce,48,26,74
+Z_TYPE_PP(property_name) == IS_STRING,37,34,71
+Z_TYPE_P(directive) == IS_ARRAY,37,33,70
+Z_TYPE_PP(arr) == IS_ARRAY,37,33,70
+n > 1,37,33,70
+g->active_memory->permanent == 1,45,20,65
+active_memory->hash_addresses[i] != NULL && *(active_memory->hash_addresses[i]) != NULL,30,23,53
+"this_ptr, ""Phalcon_Filter"" TSRMLS_CC",24,24,48
+"this_ptr, ""Phalcon_Db_Pool"" TSRMLS_CC",24,24,48
+"this_ptr, ""Phalcon_View"" TSRMLS_CC",22,22,44
+frame->permanent == persistent,30,12,42
+hash_key->nKeyLength > 2 * sizeof(zend_class_entry**),24,17,41
+phalcon_globals_ptr->start_memory != NULL,16,22,38
+hash_key->arKey != NULL,20,13,33
+property_info != NULL,17,16,33
+"this_ptr, ""Phalcon_Utils"" TSRMLS_CC",16,16,32
+"this_ptr, ""Phalcon_Transaction_Failed"" TSRMLS_CC",16,16,32
+active_memory != NULL,18,12,30
+ ap2->type==REDUCE || ap2->type==RD_RESOLVED || ap2->type==CONFLICT,15,15,30
+ cfp->fplp==0 ,15,15,30
+ ap ,15,15,30
+ stp->ap ,15,15,30
+ apx->type==SH_RESOLVED || apx->type==RD_RESOLVED || apx->type==CONFLICT || apy->type==SH_RESOLVED || apy->type==RD_RESOLVED || apy->type==CONFLICT ,15,15,30
+ cfp->bplp==0 ,15,15,30
+ ap1->type==REDUCE || ap1->type==RD_RESOLVED || ap1->type==CONFLICT,15,15,30
+ p->nLookahead>0 ,15,15,30
+ rp->index==i ,15,15,30
+ used>=0 ,15,15,30
+ apx->sp==apy->sp ,15,15,30
+ basisend!=0 ,15,15,30
+ sp->index==j ,15,15,30
+ spx->prec==spy->prec && spx->assoc==NONE ,15,15,30
+!!(x),14,14,28
+object != NULL,18,7,25
+Z_BVAL_P(PHALCON_GLOBAL(z_true)) == 1,12,12,24
+"this_ptr, ""Phalcon_Cache_Adapter_File"" TSRMLS_CC",12,12,24
+Z_TYPE_P(offset) == IS_STRING,12,12,24
+Z_LVAL_P(PHALCON_GLOBAL(z_zero)) == 0,12,12,24
+Z_TYPE_P(PHALCON_GLOBAL(z_null)) == IS_NULL,12,12,24
+Z_LVAL_P(PHALCON_GLOBAL(z_one)) == 1,12,12,24
+Z_TYPE_P(PHALCON_GLOBAL(z_false)) == IS_BOOL,12,12,24
+Z_TYPE_P(PHALCON_GLOBAL(z_zero)) == IS_LONG,12,12,24
+Z_TYPE_P(PHALCON_GLOBAL(z_one)) == IS_LONG,12,12,24
+Z_TYPE_P(file_path) == IS_STRING,12,12,24
+Z_BVAL_P(PHALCON_GLOBAL(z_false)) == 0,12,12,24
+Z_TYPE_P(PHALCON_GLOBAL(z_true)) == IS_BOOL,12,12,24
+g->active_memory < g->end_memory && g->active_memory >= g->start_memory,15,7,22
+active_memory->next == NULL,8,14,22
+phalcon_globals_ptr->start_memory == active_memory,8,14,22
+return_value != NULL,7,15,22
+g->active_memory->permanent == 0,15,6,21
+phalcon_globals->start_memory != NULL,9,12,21
+f->permanent == 1,15,6,21
+prev != NULL,15,6,21
+obj_ce || !object_pp,14,7,21
+g->active_memory >= g->end_memory - 1 || g->active_memory < g->start_memory,14,7,21
+f->next != NULL,14,6,20
+f->prev != NULL,14,6,20
+g->start_memory != NULL,14,6,20
+Z_TYPE_P(a2) == IS_ARRAY,10,9,19
+Z_TYPE_PP(a1) == IS_ARRAY,10,9,19
+g->active_memory->hash_pointer == 0,11,7,18
+!return_value_ptr || !*return_value_ptr,11,7,18
+g->active_memory->pointer == 0,11,7,18
+Z_TYPE_P(handler_class) == IS_STRING,10,7,17
+Z_REFCOUNT_P(PHALCON_GLOBAL(z_one)) == 2,8,8,16
+"this_ptr, ""Phalcon_Response"" TSRMLS_CC",8,8,16
+Z_REFCOUNT_P(PHALCON_GLOBAL(z_true)) == 2,8,8,16
+"this_ptr, ""Phalcon_Cache"" TSRMLS_CC",8,8,16
+escaper == NULL,8,8,16
+Z_REFCOUNT_P(PHALCON_GLOBAL(z_null)) == 2,8,8,16
+"this_ptr, ""Phalcon_Internal_TestParent"" TSRMLS_CC",8,8,16
+"this_ptr, ""Phalcon_Model_Message"" TSRMLS_CC",8,8,16
+"this_ptr, ""Phalcon_Config"" TSRMLS_CC",8,8,16
+Z_REFCOUNT_P(PHALCON_GLOBAL(z_zero)) == 2,8,8,16
+value == NULL,8,8,16
+"this_ptr, ""Phalcon_Internal_TestDummy"" TSRMLS_CC",8,8,16
+"this_ptr, ""Phalcon_Config_Adapter_Ini"" TSRMLS_CC",8,8,16
+Z_REFCOUNT_P(PHALCON_GLOBAL(z_false)) == 2,8,8,16
+PHALCON_GLOBAL(function_cache) == NULL,4,11,15
+PHALCON_GLOBAL(orm).parser_cache == NULL,4,11,15
+PHALCON_GLOBAL(orm).ast_cache == NULL,4,11,15
+*fci->retval_ptr_ptr == NULL,3,11,14
+zephir_globals_ptr->start_memory != NULL,9,5,14
+Z_REFCOUNT_P(&cls) == 1,4,8,12
+PHALCON_GLOBAL(start_memory) == NULL,4,8,12
+!Z_ISREF_P(&cls),4,8,12
+"this_ptr, ""Phalcon_Router_Rewrite"" TSRMLS_CC",6,6,12
+salt_len == 29,7,4,11
+Z_TYPE_P(params) == IS_ARRAY,4,7,11
+Z_STRLEN_P(salt_bytes) == 22,7,4,11
+Z_STRLEN_P(salt_bytes) == 2,7,4,11
+Z_STRLEN_P(salt_bytes) == 12,7,4,11
+salt_len == 9,7,4,11
+salt_len == 19,7,4,11
+salt_len == 15,7,4,11
+encoded_len >= i_bytes,7,4,11
+Z_STRLEN_P(salt_bytes) == 16,7,4,11
+Z_STRLEN_P(salt_bytes) == 4,7,4,11
+Z_TYPE_P(z) == IS_LONG || Z_TYPE_P(z) == IS_DOUBLE,7,3,10
+types_length < ZEPHIR_MAX_ARRAY_LEVELS,7,3,10
+"Z_TYPE_P(source) == IS_OBJECT && instanceof_function_ex(Z_OBJCE_P(source), phalcon_dispatcherinterface_ce, 1 TSRMLS_CC)",4,4,8
+params_action == NULL,4,4,8
+Z_REFCOUNT_P(PHALCON_GLOBAL(z_one)) >= 2,4,4,8
+result == NULL,4,4,8
+value != NULL,4,4,8
+!EG(exception),4,4,8
+Z_REFCOUNT_P(PHALCON_GLOBAL(z_null)) >= 2,4,4,8
+Z_REFCOUNT_P(PHALCON_GLOBAL(z_true)) >= 2,4,4,8
+Z_TYPE_P(object) == IS_OBJECT,4,4,8
+Z_REFCOUNT_PP(retval) == 1,4,4,8
+Z_REFCOUNT_P(PHALCON_GLOBAL(z_false)) >= 2,4,4,8
+Z_REFCOUNT_P(exception) == 1,4,4,8
+Z_REFCOUNT_P(PHALCON_GLOBAL(z_zero)) >= 2,4,4,8
+retval_ptr != NULL,4,4,8
+Z_TYPE_P(attributes) == IS_ARRAY,4,4,8
+!IS_INTERNED(Z_STRVAL_PP(left)),3,3,6
+g->active_memory < g->end_memory,1,2,3
+ZEPHIR_GLOBAL(function_cache) == NULL,1,1,2
+zephir_globals_ptr->start_memory == active_memory,1,1,2
+zephir_globals->start_memory != NULL,1,1,2
+phalcon_has_constructor(tmp TSRMLS_CC),1,1,2

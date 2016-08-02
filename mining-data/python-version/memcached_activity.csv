@@ -1,0 +1,242 @@
+x_val,y_added,y_removed,y_combined
+c != NULL,42,4,46
+val == 123,20,10,30
+(it->it_flags & ITEM_SLABBED) == 0,10,4,14
+*buflen < allocated,6,6,12
+false,8,2,10
+it->slabs_clsid < LARGEST_ID,5,5,10
+c->rbytes >= sizeof(*req),4,4,8
+"kill(pid, 0) == 0",4,4,8
+0,6,2,8
+out != NULL,5,2,7
+response->message.header.response.keylen == 0,6,0,6
+val == -123,4,2,6
+response->message.header.response.extlen == 0,6,0,6
+add_stats,4,1,5
+it->refcount > 0,3,2,5
+"kill(pid, SIGTERM) == 0",3,2,5
+((item *)ptr)->slabs_clsid == 0,2,2,4
+it->it_flags & ITEM_DELETED,2,2,4
+klen < sizeof(key),2,2,4
+response->message.header.response.cas != 0,4,0,4
+remove(pidfile) == 0,2,2,4
+"fgets(buffer, sizeof(buffer), fp)",2,2,4
+response->message.header.response.cas == 0,4,0,4
+BIN_PKT_HDR_WORDS == 4,2,2,4
+system(buffer) == 0,2,2,4
+it->next != it,4,0,4
+c->rcurr <= (c->rbuf + c->rsize),3,1,4
+it->slabs_clsid <= LARGEST_ID,2,2,4
+(void *) hdr == (void *)c->msglist[i].msg_iov[0].iov_base + UDP_HEADER_SIZE,2,2,4
+c,4,0,4
+it->it_flags == ITEM_CRAWLER,2,2,4
+it->prev != it,4,0,4
+fp,2,2,4
+"kill(server_pid, SIGTERM) == 0",3,1,4
+c->rcurr <= c->rbuf + c->rsize,2,2,4
+cache != NULL,4,0,4
+p->sl_curr == 0 || ((item *)p->slots[p->sl_curr - 1])->slabs_clsid == 0,2,2,4
+"!safe_strtoul(""123BOGUS"", &val)",2,1,3
+"!safe_strtol(""-2147483649"", &val)",2,1,3
+"safe_strtoll("" 123 foo"", &val)",2,1,3
+"safe_strtoll(""9223372036854775807"", &val)",2,1,3
+"safe_strtol(""+123"", &val)",2,1,3
+"!safe_strtoull(""-1"", &val)",2,1,3
+"!safe_strtol(""92837498237498237498029383"", &val)",2,1,3
+(it->it_flags & ITEM_LINKED) == 0,2,1,3
+"!safe_strtoull("""", &val)",2,1,3
+"safe_strtoll(""-123"", &val)",2,1,3
+"!safe_strtoul(""-1"", &val)",2,1,3
+bufsz > sizeof(*request) + keylen + dtalen,2,1,3
+"safe_strtol("" 123 foo"", &val)",2,1,3
+val == -9223372036854775808LL,2,1,3
+val == 4294967295L,2,1,3
+c->protocol == ascii_prot || c->protocol == binary_prot,2,1,3
+val == 2147483647L,2,1,3
+"!safe_strtoul(""4294967296"", &val)",2,1,3
+it->slabs_clsid == 0,2,1,3
+"!safe_strtoll(""92837498237498237498029383"", &val)",2,1,3
+"!safe_strtoll(""18446744073709551615"", &val)",2,1,3
+"safe_strtoul(""123"", &val)",2,1,3
+"safe_strtol(""2147483647"", &val)",2,1,3
+"safe_strtoll(""-9223372036854775808"", &val)",2,1,3
+val == 18446744073709551615ULL,2,1,3
+"!safe_strtol("""", &val)",2,1,3
+"!safe_strtoull(""92837498237498237498029383"", &val)",2,1,3
+"!safe_strtol(""123BOGUS"", &val)",2,1,3
+"safe_strtoull(""123"", &val)",2,1,3
+"safe_strtoull(""+123"", &val)",2,1,3
+val == 9223372036854775807LL,2,1,3
+c->wsize >= sizeof(*rsp),2,1,3
+it->refcount == 0,2,1,3
+"safe_strtoll(""+123"", &val)",2,1,3
+"safe_strtoull(""18446744073709551615"", &val)",2,1,3
+"!safe_strtoll("""", &val)",2,1,3
+"safe_strtoul(""+123"", &val)",2,1,3
+"!safe_strtol(""2147483648"", &val)",2,1,3
+"read(sock, buffer, sizeof(buffer)) == 0",3,0,3
+"!safe_strtoul(""92837498237498237498029383"", &val)",2,1,3
+"kill(pid, SIGHUP) == 0",2,1,3
+"!safe_strtoul("""", &val)",2,1,3
+"!safe_strtoll(""-9223372036854775809"", &val)",2,1,3
+"!safe_strtoll(""123BOGUS"", &val)",2,1,3
+cont <= (c->rcurr + c->rbytes),2,1,3
+"safe_strtoll(""123"", &val)",2,1,3
+"!safe_strtoull(""18446744073709551616"", &val)",2,1,3
+"!safe_strtoull(""123BOGUS"", &val)",2,1,3
+"safe_strtoul(""4294967295"", &val)",2,1,3
+it != heads[it->slabs_clsid],2,1,3
+"safe_strtol(""-123"", &val)",2,1,3
+p->end_page_ptr != NULL,2,1,3
+command != NULL && tokens != NULL && max_tokens > 1,2,1,3
+"safe_strtol(""123"", &val)",2,1,3
+settings.sasl,3,0,3
+pos,1,1,2
+c->rsize >= c->rlbytes,1,1,2
+res > 0,1,1,2
+logger_thread_last_lc != lc,1,1,2
+"write(sock, data, 2000) == 2000",1,1,2
+it->it_flags == 1,2,0,2
+it != heads[id],1,1,2
+pos + flushed <= w->flushed,1,1,2
+ntohll(receive.response.message.body.value) == ii,2,0,2
+"memcmp(ptr, value, strlen(value)) == 0",2,0,2
+it->prev == 0,2,0,2
+ull == 123,1,1,2
+buflen,1,1,2
+rv == STDERR_FILENO,2,0,2
+response.message.header.response.magic == PROTOCOL_BINARY_RES,1,1,2
+sock != -1,1,1,2
+c->protocol == ascii_udp_prot || c->protocol == ascii_prot || c->protocol == binary_prot,1,1,2
+MIN_BIN_PKT_LENGTH % 8 == 0,1,1,2
+nfd != 0,1,1,2
+"read(sock, &response, sizeof(response)) == sizeof(response)",1,1,2
+c->wsize > BIN_INCR_HDR_LEN + BIN_DEL_HDR_LEN,1,1,2
+ntohs(response.message.header.response.status) == PROTOCOL_BINARY_RESPONSE_SUCCESS,1,1,2
+it->slabs_clsid == 255,1,1,2
+"safe_strtoull(""123"", &ull)",1,1,2
+it->flags < 4,1,1,2
+vlen < sizeof(key),1,1,2
+response.message.header.response.status == PROTOCOL_BINARY_RESPONSE_SUCCESS,1,1,2
+"fgets(buffer, sizeof(buffer), fp) != NULL",1,1,2
+watchers[x]->flushed - min_flushed >= 0,1,1,2
+id >= POWER_SMALLEST && id <= POWER_LARGEST,1,1,2
+"strncmp(rsp, ""END"", strlen(""END"")) == 0",2,0,2
+it->next == 0,2,0,2
+body_len >= 0,1,1,2
+c->wsize > BIN_INCR_HDR_LEN + 32,1,1,2
+c->wsize >= MIN_BIN_PKT_LENGTH,1,1,2
+"!safe_strtoull("""", &ull)",1,1,2
+(it->it_flags & ITEM_DELETED) == 0 || it->refcount,1,1,2
+it->nbytes < 1048576,1,1,2
+(it->it_flags & ITEM_DELETED) == 0 || it->refcount != 0,1,1,2
+hdr == c->msglist[i].iov[0].iov_base + UDP_HEADER_SIZE,1,1,2
+nbytes <= allocation,1,1,2
+it->nbytes < (1024 * 1024),1,1,2
+argc > 1,1,1,2
+bufsz > sizeof(*request),2,0,2
+it->nbytes == 0,2,0,2
+c->rsize >= MIN_BIN_PKT_LENGTH + 4,1,1,2
+response->message.header.response.bodylen == 0,2,0,2
+"assoc_find(ITEM_key(it), it->nkey) == 0",1,1,2
+hdr == c->msglist[i].msg_iov[0].iov_base + UDP_HEADER_SIZE,1,1,2
+cont <= c->rcurr + c->rbytes,1,1,2
+assoc_find(key) == 0,1,1,2
+response->message.header.response.extlen == 4,2,0,2
+"!safe_strtoull(""123BOGUS"", &ull)",1,1,2
+(*head && *tail) || (*head == 0 && *tail == 0),2,0,2
+it->refcount != 0,1,1,2
+BIN_PKT_HDR_WORDS == 3,1,1,2
+"execv(""./memcached-debug"", argv) != -1",1,1,2
+"write(sock, data, sizeof(data) - 2000) == sizeof(data) - 2000",1,1,2
+*buflen < sizeof(temp),1,1,2
+it->it_flags < 4,1,1,2
+l->next != l,1,0,1
+total_written < size,1,0,1
+val == (uint8_t)0x81,1,0,1
+it->next->prev == it,1,0,1
+"!safe_strtoll("" issue221"", &val)",1,0,1
+"!safe_strtoul("" issue221"", &val)",1,0,1
+bufsz > sizeof(*request) + keylen,1,0,1
+ntohll(receive.response.message.body.value) == 0,1,0,1
+it != tails[it->slabs_clsid],1,0,1
+c == child,1,0,1
+str,1,0,1
+it->it_flags == (ITEM_SLABBED|ITEM_FETCHED),1,0,1
+"execv(argv[0], argv) != -1",1,0,1
+prv,1,0,1
+cache_error == 1,1,0,1
+response->message.header.response.bodylen != 0,1,0,1
+state >= conn_listening && state < conn_max_state,1,0,1
+ret >= c->rbuf,1,0,1
+"strncmp(buffer, ""CLIENT_ERROR"", strlen(""CLIENT_ERROR"")) == 0",1,0,1
+it->prev->next == it,1,0,1
+id >= POWER_SMALLEST && id <= power_largest,1,0,1
+it != *tail,1,0,1
+naptime > 0 && naptime < 1800,1,0,1
+argc > 2,1,0,1
+cache_error == -1,1,0,1
+"safe_strtol(buffer + 10, &val)",1,0,1
+receive.response.message.header.response.cas != send.request.message.header.request.cas,1,0,1
+c->binary_header.request.extlen == 0,1,0,1
+(it->it_flags & (ITEM_LINKED|ITEM_SLABBED)) == 0,1,0,1
+offset + 1 < size,1,0,1
+p == ptr,1,0,1
+pid != -1,1,0,1
+l->prev == 0,1,0,1
+out,1,0,1
+"!safe_strtol("" issue221"", &val)",1,0,1
+nr == 1,1,0,1
+"safe_strtol(buffer, &val)",1,0,1
+key,1,0,1
+response->message.header.response.keylen != 0,1,0,1
+response->message.header.response.datatype == PROTOCOL_BINARY_RAW_BYTES,1,0,1
+sfd >= 0 && sfd < max_fds,1,0,1
+bufsz > sizeof(*request) + extlen + keylen + dtalen,1,0,1
+name,1,0,1
+*tail != 0,1,0,1
+"memcmp(ptr, key, strlen(key)) == 0",1,0,1
+l->prev != l,1,0,1
+it->prev->next == 0,1,0,1
+1 == 0,1,0,1
+c->item,1,0,1
+newfile > 0,1,0,1
+*head == it,1,0,1
+"strcmp(addr.sun_path, path) == 0",1,0,1
+l != logger_stack_head,1,0,1
+"memcmp(ITEM_key(it), ""deadbeef"", 8) == 0",1,0,1
+c->rbytes > 0,1,0,1
+val == (uint8_t)0x80,1,0,1
+"""Quiet command shouldn't return on success"" == NULL",1,0,1
+efile,1,0,1
+fds[ii] > 0,1,0,1
+"read(sock, buffer.bytes, sizeof(buffer.bytes)) == 0",1,0,1
+receive.response.message.header.response.bodylen == (strlen(key) + 2*strlen(value) + 4),1,0,1
+rv == 0,1,0,1
+p->sl_curr == 0 || ((item *)p->slots)->slabs_clsid == 0,1,0,1
+c->sfd >= 0 && c->sfd < max_fds,1,0,1
+c->stats.offset <= c->stats.size,1,0,1
+response->message.header.response.magic == PROTOCOL_BINARY_RES,1,0,1
+pos <= size,1,0,1
+*before != 0,1,0,1
+stat == 0,1,0,1
+remove(filename) == 0,1,0,1
+response->message.header.response.opaque == 0xdeadbeef,1,0,1
+c->cmd >= 0,1,0,1
+it->nkey <= KEY_MAX_LENGTH,1,0,1
+(void *) hdr == (caddr_t)c->msglist[i].msg_iov[0].iov_base + UDP_HEADER_SIZE,1,0,1
+nsize > 0,1,0,1
+ptr[ii] != 0,1,0,1
+"!safe_strtoull("" issue221"", &val)",1,0,1
+l->next == 0,1,0,1
+key != NULL,1,0,1
+it != *head,1,0,1
+fmt,1,0,1
+receive.response.message.header.response.keylen == strlen(key),1,0,1
+response->message.header.response.bodylen == 8,1,0,1
+nr != 0,1,0,1
+response->message.header.response.status == status,1,0,1
+search->slabs_clsid == 0,1,0,1
+"strncmp(buffer, ""END"", strlen(""END"")) == 0",1,0,1
+response->message.header.response.opcode == cmd,1,0,1
+size > sizeof(*response),1,0,1

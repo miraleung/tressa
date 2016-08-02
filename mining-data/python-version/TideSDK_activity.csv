@@ -1,0 +1,20 @@
+x_val,y_added,y_removed,y_combined
+ m_bValid ,10,10,20
+f == NULL || dynamic_cast<To>(f) != NULL,7,6,13
+start <= end,7,6,13
+"sizeof(int_type) > sizeof(char_type), unexpected_type_width",7,6,13
+entry,5,5,10
+ptr != 0,5,5,10
+PyEncoder_Check(self),4,0,4
+PyScanner_Check(self),4,0,4
+minidumpDir,1,1,2
+allocation_state_ == ARRAY,1,1,2
+this->offset_reader_,1,1,2
+NULL,1,1,2
+allocation_state_ == SINGLE_OBJECT_WITH_ARRAY,1,1,2
+cs_,1,1,2
+this->address_reader_,1,1,2
+i >= 0,1,1,2
+arg_assert_info,1,1,2
+count && size,1,1,2
+count,1,1,2
