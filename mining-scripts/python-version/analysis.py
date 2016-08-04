@@ -51,12 +51,14 @@ class DataPoint():
 
 
 class Result():
-    def __init__(self, datapoints, desc, x_label, y_label, sort=None):
+    def __init__(self, id, datapoints, desc, x_label, y_label, sort=None):
         """Prouce Result from list of DataPoints
         :sort:  if given sorting function, then sorts from Biggest to smallest
         :datapoints:    iter(Datapoint)
+        :id:          (string) repo/project name
         """
 
+        self.id = id
         self.description = desc
         self.x_label = x_label
         self.y_label = y_label
@@ -108,7 +110,7 @@ class Result():
         # add the text for labels, title and axes ticks
         ax.set_xlabel(self.x_label)
         ax.set_ylabel(self.y_label)
-        ax.set_title("\n".join(wrap(self.description, 160)))
+        ax.set_title("\n".join(wrap(self.id + ": " + self.description, 160)))
         ax.set_xticks(xs + (3*width/2.))
         ax.set_xticklabels(x_vals, rotation=45, ha='right')
 
@@ -160,17 +162,25 @@ def dist_btw_assert_commits(history, change=None):
 
 
 def dist_result(history):
+    # Generate counts
     dadd = dist_btw_assert_commits(history, assertions.Change.added)
     drem = dist_btw_assert_commits(history, assertions.Change.removed)
     dcom = dist_btw_assert_commits(history)
-    counts = set(itertools.chain(dadd.elements(), drem.elements(), dcom.elements()))
-    dps = [DataPoint(c, dadd[c], drem[c], dcom[c]) for c in counts]
-    return Result(dps,
-                  "Number of COMMITS between commits containing assertions "
+
+    # Isolate just the counts to find the max
+    counts = itertools.chain(dadd.keys(), drem.keys(), dcom.keys())
+    max_count = max(counts)
+
+    # Produce (x, 0,0,0) when nonexistant, to ensure empty counts aren't hidden
+    dps = [DataPoint(c, dadd[c], drem[c], dcom[c]) for c in range(1,max_count+1)]
+
+    return Result(history.repo_path,
+                  dps,
+                  "Distance in COMMITS between commits containing assertions "
                   "('Combined' commits can have either Added or Removed)",
                   "Distances",
                   "Counts",
-                  lambda dp: dp.y_added + dp.y_removed + dp.y_combined)
+                  lambda dp: -dp.x_val)
 
 
 
@@ -204,17 +214,25 @@ def time_btw_assert_commits(history, change=None):
         zip(diffs, _next_iter(diffs)))
 
 def time_result(history):
+    # Generate counts
     dadd = time_btw_assert_commits(history, assertions.Change.added)
     drem = time_btw_assert_commits(history, assertions.Change.removed)
     dcom = time_btw_assert_commits(history)
-    counts = set(itertools.chain(dadd.elements(), drem.elements(), dcom.elements()))
-    dps = [DataPoint(c, dadd[c], drem[c], dcom[c]) for c in counts]
-    return Result(dps,
+
+    # Isolate just the counts to find the max
+    counts = itertools.chain(dadd.keys(), drem.keys(), dcom.keys())
+    max_count = max(counts)
+
+    # Produce (x, 0,0,0) when nonexistant, to ensure empty counts aren't hidden
+    dps = [DataPoint(c, dadd[c], drem[c], dcom[c]) for c in range(max_count)]
+
+    return Result(history.repo_path,
+                  dps,
                   "Number of DAYS between commits containing assertions "
                       "('Combined' commits can have either Added or Removed)",
                   "Durations",
                   "Counts",
-                  lambda dp: dp.y_added + dp.y_removed + dp.y_combined)
+                  lambda dp: -dp.x_val)
 
 
 def activity_result(history):
@@ -232,7 +250,8 @@ def activity_result(history):
             logging.warning("{c} found while calculating Activity for {a}"
                     .format(c=a.change, a=a.info()))
 
-    return Result(predicates.values(),
+    return Result(history.repo_path,
+            predicates.values(),
             "Number of assertion events for each predicate, by text comparison",
             "Predicates",
             "Events",
@@ -253,7 +272,8 @@ def names_result(history):
             logging.warning("{c} found while calculating Names for {a}"
                     .format(c=a.change, a=a.info()))
 
-    return Result(names.values(),
+    return Result(history.repo_path,
+            names.values(),
             "Number of assertion events for each assert-function-name",
             "Names",
             "Events",
