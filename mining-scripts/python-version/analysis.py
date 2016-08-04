@@ -8,6 +8,8 @@ from textwrap import wrap
 import datetime
 import csv as Csv
 import io
+from enum import Enum
+import numpy as np
 
 import logging
 
@@ -51,11 +53,28 @@ class DataPoint():
 
 
 class Result():
-    def __init__(self, id, datapoints, desc, x_label, y_label, sort=None):
+    class Tail(Enum):
+        """Each Tail has a textual display and a function that, when applied
+        to a list of y-values, produces a result for that column.
+        """
+        Max = ("Maximums", max)
+        Avg = ("Averages", np.mean)
+        Sum = ("Sums", sum)
+        def  __init__(self, text, func):
+            self.text = text
+            self.func = func
+
+    def __init__(self, id, datapoints, desc, x_label, y_label, sort=None,
+            tail=Tail.Avg):
         """Prouce Result from list of DataPoints
         :sort:  if given sorting function, then sorts from Biggest to smallest
         :datapoints:    iter(Datapoint)
         :id:          (string) repo/project name
+        :tail:      (Result.Tail) When graphing, how to condense the remaining
+                    values, if truncating Typically, if datapoints are
+                    x-sorted, Max ensures we
+                    aren't missing anything important, and if y-sorted, Avg
+                    ensures that the rest are of little consequence.
         """
 
         self.id = id
@@ -64,6 +83,7 @@ class Result():
         self.y_label = y_label
         self.datapoints = datapoints if sort is None else \
                           sorted(datapoints, key=sort, reverse=True)
+        self.tail = tail
 
     def csv(self, save):
         def write_csv(file):
@@ -93,10 +113,22 @@ class Result():
         if filt_fun or cutoff_fun:
             filter(lambda dp: filt_fun(dp) and cutoff_fun(dp), dps)
 
-        dps = dps if length is None else dps[:length]
+        if length is not None and length < len(dps):
+            dps = dps[:length]
+            tail = self.datapoints[length:]
+            tail_dp = DataPoint("{n} Remaining; {t}" \
+                        .format(n=len(tail), t=self.tail.text),
+                    self.tail.func([dp.y_added for dp in tail]),
+                    self.tail.func([dp.y_removed for dp in tail]),
+                    self.tail.func([dp.y_combined for dp in tail]))
+            dps.append(tail_dp)
 
         # Prepare graph
         length = len(dps)
+        if length == 0:
+            logging.info("Skipping Result of length 0")
+            return
+
         x_vals, y_addeds, y_removeds, y_combineds = zip(*dps)
 
         xs = np.arange(length)    # the x locations for the groups
@@ -121,8 +153,9 @@ class Result():
             # attach some text labels
             for rect in rects:
                 height = rect.get_height()
+                fmt = "{:g}" if height == int(height) else "{:.1g}"
                 ax.text(rect.get_x() + rect.get_width()/2., 1.05*height,
-                        '%d' % int(height),
+                        fmt.format(height),
                         ha='center', va='bottom')
 
         autolabel(rects_adds)
@@ -180,7 +213,8 @@ def dist_result(history):
                   "('Combined' commits can have either Added or Removed)",
                   "Distances",
                   "Counts",
-                  lambda dp: -dp.x_val)
+                  sort=lambda dp: -dp.x_val,
+                  tail=Result.Tail.Max)
 
 
 
@@ -232,7 +266,8 @@ def time_result(history):
                       "('Combined' commits can have either Added or Removed)",
                   "Durations",
                   "Counts",
-                  lambda dp: -dp.x_val)
+                  sort=lambda dp: -dp.x_val,
+                  tail=Result.Tail.Max)
 
 
 def activity_result(history):
@@ -255,7 +290,8 @@ def activity_result(history):
             "Number of assertion events for each predicate, by text comparison",
             "Predicates",
             "Events",
-            sort=lambda dp: dp.y_combined)
+            sort=lambda dp: dp.y_combined,
+            tail=Result.Tail.Avg)
 
 def names_result(history):
     names = defaultdict(lambda: DataPoint("", 0,0,0))
@@ -277,7 +313,8 @@ def names_result(history):
             "Number of assertion events for each assert-function-name",
             "Names",
             "Events",
-            sort=lambda dp: dp.y_combined)
+            sort=lambda dp: dp.y_combined,
+            tail=Result.Tail.Avg)
 
 
 # def function_result(history):
@@ -306,8 +343,6 @@ def names_result(history):
 
 
 # TODO dist from major release
-# TODO csv
-# TODO walk repos
 # TODO dist between commits for particular predicates?
 # TODO asserts per function
 
