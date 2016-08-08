@@ -99,9 +99,20 @@ class History():
         return self._diffs.values()
     @diffs.setter
     def diffs(self, d):
-        self_diffs = d
+        self._diffs = d
 
-    def add_diff(self, diff):
+    def get_diff(self, commit_id):
+        return self._diffs.get(commit_id, Diff(commit_id=commit_id))
+
+    def update_diff(self, diff):
+        old_diff = self.get_diff(diff.rvn_id)
+        if diff.rvn_id != old_diff.rvn_id:
+            raise Exception("update_diff: new diff id != old_diff id: {d} != {o}"
+                    .format(d=diff.rvn_id, o=old_diff.rvn_id))
+
+        diff.children.extend(old_diff.children)
+        assert(len(old_diff.parents) == 0)
+
         self._diffs[diff.rvn_id] = diff
 
     def __iter__(self):
@@ -118,16 +129,24 @@ class Diff():
     well as the IDs of those revisions. Diff with at most ONE other commit.
     """
     # pygit2.Commit -> Diff
-    def __init__(self, commit):
-        self.rvn_id = commit.hex    # newer revision (commit) ID
-        self.parents = []       # commit_ids of parents
-        self.author = commit.author.name
-        self.commit_time = (commit.commit_time, commit.commit_time_offset)
+    def __init__(self, commit=None, commit_id=None):
+        """Must have either pygit2.commit or commit_id string"""
+        if commit:
+            self.rvn_id = commit.hex    # newer revision (commit) ID
+            self.parents = []       # commit_ids of parents (earlier)
+            self.children = []      # commit_ids of children (later)
+            self.author = commit.author.name
+            self.commit_time = (commit.commit_time, commit.commit_time_offset)
 
-        author = commit.author
-        self.author_time = (author.time, author.offset)
-        self.msg = commit.message
-        self.files = []     # using filenames of newest revision
+            author = commit.author
+            self.author_time = (author.time, author.offset)
+            self.msg = commit.message
+            self.files = []     # using filenames of newest revision
+
+        else:
+            self.rvn_id = commit_id
+            self.children = []
+            self.parents = []
 
     def __str__(self):
         return "Diff: {id}".format(id=self.rvn_id)
@@ -259,7 +278,7 @@ def mine_repo(assertion_re, repo_path, branch):
     for commit in repo.walk(repo.lookup_branch(branch).target, pygit2.GIT_SORT_REVERSE | pygit2.GIT_SORT_TOPOLOGICAL):
         logging.info("Processing " + commit.hex)
         diff = generate_diff(commit, repo, assertion_re)
-        history.add_diff(diff)
+        history.update_diff(diff)
 
     parser = pycparser.c_parser.CParser()
     for diff in history.diffs:
