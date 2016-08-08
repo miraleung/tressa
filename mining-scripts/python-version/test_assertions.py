@@ -134,6 +134,7 @@ class TestMineRepo(unittest.TestCase):
     def test_comments(self):
         """Verify proper behaviour involving comments in code"""
         self.expected_history = [
+            TestCommit(),
             TestCommit(
                 TestFile("comments.c",
                     confident=TestAsserts(
@@ -167,6 +168,7 @@ class TestMineRepo(unittest.TestCase):
     def test_basic(self):
         """Basic add/remove/change situations"""
         self.expected_history = [
+            TestCommit(),
             TestCommit(
                 TestFile("basic.c",
                     confident=TestAsserts(
@@ -190,6 +192,7 @@ class TestMineRepo(unittest.TestCase):
         self.expected_history = [
             TestCommit(),
             TestCommit(),
+            TestCommit(),
             TestCommit(
                 TestFile("macros.c",
                     confident=TestAsserts(
@@ -205,6 +208,7 @@ class TestMineRepo(unittest.TestCase):
     def test_strings(self):
         """Tests for assertions containing strings, or within strings"""
         self.expected_history = [
+            TestCommit(),
             TestCommit(),
             TestCommit(),
             TestCommit(),
@@ -228,6 +232,7 @@ class TestMineRepo(unittest.TestCase):
             TestCommit(),
             TestCommit(),
             TestCommit(),
+            TestCommit(),
             TestCommit(
                 TestFile("definitions.c",
                     confident=TestAsserts(added={"0"}),
@@ -239,6 +244,7 @@ class TestMineRepo(unittest.TestCase):
     def test_lines(self):
         """Testing multiple asserts per line, and asserts of to many lines"""
         self.expected_history = [
+            TestCommit(),
             TestCommit(),
             TestCommit(),
             TestCommit(),
@@ -289,6 +295,7 @@ class TestMineRepo(unittest.TestCase):
             TestCommit(),
             TestCommit(),
             TestCommit(),
+            TestCommit(),
             TestCommit(
                 TestFile("mismatched.c",
                     problematic=TestAsserts(
@@ -301,6 +308,7 @@ class TestMineRepo(unittest.TestCase):
     def test_predicates(self):
         """Different types of easy and tricky predicates"""
         self.expected_history = [
+            TestCommit(),
             TestCommit(),
             TestCommit(),
             TestCommit(),

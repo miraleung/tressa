@@ -30,7 +30,7 @@ import itertools
 import traceback
 import sys
 from enum import Enum
-from collections import namedtuple, defaultdict
+from collections import namedtuple, defaultdict, OrderedDict
 
 import pygit2
 import pycparser
@@ -92,7 +92,17 @@ class History():
     def __init__(self, repo_path, branch):
         self.repo_path = repo_path
         self.branch = branch
-        self.diffs = []
+        self._diffs = OrderedDict()
+
+    @property
+    def diffs(self):
+        return self._diffs.values()
+    @diffs.setter
+    def diffs(self, d):
+        self_diffs = d
+
+    def add_diff(self, diff):
+        self._diffs[diff.rvn_id] = diff
 
     def __iter__(self):
         return itertools.chain(assertion_iter(self, inspects=False),
@@ -110,7 +120,6 @@ class Diff():
     # pygit2.Commit -> Diff
     def __init__(self, commit):
         self.rvn_id = commit.hex    # newer revision (commit) ID
-        self.commit_index = 0   # Initial commit is 0; branch head is highest
         self.parents = []       # commit_ids of parents
         self.author = commit.author.name
         self.commit_time = (commit.commit_time, commit.commit_time_offset)
@@ -247,14 +256,10 @@ def mine_repo(assertion_re, repo_path, branch):
 
     history = History(repo_path, branch)
     repo = pygit2.Repository(repo_path)
-    commit_index = 0
     for commit in repo.walk(repo.lookup_branch(branch).target, pygit2.GIT_SORT_REVERSE | pygit2.GIT_SORT_TOPOLOGICAL):
         logging.info("Processing " + commit.hex)
         diff = generate_diff(commit, repo, assertion_re)
-        if diff:
-            diff.commit_index = commit_index
-            history.diffs.append(diff) # diff won't exist if no assertions
-        commit_index += 1
+        history.add_diff(diff)
 
     parser = pycparser.c_parser.CParser()
     for diff in history.diffs:
@@ -379,7 +384,7 @@ def assertion_iter(history, inspects=False):
                 yield a
 
 
-# pygit2.Commit pygit2.Repository string -> tressa.Diff | None
+# pygit2.Commit pygit2.Repository string -> tressa.Diff
 def generate_diff(commit, repo, assertion_re):
     """If there are any changed (or uncertain) assertions (matched by
     assertion_re) in a file in the given Commit, produce Diff containing them.
@@ -394,12 +399,12 @@ def generate_diff(commit, repo, assertion_re):
         gdiff = repo.diff(parents[0], commit, context_lines=MAX_LINES -1)
         diff.parents = commit.parent_ids
     else:
-        # don't diff merges or else we'll 'double-dip' on the assertions
-        return None
+        diff.parents = commit.parent_ids
+        return diff
 
     files = analyze_diff(gdiff, assertion_re, diff)
     if len(files) == 0:
-        return None
+        return diff
 
     diff.files = files
     return diff
