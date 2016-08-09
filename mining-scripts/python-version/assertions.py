@@ -154,11 +154,11 @@ class Diff():
             self.parents = []
 
     def __str__(self):
-        return "Diff: {id}".format(id=self.rvn_id)
+        return "Diff: {id}".format(id=self.rvn_id.hex)
 
     def __repr__(self):
         return "Diff('{id}', '{auth}', '{m}', <{f} files>)".format(
-                id=self.rvn_id[:8], auth=self.author[:20],
+                id=self.rvn_id.hex[:8], auth=self.author[:20],
                 m=self.msg[:30].strip(), f=len(self.files))
 
 

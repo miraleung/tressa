@@ -543,55 +543,54 @@ class TestGraph(unittest.TestCase):
 
 
     @classmethod
-    def make_graph(cls):
+    def setUpClass(cls):
         for n in cls.nodes:
-            n = Node(n)
-            graph[n.name] = n
+            n = TestGraph.Node(*n)
+            cls.graph[n.name] = n
 
-    def matches(self, history):
+    def assertMatches(self, history):
         """Checks if the diffs description matches the name, as well
         as its children's and parent's descriptions matching their names
         """
-        hits = set()
+        hit_names = set()
+
         def get_name(diff):
             return int(diff.msg.split()[0])
 
-        def matches_node(diff):
+        def assert_nodes_equal(diff):
             name = get_name(diff)
+            hit_names.add(name)
             if name == 0:
-                return True
+                return # complete
 
             node = self.graph.get(name)
-            if node is None:
-                return False
+            self.assertIsNotNone(node, name)
 
-            hits.add(name)
+            hit_names.add(name)
             children = {get_name(history.get_diff(cid)) for cid in diff.children}
             parents = {get_name(history.get_diff(pid)) for pid in diff.parents}
 
-            if children != node.children or parents != node.parents:
-                return False
+            self.assertSetEqual(node.children, children)
+            self.assertSetEqual(node.parents, parents)
 
-            return all(matches(c) for c in diff.children)
+            for p in diff.parents:
+                d = history.get_diff(p)
+                assert_nodes_equal(d)
 
         diffs = list(history.diffs)
         diffs.reverse()
-        if not matches_node(diffs[0]):
-            return False
 
-        names = set(graph.keys())
-        return names == hits
+        assert_nodes_equal(diffs[0])
+
+        expected_names = set(self.graph.keys())
+        self.assertSetEqual(expected_names, hit_names)
 
     def test_children(self):
-        """Don't forget to download the children0 branch"""
+        """Ensures the latest commits in children0 branch matchs the given graph.
+        Don't forget to download the children0 branch
+        """
         history = mine_repo("assert", TestMineRepo.TEST_REPO, "children0")
-        self.assertTrue(self.matches(history))
-
-
-
-
-
-
+        self.assertMatches(history)
 
 
 if __name__ == '__main__':
