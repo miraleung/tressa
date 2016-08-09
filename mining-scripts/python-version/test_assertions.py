@@ -1,5 +1,6 @@
 import unittest
 from assertions import *
+from collections import namedtuple
 
 # To run all tests:
 # python3 test_assertions.py
@@ -79,7 +80,6 @@ class TestRegex(unittest.TestCase):
         test_header("@@ -283,0 +284,5 @@ struct acpi_dbg2_device {", "")
         test_header("@@ -23,0 +24,2 @@ int fill_console_start_info(struct dom0_vga_console_info *);", "")
         test_header("@@ -53 +53 @@ struct __packed __attribute__((aligned (64))) xsave_struct", "")
-
 
 
 class TestMineRepo(unittest.TestCase):
@@ -331,6 +331,9 @@ class TestMineRepo(unittest.TestCase):
         ]
         self.assertHistoryEqual()
 
+
+
+
     ############################################################################
     # Helper methods
     ############################################################################
@@ -517,6 +520,77 @@ class TestCommit():
         tc = cls()
         tc.files = [TestFile.from_file(f) for f in diff.files]
         return tc
+
+class TestGraph(unittest.TestCase):
+    """For use in comparing children/parent relationships.
+        Children are later commits than parents.
+    """
+
+    Node = namedtuple("Node", ["name", "children", "parents"])
+    nodes = [(0, {1,3}, set()),
+             (1, {2}, {0}),
+             (2, {4}, {1}),
+             (3, {5, 6}, {0}),
+             (4, {7}, {2}),
+             (5, {6}, {3}),
+             (6, {7}, {3,5}),
+             (7, {8,9}, {4,6}),
+             (8, {10}, {7}),
+             (9, {10}, {7}),
+             (10, {11}, {8,9}),
+             (11, set(), {10}),]
+    graph = {}
+
+
+    @classmethod
+    def make_graph(cls):
+        for n in cls.nodes:
+            n = Node(n)
+            graph[n.name] = n
+
+    def matches(self, history):
+        """Checks if the diffs description matches the name, as well
+        as its children's and parent's descriptions matching their names
+        """
+        hits = set()
+        def get_name(diff):
+            return int(diff.msg.split()[0])
+
+        def matches_node(diff):
+            name = get_name(diff)
+            if name == 0:
+                return True
+
+            node = self.graph.get(name)
+            if node is None:
+                return False
+
+            hits.add(name)
+            children = {get_name(history.get_diff(cid)) for cid in diff.children}
+            parents = {get_name(history.get_diff(pid)) for pid in diff.parents}
+
+            if children != node.children or parents != node.parents:
+                return False
+
+            return all(matches(c) for c in diff.children)
+
+        diffs = list(history.diffs)
+        diffs.reverse()
+        if not matches_node(diffs[0]):
+            return False
+
+        names = set(graph.keys())
+        return names == hits
+
+    def test_children(self):
+        """Don't forget to download the children0 branch"""
+        history = mine_repo("assert", TestMineRepo.TEST_REPO, "children0")
+        self.assertTrue(self.matches(history))
+
+
+
+
+
 
 
 

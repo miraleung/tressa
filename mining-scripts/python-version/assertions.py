@@ -115,6 +115,11 @@ class History():
 
         self._diffs[diff.rvn_id] = diff
 
+    def add_children(self, diff):
+        for p in diff.parents:
+            pdiff = self._diffs[p]
+            pdiff.children.append(diff.rvn_id)
+
     def __iter__(self):
         return itertools.chain(assertion_iter(self, inspects=False),
                                assertion_iter(self, inspects=True))
@@ -132,7 +137,7 @@ class Diff():
     def __init__(self, commit=None, commit_id=None):
         """Must have either pygit2.commit or commit_id string"""
         if commit:
-            self.rvn_id = commit.hex    # newer revision (commit) ID
+            self.rvn_id = commit.id    # newer revision (commit) pygit2.oid
             self.parents = []       # commit_ids of parents (earlier)
             self.children = []      # commit_ids of children (later)
             self.author = commit.author.name
@@ -280,8 +285,12 @@ def mine_repo(assertion_re, repo_path, branch):
         diff = generate_diff(commit, repo, assertion_re)
         history.update_diff(diff)
 
+    print(list(history._diffs.keys()))
+
     parser = pycparser.c_parser.CParser()
     for diff in history.diffs:
+        print(diff.parents)
+        history.add_children(diff)
         for file in diff.files:
             for a in file.assertions:
                 try:
@@ -331,7 +340,7 @@ class ChangeMap():
         def walk(commits, change):
             repo = pygit2.Repository(self.history.repo_path)
             for (commit_id,files) in commits.items():
-                gcommit = repo.revparse_single(commit_id)
+                gcommit = repo.revparse_single(commit_id.hex)
                 gdiff = make_diff(repo, gcommit)
                 for patch in gdiff:
                     filename = patch.delta.new_file.path
