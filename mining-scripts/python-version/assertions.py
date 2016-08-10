@@ -37,7 +37,7 @@ import pycparser
 
 import predast
 
-logging.basicConfig(level=logging.DEBUG)
+# logging.basicConfig(level=logging.DEBUG)
 
 ################################################################################
 # Constants
@@ -285,11 +285,8 @@ def mine_repo(assertion_re, repo_path, branch):
         diff = generate_diff(commit, repo, assertion_re)
         history.update_diff(diff)
 
-    print(list(history._diffs.keys()))
-
     parser = pycparser.c_parser.CParser()
     for diff in history.diffs:
-        print(diff.parents)
         history.add_children(diff)
         for file in diff.files:
             for a in file.assertions:

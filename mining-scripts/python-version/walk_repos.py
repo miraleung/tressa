@@ -25,7 +25,7 @@ def mine():
     starttime = time.time()
     lasttime = starttime
     for i,d in enumerate(dirs):
-        print("{d}   {i}/{n}".format(d=d, i=i+1, n=len(dirs)))
+        print("{d}   {i}/{n}".format(d=d, i=i+1, n=len(dirs)), flush=True)
         try:
             hist = assertions.mine_repo("\w*(ASSERT|assert|BUG_ON|bug_on)\w*", d, "Tressa")
             with open('results/' + d + '.pickle', 'wb') as f:
@@ -37,8 +37,9 @@ def mine():
             traceback.print_exc()
         thistime = time.time()
         print("\t{d}, total {t}".format(
-            d=datetime.timedelta(seconds=thistime-lasttime),
-            t=datetime.timedelta(seconds=thistime-starttime)))
+                d=datetime.timedelta(seconds=thistime-lasttime),
+                t=datetime.timedelta(seconds=thistime-starttime)),
+            flush=True)
         lasttime = thistime
 
 def analyze():
