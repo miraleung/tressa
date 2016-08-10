@@ -17,9 +17,6 @@ import logging
 import assertions
 
 
-# DataPoint = namedtuple('DataPoint', ['x_val', 'y_added', 'y_removed', 'y_combined'])
-# I need it to be mutable sometimes, so a class it is.
-
 class DataPoint():
     def __init__(self, x_val="", y_added=0, y_removed=0, y_combined=0):
         self.x_val = x_val
@@ -233,18 +230,8 @@ def time_btw_assert_commits(history, change=None):
                     return True
         return False
 
-    def days_diff(time2, time1): # (seconds2, offset2) - (seconds1, offset1)
-        tz2 = datetime.timezone(datetime.timedelta(minutes=time2[1]))
-        t2 = datetime.datetime.fromtimestamp(time2[0], tz2)
-
-        tz1 = datetime.timezone(datetime.timedelta(minutes=time1[1]))
-        t1 = datetime.datetime.fromtimestamp(time1[0], tz1)
-
-        dtime = t2 - t1
-        return dtime.days
-
     diffs = [d for d in history.diffs if has_change(d)]
-    return Counter(days_diff(d_next.author_time, d.author_time) for d, d_next in
+    return Counter(time_diff(d_next.author_time, d.author_time).days for d, d_next in
         zip(diffs, _next_iter(diffs)))
 
 def time_result(history):
@@ -268,6 +255,138 @@ def time_result(history):
                   "Counts",
                   sort=lambda dp: -dp.x_val,
                   tail=Result.Tail.Max)
+
+def time_diff(time2, time1): # (seconds2, offset2) - (seconds1, offset1)
+    """Produce timedelta between time2 and time1"""
+    tz2 = datetime.timezone(datetime.timedelta(minutes=time2[1]))
+    t2 = datetime.datetime.fromtimestamp(time2[0], tz2)
+
+    tz1 = datetime.timezone(datetime.timedelta(minutes=time1[1]))
+    t1 = datetime.datetime.fromtimestamp(time1[0], tz1)
+
+    dtime = t2 - t1
+    return dtime
+
+class Delta():
+    def __init__(self, num_commits, last_atime, last_ctime):
+        self.num_commits = num_commits # if sys.maxsize, no asserts found yet
+        self.last_atime = last_atime   # if MINYEAR datetime, no asserts found yet
+        self.last_ctime = last_ctime
+        self.commit_dist = None     # These 3 exist only if this diff has assertions
+        self.atime_dur = None   #timedelta
+        self.ctime_dur = None
+        self.num_visits = 1
+
+def find_deltas(history):
+"""
+dt(diff, prev_delta)
+v=p -> num_visits == num parents
+
+diff.delta  pre_del.num has_asserts v=p |
+None(1st v) None        no          n   |   delta(maxsize, Minyear)
+None        None        no          y   |   delta(maxsize, Minyear); dt(childs, delta)
+None        None        yes         n   |   delta(0, times)
+None        None        yes         y   |   delta(0, times); dt(childs, delta)
+None        val (preva) no          n   |   delta(prev.num_commits++)
+None        val         no          y   |   delta(prev.num_commits++); dt(childs, delta)
+None        val         yes         n   |   delta(0, times); delta.dist=pdelta+1;
+None        val         yes         y   |   delta(0, times); delta.dist=pdelta+1; dt(childs, delta)
+exists      None        no          n   |   do nothing
+exists      None        no          y   |   dt(childs, delta)
+exists      None        yes         n   |   do nothing
+exists      None        yes         y   |   dt(childs, delta)
+exists      val         no          n   |   delta.nc = min(d, pd); delta.times = max(d, pd)
+exists      val         no          y   |   delta.nc = min(d, pd); delta.times = max(d, pd); dt(childs, delta)
+exists      val         yes         n   |   delta.dist/durs = min(d, p.num_commits++; difftime-p.lasts)
+exists      val         yes         y   |   delta.dist/durs = min(d, p.num_commits++; difftime-p.lasts); dt(childs, delta)
+
+
+"""
+
+
+
+
+    def delta_traverse(diff, prev_delta):
+        if diff.delta:
+            diff.delta.num_visits += 1
+
+        if prev_diff is None:
+            if diff.has_asserts():
+                diff.delta = Delta(0, diff.author_time, diff.commit_time)
+
+
+
+            if not prev_delta.pre:
+                diff.delta.hit_count = prev_delta.num_commits
+                diff.delta.hit_aduration = time_diff(diff.delta.last_atime,
+                                                     prev_delta.last_atime)
+                diff.delta.hit_cduration = time_diff(diff.delta.last_ctime,
+                                                     prev_delta.last_ctime)
+
+        for cid in diff.children:
+            d = history.get_diff(cid)
+            if diff.delta.pre:
+            d.delta = Delta(None, None, pre=True) if diff.delta.pre else \
+                      Delta(diff.delta.num_commits+1,
+                            diff.delta.last_atime, diff.delta.last_ctime)
+            delta_traverse(d)
+
+
+
+
+
+
+
+
+
+
+
+
+    if history.has_deltas:
+        return
+
+    first_diff = next(iter(history.diffs.keys()))
+    delta_traverse(first_diff, None)
+
+
+    history.has_deltas = True
+    return
+
+
+# def find_deltas(history):
+    # def delta_traverse(diff, todo):
+        # # todo is a stack, 
+        # # so we aren't constrained by python's non-tail-optimized imiplementation
+
+        # if diff.delta.pre:
+            # todo.extend(history.get_diff(d) for d in diff.children)
+
+
+
+
+
+
+
+    # if history.has_deltas:
+        # return
+
+    # first_diff = next(iter(history.diffs.keys()))
+    # first_diff.delta = Delta(None, None, pre=True)
+
+    # todo = [first_diff]
+
+    # while len(todo) > 0:
+        # diff = todo.pop()
+        # if diff.delta.pre:
+            # for d in diff.children:
+                # if has_asserts(d):
+                    # d.delta = Delta(0, d.
+                # d.delta = Delta(
+            # todo.extend(history.get_diff(d) for d in diff.children)
+
+
+    # history.has_deltas = True
+    # return
 
 
 def activity_result(history):
