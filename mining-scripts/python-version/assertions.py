@@ -136,10 +136,11 @@ class Diff():
     # pygit2.Commit -> Diff
     def __init__(self, commit=None, commit_id=None):
         """Must have either pygit2.commit or commit_id string"""
+        self.parents = []       # commit_ids of parents (earlier)
+        self.children = []      # commit_ids of children (later)
+
         if commit:
-            self.rvn_id = commit.id    # newer revision (commit) pygit2.oid
-            self.parents = []       # commit_ids of parents (earlier)
-            self.children = []      # commit_ids of children (later)
+            self.rvn_id = commit.hex    # newer revision (commit) "hex string"
             self.author = commit.author.name
             self.commit_time = (commit.commit_time, commit.commit_time_offset)
 
@@ -150,15 +151,13 @@ class Diff():
 
         else:
             self.rvn_id = commit_id
-            self.children = []
-            self.parents = []
 
     def __str__(self):
-        return "Diff: {id}".format(id=self.rvn_id.hex)
+        return "Diff: {id}".format(id=self.rvn_id)
 
     def __repr__(self):
         return "Diff('{id}', '{auth}', '{m}', <{f} files>)".format(
-                id=self.rvn_id.hex[:8], auth=self.author[:20],
+                id=self.rvn_id[:8], auth=self.author[:20],
                 m=self.msg[:30].strip(), f=len(self.files))
 
 
@@ -337,7 +336,7 @@ class ChangeMap():
         def walk(commits, change):
             repo = pygit2.Repository(self.history.repo_path)
             for (commit_id,files) in commits.items():
-                gcommit = repo.revparse_single(commit_id.hex)
+                gcommit = repo.revparse_single(commit_id)
                 gdiff = make_diff(repo, gcommit)
                 for patch in gdiff:
                     filename = patch.delta.new_file.path
@@ -422,9 +421,9 @@ def generate_diff(commit, repo, assertion_re):
                 context_lines=MAX_LINES - 1)
     elif len(parents) == 1:
         gdiff = repo.diff(parents[0], commit, context_lines=MAX_LINES -1)
-        diff.parents = commit.parent_ids
+        diff.parents = [pid.hex for pid in commit.parent_ids]
     else:
-        diff.parents = commit.parent_ids
+        diff.parents = [pid.hex for pid in commit.parent_ids]
         return diff
 
     files = analyze_diff(gdiff, assertion_re, diff)
