@@ -5,11 +5,12 @@ import itertools
 import numpy as np
 import matplotlib.pyplot as plt
 from textwrap import wrap
-import datetime
+from datetime import datetime, timezone, timedelta
 import csv as Csv
 import io
 from enum import Enum
 import numpy as np
+import sys
 
 import logging
 
@@ -258,11 +259,11 @@ def time_result(history):
 
 def time_diff(time2, time1): # (seconds2, offset2) - (seconds1, offset1)
     """Produce timedelta between time2 and time1"""
-    tz2 = datetime.timezone(datetime.timedelta(minutes=time2[1]))
-    t2 = datetime.datetime.fromtimestamp(time2[0], tz2)
+    tz2 = timezone(timedelta(minutes=time2[1]))
+    t2 = datetime.fromtimestamp(time2[0], tz2)
 
-    tz1 = datetime.timezone(datetime.timedelta(minutes=time1[1]))
-    t1 = datetime.datetime.fromtimestamp(time1[0], tz1)
+    tz1 = timezone(timedelta(minutes=time1[1]))
+    t1 = datetime.fromtimestamp(time1[0], tz1)
 
     dtime = t2 - t1
     return dtime
@@ -270,87 +271,103 @@ def time_diff(time2, time1): # (seconds2, offset2) - (seconds1, offset1)
 class Delta():
     def __init__(self, num_commits, last_atime, last_ctime):
         self.num_commits = num_commits # if sys.maxsize, no asserts found yet
-        self.last_atime = last_atime   # if MINYEAR datetime, no asserts found yet
+        self.last_atime = last_atime   # if datetime.min, no asserts found yet
         self.last_ctime = last_ctime
         self.commit_dist = None     # These 3 exist only if this diff has assertions
         self.atime_dur = None   #timedelta
         self.ctime_dur = None
-        self.num_visits = 1
+        self.num_visits = 0
 
-def find_deltas(history):
-"""
-dt(diff, prev_delta)
-v=p -> num_visits == num parents
+def insert_deltas(history):
+    """If deltas haven't been added to history.diffs yet, then the commit
+    dag is traversed and they are added.
+    """
 
-diff.delta  pre_del.num has_asserts v=p |
-None(1st v) None        no          n   |   delta(maxsize, Minyear)
-None        None        no          y   |   delta(maxsize, Minyear); dt(childs, delta)
-None        None        yes         n   |   delta(0, times)
-None        None        yes         y   |   delta(0, times); dt(childs, delta)
-None        val (preva) no          n   |   delta(prev.num_commits++)
-None        val         no          y   |   delta(prev.num_commits++); dt(childs, delta)
-None        val         yes         n   |   delta(0, times); delta.dist=pdelta+1;
-None        val         yes         y   |   delta(0, times); delta.dist=pdelta+1; dt(childs, delta)
-exists      None        no          n   |   do nothing
-exists      None        no          y   |   dt(childs, delta)
-exists      None        yes         n   |   do nothing
-exists      None        yes         y   |   dt(childs, delta)
-exists      val         no          n   |   delta.nc = min(d, pd); delta.times = max(d, pd)
-exists      val         no          y   |   delta.nc = min(d, pd); delta.times = max(d, pd); dt(childs, delta)
-exists      val         yes         n   |   delta.dist/durs = min(d, p.num_commits++; difftime-p.lasts)
-exists      val         yes         y   |   delta.dist/durs = min(d, p.num_commits++; difftime-p.lasts); dt(childs, delta)
+# visit_diff(diff, prev_delta)
+#
+# first_visit first_asert has_asserts
+# ------------------------------------
+# diff.delta  pre_del.num has_asserts |
+# None        None        yes         |   delta(0, times)
+# None(1st v) None        no          |   delta(maxsize, Minyear)
+# None        val         yes         |   delta(0, times); delta.dist=pdelta+1;
+# None        val (preva) no          |   delta(prev.num_commits+1)
+# exists      None        yes         |   do nothing
+# exists      None        no          |   do nothing
+# exists      val         yes         |   delta.dist/durs = min(d, p.num_commits++; difftime-p.lasts)
+# exists      val         no          |   delta.nc = min(d, pd+1); delta.times = max(d, pd)
+#
+# num_visits == num parents -> do this last: for child in childs:visit_diff(child, delta)
 
+    def visit_diff(diff, prev_delta):
+        first_visit = not hasattr(diff, 'delta')
+        first_assert = prev_delta.num_commits == sys.maxsize
+        has_asserts = has_good_assert(diff)
 
-"""
+        if first_visit and first_assert and has_asserts:
+            diff.delta = Delta(0, diff.author_time, diff.commit_time)
 
+        elif first_visit and first_assert and not has_asserts:
+            diff.delta = Delta(sys.maxsize, (datetime.min, 0), (datetime.min, 0))
 
+        elif first_visit and not first_assert and has_asserts:
+            diff.delta = Delta(0, diff.author_time, diff.commit_time)
+            diff.delta.commit_dist = prev_delta.num_commits+1
+            diff.delta.atime_dur = time_diff(diff.author_time, prev_delta.last_atime)
+            diff.delta.ctime_dur = time_diff(diff.commit_time, prev_delta.last_ctime)
 
+        elif first_visit and not first_assert and not has_asserts:
+            diff.delta = Delta(prev_delta.num_commits+1,
+                               prev_delta.last_atime, prev_delta.last_ctime)
 
-    def delta_traverse(diff, prev_delta):
-        if diff.delta:
-            diff.delta.num_visits += 1
+        elif not first_visit and first_assert:
+            pass
 
-        if prev_diff is None:
-            if diff.has_asserts():
-                diff.delta = Delta(0, diff.author_time, diff.commit_time)
+        elif not first_visit and not first_assert and has_asserts:
+            diff.delta.commit_dist = min(diff.delta.commit_dist, prev_delta.diff+1)
+            diff.delta.atime_dur = min(diff.delta.atime_dur,
+                    time_diff(diff.author_time, prev_delta.last_atime))
+            diff.delta.ctime_dur = min(diff.delta.ctime_dur,
+                    time_diff(diff.commit_time, prev_delta.last_ctime))
 
+        elif not first_visit and not first_assert and not has_asserts:
+            diff.delta.num_commits= min(diff.delta.commit_dist, prev_delta.num_commits+1)
+            diff.delta.last_atime = max(diff.delta.last_atime, prev_delta.last_atime)
+            diff.delta.last_ctime = max(diff.delta.last_ctime, prev_delta.last_ctime)
 
-
-            if not prev_delta.pre:
-                diff.delta.hit_count = prev_delta.num_commits
-                diff.delta.hit_aduration = time_diff(diff.delta.last_atime,
-                                                     prev_delta.last_atime)
-                diff.delta.hit_cduration = time_diff(diff.delta.last_ctime,
-                                                     prev_delta.last_ctime)
-
-        for cid in diff.children:
-            d = history.get_diff(cid)
-            if diff.delta.pre:
-            d.delta = Delta(None, None, pre=True) if diff.delta.pre else \
-                      Delta(diff.delta.num_commits+1,
-                            diff.delta.last_atime, diff.delta.last_ctime)
-            delta_traverse(d)
-
-
-
-
-
-
-
-
-
-
+        else:
+            raise Exception("Diff visited with impossible state:\n\t" +
+                    "first_visit={fv}, first_assert={fa}, has_asserts={ha}" \
+                            .format(fv=first_visit, fa=first_assert, ha=has_asserts))
 
 
-    if history.has_deltas:
+        diff.delta.num_visits += 1
+        if diff.delta.num_visits == len(diff.parents):
+            # each path previous path has now arrived here
+            for cid in diff.children:
+                child_diff = history.get_diff(cid)
+                visit_diff(child_diff, diff.delta)
+
+    """Lazily generates deltas"""
+    if hasattr(history, "has_deltas"):
         return
 
-    first_diff = next(iter(history.diffs.keys()))
-    delta_traverse(first_diff, None)
-
+    first_diff = next(iter(history.diffs))
+    visit_diff(first_diff, Delta(sys.maxsize, (datetime.min, 0), (datetime.min, 0)))
 
     history.has_deltas = True
     return
+
+def has_good_assert(diff):
+    if hasattr(diff, "files"):
+        for file in diff.files:
+            if hasattr(file, "assertions"):
+                if len(file.assertions) > 0:
+                    return True
+    return False
+
+
+
 
 
 # def find_deltas(history):
