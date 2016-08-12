@@ -257,26 +257,39 @@ def time_result(history):
                   sort=lambda dp: -dp.x_val,
                   tail=Result.Tail.Max)
 
+def make_time(timetz):
+    tz = timezone(timedelta(minutes=timetz[1]))
+    time = datetime.fromtimestamp(timetz[0], tz)
+    return time
+
+
 def time_diff(time2, time1): # (seconds2, offset2) - (seconds1, offset1)
     """Produce timedelta between time2 and time1"""
-    tz2 = timezone(timedelta(minutes=time2[1]))
-    t2 = datetime.fromtimestamp(time2[0], tz2)
-
-    tz1 = timezone(timedelta(minutes=time1[1]))
-    t1 = datetime.fromtimestamp(time1[0], tz1)
+    t2 = make_time(time2)
+    t1 = make_time(time1)
 
     dtime = t2 - t1
     return dtime
 
 class Delta():
-    def __init__(self, num_commits, last_atime, last_ctime):
+    def __init__(self, num_commits=sys.maxsize,
+            last_atime=(int(datetime.min.timestamp()), 0),
+            last_ctime=(int(datetime.min.timestamp()), 0)):
         self.num_commits = num_commits # if sys.maxsize, no asserts found yet
         self.last_atime = last_atime   # if datetime.min, no asserts found yet
         self.last_ctime = last_ctime
-        self.commit_dist = None     # These 3 exist only if this diff has assertions
-        self.atime_dur = None   #timedelta
-        self.ctime_dur = None
+        self.commit_dist = sys.maxsize
+        self.atime_dur = timedelta.max
+        self.ctime_dur = timedelta.max
         self.num_visits = 0
+
+    def __repr__(self):
+        lat = make_time(self.last_atime).strftime("%Y-%m-%d")
+        lct = make_time(self.last_ctime).strftime("%Y-%m-%d")
+        return "Delta<{nc:g}, {lat}, {lct}, {dist:g}, {ad:g}, {cd:g}, {nv:g}>" \
+                .format(nc=self.num_commits, lat=lat, lct=lct,
+                        dist=self.commit_dist, ad=self.atime_dur.days, cd=self.ctime_dur.days,
+                        nv=self.num_visits)
 
 def insert_deltas(history):
     """If deltas haven't been added to history.diffs yet, then the commit
@@ -285,7 +298,7 @@ def insert_deltas(history):
 
 # visit_diff(diff, prev_delta)
 #
-# first_visit first_asert has_asserts
+# first_visit !seen_asert has_asserts
 # ------------------------------------
 # diff.delta  pre_del.num has_asserts |
 # None        None        yes         |   delta(0, times)
@@ -301,62 +314,57 @@ def insert_deltas(history):
 
     def visit_diff(diff, prev_delta):
         first_visit = not hasattr(diff, 'delta')
-        first_assert = prev_delta.num_commits == sys.maxsize
+        seen_assert = prev_delta.num_commits != sys.maxsize
         has_asserts = has_good_assert(diff)
 
-        if first_visit and first_assert and has_asserts:
+        if first_visit and not seen_assert and has_asserts:
             diff.delta = Delta(0, diff.author_time, diff.commit_time)
 
-        elif first_visit and first_assert and not has_asserts:
-            diff.delta = Delta(sys.maxsize, (datetime.min, 0), (datetime.min, 0))
+        elif first_visit and not seen_assert and not has_asserts:
+            diff.delta = Delta()
 
-        elif first_visit and not first_assert and has_asserts:
+        elif first_visit and seen_assert and has_asserts:
             diff.delta = Delta(0, diff.author_time, diff.commit_time)
             diff.delta.commit_dist = prev_delta.num_commits+1
             diff.delta.atime_dur = time_diff(diff.author_time, prev_delta.last_atime)
             diff.delta.ctime_dur = time_diff(diff.commit_time, prev_delta.last_ctime)
 
-        elif first_visit and not first_assert and not has_asserts:
+        elif first_visit and seen_assert and not has_asserts:
             diff.delta = Delta(prev_delta.num_commits+1,
                                prev_delta.last_atime, prev_delta.last_ctime)
 
-        elif not first_visit and first_assert:
+        elif not first_visit and not seen_assert:
             pass
 
-        elif not first_visit and not first_assert and has_asserts:
+        elif not first_visit and seen_assert and has_asserts:
             diff.delta.commit_dist = min(diff.delta.commit_dist, prev_delta.diff+1)
             diff.delta.atime_dur = min(diff.delta.atime_dur,
                     time_diff(diff.author_time, prev_delta.last_atime))
             diff.delta.ctime_dur = min(diff.delta.ctime_dur,
                     time_diff(diff.commit_time, prev_delta.last_ctime))
 
-        elif not first_visit and not first_assert and not has_asserts:
+        elif not first_visit and seen_assert and not has_asserts:
             diff.delta.num_commits= min(diff.delta.commit_dist, prev_delta.num_commits+1)
             diff.delta.last_atime = max(diff.delta.last_atime, prev_delta.last_atime)
             diff.delta.last_ctime = max(diff.delta.last_ctime, prev_delta.last_ctime)
 
         else:
             raise Exception("Diff visited with impossible state:\n\t" +
-                    "first_visit={fv}, first_assert={fa}, has_asserts={ha}" \
-                            .format(fv=first_visit, fa=first_assert, ha=has_asserts))
-
+                    "first_visit={fv}, seen_assert={sa}, has_asserts={ha}" \
+                            .format(fv=first_visit, sa=seen_assert, ha=has_asserts))
 
         diff.delta.num_visits += 1
-        if diff.delta.num_visits == len(diff.parents):
+        if diff.delta.num_visits >= len(diff.parents):
+            # >= instead of == since first has no parents
             # each path previous path has now arrived here
             for cid in diff.children:
                 child_diff = history.get_diff(cid)
                 visit_diff(child_diff, diff.delta)
 
-    """Lazily generates deltas"""
-    if hasattr(history, "has_deltas"):
-        return
 
     first_diff = next(iter(history.diffs))
     visit_diff(first_diff, Delta(sys.maxsize, (datetime.min, 0), (datetime.min, 0)))
 
-    history.has_deltas = True
-    return
 
 def has_good_assert(diff):
     if hasattr(diff, "files"):

@@ -347,8 +347,8 @@ class ChangeMap():
                                 lineno = get_file_lineno(gline, change)
                                 if gline.origin == change.prefix and \
                                         lineno in asserts:
-                                            asserts[lineno].function_name = \
-                                                    get_function_context(hunk.header)
+                                    asserts[lineno].function_name = \
+                                            get_function_context(hunk.header)
 
         walk(self.addeds, Change.added)
         walk(self.removeds, Change.removed)
