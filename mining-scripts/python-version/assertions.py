@@ -138,6 +138,7 @@ class Diff():
         """Must have either pygit2.commit or commit_id string"""
         self.parents = []       # commit_ids of parents (earlier)
         self.children = []      # commit_ids of children (later)
+        self.files = []     # using filenames of newest revision
 
         if commit:
             self.rvn_id = commit.hex    # newer revision (commit) "hex string"
@@ -147,7 +148,6 @@ class Diff():
             author = commit.author
             self.author_time = (author.time, author.offset)
             self.msg = commit.message
-            self.files = []     # using filenames of newest revision
 
         else:
             self.rvn_id = commit_id
@@ -157,7 +157,7 @@ class Diff():
 
     def __repr__(self):
         return "Diff('{id}', '{auth}', '{m}', <{f} files>)".format(
-                id=self.rvn_id[:8], auth=self.author[:20],
+                id=self.rvn_id[:7], auth=self.author[:20],
                 m=self.msg[:30].strip(), f=len(self.files))
 
 
