@@ -14,6 +14,11 @@ import datetime
 
 import analysis
 
+
+# Linux and Xen have BUG_ONs
+# From Github Replication paper: ut_ad in mysq/innobase; DCHECK in over a dozen
+ASSERT_FMT = "\w*(ASSERT|assert|BUG_ON|bug_on)\w*|DCHECK|ut_ad?"
+
 def mine():
     logging.basicConfig(level=logging.DEBUG, filename="walk_repos_mine.log")
 
@@ -27,7 +32,7 @@ def mine():
     for i,d in enumerate(dirs):
         print("{d}   {i}/{n}".format(d=d, i=i+1, n=len(dirs)), flush=True)
         try:
-            hist = assertions.mine_repo("\w*(ASSERT|assert|BUG_ON|bug_on)\w*", d, "Tressa")
+            hist = assertions.mine_repo(ASSERT_FMT, d, "Tressa")
             with open('results/' + d + '.pickle', 'wb') as f:
                 pickle.dump(hist, f)
             with open('results/' + d + '.asserts', 'w') as f:
