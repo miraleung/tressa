@@ -63,16 +63,21 @@ def analyze():
 
             repo = file[:-len(".pickle")]
 
-            def result_save(fun, filename):
-                r = fun(h)
+            def result_save(result, filename):
                 prefix = "results/{repo}_{stat}".format(repo=repo, stat=filename)
-                r.graph(25, prefix + ".png")
-                r.csv(prefix + ".csv")
+                result.graph(25, prefix + ".png")
+                result.csv(prefix + ".csv")
 
-            result_save(analysis.names_result, "names")
-            result_save(analysis.dist_result, "distance")
-            result_save(analysis.time_result, "time")
-            result_save(analysis.activity_result, "activity")
+            result_save(analysis.names_result(h), "names")
+            result_save(analysis.activity_result(h), "activity")
+
+            (com_res, atime_res, ctime_res), lin = analysis.delta_results(h)
+            result_save(com_res, "commit-dist")
+            result_save(atime_res, "author-time-dur")
+            result_save(ctime_res, "commit-time-dur")
+            with open("results/{repo}_linearity.txt".format(repo=repo), "w") as linf:
+                linf.write("{:%}".format(lin))
+
         except:
             traceback.print_exc()
 

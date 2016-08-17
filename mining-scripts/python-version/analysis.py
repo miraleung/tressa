@@ -54,7 +54,7 @@ class Result():
         to a list of y-values, produces a result for that column.
         """
         Max = ("Maximums", lambda lst: max(lst, default=0))
-        Avg = ("Averages", lambda lst: lnp.mean if len(lst) else 0.0)
+        Avg = ("Averages", lambda lst: np.mean(lst) if len(lst) else 0.0)
         Sum = ("Sums", sum)
         def  __init__(self, text, func):
             self.text = text
