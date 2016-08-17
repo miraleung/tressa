@@ -425,7 +425,7 @@ def insert_deltas(history):
 
 def activity_result(history):
     predicates = defaultdict(lambda: DataPoint("", 0,0,0))
-    for a in assertions.assertion_iter(history, inspects=False):
+    for a in history.assertions():
         dp = predicates[assertions.remove_whitespace(a.predicate)]
         dp.x_val = a.predicate
         if a.change == assertions.Change.added:
@@ -448,7 +448,7 @@ def activity_result(history):
 
 def names_result(history):
     names = defaultdict(lambda: DataPoint("", 0,0,0))
-    for a in assertions.assertion_iter(history, inspects=False):
+    for a in history.assertions():
         dp = names[a.name]
         dp.x_val = a.name
         if a.change == assertions.Change.added:
@@ -474,7 +474,7 @@ def names_result(history):
     # # This isn't useful due to inaccuracy of functinon_name
     # """Produce result of the function in which the assert is embedded."""
     # functions = defaultdict(lambda: DataPoint("", 0,0,0))
-    # for a in assertions.assertion_iter(history, inspects=False):
+    # for a in history.assertions():
         # dp = functions[a.function_name]
         # dp.x_val = a.function_name
         # if a.change == assertions.Change.added:

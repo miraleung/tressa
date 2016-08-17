@@ -17,7 +17,7 @@ import analysis
 
 # Linux and Xen have BUG_ONs
 # From Github Replication paper: ut_ad in mysq/innobase; DCHECK in over a dozen
-ASSERT_FMT = "\w*(ASSERT|assert|BUG_ON|bug_on)\w*|DCHECK|ut_ad?"
+ASSERT_FMT = "\w*(ASSERT|assert|BUG_ON|bug_on|DCHECK)\w*|ut_ad?"
 
 def mine():
     logging.basicConfig(level=logging.DEBUG, filename="walk_repos_mine.log")
