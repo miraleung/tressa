@@ -47,8 +47,11 @@ import predast
 MAX_LINES = 10
 """Asserts longer than this may be declared problematic."""
 
-FILE_EXTENSIONS = "ch"
-"""We only want to search .c or .h files"""
+FILE_EXTENSIONS = ["c", "h", "cc", "cpp", "c++", "cp", "cxx",
+                   "C", "H", "CC", "CPP", "C++", "CP", "CXX"]
+"""These are the extensions used in the Github Asserts Replication paper, plus headers.
+(We filter them out later, if necessary.)
+"""
 
 MORE = False
 DONE = True
@@ -127,6 +130,46 @@ class History():
     def show(self):
         for a in self:
             print(a.info())
+
+    def assertions(self, confirmed=True, unparseable=True, problematic=False,
+            change=None, testfiles=False, headers=True, filterfun=None):
+        """Produces an iterator over assertions in this history, with
+        common filters, as well as a customizable filter.
+        :confirmed:     include confident assertions when True
+        :unparseable:   exclude unparseable assertions if False
+        :problematic:   include problematic assertions if True
+        :change:        include this Change type of assertion only, if set
+        :testfiles:     exclude files with 'test' in the pathname when False
+        :headers:       exclude assertions in header files ('h, 'H') when False
+        :filterfun:     A function that takes an Assertion and produces a boolean;
+                        exclude Assertions for which this produces False. This
+                        is applied after all previous filters.
+        """
+        for diff in self.diffs:
+            if diff.files:
+                files = diff.files
+
+                if not testfiles:
+                    files = (f for f in files if "test" not in f.name.lower())
+                if not headers:
+                    files = (f for f in files if not has_extension(f.name, ["h", "H"]))
+
+                for file in files:
+                    assertions = []
+
+                    if confirmed:
+                        assertions = file.assertions
+                    if problematic:
+                        assertions = itertools.chain(assertions, file.to_inspect)
+                    if not unparseable:
+                        assertions = (a for a in assertions if not a.unparseable)
+                    if change is not None:
+                        assertions = (a for a in assertions if a.change == change)
+                    if filterfun is not None:
+                        assertions = (a for a in assertions if custom(a))
+
+                    for a in assertions:
+                        yield a
 
 
 class Diff():
@@ -437,12 +480,11 @@ def generate_diff(commit, repo, assertion_re):
 # pygit2.Diff string tressa.Diff -> [Files]
 def analyze_diff(gdiff, assertion_re, diff):
     """Include File in list if it contains changed assertions"""
-    ext_pattern = r".*\.[{exts}]$".format(exts=FILE_EXTENSIONS)
     files = []
     for patch in gdiff:
         try:
             filename = patch.delta.new_file.path
-            if re.match(ext_pattern, filename):
+            if has_extension(filename, FILE_EXTENSIONS):
                 # only care about files with appropriate extensions
                 logging.info("\t" + filename)
                 file = File(filename, diff)
@@ -461,6 +503,12 @@ def analyze_diff(gdiff, assertion_re, diff):
             logging.info("\tSkipping " +  filename)
     return files
 
+def has_extension(filename, extensions):
+    """Produce True if fileame ends in .[any of the extensions]"""
+    for ext in extensions:
+        if filename.endswith("." + ext):
+            return True
+    return False
 
 # pygit2.Patch string File -> [Assertion] [Assertion]
 def analyze_patch(patch, assertion_re, file):
