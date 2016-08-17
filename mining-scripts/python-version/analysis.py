@@ -5,20 +5,17 @@ import itertools
 import numpy as np
 import matplotlib.pyplot as plt
 from textwrap import wrap
-import datetime
+from datetime import datetime, timezone, timedelta
 import csv as Csv
 import io
 from enum import Enum
 import numpy as np
+import sys
 
 import logging
 
-
 import assertions
 
-
-# DataPoint = namedtuple('DataPoint', ['x_val', 'y_added', 'y_removed', 'y_combined'])
-# I need it to be mutable sometimes, so a class it is.
 
 class DataPoint():
     def __init__(self, x_val="", y_added=0, y_removed=0, y_combined=0):
@@ -51,14 +48,13 @@ class DataPoint():
                 self.y_combined == o.y_combined)
 
 
-
 class Result():
     class Tail(Enum):
         """Each Tail has a textual display and a function that, when applied
         to a list of y-values, produces a result for that column.
         """
-        Max = ("Maximums", max)
-        Avg = ("Averages", np.mean)
+        Max = ("Maximums", lambda lst: max(lst, default=0))
+        Avg = ("Averages", lambda lst: np.mean(lst) if len(lst) else 0.0)
         Sum = ("Sums", sum)
         def  __init__(self, text, func):
             self.text = text
@@ -113,7 +109,7 @@ class Result():
         if filt_fun or cutoff_fun:
             filter(lambda dp: filt_fun(dp) and cutoff_fun(dp), dps)
 
-        if length is not None and length < len(dps):
+        if length is not None: # and length < len(dps): confusing if tail isn't always shown
             dps = dps[:length]
             tail = self.datapoints[length:]
             tail_dp = DataPoint("{n} Remaining; {t}" \
@@ -172,11 +168,44 @@ class Result():
         else:
             fig.show()
 
-def dist_btw_assert_commits(history, change=None):
-    """Determine the number of commits between each assertion-event commit and
-    groups distances by frequency into a collections.Counter {distance: count}.
-    Caveat: Uses Assertion.commit_index which is partly determined by repo
-    commit-walk scheme (e.g., GIT_SORT_TOPOLOGICAL)
+
+class Delta():
+    def __init__(self, num_commits=sys.maxsize,
+            last_atime=(int(datetime.min.timestamp()), 0),
+            last_ctime=(int(datetime.min.timestamp()), 0)):
+        self.num_commits = num_commits # if sys.maxsize, no asserts found yet
+        self.last_atime = last_atime   # if datetime.min, no asserts found yet
+        self.last_ctime = last_ctime
+        self.commit_dist = sys.maxsize
+        self.atime_dur = timedelta.max
+        self.ctime_dur = timedelta.max
+        self.num_visits = 0             # not included in __eq__
+
+    def has_result(self):
+        return self.commit_dist < sys.maxsize
+
+    def __eq__(self, o):
+        return (self.num_commits == o.num_commits and
+                self.last_atime  == o.last_atime  and
+                self.last_ctime  == o.last_ctime  and
+                self.commit_dist == o.commit_dist and
+                self.atime_dur   == o.atime_dur   and
+                self.ctime_dur   == o.ctime_dur)
+                # not including num_visits
+
+    def __repr__(self):
+        lat = make_time(self.last_atime).strftime("%Y-%m-%d")
+        lct = make_time(self.last_ctime).strftime("%Y-%m-%d")
+        return "Delta<{nc:g}, {lat}, {lct}, {dist:g}, {ad:g}, {cd:g}, {nv:g}>" \
+                .format(nc=self.num_commits, lat=lat, lct=lct,
+                        dist=self.commit_dist, ad=self.atime_dur.days, cd=self.ctime_dur.days,
+                        nv=self.num_visits)
+
+
+def delta_counts(hist_deltaed, change=None):
+    """
+    Produce 3-tuple of Counters for distances/durations between commits containing
+    assertions. (#commits, #author-time days, #commit-time days)
 
     :change: if assertions.Change given, only counts differences between
         commits that include change of that type.
@@ -188,86 +217,210 @@ def dist_btw_assert_commits(history, change=None):
                     return True
         return False
 
-    diffs = [d for d in history.diffs if has_change(d)]
-    return Counter(d_next.commit_index - d.commit_index for d, d_next in
-            zip(diffs, _next_iter(diffs)))
+    diffs = (d for d in hist_deltaed.diffs if has_change(d))
+
+    commits_counter = Counter()
+    atime_counter = Counter()
+    ctime_counter = Counter()
+
+    for diff in diffs:
+        delta = diff.delta
+        if delta.has_result():
+            commits_counter[delta.commit_dist] += 1
+            atime_counter[delta.atime_dur.days] += 1
+            ctime_counter[delta.ctime_dur.days] += 1
+
+    return commits_counter, atime_counter, ctime_counter
 
 
-
-def dist_result(history):
-    # Generate counts
-    dadd = dist_btw_assert_commits(history, assertions.Change.added)
-    drem = dist_btw_assert_commits(history, assertions.Change.removed)
-    dcom = dist_btw_assert_commits(history)
-
-    # Isolate just the counts to find the max
-    counts = itertools.chain(dadd.keys(), drem.keys(), dcom.keys())
-    max_count = max(counts)
-
-    # Produce (x, 0,0,0) when nonexistant, to ensure empty counts aren't hidden
-    dps = [DataPoint(c, dadd[c], drem[c], dcom[c]) for c in range(1,max_count+1)]
-
-    return Result(history.repo_path,
-                  dps,
-                  "Distance in COMMITS between commits containing assertions "
-                  "('Combined' commits can have either Added or Removed)",
-                  "Distances",
-                  "Counts",
-                  sort=lambda dp: -dp.x_val,
-                  tail=Result.Tail.Max)
-
-
-
-def time_btw_assert_commits(history, change=None):
-    """Determine the number of DAYS between each assertion-event commit and
-    groups durations by frequency into a collections. Counter {duration: count}.
-    Uses author_time.
-
-    :change: if assertions.Change given, only counts differences between
-        commits that include change of that type.
+def delta_result(history, counters, description, x_units, linearity, start=0):
+    """Produce result given (add, rem, combined) counters for same repo
+    :linearity: the ratio of non-merged commits to total commits, for normalizing
+    :start: the first elemeent in the list/graph, in ascending order
     """
-    def has_change(diff):
-        for file in diff.files:
-            for a in file.assertions:
-                if change is None or change == a.change:
-                    return True
-        return False
+    add_ctr, rem_ctr, com_ctr = counters
 
-    def days_diff(time2, time1): # (seconds2, offset2) - (seconds1, offset1)
-        tz2 = datetime.timezone(datetime.timedelta(minutes=time2[1]))
-        t2 = datetime.datetime.fromtimestamp(time2[0], tz2)
+    # Find max count for scaling
+    counts = itertools.chain(add_ctr.keys(), rem_ctr.keys(), com_ctr.keys())
+    max_count = max(counts, default=0)
 
-        tz1 = datetime.timezone(datetime.timedelta(minutes=time1[1]))
-        t1 = datetime.datetime.fromtimestamp(time1[0], tz1)
-
-        dtime = t2 - t1
-        return dtime.days
-
-    diffs = [d for d in history.diffs if has_change(d)]
-    return Counter(days_diff(d_next.author_time, d.author_time) for d, d_next in
-        zip(diffs, _next_iter(diffs)))
-
-def time_result(history):
-    # Generate counts
-    dadd = time_btw_assert_commits(history, assertions.Change.added)
-    drem = time_btw_assert_commits(history, assertions.Change.removed)
-    dcom = time_btw_assert_commits(history)
-
-    # Isolate just the counts to find the max
-    counts = itertools.chain(dadd.keys(), drem.keys(), dcom.keys())
-    max_count = max(counts)
-
-    # Produce (x, 0,0,0) when nonexistant, to ensure empty counts aren't hidden
-    dps = [DataPoint(c, dadd[c], drem[c], dcom[c]) for c in range(max_count)]
+    # Produce (x, 0,0,0) when nonexistent, to ensure empty counts aren't hidden
+    dps = [DataPoint(c, add_ctr[c], rem_ctr[c], com_ctr[c])
+            for c in range(start, max_count+1)]
 
     return Result(history.repo_path,
                   dps,
-                  "Number of DAYS between commits containing assertions "
-                      "('Combined' commits can have either Added or Removed)",
-                  "Durations",
+                  description + " -- Linearity: {:%}".format(linearity),
+                  x_units,
                   "Counts",
                   sort=lambda dp: -dp.x_val,
                   tail=Result.Tail.Max)
+
+
+def delta_results(history):
+    """Produce result 3-tuple for given history. Output is 2-tuple, made of
+    3-tuple counters, and linearity score (non_merge_commits/total_commits):
+    (commit_distance, author_time duration, commit_time duration), linearity
+    """
+    insert_deltas(history)
+    add_com_ctr, add_atime_ctr, add_ctime_ctr = delta_counts(history, assertions.Change.added)
+    rem_com_ctr, rem_atime_ctr, rem_ctime_ctr = delta_counts(history, assertions.Change.removed)
+    comb_com_ctr, comb_atime_ctr, comb_ctime_ctr = delta_counts(history)
+
+    # for normalizing results (i.e., ignoring rebase-policy repos)
+    num_merges = sum(1 for d in history.diffs if d.delta.num_visits > 1)
+    linearity = 1 - (num_merges/len(history.diffs))
+
+    commit_result = delta_result(history,
+            (add_com_ctr, rem_com_ctr, comb_com_ctr),
+            "Number of Revisions between commits containing assertions "
+                "('Combined' commits can have either Added or Removed)",
+            "Number of Revisions",
+            linearity,
+            start=1)
+
+    atime_result = delta_result(history,
+            (add_atime_ctr, rem_atime_ctr, comb_atime_ctr),
+            "Duration between commits containing assertions - author_time "
+                "('Combined' commits can have either Added or Removed)",
+            "Author Days",
+            linearity,
+            start=0)
+
+    ctime_result = delta_result(history,
+            (add_ctime_ctr, rem_ctime_ctr, comb_ctime_ctr),
+            "Duration between commits containing assertions - commit_time "
+                "('Combined' commits can have either Added or Removed)",
+            "Commit Days",
+            linearity,
+            start=0)
+
+    return (commit_result, atime_result, ctime_result), linearity
+
+
+def make_time(timetz):
+    tz = timezone(timedelta(minutes=timetz[1]))
+    time = datetime.fromtimestamp(timetz[0], tz)
+    return time
+
+
+def time_diff(time2, time1): # (seconds2, offset2) - (seconds1, offset1)
+    """Produce timedelta between time2 and time1"""
+    t2 = make_time(time2)
+    t1 = make_time(time1)
+
+    dtime = t2 - t1
+    return dtime
+
+
+def has_good_assert(diff):
+    if hasattr(diff, "files"):
+        for file in diff.files:
+            if hasattr(file, "assertions"):
+                if len(file.assertions) > 0:
+                    return True
+    return False
+
+
+def get_orphan_diffs(history):
+    """Produces list of diffs without parents (first diffs) in given repository."""
+    return [d for d in history.diffs if len(d.parents) == 0]
+
+
+def insert_deltas(history):
+    """If deltas haven't been added to history.diffs yet, then the commit
+    dag is traversed and they are added.
+    There was perviously a recursive version. The iterative version was
+    needed because many repos have so many commits that it exceeds the
+    stack depth.
+    """
+
+# This searches from the bottom (oldest commit) up. Due to the possibility
+# of orphan commits, this actually traverses from all the parentless commits
+# up. It might be tempting to simply walk down, from the most recent commit,
+# since then we can guarantee reaching all commits properly (provided no repos
+# include cycles somehow), but this would distort the results. For instance
+# if commit A was preceded by commits B, C, and D in 3 different branches,
+# all 5 revisions from A, and they all contained asserts, then it would
+# appear that there are 3 cases of an assert 5 revisions apart. However,
+# there is only ONE assert 5 revisions away, since the ancesters all merge
+# into one branch where A is.
+
+# Explanation of 8 different cases:
+# visit_diff(diff, prev_delta)
+#
+# first_visit !seen_asert has_asserts
+# ------------------------------------
+# diff.delta  pre_del.num has_asserts |
+# None        None        yes         |   delta(0, times)
+# None(1st v) None        no          |   delta(maxsize, Minyear)
+# None        val         yes         |   delta(0, times); delta.dist=pdelta+1;
+# None        val (preva) no          |   delta(prev.num_commits+1)
+# exists      None        yes         |   do nothing
+# exists      None        no          |   do nothing
+# exists      val         yes         |   delta.dist/durs = min(d, p.num_commits++; difftime-p.lasts)
+# exists      val         no          |   delta.nc = min(d, pd+1); delta.times = max(d, pd)
+#
+# num_visits == num parents -> do this last: for child in childs:visit_diff(child, delta)
+
+    def visit_diff(diff_delta, todo):
+        """Visit each diff, and create its Delta
+        :todo: is a stack of diffs to visit
+        """
+        diff, prev_delta = diff_delta
+
+        first_visit = not hasattr(diff, 'delta')
+        seen_assert = prev_delta.num_commits != sys.maxsize
+        has_asserts = has_good_assert(diff)
+
+        if first_visit and not seen_assert and has_asserts:
+            diff.delta = Delta(0, diff.author_time, diff.commit_time)
+
+        elif first_visit and not seen_assert and not has_asserts:
+            diff.delta = Delta()
+
+        elif first_visit and seen_assert and has_asserts:
+            diff.delta = Delta(0, diff.author_time, diff.commit_time)
+            diff.delta.commit_dist = prev_delta.num_commits+1
+            diff.delta.atime_dur = time_diff(diff.author_time, prev_delta.last_atime)
+            diff.delta.ctime_dur = time_diff(diff.commit_time, prev_delta.last_ctime)
+
+        elif first_visit and seen_assert and not has_asserts:
+            diff.delta = Delta(prev_delta.num_commits+1,
+                               prev_delta.last_atime, prev_delta.last_ctime)
+
+        elif not first_visit and not seen_assert:
+            pass
+
+        elif not first_visit and seen_assert and has_asserts:
+            diff.delta.commit_dist = min(diff.delta.commit_dist, prev_delta.diff+1)
+            diff.delta.atime_dur = min(diff.delta.atime_dur,
+                    time_diff(diff.author_time, prev_delta.last_atime))
+            diff.delta.ctime_dur = min(diff.delta.ctime_dur,
+                    time_diff(diff.commit_time, prev_delta.last_ctime))
+
+        elif not first_visit and seen_assert and not has_asserts:
+            diff.delta.num_commits= min(diff.delta.commit_dist, prev_delta.num_commits+1)
+            diff.delta.last_atime = max(diff.delta.last_atime, prev_delta.last_atime)
+            diff.delta.last_ctime = max(diff.delta.last_ctime, prev_delta.last_ctime)
+
+        else:
+            raise Exception("Diff visited with impossible state:\n\t" +
+                    "first_visit={fv}, seen_assert={sa}, has_asserts={ha}" \
+                            .format(fv=first_visit, sa=seen_assert, ha=has_asserts))
+
+        diff.delta.num_visits += 1
+        if diff.delta.num_visits >= len(diff.parents):
+            # >= instead of == since first has no parents
+            # each path previous path has now arrived here
+            todo.extend((history.get_diff(cid), diff.delta) for cid in diff.children)
+
+    # get all 'first' commits since some repos have orphane commits/branches
+    todo = [(d, Delta()) for d in get_orphan_diffs(history)]
+
+    while len(todo) > 0:
+        diff_delta = todo.pop()
+        visit_diff(diff_delta, todo)
 
 
 def activity_result(history):

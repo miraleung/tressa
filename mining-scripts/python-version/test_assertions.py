@@ -1,5 +1,6 @@
 import unittest
 from assertions import *
+from collections import namedtuple
 
 # To run all tests:
 # python3 test_assertions.py
@@ -81,7 +82,6 @@ class TestRegex(unittest.TestCase):
         test_header("@@ -53 +53 @@ struct __packed __attribute__((aligned (64))) xsave_struct", "")
 
 
-
 class TestMineRepo(unittest.TestCase):
     TEST_REPO = "tressa_test_repo"
 
@@ -134,6 +134,7 @@ class TestMineRepo(unittest.TestCase):
     def test_comments(self):
         """Verify proper behaviour involving comments in code"""
         self.expected_history = [
+            TestCommit(),
             TestCommit(
                 TestFile("comments.c",
                     confident=TestAsserts(
@@ -167,6 +168,7 @@ class TestMineRepo(unittest.TestCase):
     def test_basic(self):
         """Basic add/remove/change situations"""
         self.expected_history = [
+            TestCommit(),
             TestCommit(
                 TestFile("basic.c",
                     confident=TestAsserts(
@@ -190,6 +192,7 @@ class TestMineRepo(unittest.TestCase):
         self.expected_history = [
             TestCommit(),
             TestCommit(),
+            TestCommit(),
             TestCommit(
                 TestFile("macros.c",
                     confident=TestAsserts(
@@ -205,6 +208,7 @@ class TestMineRepo(unittest.TestCase):
     def test_strings(self):
         """Tests for assertions containing strings, or within strings"""
         self.expected_history = [
+            TestCommit(),
             TestCommit(),
             TestCommit(),
             TestCommit(),
@@ -228,6 +232,7 @@ class TestMineRepo(unittest.TestCase):
             TestCommit(),
             TestCommit(),
             TestCommit(),
+            TestCommit(),
             TestCommit(
                 TestFile("definitions.c",
                     confident=TestAsserts(added={"0"}),
@@ -239,6 +244,7 @@ class TestMineRepo(unittest.TestCase):
     def test_lines(self):
         """Testing multiple asserts per line, and asserts of to many lines"""
         self.expected_history = [
+            TestCommit(),
             TestCommit(),
             TestCommit(),
             TestCommit(),
@@ -289,6 +295,7 @@ class TestMineRepo(unittest.TestCase):
             TestCommit(),
             TestCommit(),
             TestCommit(),
+            TestCommit(),
             TestCommit(
                 TestFile("mismatched.c",
                     problematic=TestAsserts(
@@ -301,6 +308,7 @@ class TestMineRepo(unittest.TestCase):
     def test_predicates(self):
         """Different types of easy and tricky predicates"""
         self.expected_history = [
+            TestCommit(),
             TestCommit(),
             TestCommit(),
             TestCommit(),
@@ -322,6 +330,9 @@ class TestMineRepo(unittest.TestCase):
                             "offsetof(structure,field1.field2)" }))),
         ]
         self.assertHistoryEqual()
+
+
+
 
     ############################################################################
     # Helper methods
@@ -510,6 +521,76 @@ class TestCommit():
         tc.files = [TestFile.from_file(f) for f in diff.files]
         return tc
 
+class TestGraph(unittest.TestCase):
+    """For use in comparing children/parent relationships.
+        Children are later commits than parents.
+    """
+
+    Node = namedtuple("Node", ["name", "children", "parents"])
+    nodes = [(0, {1,3}, set()),
+             (1, {2}, {0}),
+             (2, {4}, {1}),
+             (3, {5, 6}, {0}),
+             (4, {7}, {2}),
+             (5, {6}, {3}),
+             (6, {7}, {3,5}),
+             (7, {8,9}, {4,6}),
+             (8, {10}, {7}),
+             (9, {10}, {7}),
+             (10, {11}, {8,9}),
+             (11, set(), {10}),]
+    graph = {}
+
+
+    @classmethod
+    def setUpClass(cls):
+        for n in cls.nodes:
+            n = TestGraph.Node(*n)
+            cls.graph[n.name] = n
+
+    def assertMatches(self, history):
+        """Checks if the diffs description matches the name, as well
+        as its children's and parent's descriptions matching their names
+        """
+        hit_names = set()
+
+        def get_name(diff):
+            return int(diff.msg.split()[0])
+
+        def assert_nodes_equal(diff):
+            name = get_name(diff)
+            hit_names.add(name)
+            if name == 0:
+                return # complete
+
+            node = self.graph.get(name)
+            self.assertIsNotNone(node, name)
+
+            hit_names.add(name)
+            children = {get_name(history.get_diff(cid)) for cid in diff.children}
+            parents = {get_name(history.get_diff(pid)) for pid in diff.parents}
+
+            self.assertSetEqual(node.children, children)
+            self.assertSetEqual(node.parents, parents)
+
+            for p in diff.parents:
+                d = history.get_diff(p)
+                assert_nodes_equal(d)
+
+        diffs = list(history.diffs)
+        diffs.reverse()
+
+        assert_nodes_equal(diffs[0])
+
+        expected_names = set(self.graph.keys())
+        self.assertSetEqual(expected_names, hit_names)
+
+    def test_children(self):
+        """Ensures the latest commits in children0 branch matchs the given graph.
+        Don't forget to download the children0 branch
+        """
+        history = mine_repo("assert", TestMineRepo.TEST_REPO, "children0")
+        self.assertMatches(history)
 
 
 if __name__ == '__main__':

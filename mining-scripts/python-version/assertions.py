@@ -30,14 +30,14 @@ import itertools
 import traceback
 import sys
 from enum import Enum
-from collections import namedtuple, defaultdict
+from collections import namedtuple, defaultdict, OrderedDict
 
 import pygit2
 import pycparser
 
 import predast
 
-logging.basicConfig(level=logging.DEBUG)
+# logging.basicConfig(level=logging.DEBUG)
 
 ################################################################################
 # Constants
@@ -92,7 +92,33 @@ class History():
     def __init__(self, repo_path, branch):
         self.repo_path = repo_path
         self.branch = branch
-        self.diffs = []
+        self._diffs = OrderedDict()
+
+    @property
+    def diffs(self):
+        return self._diffs.values()
+    @diffs.setter
+    def diffs(self, d):
+        self._diffs = d
+
+    def get_diff(self, commit_id):
+        return self._diffs.get(commit_id, Diff(commit_id=commit_id))
+
+    def update_diff(self, diff):
+        old_diff = self.get_diff(diff.rvn_id)
+        if diff.rvn_id != old_diff.rvn_id:
+            raise Exception("update_diff: new diff id != old_diff id: {d} != {o}"
+                    .format(d=diff.rvn_id, o=old_diff.rvn_id))
+
+        diff.children.extend(old_diff.children)
+        assert(len(old_diff.parents) == 0)
+
+        self._diffs[diff.rvn_id] = diff
+
+    def add_children(self, diff):
+        for p in diff.parents:
+            pdiff = self._diffs[p]
+            pdiff.children.append(diff.rvn_id)
 
     def __iter__(self):
         return itertools.chain(assertion_iter(self, inspects=False),
@@ -108,24 +134,30 @@ class Diff():
     well as the IDs of those revisions. Diff with at most ONE other commit.
     """
     # pygit2.Commit -> Diff
-    def __init__(self, commit):
-        self.rvn_id = commit.hex    # newer revision (commit) ID
-        self.commit_index = 0   # Initial commit is 0; branch head is highest
-        self.parents = []       # commit_ids of parents
-        self.author = commit.author.name
-        self.commit_time = (commit.commit_time, commit.commit_time_offset)
-
-        author = commit.author
-        self.author_time = (author.time, author.offset)
-        self.msg = commit.message
+    def __init__(self, commit=None, commit_id=None):
+        """Must have either pygit2.commit or commit_id string"""
+        self.parents = []       # commit_ids of parents (earlier)
+        self.children = []      # commit_ids of children (later)
         self.files = []     # using filenames of newest revision
+
+        if commit:
+            self.rvn_id = commit.hex    # newer revision (commit) "hex string"
+            self.author = commit.author.name
+            self.commit_time = (commit.commit_time, commit.commit_time_offset)
+
+            author = commit.author
+            self.author_time = (author.time, author.offset)
+            self.msg = commit.message
+
+        else:
+            self.rvn_id = commit_id
 
     def __str__(self):
         return "Diff: {id}".format(id=self.rvn_id)
 
     def __repr__(self):
         return "Diff('{id}', '{auth}', '{m}', <{f} files>)".format(
-                id=self.rvn_id[:8], auth=self.author[:20],
+                id=self.rvn_id[:7], auth=self.author[:20],
                 m=self.msg[:30].strip(), f=len(self.files))
 
 
@@ -247,17 +279,14 @@ def mine_repo(assertion_re, repo_path, branch):
 
     history = History(repo_path, branch)
     repo = pygit2.Repository(repo_path)
-    commit_index = 0
     for commit in repo.walk(repo.lookup_branch(branch).target, pygit2.GIT_SORT_REVERSE | pygit2.GIT_SORT_TOPOLOGICAL):
         logging.info("Processing " + commit.hex)
         diff = generate_diff(commit, repo, assertion_re)
-        if diff:
-            diff.commit_index = commit_index
-            history.diffs.append(diff) # diff won't exist if no assertions
-        commit_index += 1
+        history.update_diff(diff)
 
     parser = pycparser.c_parser.CParser()
     for diff in history.diffs:
+        history.add_children(diff)
         for file in diff.files:
             for a in file.assertions:
                 try:
@@ -318,8 +347,8 @@ class ChangeMap():
                                 lineno = get_file_lineno(gline, change)
                                 if gline.origin == change.prefix and \
                                         lineno in asserts:
-                                            asserts[lineno].function_name = \
-                                                    get_function_context(hunk.header)
+                                    asserts[lineno].function_name = \
+                                            get_function_context(hunk.header)
 
         walk(self.addeds, Change.added)
         walk(self.removeds, Change.removed)
@@ -379,7 +408,7 @@ def assertion_iter(history, inspects=False):
                 yield a
 
 
-# pygit2.Commit pygit2.Repository string -> tressa.Diff | None
+# pygit2.Commit pygit2.Repository string -> tressa.Diff
 def generate_diff(commit, repo, assertion_re):
     """If there are any changed (or uncertain) assertions (matched by
     assertion_re) in a file in the given Commit, produce Diff containing them.
@@ -392,14 +421,14 @@ def generate_diff(commit, repo, assertion_re):
                 context_lines=MAX_LINES - 1)
     elif len(parents) == 1:
         gdiff = repo.diff(parents[0], commit, context_lines=MAX_LINES -1)
-        diff.parents = commit.parent_ids
+        diff.parents = [pid.hex for pid in commit.parent_ids]
     else:
-        # don't diff merges or else we'll 'double-dip' on the assertions
-        return None
+        diff.parents = [pid.hex for pid in commit.parent_ids]
+        return diff
 
     files = analyze_diff(gdiff, assertion_re, diff)
     if len(files) == 0:
-        return None
+        return diff
 
     diff.files = files
     return diff
