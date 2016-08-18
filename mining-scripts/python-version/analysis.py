@@ -346,11 +346,16 @@ def time_diff(time2, time1): # (seconds2, offset2) - (seconds1, offset1)
 
 
 def has_good_assert(diff):
-    if hasattr(diff, "files"):
+    """Produce True when the diff has an assert as in the default case of the
+    History.assertions() walker
+    """
+    try:
         for file in diff.files:
-            if hasattr(file, "assertions"):
+            if "test" not in file.name:
                 if len(file.assertions) > 0:
                     return True
+    except:
+        pass
     return False
 
 

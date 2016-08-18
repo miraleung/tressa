@@ -288,31 +288,6 @@ def reduce_spaces(string):
 # Repo mining
 ################################################################################
 
-# 2016-07-21
-# Time would probably be more interesting if it were Author time
-# As it is, Topo and Time|Topo are identical in all cases.
-#
-#                       ---------- (midway)
-#                      /
-#  0---1----2----4----7----9------ (master)
-#       \         \       /
-#        3----5----6-----------8-- (topic)
-#  
-# master TOPOLOGICAL:        9,6,5,3,7,4,2,1,0
-# master TIME | TOPOLOGICAL: 9,6,5,3,7,4,2,1,0
-# master TIME:               9,7,6,5,4,3,2,1,0
-#
-# topic  TOPOLOGICAL:        8,6,4,2,5,3,1,0
-# topic  TIME | TOPOLOGICAL: 8,6,4,2,5,3,1,0
-# topic  TIME:               8,6,5,4,3,2,1,0
-#
-# midway TOPOLOGICAL:        7,4,2,1,0
-# midway TIME | TOPOLOGICAL: 7,4,2,1,0
-# midway TIME:               7,4,2,1,0
-#
-# I have chosen TOPOLOGICAL for the walking. (same as https://github.com/RepoGrams/RepoGrams)
-
-
 # string string string -> History
 def mine_repo(assertion_re, repo_path, branch):
     """Given the path to a Git repository and the name of any assertions used
