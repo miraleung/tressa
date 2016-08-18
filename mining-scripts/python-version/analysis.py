@@ -532,6 +532,34 @@ def names_result(history):
 # TODO asserts per function
 
 
+Problematic = namedtuple("Problematic", ["commit_id", "problem", "file", "line", "change", "name", "predicate"])
+
+
+def problematics(history, save=None):
+    problematics = []
+    for a in history.assertions(confirmed=False, problematic=True):
+        problematics.append(Problematic(
+            commit_id   = a.parent_file.parent_diff.rvn_id,
+            problem     = a.problem,
+            file        = a.parent_file.name,
+            line        = a.file_lineno,
+            change      = a.change.prefix,
+            name        = a.name,
+            predicate   = str([assertions.reduce_spaces(l) for l in a.raw_lines])))
+
+    if save:
+        with open(save, 'w', newline='') as file:
+            writer = Csv.writer(file, quoting=Csv.QUOTE_MINIMAL)
+            writer.writerow(Problematic._fields)
+            writer.writerows(problematics)
+    else:
+        return problematics
+
+
+
+
+
+
 
 def _next_iter(it):
     nexts = iter(it)
