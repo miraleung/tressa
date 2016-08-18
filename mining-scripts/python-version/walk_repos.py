@@ -82,6 +82,42 @@ def analyze():
             result_save(ctime_res, "duration-commit-time")
             with open("results/{repo}_linearity-monotonicity.float".format(repo=repo), "w") as linf:
                 linf.write(str(lin) + "\n" + str(mon))
+            analysis.problematics(h, "results/{r}_".format(r=repo))
+
+        except:
+            traceback.print_exc()
+
+        thistime = time.time()
+        print("\t{d}, total {t}".format(
+            d=datetime.timedelta(seconds=thistime-lasttime),
+            t=datetime.timedelta(seconds=thistime-starttime)),
+            flush=True)
+        lasttime = thistime
+
+def custom(func):
+    """Given a function that takes a History and Filename, and produces a
+    file output, applies that function the the History fromo each .pickle file
+    in results/
+    :func:  (History basename -> [files])
+    """
+
+    logging.basicConfig(level=logging.DEBUG, filename="walk_repos_custom.log")
+
+    files = os.listdir("results")
+    files = [f for f in files if f.endswith(".pickle")]
+
+    starttime = time.time()
+    lasttime = starttime
+
+    for i, file in enumerate(files):
+        print("{d}   {i}/{n}".format(d=file, i=i+1, n=len(files)), flush=True)
+
+        try:
+            h = analysis.load_history("results/" + file)
+
+            repo = file[:-len(".pickle")]
+            basename = "results/{repo}_".format(repo=repo)
+            func(h, basename)
 
         except:
             traceback.print_exc()
@@ -94,7 +130,6 @@ def analyze():
         lasttime = thistime
 
 
-
 if __name__ == '__main__':
     if len(sys.argv) != 2:
         print("Usage: " + sys.argv[0] + " [mine|analyze]")
@@ -104,6 +139,8 @@ if __name__ == '__main__':
         mine()
     elif sys.argv[1] == "analyze":
         analyze()
+    elif sys.argv[1] == "custom":
+        custom(analysis.problematics)
     else:
         print("Usage: " + sys.argv[0] + " [mine|analyze]")
         sys.exit(-1)
