@@ -76,12 +76,12 @@ def analyze():
             result_save(analysis.names_result(h), "names")
             result_save(analysis.activity_result(h), "activity")
 
-            (com_res, atime_res, ctime_res), lin = analysis.delta_results(h)
-            result_save(com_res, "commit-dist")
-            result_save(atime_res, "author-time-dur")
-            result_save(ctime_res, "commit-time-dur")
-            with open("results/{repo}_linearity.txt".format(repo=repo), "w") as linf:
-                linf.write("{:%}".format(lin))
+            (com_res, atime_res, ctime_res), (lin, mon) = analysis.delta_results(h)
+            result_save(com_res, "distance-commit")
+            result_save(atime_res, "duration-author-time")
+            result_save(ctime_res, "duration-commit-time")
+            with open("results/{repo}_linearity-monotonicity.float".format(repo=repo), "w") as linf:
+                linf.write(str(lin) + "\n" + str(mon))
 
         except:
             traceback.print_exc()

@@ -138,7 +138,7 @@ class Result():
         # add the text for labels, title and axes ticks
         ax.set_xlabel(self.x_label)
         ax.set_ylabel(self.y_label)
-        ax.set_title("\n".join(wrap(self.id + ": " + self.description, 160)))
+        ax.set_title("\n".join(wrap(self.id + ": " + self.description, 200)))
         ax.set_xticks(xs + (3*width/2.))
         ax.set_xticklabels(x_vals, rotation=45, ha='right')
 
@@ -233,9 +233,10 @@ def delta_counts(hist_deltaed, change=None):
     return commits_counter, atime_counter, ctime_counter
 
 
-def delta_result(history, counters, description, x_units, linearity, start=0):
+def delta_result(history, counters, description, x_units, linearity, monotonicity, start=0):
     """Produce result given (add, rem, combined) counters for same repo
     :linearity: the ratio of non-merged commits to total commits, for normalizing
+    :monotonicity:  the ratio of in-order commits to total commits
     :start: the first elemeent in the list/graph, in ascending order
     """
     add_ctr, rem_ctr, com_ctr = counters
@@ -250,7 +251,8 @@ def delta_result(history, counters, description, x_units, linearity, start=0):
 
     return Result(history.repo_path,
                   dps,
-                  description + " -- Linearity: {:%}".format(linearity),
+                  description + " -- Linearity: {:.1%}; Monotonicity: {:.1%}" \
+                      .format(linearity, monotonicity),
                   x_units,
                   "Counts",
                   sort=lambda dp: -dp.x_val,
@@ -259,8 +261,7 @@ def delta_result(history, counters, description, x_units, linearity, start=0):
 
 def delta_results(history):
     """Produce result 3-tuple for given history. Output is 2-tuple, made of
-    3-tuple counters, and linearity score (non_merge_commits/total_commits):
-    (commit_distance, author_time duration, commit_time duration), linearity
+    3-tuple counters, and a 2-tuple of linearity and monotonicity scores
     """
     insert_deltas(history)
     add_com_ctr, add_atime_ctr, add_ctime_ctr = delta_counts(history, assertions.Change.added)
@@ -268,8 +269,8 @@ def delta_results(history):
     comb_com_ctr, comb_atime_ctr, comb_ctime_ctr = delta_counts(history)
 
     # for normalizing results (i.e., ignoring rebase-policy repos)
-    num_merges = sum(1 for d in history.diffs if d.delta.num_visits > 1)
-    linearity = 1 - (num_merges/len(history.diffs))
+    linearity = linearity_score(history)
+    monotonicity = monotonicity_score(history)
 
     commit_result = delta_result(history,
             (add_com_ctr, rem_com_ctr, comb_com_ctr),
@@ -277,6 +278,7 @@ def delta_results(history):
                 "('Combined' commits can have either Added or Removed)",
             "Number of Revisions",
             linearity,
+            monotonicity,
             start=1)
 
     atime_result = delta_result(history,
@@ -285,6 +287,7 @@ def delta_results(history):
                 "('Combined' commits can have either Added or Removed)",
             "Author Days",
             linearity,
+            monotonicity,
             start=0)
 
     ctime_result = delta_result(history,
@@ -293,9 +296,38 @@ def delta_results(history):
                 "('Combined' commits can have either Added or Removed)",
             "Commit Days",
             linearity,
+            monotonicity,
             start=0)
 
-    return (commit_result, atime_result, ctime_result), linearity
+    return (commit_result, atime_result, ctime_result), (linearity, monotonicity)
+
+
+def linearity_score(history):
+    """Ratio of merge/total commits.
+    PRECONDITION: history has been deltaed.
+    """
+    num_merges = sum(1 for d in history.diffs if d.delta.num_visits > 1)
+    linearity = 1 - (num_merges/len(history.diffs))
+    return linearity
+
+
+def monotonicity_score(history):
+    """Ratio of in-order commits to total number of commits. Like
+    linearity, can be used to normailze results. Uses author_time since
+    that isn't changed on rebase.
+    """
+    out_of_orders = 0
+    total = 0
+
+    diffses = zip(history.diffs, _next_iter(history.diffs))
+    for prev, curr in diffses:
+        prev_time = make_time(prev.author_time)
+        curr_time = make_time(curr.author_time)
+        if curr_time < prev_time:  # are they in order?
+            out_of_orders += 1
+        total += 1
+    return 1 - (out_of_orders/total)
+
 
 
 def make_time(timetz):
