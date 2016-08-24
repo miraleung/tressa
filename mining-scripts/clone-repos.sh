@@ -21,3 +21,16 @@ for dir in */
         git log --before="2014-07-21" -1 --format="%H" | xargs git branch CasalnuovoPaper
         cd ..
     done
+
+## Having set the Head Branch (in a oneoff commandline script, apparently) to Tressa,
+## as well as the CasalnuovoPaper branch, this is how we push that info back up.
+
+#for dir in */
+    #do
+        #cd $dir
+        #git push origin Tressa
+        #git push origin CasalnuovoPaper
+        #cd ..
+    #done
+
+
