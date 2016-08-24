@@ -328,6 +328,11 @@ def monotonicity_score(history):
         total += 1
     return 1 - (out_of_orders/total)
 
+def onecommit_score(history):
+    """Percentage of commits that have equal author and commit times"""
+    total = sum(1 for d in history.diffs)
+    onecommitted = sum(1 for d in history.diffs if d.author_time == d.commit_time)
+    return onecommitted/total
 
 
 def make_time(timetz):
