@@ -129,10 +129,26 @@ def custom(func):
             flush=True)
         lasttime = thistime
 
+def onecommitscores(path):
+    files = os.listdir(path)
+    files = [path + f for f in files if f.endswith(".pickle")]
+
+
+    repo_oneness = ((lambda h: (h.repo_path, analysis.onecommit_score(h)))(analysis.load_history(f)) for f in files)
+
+    with open("one_committness.csv", "w") as ocf:
+        for ro in repo_oneness:
+            ocf.write("{n},{o}\n".format(n=ro[0], o=ro[1]))
+
+
+
 
 if __name__ == '__main__':
-    if len(sys.argv) != 2:
-        print("Usage: " + sys.argv[0] + " [mine|analyze]")
+    USAGE = "Usage: " + sys.argv[0] + " [mine|analyze|custom|--path <path>]"
+
+
+    if len(sys.argv) != 2 or len(sys.argv) != 3:
+        print(USAGE)
         sys.exit(-1)
 
     if sys.argv[1] == "mine":
@@ -141,8 +157,11 @@ if __name__ == '__main__':
         analyze()
     elif sys.argv[1] == "custom":
         custom(analysis.problematics)
+    elif sys.argv[1] == "--path":
+        path = sys.argv[2]
+        onecommitscores(path)
     else:
-        print("Usage: " + sys.argv[0] + " [mine|analyze]")
+        print(USAGE)
         sys.exit(-1)
 
 
