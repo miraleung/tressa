@@ -1,7 +1,7 @@
 # functions for producing analyses of History data
 import pickle
 from collections import defaultdict, OrderedDict, Counter, namedtuple
-import itertools
+from itertools import chain, groupby
 import numpy as np
 import matplotlib.pyplot as plt
 from textwrap import wrap
@@ -242,7 +242,7 @@ def delta_result(history, counters, description, x_units, linearity, monotonicit
     add_ctr, rem_ctr, com_ctr = counters
 
     # Find max count for scaling
-    counts = itertools.chain(add_ctr.keys(), rem_ctr.keys(), com_ctr.keys())
+    counts = chain(add_ctr.keys(), rem_ctr.keys(), com_ctr.keys())
     max_count = max(counts, default=0)
 
     # Produce (x, 0,0,0) when nonexistent, to ensure empty counts aren't hidden
@@ -536,14 +536,7 @@ def names_result(history):
             # sort=lambda dp: dp.y_combined)
 
 
-
-# TODO dist from major release
-# TODO dist between commits for particular predicates?
-# TODO asserts per function
-
-
 Problematic = namedtuple("Problematic", ["commit_id", "problem", "file", "line", "change", "name", "code"])
-
 
 def problematics(history, save=None):
     problematics = []
@@ -566,9 +559,73 @@ def problematics(history, save=None):
         return problematics
 
 
+PredicateContext = namedtuple("PredicateContext", ["predicate", "file", "last_add", "last_rem"])
+
+def predicate_contexts(history):
+    """Produce most recent context for assert predicates, ordered by most common.
+    """
+    pred_contexts = []
+
+    pred_asserts = order_asserts(history)
+    for pred, asserts in pred_asserts:
+        by_file = latest_file_asserts(asserts)
+        for file, add, rem in by_file:
+            pred_contexts.append(PredicateContext(pred, file, add, rem))
+
+    return pred_contexts
 
 
+def latest_file_asserts(assertions):
+    """Given list of assertions, return
+    ("filename", last_added_commit, last_removed_commit) for given
+    assertions, for each unique filename.
+    """
+    def get_commit_id(assertion):
+        if assertion:
+            return assertion.parent_file.parent_diff.rvn_id
+        return None
 
+    assertions.sort(key=lambda a: a.parent_file.name)
+    files = groupby(assertions, key=lambda a: a.parent_file.name)
+
+    file_asserts = []
+    for name, asserts in files:
+        add, rem = last_add_rem(asserts)
+        file_asserts.append((name, get_commit_id(add), get_commit_id(rem)))
+    return file_asserts
+
+
+def last_add_rem(asserts):
+    add = rem = None
+    for a in asserts:
+        if add is None:
+            if a.change == assertions.Change.added:
+                add = a
+        if rem is None:
+            if a.change == assertions.Change.removed:
+                rem = a
+        if add and rem:
+            break
+    return add, rem
+
+
+def order_asserts(history):
+    """Produce list of tuples (predicate, list of asserts with that predicate)
+    The assert-list is ordered with most recent first. The total list is ordered
+    with longest assert-list first.
+    """
+
+    asserts = defaultdict(list)
+
+    for a in history.assertions():
+        asserts[a.predicate].append(a)
+
+    for alist in asserts.values():
+        alist.sort(key=lambda a: make_time(a.parent_file.parent_diff.author_time))
+
+    asserts = sorted(asserts.items(), key=lambda pl: -len(pl[1]))
+
+    return asserts
 
 
 def _next_iter(it):
