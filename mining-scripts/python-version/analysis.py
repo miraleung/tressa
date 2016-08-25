@@ -559,8 +559,7 @@ def problematics(history, save=None):
         return problematics
 
 
-PredicateContext = namedtuple("PredicateContext", ["predicate", "file", "last_add", "last_rem"])
-
+PredicateContext = namedtuple("PredicateContext", ["predicate", "file", "max_add", "max_rem"])
 def predicate_contexts(history):
     """Produce most recent context for assert predicates, ordered by most common.
     """
@@ -568,45 +567,69 @@ def predicate_contexts(history):
 
     pred_asserts = order_asserts(history)
     for pred, asserts in pred_asserts:
-        by_file = latest_file_asserts(asserts)
+        by_file = get_file_asserts(asserts)
         for file, add, rem in by_file:
             pred_contexts.append(PredicateContext(pred, file, add, rem))
 
     return pred_contexts
 
 
-def latest_file_asserts(assertions):
+def get_file_asserts(assertions):
     """Given list of assertions, return
     ("filename", last_added_commit, last_removed_commit) for given
     assertions, for each unique filename.
     """
-    def get_commit_id(assertion):
-        if assertion:
-            return assertion.parent_file.parent_diff.rvn_id
-        return None
-
     assertions.sort(key=lambda a: a.parent_file.name)
     files = groupby(assertions, key=lambda a: a.parent_file.name)
 
     file_asserts = []
     for name, asserts in files:
-        add, rem = last_add_rem(asserts)
-        file_asserts.append((name, get_commit_id(add), get_commit_id(rem)))
+        add, rem = max_add_rem_ids(list(asserts))
+        # add, rem = last_add_rem(asserts)
+        file_asserts.append((name, add, rem))
     return file_asserts
 
 
-def last_add_rem(asserts):
-    add = rem = None
+def max_add_rem_ids(asserts):
+    """:asserts:    ([Assertions])
+    Produce the id of the commit that contains the most assertion adds, and
+    the commit that has the most removes, of the given assertions.
+    """
+    asserts = sorted(asserts, key=lambda a: a.parent_file.parent_diff.rvn_id)
+    add_asserts = rem_asserts = []
+
     for a in asserts:
-        if add is None:
-            if a.change == assertions.Change.added:
-                add = a
-        if rem is None:
-            if a.change == assertions.Change.removed:
-                rem = a
-        if add and rem:
-            break
-    return add, rem
+        if a.change == assertions.Change.added:
+            add_asserts.append(a)
+        else:
+            rem_asserts.append(a)
+
+    cid_alists_add = list(groupby(add_asserts, key=lambda a: a.parent_file.parent_diff.rvn_id))
+    cid_alists_rem = list(groupby(rem_asserts, key=lambda a: a.parent_file.parent_diff.rvn_id))
+
+    add_max = max(cid_alists_add, key=lambda ca: _len_iter(ca[1]))
+    rem_max = max(cid_alists_rem, key=lambda ca: _len_iter(ca[1]))
+
+    return add_max[0], rem_max[0]
+
+
+# def last_add_rem(asserts):
+    # def get_commit_id(assertion):
+        # if assertion:
+            # return assertion.parent_file.parent_diff.rvn_id
+        # return None
+
+    # add = rem = None
+    # for a in asserts:
+        # if add is None:
+            # if a.change == assertions.Change.added:
+                # add = a
+        # if rem is None:
+            # if a.change == assertions.Change.removed:
+                # rem = a
+        # if add and rem:
+            # break
+    return get_commit_id(add), get_commit_id(rem)
 
 
 def order_asserts(history):
@@ -632,6 +655,9 @@ def _next_iter(it):
     nexts = iter(it)
     next(nexts)
     return nexts
+
+def _len_iter(it):
+    return sum(1 for x in it)
 
 
 
