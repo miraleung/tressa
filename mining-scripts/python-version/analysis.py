@@ -14,7 +14,7 @@ import sys
 
 import logging
 
-import assertions
+from assertions import Change, remove_whitespace
 
 
 class DataPoint():
@@ -264,8 +264,8 @@ def delta_results(history):
     3-tuple counters, and a 2-tuple of linearity and monotonicity scores
     """
     insert_deltas(history)
-    add_com_ctr, add_atime_ctr, add_ctime_ctr = delta_counts(history, assertions.Change.added)
-    rem_com_ctr, rem_atime_ctr, rem_ctime_ctr = delta_counts(history, assertions.Change.removed)
+    add_com_ctr, add_atime_ctr, add_ctime_ctr = delta_counts(history, Change.added)
+    rem_com_ctr, rem_atime_ctr, rem_ctime_ctr = delta_counts(history, Change.removed)
     comb_com_ctr, comb_atime_ctr, comb_ctime_ctr = delta_counts(history)
 
     # for normalizing results (i.e., ignoring rebase-policy repos)
@@ -468,12 +468,12 @@ def insert_deltas(history):
 def activity_result(history):
     predicates = defaultdict(lambda: DataPoint("", 0,0,0))
     for a in history.assertions():
-        dp = predicates[assertions.remove_whitespace(a.predicate)]
+        dp = predicates[remove_whitespace(a.predicate)] # why is this done?
         dp.x_val = a.predicate
-        if a.change == assertions.Change.added:
+        if a.change == Change.added:
             dp.y_added += 1
             dp.y_combined += 1
-        elif a.change == assertions.Change.removed:
+        elif a.change == Change.removed:
             dp.y_removed += 1
             dp.y_combined += 1
         else:
@@ -493,10 +493,10 @@ def names_result(history):
     for a in history.assertions():
         dp = names[a.name]
         dp.x_val = a.name
-        if a.change == assertions.Change.added:
+        if a.change == Change.added:
             dp.y_added += 1
             dp.y_combined += 1
-        elif a.change == assertions.Change.removed:
+        elif a.change == Change.removed:
             dp.y_removed += 1
             dp.y_combined += 1
         else:
@@ -519,10 +519,10 @@ def names_result(history):
     # for a in history.assertions():
         # dp = functions[a.function_name]
         # dp.x_val = a.function_name
-        # if a.change == assertions.Change.added:
+        # if a.change == Change.added:
             # dp.y_added += 1
             # dp.y_combined += 1
-        # elif a.change == assertions.Change.removed:
+        # elif a.change == Change.removed:
             # dp.y_removed += 1
             # dp.y_combined += 1
         # else:
@@ -537,7 +537,6 @@ def names_result(history):
 
 
 Problematic = namedtuple("Problematic", ["commit_id", "problem", "file", "line", "change", "name", "code"])
-
 def problematics(history, save=None):
     problematics = []
     for a in history.assertions(confirmed=False, problematic=True):
@@ -558,6 +557,10 @@ def problematics(history, save=None):
     else:
         return problematics
 
+################################################################################
+# Review
+################################################################################
+
 
 PredicateContext = namedtuple("PredicateContext", ["predicate", "file", "max_add", "max_rem"])
 def predicate_contexts(history):
@@ -565,7 +568,7 @@ def predicate_contexts(history):
     """
     pred_contexts = []
 
-    pred_asserts = order_asserts(history)
+    pred_asserts = group_by_predicate(history)
     for pred, asserts in pred_asserts:
         by_file = get_file_asserts(asserts)
         for file, add, rem in by_file:
@@ -576,7 +579,7 @@ def predicate_contexts(history):
 
 def get_file_asserts(assertions):
     """Given list of assertions, return
-    ("filename", last_added_commit, last_removed_commit) for given
+    (filename, added_commit_id, removed_commit_id) for given
     assertions, for each unique filename.
     """
     assertions.sort(key=lambda a: a.parent_file.name)
@@ -599,7 +602,7 @@ def max_add_rem_ids(asserts):
     add_asserts = rem_asserts = []
 
     for a in asserts:
-        if a.change == assertions.Change.added:
+        if a.change == Change.added:
             add_asserts.append(a)
         else:
             rem_asserts.append(a)
@@ -611,25 +614,6 @@ def max_add_rem_ids(asserts):
     rem_max = max(cid_alists_rem, key=lambda ca: _len_iter(ca[1]))
 
     return add_max[0], rem_max[0]
-
-
-# def last_add_rem(asserts):
-    # def get_commit_id(assertion):
-        # if assertion:
-            # return assertion.parent_file.parent_diff.rvn_id
-        # return None
-
-    # add = rem = None
-    # for a in asserts:
-        # if add is None:
-            # if a.change == assertions.Change.added:
-                # add = a
-        # if rem is None:
-            # if a.change == assertions.Change.removed:
-                # rem = a
-        # if add and rem:
-            # break
-    return get_commit_id(add), get_commit_id(rem)
 
 
 def order_asserts(history):
