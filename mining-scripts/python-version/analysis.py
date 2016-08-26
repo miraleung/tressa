@@ -571,6 +571,7 @@ def pickaxe_history(old_history):
     Named after the git pickaxe tool. (Ideally, this could identify moved
     assertions, but that's too hard.)
     Returns a new History; doesn't change the original.
+    (This hasn't been properly tested.)
     """
     history = deepcopy(old_history)
     for d in history.diffs:
@@ -583,44 +584,13 @@ def pickaxe_assertions(assertions):
     """Produces identical list of assertions, or an empty list in the case
     of equal adds and removes for each name(predicate) assertions.
     """
+    result = []
     np_asserts = groupby(assertions, key=lambda a: (a.name, a.predicate))
     for _, asserts in np_asserts:
         adds, rems = add_rem_separate(asserts)
         if len(adds) != len(rems):
-            return assertions
-    return []
-
-
-PredicateContext = namedtuple("PredicateContext", ["predicate", "file", "max_add", "max_rem"])
-def predicate_contexts(history):
-    """Produce most recent context for assert predicates, ordered by most common.
-    """
-    pred_contexts = []
-
-    asserts = sorted(history.assertions(), key=lambda a: a.predicate)
-    pred_asserts = groupby(asserts, key=lambda a: a.predicate)
-    for pred, asserts in pred_asserts:
-        by_file = get_file_asserts(list(asserts))
-        for file, add, rem in by_file:
-            pred_contexts.append(PredicateContext(pred, file, add, rem))
-
-    return pred_contexts
-
-
-def get_file_asserts(assertions):
-    """Given list of assertions, return
-    (filename, added_commit_id, removed_commit_id) for given
-    assertions, for each unique filename.
-    """
-    assertions.sort(key=lambda a: a.parent_file.name)
-    files = groupby(assertions, key=lambda a: a.parent_file.name)
-
-    file_asserts = []
-    for name, asserts in files:
-        add, rem = max_add_rem_ids(list(asserts))
-        # add, rem = last_add_rem(asserts)
-        file_asserts.append((name, add, rem))
-    return file_asserts
+            result.extend(asserts)
+    return result
 
 
 def add_rem_separate(asserts):
@@ -635,49 +605,10 @@ def add_rem_separate(asserts):
     return add_asserts, rem_asserts
 
 
-def max_add_rem_ids(asserts):
-    """:asserts:    ([Assertions])
-    Produce the id of the commit that contains the most assertion adds, and
-    the commit that has the most removes, of the given assertions.
-    """
-    asserts = sorted(asserts, key=lambda a: a.parent_file.parent_diff.rvn_id)
-    add_asserts, rem_asserts = add_rem_separate(asserts)
-
-    cid_alists_add = list(groupby(add_asserts, key=lambda a: a.parent_file.parent_diff.rvn_id))
-    cid_alists_rem = list(groupby(rem_asserts, key=lambda a: a.parent_file.parent_diff.rvn_id))
-
-    add_max = max(cid_alists_add, key=lambda ca: _len_iter(ca[1]), default=[None])
-    rem_max = max(cid_alists_rem, key=lambda ca: _len_iter(ca[1]), default=[None])
-
-    return add_max[0], rem_max[0]
-
-
-def order_asserts(history):
-    """Produce list of tuples (predicate, list of asserts with that predicate)
-    The assert-list is ordered with most recent first. The total list is ordered
-    with longest assert-list first.
-    """
-
-    asserts = defaultdict(list)
-
-    for a in history.assertions():
-        asserts[a.predicate].append(a)
-
-    for alist in asserts.values():
-        alist.sort(key=lambda a: make_time(a.parent_file.parent_diff.author_time))
-
-    asserts = sorted(asserts.items(), key=lambda pl: -len(pl[1]))
-
-    return asserts
-
-
 def _next_iter(it):
     nexts = iter(it)
     next(nexts)
     return nexts
-
-def _len_iter(it):
-    return sum(1 for x in it)
 
 
 
