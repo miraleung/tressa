@@ -11,6 +11,7 @@ import io
 from enum import Enum
 import numpy as np
 import sys
+from copy import deepcopy
 
 import logging
 
@@ -562,15 +563,44 @@ def problematics(history, save=None):
 ################################################################################
 
 
+def pickaxe_history(old_history):
+    """Produces a History identical to given, but in cases where there is no net
+    increase or decrease in the name(predicate) assertions in a file in a commit,
+    then they are excluded. Doesn't affect problematics. Idea is to exclude
+    mass moves, albeit this is just an approxiate lower bound on assertions events.
+    Named after the git pickaxe tool. (Ideally, this could identify moved
+    assertions, but that's too hard.)
+    Returns a new History; doesn't change the original.
+    """
+    history = deepcopy(old_history)
+    for d in history.diffs:
+        for f in d.files:
+            f.assertions = pickaxe_assertions(f.assertions)
+    return history
+
+
+def pickaxe_assertions(assertions):
+    """Produces identical list of assertions, or an empty list in the case
+    of equal adds and removes for each name(predicate) assertions.
+    """
+    np_asserts = groupby(assertions, key=lambda a: (a.name, a.predicate))
+    for _, asserts in np_asserts:
+        adds, rems = add_rem_separate(asserts)
+        if len(adds) != len(rems):
+            return assertions
+    return []
+
+
 PredicateContext = namedtuple("PredicateContext", ["predicate", "file", "max_add", "max_rem"])
 def predicate_contexts(history):
     """Produce most recent context for assert predicates, ordered by most common.
     """
     pred_contexts = []
 
-    pred_asserts = group_by_predicate(history)
+    asserts = sorted(history.assertions(), key=lambda a: a.predicate)
+    pred_asserts = groupby(asserts, key=lambda a: a.predicate)
     for pred, asserts in pred_asserts:
-        by_file = get_file_asserts(asserts)
+        by_file = get_file_asserts(list(asserts))
         for file, add, rem in by_file:
             pred_contexts.append(PredicateContext(pred, file, add, rem))
 
@@ -593,13 +623,8 @@ def get_file_asserts(assertions):
     return file_asserts
 
 
-def max_add_rem_ids(asserts):
-    """:asserts:    ([Assertions])
-    Produce the id of the commit that contains the most assertion adds, and
-    the commit that has the most removes, of the given assertions.
-    """
-    asserts = sorted(asserts, key=lambda a: a.parent_file.parent_diff.rvn_id)
-    add_asserts = rem_asserts = []
+def add_rem_separate(asserts):
+    add_asserts, rem_asserts = [], []
 
     for a in asserts:
         if a.change == Change.added:
@@ -607,11 +632,22 @@ def max_add_rem_ids(asserts):
         else:
             rem_asserts.append(a)
 
+    return add_asserts, rem_asserts
+
+
+def max_add_rem_ids(asserts):
+    """:asserts:    ([Assertions])
+    Produce the id of the commit that contains the most assertion adds, and
+    the commit that has the most removes, of the given assertions.
+    """
+    asserts = sorted(asserts, key=lambda a: a.parent_file.parent_diff.rvn_id)
+    add_asserts, rem_asserts = add_rem_separate(asserts)
+
     cid_alists_add = list(groupby(add_asserts, key=lambda a: a.parent_file.parent_diff.rvn_id))
     cid_alists_rem = list(groupby(rem_asserts, key=lambda a: a.parent_file.parent_diff.rvn_id))
 
-    add_max = max(cid_alists_add, key=lambda ca: _len_iter(ca[1]))
-    rem_max = max(cid_alists_rem, key=lambda ca: _len_iter(ca[1]))
+    add_max = max(cid_alists_add, key=lambda ca: _len_iter(ca[1]), default=[None])
+    rem_max = max(cid_alists_rem, key=lambda ca: _len_iter(ca[1]), default=[None])
 
     return add_max[0], rem_max[0]
 
