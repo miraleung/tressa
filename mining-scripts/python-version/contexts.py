@@ -3,20 +3,24 @@ from itertools import groupby
 from assertions import Change
 from io import StringIO
 
+import analysis
+
 class Contexts():
     Context = namedtuple("Context", ["name", "predicate", "file", "max_add", "max_rem"])
 
     def __init__(self, history):
         """Produce most recent context for assert predicates, ordered by most common.
+        Includes the assertname for an example assert in a particular file (however,
+        other assertnames may also be available.
         """
         self.contexts = []
 
-        asserts = sorted(history.assertions(), key=lambda a: (a.name, a.predicate))
-        np_asserts = list((np, list(la)) for np, la in groupby(asserts, key=lambda a: (a.name, a.predicate)))
-        np_asserts.sort(key=lambda np_la: -len(np_la[1]))
-        for (name, pred), asserts in np_asserts:
+        asserts = sorted(history.assertions(), key=lambda a: a.predicate)
+        pred_asserts = list((pred, list(la)) for pred, la in groupby(asserts, key=lambda a: a.predicate))
+        pred_asserts.sort(key=lambda pred_la: -len(pred_la[1]))
+        for pred, asserts in pred_asserts:
             by_file = _get_file_asserts(asserts)
-            for file, add, rem in by_file:
+            for name, file, add, rem in by_file:
                 self.contexts.append(Contexts.Context(name, pred, file, add, rem))
 
     def __repr__(self):
@@ -38,21 +42,20 @@ class Contexts():
         print(self._format(n))
 
 
-
-
-
 def _get_file_asserts(assertions):
     """Given list of assertions, return
-    (filename, added_commit_id, removed_commit_id) for given
+    (assertname, filename, added_commit_id, removed_commit_id) for given
     assertions, for each unique filename.
     """
     assertions.sort(key=lambda a: a.parent_file.name)
     files = groupby(assertions, key=lambda a: a.parent_file.name)
 
     file_asserts = []
-    for name, asserts in files:
-        add, rem = _max_add_rem_ids(list(asserts))
-        file_asserts.append((name, add, rem))
+    for filename, asserts in files:
+        asserts = list(asserts)
+        assertname = asserts[0].name
+        add, rem = _max_add_rem_ids(asserts)
+        file_asserts.append((assertname, filename, add, rem))
     return file_asserts
 
 
