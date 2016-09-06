@@ -12,6 +12,7 @@ from enum import Enum
 import numpy as np
 import sys
 from copy import deepcopy
+import re
 
 import logging
 
@@ -617,6 +618,16 @@ def load_history(filename):
         return pickle.load(f)
 
 
-
-
+_CEXTS = ".*\.[ch]$"
+_CTHRESCHOLD = 0.01
+def is_cproject(h):
+    total, nonccount = 0,0
+    """Produce True if assertions are only in in C source files"""
+    for d in h.diffs:
+        for f in d.files:
+            total += 1
+            if not re.match(_CEXTS, f.name, flags=re.IGNORECASE):
+                nonccount += 1
+    perc = nonccount/total
+    return perc < _CTHRESCHOLD
 
