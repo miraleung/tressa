@@ -130,6 +130,7 @@ def custom(func):
         lasttime = thistime
 
 def onecommitscores(path):
+    """Information regarding rebasing of a commit. Turns out to be useless info"""
     files = os.listdir(path)
     files = [path + f for f in files if f.endswith(".pickle")]
 
@@ -141,13 +142,21 @@ def onecommitscores(path):
             ocf.write("{n},{o}\n".format(n=ro[0], o=ro[1]))
 
 
+def cprojects(path):
+    """Print names of repos that have mostly C only source files"""
+    files = os.listdir(path)
+    files = [path + f for f in files if f.endswith(".pickle")]
+
+    for file in files:
+        h = analysis.load_history(file)
+        if analysis.is_cproject(h):
+            print(h.repo_path)
 
 
 if __name__ == '__main__':
-    USAGE = "Usage: " + sys.argv[0] + " [mine|analyze|custom|--path <path>]"
+    USAGE = "Usage: " + sys.argv[0] + " [mine|analyze|custom|[oncecommit|cprojects] <path>]"
 
-
-    if len(sys.argv) != 2 or len(sys.argv) != 3:
+    if len(sys.argv) != 2 and len(sys.argv) != 3:
         print(USAGE)
         sys.exit(-1)
 
@@ -157,9 +166,12 @@ if __name__ == '__main__':
         analyze()
     elif sys.argv[1] == "custom":
         custom(analysis.problematics)
-    elif sys.argv[1] == "--path":
+    elif sys.argv[1] == "onecommit":
         path = sys.argv[2]
         onecommitscores(path)
+    elif sys.argv[1] == "cprojects":
+        path = sys.argv[2]
+        cprojects(path)
     else:
         print(USAGE)
         sys.exit(-1)

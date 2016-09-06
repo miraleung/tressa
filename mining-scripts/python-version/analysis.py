@@ -1,7 +1,7 @@
 # functions for producing analyses of History data
 import pickle
 from collections import defaultdict, OrderedDict, Counter, namedtuple
-import itertools
+from itertools import chain, groupby
 import numpy as np
 import matplotlib.pyplot as plt
 from textwrap import wrap
@@ -11,10 +11,12 @@ import io
 from enum import Enum
 import numpy as np
 import sys
+from copy import deepcopy
+import re
 
 import logging
 
-import assertions
+from assertions import Change, remove_whitespace
 
 
 class DataPoint():
@@ -242,7 +244,7 @@ def delta_result(history, counters, description, x_units, linearity, monotonicit
     add_ctr, rem_ctr, com_ctr = counters
 
     # Find max count for scaling
-    counts = itertools.chain(add_ctr.keys(), rem_ctr.keys(), com_ctr.keys())
+    counts = chain(add_ctr.keys(), rem_ctr.keys(), com_ctr.keys())
     max_count = max(counts, default=0)
 
     # Produce (x, 0,0,0) when nonexistent, to ensure empty counts aren't hidden
@@ -264,8 +266,8 @@ def delta_results(history):
     3-tuple counters, and a 2-tuple of linearity and monotonicity scores
     """
     insert_deltas(history)
-    add_com_ctr, add_atime_ctr, add_ctime_ctr = delta_counts(history, assertions.Change.added)
-    rem_com_ctr, rem_atime_ctr, rem_ctime_ctr = delta_counts(history, assertions.Change.removed)
+    add_com_ctr, add_atime_ctr, add_ctime_ctr = delta_counts(history, Change.added)
+    rem_com_ctr, rem_atime_ctr, rem_ctime_ctr = delta_counts(history, Change.removed)
     comb_com_ctr, comb_atime_ctr, comb_ctime_ctr = delta_counts(history)
 
     # for normalizing results (i.e., ignoring rebase-policy repos)
@@ -468,12 +470,12 @@ def insert_deltas(history):
 def activity_result(history):
     predicates = defaultdict(lambda: DataPoint("", 0,0,0))
     for a in history.assertions():
-        dp = predicates[assertions.remove_whitespace(a.predicate)]
+        dp = predicates[remove_whitespace(a.predicate)] # why is this done?
         dp.x_val = a.predicate
-        if a.change == assertions.Change.added:
+        if a.change == Change.added:
             dp.y_added += 1
             dp.y_combined += 1
-        elif a.change == assertions.Change.removed:
+        elif a.change == Change.removed:
             dp.y_removed += 1
             dp.y_combined += 1
         else:
@@ -493,10 +495,10 @@ def names_result(history):
     for a in history.assertions():
         dp = names[a.name]
         dp.x_val = a.name
-        if a.change == assertions.Change.added:
+        if a.change == Change.added:
             dp.y_added += 1
             dp.y_combined += 1
-        elif a.change == assertions.Change.removed:
+        elif a.change == Change.removed:
             dp.y_removed += 1
             dp.y_combined += 1
         else:
@@ -519,10 +521,10 @@ def names_result(history):
     # for a in history.assertions():
         # dp = functions[a.function_name]
         # dp.x_val = a.function_name
-        # if a.change == assertions.Change.added:
+        # if a.change == Change.added:
             # dp.y_added += 1
             # dp.y_combined += 1
-        # elif a.change == assertions.Change.removed:
+        # elif a.change == Change.removed:
             # dp.y_removed += 1
             # dp.y_combined += 1
         # else:
@@ -536,15 +538,7 @@ def names_result(history):
             # sort=lambda dp: dp.y_combined)
 
 
-
-# TODO dist from major release
-# TODO dist between commits for particular predicates?
-# TODO asserts per function
-
-
 Problematic = namedtuple("Problematic", ["commit_id", "problem", "file", "line", "change", "name", "code"])
-
-
 def problematics(history, save=None):
     problematics = []
     for a in history.assertions(confirmed=False, problematic=True):
@@ -565,10 +559,51 @@ def problematics(history, save=None):
     else:
         return problematics
 
+################################################################################
+# Review
+################################################################################
 
 
+def pickaxe_history(old_history):
+    """Produces a History identical to given, but in cases where there is no net
+    increase or decrease in the name(predicate) assertions in a file in a commit,
+    then they are excluded. Doesn't affect problematics. Idea is to exclude
+    mass moves, albeit this is just an approxiate lower bound on assertions events.
+    Named after the git pickaxe tool. (Ideally, this could identify moved
+    assertions, but that's too hard.)
+    Returns a new History; doesn't change the original.
+    (This hasn't been properly tested.)
+    """
+    history = deepcopy(old_history)
+    for d in history.diffs:
+        for f in d.files:
+            f.assertions = pickaxe_assertions(f.assertions)
+    return history
 
 
+def pickaxe_assertions(assertions):
+    """Produces identical list of assertions, or an empty list in the case
+    of equal adds and removes for each name(predicate) assertions.
+    """
+    result = []
+    np_asserts = groupby(assertions, key=lambda a: (a.name, a.predicate))
+    for _, asserts in np_asserts:
+        adds, rems = add_rem_separate(asserts)
+        if len(adds) != len(rems):
+            result.extend(asserts)
+    return result
+
+
+def add_rem_separate(asserts):
+    add_asserts, rem_asserts = [], []
+
+    for a in asserts:
+        if a.change == Change.added:
+            add_asserts.append(a)
+        else:
+            rem_asserts.append(a)
+
+    return add_asserts, rem_asserts
 
 
 def _next_iter(it):
@@ -583,6 +618,16 @@ def load_history(filename):
         return pickle.load(f)
 
 
-
-
+_CEXTS = ".*\.[ch]$"
+_CTHRESCHOLD = 0.01
+def is_cproject(h):
+    total, nonccount = 0,0
+    """Produce True if assertions are only in in C source files"""
+    for d in h.diffs:
+        for f in d.files:
+            total += 1
+            if not re.match(_CEXTS, f.name, flags=re.IGNORECASE):
+                nonccount += 1
+    perc = nonccount/total
+    return perc < _CTHRESCHOLD
 

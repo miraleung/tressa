@@ -254,6 +254,10 @@ class Assertion():
     def __str__(self):
         return "{name}({pred})".format(name=self.name, pred=self.predicate)
 
+    def __repr__(self):
+        return "{name}<{pred}, {c}>".format(
+                name=self.name, pred=self.predicate, c=self.change.prefix)
+
     def info(self):
         if self.problematic:
             problem = "<!Problem: {p}!>".format(p=self.problem)
