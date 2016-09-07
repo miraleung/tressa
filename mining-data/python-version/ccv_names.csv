@@ -1,8 +1,0 @@
-x_val,y_added,y_removed,y_combined
-assert,4637,320,4957
-assert_pager_state,21,0,21
-expensive_assert,3,0,3
-conditional_assert,3,0,3
-assertCellInfo,3,0,3
-assertTruncateConstraint,1,0,1
-assertParentIndex,1,0,1

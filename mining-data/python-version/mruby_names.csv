@@ -1,6 +1,0 @@
-x_val,y_added,y_removed,y_combined
-mrb_assert,251,160,411
-gc_assert,70,70,140
-mrb_assert_int_fit,28,5,33
-assert,9,9,18
-mrb_static_assert,2,1,3

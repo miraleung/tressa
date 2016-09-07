@@ -1,5 +1,0 @@
-x_val,y_added,y_removed,y_combined
-assert,548,142,690
-assert_sha1_type,3,1,4
-assert_split_ident,3,0,3
-BUILD_ASSERT_OR_ZERO,1,0,1

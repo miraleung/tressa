@@ -1,7 +1,0 @@
-x_val,y_added,y_removed,y_combined
-ASSERT,5254,1578,6832
-assert,2009,1542,3551
-DEBUGASSERT,11,11,22
-STATIC_ASSERT,8,2,10
-assert_is_file_type,4,0,4
-END_ASSERTS,3,0,3

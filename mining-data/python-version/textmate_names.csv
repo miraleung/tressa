@@ -1,7 +1,0 @@
-x_val,y_added,y_removed,y_combined
-ASSERT,59,21,80
-assert,15,8,23
-ASSERT_LT,7,2,9
-ASSERTF,4,2,6
-ASSERT_EQ,2,0,2
-ASSERT_NE,2,0,2
