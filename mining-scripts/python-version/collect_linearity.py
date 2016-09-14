@@ -2,6 +2,8 @@ import os
 import csv
 import sys
 
+# Quick script to collect the linearity and monotonicity scores
+# produced by 'walk_repos.py analyze' into one file
 
 SUFFIX = "_linearity-monotonicity.float"
 

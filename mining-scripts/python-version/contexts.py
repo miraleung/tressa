@@ -5,7 +5,18 @@ from io import StringIO
 
 import analysis
 
+# Contexts provides information to help us easily find examples of
+# each predicate's usage throughout a history
+
 class Contexts():
+    """
+    To easily look up usage of Assertions within a History, we must
+    know what commit(s) it appears in, as well as what file(s). This is
+    essentially a list of those; one for each predicate for each file it appears
+    in throughout the history. The :max_add: and :max_rem: fields identify the commits
+    that have the most amount of added assertions for the given predicate, as
+    well as the most removed. :name: is the assert function-name.
+    """
     Context = namedtuple("Context", ["name", "predicate", "file", "max_add", "max_rem"])
 
     def __init__(self, history):
