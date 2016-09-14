@@ -1,4 +1,9 @@
-Python 3 scripts using abstraction for pipelining analysis modules 
+Python3 scripts using internal Assertion and git repo History
+data structures to represent data. This allows us to apply a variety of
+analyses to the data, and augment them over time.
+More complete instructions concerning how we have used them so far
+for learning about assertion usage, as well as for some of our results,
+can be found in our [Google Drive](https://drive.google.com/drive/folders/0B6JneEGhQl01NFJZbUVpOS1nOWs?usp=sharing).
 
 ## Dependencies
 - Python 3.4
@@ -27,7 +32,7 @@ $ python3 assertions.py "assert|ASSERT|BUG_ON" /home/graham/xen master --source 
 
 ## Testing
 Tests for this are located in the `test_assertions.py` file. Their target is
-the `tressa_test_repo` directory. This is a **submodule**. In order to
+the `tressa_test_repo/` directory. This is a [git **submodule**](https://git-scm.com/book/en/v2/Git-Tools-Submodules). In order to
 properly integrate it with your local git environment, simply run
 ```
 git submodule init
@@ -37,4 +42,10 @@ Alternatively, while initially cloning the Tressa repository, clone with
 the `--recursive` flag to automatically download the submodule.
 ```
 git clone --recursive  https://github.com/TressaOrg/tressa.git 
+
+```
+
+Once `tressa_test_repo/` has been cloned, then tests can be run as follows:
+```
+python3 test_assertions.py
 ```

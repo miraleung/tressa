@@ -10,7 +10,7 @@ fi
 
 REPO=$1
 
-cp python-version/cdf.py git-get-diffs.sh hg-get-diffs.sh $REPO
+cp cdf.py git-get-diffs.sh hg-get-diffs.sh $REPO
 cd ./haskell-version
 ghc -O2 GetPredicates.hs -o GetPredicates
 ghc -O2 GetActivity.hs -o GetActivity

@@ -2,7 +2,10 @@
 
 The main script under active development is the `python-version`. The Readme in its directory contains more specfic information about it.
 
-The rest of the file is about the obsolecent `haskell-version`. Until recently, it was the main version.
+This directory, however, does contain one still-useful utility `clone-repos.sh`. This is used to clone all of our sample
+repos found in [TressaOrg](https://github.com/TressaOrg). As well as the usual dependenies of `git` and `curl`, it has one unusual dependency , and that is [`jq`](https://stedolan.github.io/jq/). It's like `awk` but for json. `clone-repos.sh` also contains some old commented-out code that was used for adding special branches to the repositories.
+
+The rest of the file is about the obsolescent `haskell-version`. Until recently, it was the main version.
 
 
 #### Version summary:
@@ -15,7 +18,7 @@ Four script versions:
 
 #### Additionally, useful:
 - `hg-get-diffs.sh` for Mercurial, and `git-get-diffs.sh` for Git: extract diffs between all revisions into separate files.
-- `python-version/cdf.py`: plots a Cummulative Distribution Function graph using `*-activity-count.txt` results from the other scripts.
+- `cdf.py`: plots a Cummulative Distribution Function graph using `*-activity-count.txt` results from the other scripts.
 - `install-haskell.sh`: an easy-setup script that compiles Haskell code and copies all necessary scripts to a target directory.
 
 Mining Script Types:
@@ -77,7 +80,7 @@ cd path/to/target/repo/dir/
 1. `DEST=/path/to/same/level/as/xen-unstable.hg`
 2. `for f in mining-scripts/bash-version-inexact/*.sh; do cp $f $DEST/; done`
 3. `for f in mining-scripts/bash-version-primitive/*.sh; do cp $f $DEST/; done`
-4. `cp mining-scripts/python-version/cdf.py $DEST/`
+4. `cp mining-scripts/cdf.py $DEST/`
 5. `cd $DEST`
 6. `./hg-get-diffs.sh` (in `mining-scripts/`)
 7. `./get-asserts.sh`
